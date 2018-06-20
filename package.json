@@ -1,0 +1,50 @@
+{
+  "name": "lifeapp-client",
+  "version": "1.0.0",
+  "proxy": "https://g3f4-lifeapp.herokuapp.com/graphql/",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/g3f4-xyz/lifeapp-client.git"
+  },
+  "bugs": {
+    "url": "https://github.com/g3f4-xyz/lifeapp-client/issues"
+  },
+  "homepage": "https://github.com/g3f4-xyz/lifeapp-client#readme",
+  "dependencies": {
+    "@material-ui/core": "1.1.0",
+    "@material-ui/icons": "1.0.0",
+    "classnames": "2.2.5",
+    "immutability-helper": "2.7.0",
+    "prop-types": "15.6.1",
+    "react": "16.3.2",
+    "react-dom": "16.3.2",
+    "react-grid-layout": "0.16.6",
+    "react-relay": "1.6.0",
+    "relay-runtime": "1.6.0",
+    "replace": "1.0.0"
+  },
+  "scripts": {
+    "build:local": "node setup && react-scripts build && cp public/worker.js ./build/ && mv ./build/index.html ./build/app.html && npm run build:login && replace '/g3f4-xyz/lifeapp-client/' '/' ./build/app.html",
+    "build:heroku": "node setup && REACT_APP_GRAPHQL_HOST=https://g3f4-lifeapp.herokuapp.com/graphql react-scripts build && cp public/worker.js ./build/ && mv ./build/index.html ./build/app.html && npm run build:login && replace '/g3f4-xyz/lifeapp-client/' '/' ./build/app.html",
+    "build:login": "mkdir -p build && babel-node ./scripts/buildLogin.js",
+    "build:heroku:package": "npm run build:heroku && tar -zcvf client-package-heroku-$npm_package_version.tar.gz build/",
+    "build:local:package": "npm run build:local && tar -zcvf client-package-local-$npm_package_version.tar.gz build/",
+    "test": "echo \"Error: no test specified\" && exit 0",
+    "start": "node setup && react-scripts start",
+    "eject": "react-scripts eject",
+    "get:local:schema": "fetch-graphql-schema http://localhost:30000/graphql -o schema.json",
+    "get:remote:schema": "fetch-graphql-schema https://g3f4-lifeapp.herokuapp.com/graphql -o schema.json",
+    "relay": "relay-compiler --src ./src --schema ./schema.json --extensions=jsx --extensions=js",
+    "relay:watch": "relay-compiler --src ./src --schema ./schema.json --extensions=jsx --extensions=js --watch"
+  },
+  "devDependencies": {
+    "babel-cli": "6.26.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
+    "babel-preset-react": "6.24.1",
+    "babel-plugin-relay": "1.6.0",
+    "fetch-graphql-schema": "0.2.1",
+    "graphql": "0.13.2",
+    "react-scripts": "1.1.4",
+    "relay-compiler": "1.6.0"
+  }
+}
