@@ -23,7 +23,8 @@
     "react-grid-layout": "0.16.6",
     "react-relay": "1.6.0",
     "relay-runtime": "1.6.0",
-    "replace": "1.0.0"
+    "replace": "1.0.0",
+    "simple-git": "^1.96.0"
   },
   "scripts": {
     "build:local": "node setup && react-scripts build && cp public/worker.js ./build/ && mv ./build/index.html ./build/app.html && npm run build:login && replace '/g3f4-xyz/lifeapp-client/' '/' ./build/app.html",
@@ -42,9 +43,9 @@
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
+    "babel-plugin-relay": "1.6.0",
     "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
     "babel-preset-react": "6.24.1",
-    "babel-plugin-relay": "1.6.0",
     "fetch-graphql-schema": "0.2.1",
     "graphql": "0.13.2",
     "react-scripts": "1.1.4",
