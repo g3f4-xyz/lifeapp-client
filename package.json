@@ -26,6 +26,7 @@
     "replace": "1.0.0"
   },
   "scripts": {
+    "package:unpack:heroku": "tar -zxvf packages/client-package-heroku-1.0.0.tar.gz",
     "build:local": "node setup && react-scripts build && cp public/worker.js ./build/ && mv ./build/index.html ./build/app.html && npm run build:login && replace '/g3f4-xyz/lifeapp-client/' '/' ./build/app.html",
     "build:heroku": "node setup && REACT_APP_GRAPHQL_HOST=https://g3f4-lifeapp.herokuapp.com/graphql react-scripts build && cp public/worker.js ./build/ && mv ./build/index.html ./build/app.html && npm run build:login && replace '/g3f4-xyz/lifeapp-client/' '/' ./build/app.html",
     "build:login": "mkdir -p build && babel-node ./scripts/buildLogin.js",
@@ -33,7 +34,7 @@
     "build:local:package": "npm run build:local && tar -zcvf client-package-local-$npm_package_version.tar.gz build/",
     "test": "echo \"Error: no test specified\" && exit 0",
     "dev": "node setup && react-scripts start",
-    "start": "node server",
+    "start": "npm run package:unpack:heroku && node server",
     "eject": "react-scripts eject",
     "get:local:schema": "fetch-graphql-schema http://localhost:30000/graphql -o schema.json",
     "get:remote:schema": "fetch-graphql-schema https://g3f4-lifeapp.herokuapp.com/graphql -o schema.json",
