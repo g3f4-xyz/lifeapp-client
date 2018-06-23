@@ -73,7 +73,7 @@ class TaskListFragment extends React.PureComponent {
     return (
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <div>!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          <div>
             <Tooltip title={`Status: ${status}`}>
               {{
                 TODO: <CheckBoxOutlineBlankIcon className={classnames(classes.grey, classes.icon)} />,
