@@ -168,7 +168,7 @@ class TaskFragment extends React.Component {
           parentValue,
           customValueOptionValue,
           onChange: ({ target: { value }}, { isCustomOptionValueUpdate = false } = {}) => {
-            console.log(['editHandler.MULTIPLE_CHOICE_WITH_PARENT.onChange'], { fieldId, value, isCustomOptionValueUpdate });
+            console.log(['editHandler.MULTIPLE_CHOICE_WITH_PARENT.onChange'], { ids, fieldId, value, isCustomOptionValueUpdate });
             update(fieldId, {
               customValueOptionValue: isCustomOptionValueUpdate ? value : customValueOptionValue,
               ids: isCustomOptionValueUpdate ? ids : value,

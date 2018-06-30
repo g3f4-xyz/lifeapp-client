@@ -41,7 +41,7 @@ class MultipleSelect extends React.Component {
     const filteredOptions = options.filter(({ value }) => selected.includes(value));
 
     return filteredOptions.map(({ text, value }) => {
-      if (value === CUSTOM_OPTION_VALUE) {
+      if (value !== CUSTOM_OPTION_VALUE) {
         return text;
       }
 
@@ -77,7 +77,7 @@ class MultipleSelect extends React.Component {
         {options.map(({ text, value }) => (
           <MenuItem key={value} value={value}>
             <ListItemText primary={text} />
-          {Boolean(value) ? (
+          {value !== CUSTOM_OPTION_VALUE ? (
             <Checkbox checked={ids && ids.indexOf(value) > -1} />
             ) : (
             <Fragment>

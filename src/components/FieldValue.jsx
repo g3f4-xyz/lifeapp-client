@@ -33,7 +33,9 @@ const valueFormatter = (value, format, meta) => {
             { id },
             FIELD_FORMATS.CHOICE,
             { options }
-          )}${id === CUSTOM_OPTION_VALUE ? '' : customValueAppendix}`
+          )}
+          ${id !== CUSTOM_OPTION_VALUE ? '' : customValueAppendix}
+        `
       )
       .join(' ,');
   }
