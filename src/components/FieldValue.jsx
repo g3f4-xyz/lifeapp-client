@@ -22,7 +22,7 @@ const valueFormatter = (value, format, meta) => {
 
     return option ? option.text : '';
   }
-  else if (format === FIELD_FORMATS.MULTIPLE_SELECT_WITH_PARENT) {
+  else if (format === FIELD_FORMATS.MULTIPLE_CHOICE_WITH_PARENT) {
     const { options = [] } = optionsSet.find(set => set.parentValue === value.parentValue) || {};
     const customValueAppendix = ` (${value.customValueOptionValue})`;
 

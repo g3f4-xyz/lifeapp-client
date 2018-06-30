@@ -35,7 +35,7 @@ const mutation = graphql`
                   }
                   required
               }
-              ... on MultipleSelectWithParentType {
+              ... on MultipleChoiceWithParentType {
                   defaultValue
                   optionsSet {
                       customValueOptionMask
@@ -67,7 +67,7 @@ const mutation = graphql`
               ... on ChoiceValueType {
                   id
               }
-              ... on MultipleSelectWithParentValueType {
+              ... on MultipleChoiceWithParentValueType {
                   customValueOptionValue
                   ids
                   parentValue

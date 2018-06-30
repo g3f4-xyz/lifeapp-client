@@ -4,13 +4,16 @@ import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 import Field from '../components/Field';
 
-const styles = theme => ({
-  container: {
+const styles = theme => console.log(['theme.breakpoints'], theme.breakpoints) ||({
+  row: {
     display: 'flex',
     justifyContent: 'space-between',
     margin: theme.spacing.unit,
     width: '100%',
-  },
+    [theme.breakpoints.down('xs')]: {
+      display: 'block',
+    },
+  }
 });
 
 class Fields extends React.Component {
@@ -33,7 +36,7 @@ class Fields extends React.Component {
     console.log(['Fields:render:fieldsGroupedByOrder'], fieldsGroupedByOrder);
 
     return fieldsGroupedByOrder.map((fieldsInRow, key) => (
-      <Paper className={classes.container} key={key}>
+      <Paper className={classes.row} key={key}>
       {fieldsInRow.map(({ format, ...props }) => ({ format, props })).map((props, key) => (
         <Field key={key} {...props} />
       ))}

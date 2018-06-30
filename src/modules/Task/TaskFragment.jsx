@@ -157,17 +157,18 @@ class TaskFragment extends React.Component {
           ...commonProps,
         }
       }
-      else if (format === FIELD_FORMATS.MULTIPLE_SELECT_WITH_PARENT) {
-        const parentValue = getField(parentId).value.id;
+      else if (format === FIELD_FORMATS.MULTIPLE_CHOICE_WITH_PARENT) {
+        const { value: { id: parentValue }, label: parentLabel } = getField(parentId);
 
         return {
           ids,
           optionsSet,
           defaultValue,
+          parentLabel,
           parentValue,
           customValueOptionValue,
           onChange: ({ target: { value }}, { isCustomOptionValueUpdate = false } = {}) => {
-            console.log(['editHandler.MULTIPLE_SELECT_WITH_PARENT.onChange'], { fieldId, value, isCustomOptionValueUpdate });
+            console.log(['editHandler.MULTIPLE_CHOICE_WITH_PARENT.onChange'], { fieldId, value, isCustomOptionValueUpdate });
             update(fieldId, {
               customValueOptionValue: isCustomOptionValueUpdate ? value : customValueOptionValue,
               ids: isCustomOptionValueUpdate ? ids : value,
@@ -254,7 +255,7 @@ export default createFragmentContainer(
             min
             max
           }
-          ... on MultipleSelectWithParentType {
+          ... on MultipleChoiceWithParentType {
             defaultValue
             optionsSet {
               customValueOptionMask
@@ -282,7 +283,7 @@ export default createFragmentContainer(
           ... on ChoiceValueType {
             id
           }
-          ... on MultipleSelectWithParentValueType {
+          ... on MultipleChoiceWithParentValueType {
             customValueOptionValue
             ids
             parentValue

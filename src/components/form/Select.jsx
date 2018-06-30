@@ -1,18 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
 import SelectField from '@material-ui/core/Select';
 
 const styles = theme => ({
-  formControl: {
-    margin: theme.spacing.unit * 2,
-    flex: 1,
-  },
 });
 
 
@@ -32,7 +27,7 @@ class Select extends React.Component {
     const { classes, fieldId, helperText, id, label, options, ...selectProps } = this.props;
 
     return (
-      <FormControl className={classes.formControl}>
+      <Fragment>
         <InputLabel htmlFor={id}>{label}</InputLabel>
         <SelectField
           {...selectProps}
@@ -46,7 +41,7 @@ class Select extends React.Component {
         ))}
         </SelectField>
         <FormHelperText>{helperText}</FormHelperText>
-      </FormControl>
+      </Fragment>
     )
   }
 }

@@ -5,17 +5,12 @@ import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
 import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
-  formControl: {
-    margin: theme.spacing.unit * 2,
-    flex: 1,
-  },
   textField: {
     width: theme.spacing.unit * 5,
     textAlign: 'right',
@@ -56,7 +51,7 @@ class MultipleSelect extends React.Component {
     const { classes, fieldId, ids, label, options, customValueOptionMask, customValueOptionValue = '', onChange, ...selectProps } = this.props;
 
     return (
-      <FormControl className={classes.formControl}>
+      <Fragment>
         <InputLabel htmlFor={fieldId}>{label}</InputLabel>
         <Select
           multiple
@@ -85,7 +80,7 @@ class MultipleSelect extends React.Component {
           </MenuItem>
         ))}
         </Select>
-      </FormControl>
+      </Fragment>
     )
   }
 }
