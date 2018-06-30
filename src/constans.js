@@ -11,3 +11,4 @@ export const FIELD_FORMATS = {
   NUMBER: 'NUMBER',
   TEXT: 'TEXT',
 };
+export const CUSTOM_OPTION_VALUE = 'CUSTOM';

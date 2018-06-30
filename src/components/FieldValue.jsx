@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { FIELD_FORMATS }  from '../constans';
+import { CUSTOM_OPTION_VALUE, FIELD_FORMATS }  from '../constans';
 const styles = theme => ({
   value: {
     padding: theme.spacing.unit * 2,
@@ -23,12 +23,18 @@ const valueFormatter = (value, format, meta) => {
     return option ? option.text : '';
   }
   else if (format === FIELD_FORMATS.MULTIPLE_CHOICE_WITH_PARENT) {
-    const { options = [] } = optionsSet.find(set => set.parentValue === value.parentValue) || {};
+    const { options = [] } =
+      optionsSet.find(set => set.parentValue === value.parentValue) || {};
     const customValueAppendix = ` (${value.customValueOptionValue})`;
 
-    return value.ids && value
-      .ids.map(id =>
-        `${valueFormatter({ id }, FIELD_FORMATS.CHOICE, { options })}${Boolean(id) ? '' : customValueAppendix}`)
+    return value.ids && value.ids
+      .map(id =>
+        `${valueFormatter(
+            { id },
+            FIELD_FORMATS.CHOICE,
+            { options }
+          )}${id === CUSTOM_OPTION_VALUE ? '' : customValueAppendix}`
+      )
       .join(' ,');
   }
   else if (format === FIELD_FORMATS.TEXT) {

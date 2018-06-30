@@ -9,6 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
+import { CUSTOM_OPTION_VALUE } from '../../constans'
 
 const styles = theme => ({
   textField: {
@@ -37,9 +38,10 @@ class MultipleSelect extends React.Component {
 
   renderValue = (selected) => {
     const { customValueOptionValue, options } = this.props;
+    const filteredOptions = options.filter(({ value }) => selected.includes(value));
 
-    return options.filter(({ value }) => selected.includes(value)).map(({ text, value }) => {
-      if (Boolean(value)) {
+    return filteredOptions.map(({ text, value }) => {
+      if (value === CUSTOM_OPTION_VALUE) {
         return text;
       }
 
@@ -48,7 +50,17 @@ class MultipleSelect extends React.Component {
   };
 
   render() {
-    const { classes, fieldId, ids, label, options, customValueOptionMask, customValueOptionValue = '', onChange, ...selectProps } = this.props;
+    const {
+      classes,
+      fieldId,
+      ids,
+      label,
+      options,
+      customValueOptionMask,
+      customValueOptionValue = '',
+      onChange,
+      ...selectProps
+    } = this.props;
 
     return (
       <Fragment>
@@ -69,7 +81,11 @@ class MultipleSelect extends React.Component {
             <Checkbox checked={ids && ids.indexOf(value) > -1} />
             ) : (
             <Fragment>
-              <InputMask mask={customValueOptionMask} value={customValueOptionValue} onChange={e => onChange(e, { isCustomOptionValueUpdate: true })}>
+              <InputMask
+                mask={customValueOptionMask}
+                value={customValueOptionValue}
+                onChange={e => onChange(e, { isCustomOptionValueUpdate: true })}
+              >
               {(inputProps) => (
                 <TextField className={classes.textField} {...inputProps} />
               )}
