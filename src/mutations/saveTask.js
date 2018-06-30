@@ -21,21 +21,31 @@ const mutation = graphql`
           fields {
             fieldId
             format
-            type
-            order
-            label
             helperText
+            label
             meta {
               ... on BoolMetaType {
                   required
               }
               ... on ChoiceMetaType {
-                  required
                   defaultValue
                   options {
                       text
                       value
                   }
+                  required
+              }
+              ... on MultipleSelectWithParentType {
+                  defaultValue
+                  optionsSet {
+                      customValueOptionMask
+                      options {
+                          text
+                          value
+                      }
+                      parentValue
+                  }
+                  parentId
               }
               ... on NumberMetaType {
                   required
@@ -48,12 +58,19 @@ const mutation = graphql`
                   maxLen
               }
             }
+            order
+            type
             value {
               ... on BoolValueType {
                   bool
               }
               ... on ChoiceValueType {
                   id
+              }
+              ... on MultipleSelectWithParentValueType {
+                  customValueOptionValue
+                  ids
+                  parentValue
               }
               ... on NumberValueType {
                   number

@@ -1,51 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { taskDataType } from '../customPropTypes';
-import { Input, Select, Switch } from './form/index';
+import { Input, MultipleSelectWithParent, Select, Switch } from './form/index';
+
+const getComponent = (format) => {
+  return ({
+    BOOL: Switch,
+    CHOICE: Select,
+    MULTIPLE_SELECT_WITH_PARENT: MultipleSelectWithParent,
+    TEXT: Input,
+  })[format];
+};
 
 export default class Field extends React.Component {
   static propTypes = {
-    ...taskDataType.fields,
-    fieldId: PropTypes.string,
-    onChange: PropTypes.func,
+    props: PropTypes.object,
+    format: PropTypes.string,
   };
 
-  static handler(props) {
-    const { fieldId, format, meta: { options }, value: { bool, id, text }, ...rest } = props;
-    const Component = ({
-      BOOL: Switch,
-      CHOICE: Select,
-      TEXT: Input,
-    })[format];
-
-    return {
-      Component,
-      getProps: () => Object.assign(
-        {
-          id: fieldId,
-          ...rest,
-        },
-        format === 'BOOL' && {
-          checked: bool,
-          value: fieldId,
-        },
-        format === 'CHOICE' && {
-          options,
-          value: id,
-        },
-        format === 'TEXT' && {
-          value: text,
-        }
-      ),
-    }
-
-  }
-
   render() {
-    const { Component, getProps } = Field.handler(this.props);
+    const { format, props } = this.props;
+    const Component = getComponent(format);
 
     return (
-      <Component {...getProps()} />
+      <Component {...props} />
     );
   }
 }

@@ -17,11 +17,10 @@ class Fields extends React.Component {
   static propTypes = {
     classes: PropTypes.object,
     fields: PropTypes.array,
-    onFieldChange: PropTypes.func,
   };
 
   render() {
-    const { classes, fields, onFieldChange } = this.props;
+    const { classes, fields } = this.props;
     const fieldsGroupedByOrder = fields.reduce((acc, { order, ...field }) => {
       if (!acc[order]) {
         acc[order] = [];
@@ -35,30 +34,8 @@ class Fields extends React.Component {
 
     return fieldsGroupedByOrder.map((fieldsInRow, key) => (
       <Paper className={classes.container} key={key}>
-      {fieldsInRow.map(({ fieldId, format, ...props }) => (
-        <Field
-          {...props}
-          key={fieldId}
-          fieldId={fieldId}
-          format={format}
-          onChange={({ target: { value }}, alternativeValue) => {
-            if (format === 'TEXT') {
-              onFieldChange(fieldId, {
-                text: value,
-              });
-            }
-            else if (format === 'CHOICE') {
-              onFieldChange(fieldId, {
-                id: value,
-              })
-            }
-            else if (format === 'BOOL') {
-              onFieldChange(fieldId, {
-                bool: alternativeValue,
-              })
-            }
-          }}
-        />
+      {fieldsInRow.map(({ format, ...props }) => ({ format, props })).map((props, key) => (
+        <Field key={key} {...props} />
       ))}
       </Paper>
     ));

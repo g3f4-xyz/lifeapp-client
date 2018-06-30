@@ -1,6 +1,6 @@
 {
   "name": "lifeapp-client",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "proxy": "https://g3f4-lifeapp.herokuapp.com/graphql/",
   "repository": {
     "type": "git",
@@ -27,6 +27,7 @@
     "react": "16.3.2",
     "react-dom": "16.3.2",
     "react-grid-layout": "0.16.6",
+    "react-input-mask": "^2.0.2",
     "react-relay": "1.6.0",
     "react-scripts": "1.1.4",
     "relay-compiler": "1.6.0",

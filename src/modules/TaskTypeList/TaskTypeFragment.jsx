@@ -8,13 +8,13 @@ import InfoOutline from '@material-ui/icons/InfoOutline';
 import SettingsIcon from '@material-ui/icons/Settings';
 import DateRangeIcon from '@material-ui/icons/DateRange';
 import GroupIcon from '@material-ui/icons/Group';
-import ListIcon from '@material-ui/icons/List';
+import UpdateIcon from '@material-ui/icons/Update';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
 const ICONS = {
   EVENT: DateRangeIcon,
   MEETING: GroupIcon,
-  CHECK_LIST: ListIcon,
+  ROUTINE: UpdateIcon,
   TODO: LocalOfferIcon,
 };
 
