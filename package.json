@@ -47,6 +47,7 @@
     "eject": "react-scripts eject",
     "get:local:schema": "fetch-graphql-schema http://localhost:30000/graphql -o schema.json",
     "get:remote:schema": "fetch-graphql-schema https://lifeapp-server.herokuapp.com/graphql -o schema.json",
+    "add-tag": "git tag -a v$npm_package_version -m \"client version $npm_package_version\"",
     "relay": "relay-compiler --src ./src --schema ./schema.json --extensions=jsx --extensions=js",
     "relay:watch": "relay-compiler --src ./src --schema ./schema.json --extensions=jsx --extensions=js --watch"
   }
