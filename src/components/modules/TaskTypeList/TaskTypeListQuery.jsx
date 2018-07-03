@@ -1,38 +1,32 @@
 import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 import { QueryRenderer, graphql } from 'react-relay'
+import environment from '../../../environment';
 import ErrorBoundary from '../../containers/ErrorBoundary';
-import environment from '../../environment';
-import Loader from '../../components/Loader';
-import TaskListPagination from './TaskListPagination';
+import Loader from '../../display/Loader';
+import TaskTypeListPagination from './TaskTypeListPagination';
 
-export default class TaskListQuery extends PureComponent {
-  static propTypes = {
-    pageSize: PropTypes.number,
-  };
-
+export default class TaskTypeListQuery extends PureComponent {
   render() {
-    console.log(['TaskListQuery:render'], this.props);
+    console.log(['TaskTypeListQuery:render'], this.props);
     return (
       <ErrorBoundary>
         <QueryRenderer
           environment={environment}
           query={graphql`
-            query TaskListQuery {
+            query TaskTypeListQuery {
               app {
-                taskList {
-                  ...TaskListPagination
+                taskTypeList {
+                  ...TaskTypeListPagination
                 }
               }
             }
           `}
-          render={({ error, props }) => {
+          render={({error, props}) => {
             if (error) {
               return <div>{JSON.stringify(error)}</div>;
             } else if (props) {
-              console.log(['TaskListQuery:data:fetched'], props);
               return (
-                <TaskListPagination data={props.app.taskList} {...this.props} />
+                <TaskTypeListPagination data={props.app.taskTypeList} {...this.props} />
               );
             }
             return (

@@ -5,8 +5,8 @@ import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import More from '@material-ui/icons/MoreHoriz';
 import AddCircle from '@material-ui/icons/AddCircle';
-import onDeleteMutation from '../../mutations/deleteTask';
-import Loader from '../../components/Loader';
+import onDeleteMutation from '../../../mutations/deleteTask';
+import Loader from '../../display/Loader';
 import Task from './TaskListFragment';
 
 const PAGE_SIZE = 5;

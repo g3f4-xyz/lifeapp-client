@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Select from '@material-ui/core/Select';
 import Checkbox from '@material-ui/core/Checkbox';
 import TextField from '@material-ui/core/TextField';
-import { CUSTOM_OPTION_VALUE } from '../../constans'
+import { CUSTOM_OPTION_VALUE } from '../../../constans'
 
 const styles = theme => ({
   textField: {

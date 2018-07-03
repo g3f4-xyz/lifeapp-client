@@ -1,5 +1,5 @@
 import Component from './TaskQuery';
-import { MODULES_IDS } from '../../constans';
+import { MODULES_IDS } from '../../../constans';
 
 export default Component;
 

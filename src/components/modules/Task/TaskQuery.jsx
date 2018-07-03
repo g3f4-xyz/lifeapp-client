@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { QueryRenderer, graphql } from 'react-relay'
+import environment from '../../../environment';
 import ErrorBoundary from '../../containers/ErrorBoundary';
-import environment from '../../environment';
-import Loader from '../../components/Loader';
+import Loader from '../../display/Loader';
 import TaskFragment from './TaskFragment';
 
 class TaskQuery extends Component {

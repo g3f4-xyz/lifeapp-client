@@ -4,8 +4,8 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import update from 'immutability-helper';
 import TaskDetails from './TaskDetails';
 import TaskEdit from './TaskEdit';
-import saveTaskMutation from '../../mutations/saveTask';
-import editHandler from '../../handlers/editHandler';
+import saveTaskMutation from '../../../mutations/saveTask';
+import editHandler from '../../../handlers/editHandler';
 
 const valueParser= field => {
   if (field.type === 'datetime-local') {

@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import { CUSTOM_OPTION_VALUE, FIELD_FORMATS }  from '../constans';
+import { CUSTOM_OPTION_VALUE, FIELD_FORMATS }  from '../../constans';
 const styles = theme => ({
   value: {
     padding: theme.spacing.unit * 2,

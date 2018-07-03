@@ -4,15 +4,15 @@ import immutabilityHelper from 'immutability-helper'
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
-import ErrorBoundary from './containers/ErrorBoundary';
-import ResponsiveGrid from './containers/ResponsiveGrid';
-import { MODULES_IDS } from './constans';
 import environment from './environment';
-import Menu from './components/Menu';
-import Loader from './components/Loader';
-import TaskQuery, { handler as taskHandler } from './modules/Task';
-import TaskListQuery, { handler as taskListHandler } from './modules/TaskList';
-import TaskTypeListQuery, { handler as taskTypeListHandler } from './modules/TaskTypeList';
+import ErrorBoundary from './components/containers/ErrorBoundary';
+import ResponsiveGrid from './components/containers/ResponsiveGrid';
+import Menu from './components/display/Menu';
+import Loader from './components/display/Loader';
+import TaskQuery, { handler as taskHandler } from './components/modules/Task';
+import TaskListQuery, { handler as taskListHandler } from './components/modules/TaskList';
+import TaskTypeListQuery, { handler as taskTypeListHandler } from './components/modules/TaskTypeList';
+import { MODULES_IDS } from './constans';
 import { saveToLS, getFromLS } from './utils/rglLocalStore';
 
 const styles = {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
-import Field from '../components/Field';
+import Field from '../display/Field';
 
 const styles = theme => console.log(['theme.breakpoints'], theme.breakpoints) ||({
   row: {

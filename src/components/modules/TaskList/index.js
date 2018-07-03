@@ -1,4 +1,4 @@
-import { MODULES_IDS } from '../../constans';
+import { MODULES_IDS } from '../../../constans';
 import Component from './TaskListQuery';
 
 export default Component;
