@@ -5,18 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircle from '@material-ui/icons/AddCircle';
 import InfoOutline from '@material-ui/icons/InfoOutline';
-import SettingsIcon from '@material-ui/icons/Settings';
-import DateRangeIcon from '@material-ui/icons/DateRange';
-import GroupIcon from '@material-ui/icons/Group';
-import UpdateIcon from '@material-ui/icons/Update';
-import LocalOfferIcon from '@material-ui/icons/LocalOffer';
-
-const ICONS = {
-  EVENT: DateRangeIcon,
-  MEETING: GroupIcon,
-  ROUTINE: UpdateIcon,
-  TODO: LocalOfferIcon,
-};
+import TaskTypeIcon from '../../display/TaskTypeIcon';
 
 const styles = {
   actionsContainer: {
@@ -83,7 +72,6 @@ class TaskTypeFragment extends React.Component {
     console.log(['TaskTypeFragment:render'], this.props);
     const { classes, data, onSelect } = this.props;
     const { name, description, typeId } = data;
-    const Icon = ICONS[typeId] || SettingsIcon;
 
     return (
       <div className={classes.container}>
@@ -94,7 +82,7 @@ class TaskTypeFragment extends React.Component {
         {this.state.info ? (
           <h3 className={classes.descText}>{description}</h3>
         ) : (
-          <Icon className={classes.icon} />
+          <TaskTypeIcon type={typeId} className={classes.icon} />
         )}
         </div>
         <div className={classes.actionsContainer}>

@@ -18,6 +18,7 @@ import green from '@material-ui/core/colors/green';
 import grey from '@material-ui/core/colors/grey';
 import red from '@material-ui/core/colors/red';
 import yellow from '@material-ui/core/colors/yellow';
+import TaskTypeIcon from '../../display/TaskTypeIcon';
 
 const styles = theme => ({
   actions: {
@@ -46,6 +47,9 @@ const styles = theme => ({
   },
   red: {
     color: red[700],
+  },
+  taskTypeIcon: {
+    marginTop: theme.spacing.unit * 1.5,
   },
   yellow: {
     color: yellow[700],
@@ -87,7 +91,8 @@ class TaskListFragment extends React.PureComponent {
             </Tooltip>
           )}
           </div>
-          <Typography className={classes.heading}>{`${title} (${taskType})`}</Typography>
+          <Typography className={classes.heading}>{title}</Typography>
+          <TaskTypeIcon type={taskType} className={classes.taskTypeIcon}/>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.content}>
           <div>
