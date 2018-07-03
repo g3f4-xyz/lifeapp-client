@@ -5,7 +5,7 @@ import { SheetsRegistry } from 'react-jss/lib/jss';
 import JssProvider from 'react-jss/lib/JssProvider';
 import { MuiThemeProvider, createMuiTheme, createGenerateClassName } from '@material-ui/core/styles';
 import { green, red } from '@material-ui/core/colors';
-import Login from '../src/static-pages/Login';
+import Login from '../src/components/static-pages/Login';
 
 const fileName = 'build/login.html';
 const stream = fs.createWriteStream(fileName);
