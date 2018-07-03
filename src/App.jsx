@@ -13,8 +13,8 @@ import Loader from './components/Loader';
 import TaskQuery, { handler as taskHandler } from './modules/Task';
 import TaskListQuery, { handler as taskListHandler } from './modules/TaskList';
 import TaskTypeListQuery, { handler as taskTypeListHandler } from './modules/TaskTypeList';
+import { saveToLS, getFromLS } from './utils/rglLocalStore';
 
-const originalLayouts = getFromLS('layouts') || {};
 const styles = {
   backButton: {
     zIndex: 9,
@@ -41,36 +41,13 @@ const QUERIES_COMPONENTS = {
 };
 const APP_MODULES_IDS = [MODULES_IDS.TASK_LIST, MODULES_IDS.TASK_TYPE_LIST];
 
-function getFromLS(key) {
-  let ls = {};
-  if (global.localStorage) {
-    try {
-      ls = JSON.parse(global.localStorage.getItem('rgl-8')) || {};
-    } catch (e) {
-      /*Ignore*/
-    }
-  }
-  return ls[key];
-}
-
-function saveToLS(key, value) {
-  if (global.localStorage) {
-    global.localStorage.setItem(
-      'rgl-8',
-      JSON.stringify({
-        [key]: value
-      })
-    );
-  }
-}
-
 class App extends Component {
   state = {
     activeModuleId: MODULES_IDS.TASK_LIST,
     activeModulesHistory: [MODULES_IDS.TASK_LIST],
     appOpenedModuleIds: [MODULES_IDS.TASK_LIST],
     openedTasksModulesProps: [],
-    layouts: originalLayouts,
+    layouts: getFromLS('layouts') || {},
     gridView: false,
     gridViewLocked: false,
   };
