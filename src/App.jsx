@@ -49,7 +49,7 @@ const APP_MODULES_IDS = [
 
 class App extends Component {
   state = {
-    activeModuleId: MODULES_IDS.SETTINGS,
+    activeModuleId: MODULES_IDS.TASK_LIST,
     activeModulesHistory: [MODULES_IDS.TASK_LIST],
     appOpenedModuleIds: [MODULES_IDS.TASK_LIST],
     openedTasksModulesProps: [],
