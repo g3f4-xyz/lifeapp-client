@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import update from 'immutability-helper';
 import { createFragmentContainer, graphql } from 'react-relay';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
@@ -53,6 +54,44 @@ class SettingsFragment extends React.Component {
 
   state = this.props.data;
 
+  updateAuthentication = (key, $set) => {
+    console.log(['updateAuthentication'], key, $set);
+    this.setState(update(this.state, {
+      authentication: {
+        [key]: { $set },
+      }
+    }));
+  };
+
+  updateNotifications = (type, key, $set) => {
+    console.log(['updateNotifications'], type, key, $set);
+    this.setState(update(this.state, {
+      notifications: {
+        [type]: {
+          [key]: { $set },
+        },
+      }
+    }));
+  };
+
+  updateNotificationsShow = ($set) => {
+    console.log(['updateNotificationsShow'], $set);
+    this.setState(update(this.state, {
+      notifications: {
+        show: { $set },
+      }
+    }));
+  };
+
+  updateNotificationsVibrate = ($set) => {
+    console.log(['updateNotificationsVibrate'], $set);
+    this.setState(update(this.state, {
+      notifications: {
+        vibrate: { $set },
+      }
+    }));
+  };
+
   render() {
     console.log(['SettingsFragment:render'], this.props, this.state);
     const { classes } = this.props;
@@ -82,7 +121,7 @@ class SettingsFragment extends React.Component {
                 <ListItemText primary="Show" />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={() => {}}
+                    onChange={(_, checked) => this.updateNotificationsShow(checked)}
                     checked={show}
                   />
                 </ListItemSecondaryAction>
@@ -94,7 +133,7 @@ class SettingsFragment extends React.Component {
                 <ListItemText primary="Vibrate" />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={() => {}}
+                    onChange={(_, checked) => this.updateNotificationsVibrate(checked)}
                     checked={vibrate}
                   />
                 </ListItemSecondaryAction>
@@ -121,7 +160,7 @@ class SettingsFragment extends React.Component {
                 <ListItemText primary="Events" />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={() => {}}
+                    onChange={(_, checked) => this.updateNotifications('daily', 'events', checked)}
                     checked={daily.events}
                   />
                 </ListItemSecondaryAction>
@@ -133,7 +172,7 @@ class SettingsFragment extends React.Component {
                 <ListItemText primary="Meetings" />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={() => {}}
+                    onChange={(_, checked) => this.updateNotifications('daily', 'meetings', checked)}
                     checked={daily.meetings}
                   />
                 </ListItemSecondaryAction>
@@ -145,7 +184,7 @@ class SettingsFragment extends React.Component {
                 <ListItemText primary="Todos" />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={() => {}}
+                    onChange={(_, checked) => this.updateNotifications('daily', 'todos', checked)}
                     checked={daily.todos}
                   />
                 </ListItemSecondaryAction>
@@ -157,7 +196,7 @@ class SettingsFragment extends React.Component {
                 <ListItemText primary="Routines" />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={() => {}}
+                    onChange={(_, checked) => this.updateNotifications('daily', 'routines', checked)}
                     checked={daily.routines}
                   />
                 </ListItemSecondaryAction>
@@ -173,7 +212,7 @@ class SettingsFragment extends React.Component {
                 <ListItemText primary="Events" />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={() => {}}
+                    onChange={(_, checked) => this.updateNotifications('single', 'events', checked)}
                     checked={single.events}
                   />
                 </ListItemSecondaryAction>
@@ -185,7 +224,7 @@ class SettingsFragment extends React.Component {
                 <ListItemText primary="Meetings" />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={() => {}}
+                    onChange={(_, checked) => this.updateNotifications('single', 'meetings', checked)}
                     checked={single.meetings}
                   />
                 </ListItemSecondaryAction>
@@ -197,7 +236,7 @@ class SettingsFragment extends React.Component {
                 <ListItemText primary="Todos" />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={() => {}}
+                    onChange={(_, checked) => this.updateNotifications('single', 'todos', checked)}
                     checked={single.todos}
                   />
                 </ListItemSecondaryAction>
@@ -209,7 +248,7 @@ class SettingsFragment extends React.Component {
                 <ListItemText primary="Routines" />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={() => {}}
+                    onChange={(_, checked) => this.updateNotifications('single', 'routines', checked)}
                     checked={single.routines}
                   />
                 </ListItemSecondaryAction>
