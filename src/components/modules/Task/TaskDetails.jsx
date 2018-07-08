@@ -3,6 +3,7 @@ import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import { FieldIcon, FieldValue, Label } from '../../display';
+import TaskTypeIcon from '../../display/TaskTypeIcon';
 
 const styles = theme => ({
   label: {
@@ -37,7 +38,7 @@ class TaskDetails extends React.Component {
 
     return (
       <div className={classes.root}>
-        <h1>{taskType}</h1>
+        <TaskTypeIcon type={taskType} />
       {fields
         .map(item => item) // propsy są immutable, sortowanie modyfikuje oryginalną tablicę
         .sort((a, b) => a.order - b.order)

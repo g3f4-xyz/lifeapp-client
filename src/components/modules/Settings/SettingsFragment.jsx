@@ -242,7 +242,7 @@ class SettingsFragment extends React.Component {
             </List>
           </div>
           <div className={classes.list}>
-            <List subheader={<ListSubheader>Signle</ListSubheader>}>
+            <List subheader={<ListSubheader>Single</ListSubheader>}>
               <ListItem>
                 <ListItemIcon>
                   <WifiIcon />

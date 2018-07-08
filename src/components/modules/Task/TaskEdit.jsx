@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import Fields from '../../containers/Fields';
+import TaskTypeIcon from '../../display/TaskTypeIcon';
 
 const styles = {
   row: {
@@ -47,7 +48,7 @@ class TaskEdit extends React.Component {
         >
           <CheckCircleIcon className={classes.addButtonIcon} />
         </IconButton>
-        <h1>{taskType}</h1>
+        <TaskTypeIcon type={taskType} />
         <Fields fields={fields} />
       </div>
     );
