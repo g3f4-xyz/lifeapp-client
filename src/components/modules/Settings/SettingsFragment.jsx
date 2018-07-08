@@ -17,6 +17,7 @@ import WifiIcon from '@material-ui/icons/Wifi';
 import BluetoothIcon from '@material-ui/icons/Bluetooth';
 import IconButton from '@material-ui/core/IconButton';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import deleteSubscriptionsMutation from '../../../mutations/deleteSubscriptions';
 import saveSettingsMutation from '../../../mutations/saveSettings';
 
 const styles = theme =>({
@@ -130,6 +131,13 @@ class SettingsFragment extends React.Component {
     }));
   };
 
+  onDeleteSubscription = async () => {
+    console.log(['onDeleteSubscription']);
+    await deleteSubscriptionsMutation({
+      ownerId: this.state.ownerId,
+    })
+  };
+
   render() {
     console.log(['SettingsFragment:render'], this.props, this.state);
     const { classes } = this.props;
@@ -182,7 +190,11 @@ class SettingsFragment extends React.Component {
                 </ListItemIcon>
                 <ListItemText primary="Subscription" />
                 <ListItemSecondaryAction>
-                  <Button variant="contained" color="primary" className={classes.button}>
+                  <Button
+                    color="secondary"
+                    className={classes.button}
+                    onClick={this.onDeleteSubscription}
+                  >
                     Delete subscription
                   </Button>
                 </ListItemSecondaryAction>
@@ -307,7 +319,7 @@ class SettingsFragment extends React.Component {
                 <ListItemText primary="Provider" />
                 <ListItemText primary={provider} />
                 <ListItemSecondaryAction>
-                  <Button variant="contained" color="primary" className={classes.button}>
+                  <Button color="secondary" className={classes.button}>
                     Delete authentication
                   </Button>
                 </ListItemSecondaryAction>
@@ -326,6 +338,7 @@ export default createFragmentContainer(
   graphql`
     fragment SettingsFragment on SettingsType {
       id
+      ownerId
       authentication {
         id
         provider
