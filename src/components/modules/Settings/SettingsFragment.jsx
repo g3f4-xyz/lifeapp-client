@@ -13,10 +13,13 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
 import Button from '@material-ui/core/Button';
 import Switch from '@material-ui/core/Switch';
-import WifiIcon from '@material-ui/icons/Wifi';
-import BluetoothIcon from '@material-ui/icons/Bluetooth';
+import DeleteForever from '@material-ui/icons/DeleteForever';
+import Vibration from '@material-ui/icons/Vibration';
+import Subscriptions from '@material-ui/icons/Subscriptions';
+import Slideshow from '@material-ui/icons/Slideshow';
 import IconButton from '@material-ui/core/IconButton';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import TaskTypeIcon from '../../../components/display/TaskTypeIcon';
 import deleteSubscriptionsMutation from '../../../mutations/deleteSubscriptions';
 import saveSettingsMutation from '../../../mutations/saveSettings';
 
@@ -162,7 +165,7 @@ class SettingsFragment extends React.Component {
             <List subheader={<ListSubheader>General</ListSubheader>}>
               <ListItem>
                 <ListItemIcon>
-                  <BluetoothIcon />
+                  <Slideshow />
                 </ListItemIcon>
                 <ListItemText primary="Show" />
                 <ListItemSecondaryAction>
@@ -174,7 +177,7 @@ class SettingsFragment extends React.Component {
               </ListItem>
               <ListItem>
                 <ListItemIcon>
-                  <BluetoothIcon />
+                  <Vibration />
                 </ListItemIcon>
                 <ListItemText primary="Vibrate" />
                 <ListItemSecondaryAction>
@@ -186,7 +189,7 @@ class SettingsFragment extends React.Component {
               </ListItem>
               <ListItem>
                 <ListItemIcon>
-                  <BluetoothIcon />
+                  <Subscriptions />
                 </ListItemIcon>
                 <ListItemText primary="Subscription" />
                 <ListItemSecondaryAction>
@@ -195,7 +198,8 @@ class SettingsFragment extends React.Component {
                     className={classes.button}
                     onClick={this.onDeleteSubscription}
                   >
-                    Delete subscription
+
+                    <DeleteForever />
                   </Button>
                 </ListItemSecondaryAction>
               </ListItem>
@@ -205,7 +209,7 @@ class SettingsFragment extends React.Component {
             <List subheader={<ListSubheader>Daily</ListSubheader>}>
               <ListItem>
                 <ListItemIcon>
-                  <WifiIcon />
+                  <TaskTypeIcon type="EVENT" />
                 </ListItemIcon>
                 <ListItemText primary="Events" />
                 <ListItemSecondaryAction>
@@ -217,7 +221,7 @@ class SettingsFragment extends React.Component {
               </ListItem>
               <ListItem>
                 <ListItemIcon>
-                  <BluetoothIcon />
+                  <TaskTypeIcon type="MEETING" />
                 </ListItemIcon>
                 <ListItemText primary="Meetings" />
                 <ListItemSecondaryAction>
@@ -229,7 +233,7 @@ class SettingsFragment extends React.Component {
               </ListItem>
               <ListItem>
                 <ListItemIcon>
-                  <BluetoothIcon />
+                  <TaskTypeIcon type="ROUTINE" />
                 </ListItemIcon>
                 <ListItemText primary="Routines" />
                 <ListItemSecondaryAction>
@@ -241,7 +245,7 @@ class SettingsFragment extends React.Component {
               </ListItem>
               <ListItem>
                 <ListItemIcon>
-                  <BluetoothIcon />
+                  <TaskTypeIcon type="TODO" />
                 </ListItemIcon>
                 <ListItemText primary="Todos" />
                 <ListItemSecondaryAction>
@@ -257,7 +261,7 @@ class SettingsFragment extends React.Component {
             <List subheader={<ListSubheader>Single</ListSubheader>}>
               <ListItem>
                 <ListItemIcon>
-                  <WifiIcon />
+                  <TaskTypeIcon type="EVENT" />
                 </ListItemIcon>
                 <ListItemText primary="Events" />
                 <ListItemSecondaryAction>
@@ -269,7 +273,7 @@ class SettingsFragment extends React.Component {
               </ListItem>
               <ListItem>
                 <ListItemIcon>
-                  <BluetoothIcon />
+                  <TaskTypeIcon type="MEETING" />
                 </ListItemIcon>
                 <ListItemText primary="Meetings" />
                 <ListItemSecondaryAction>
@@ -281,7 +285,7 @@ class SettingsFragment extends React.Component {
               </ListItem>
               <ListItem>
                 <ListItemIcon>
-                  <BluetoothIcon />
+                  <TaskTypeIcon type="ROUTINE" />
                 </ListItemIcon>
                 <ListItemText primary="Routines" />
                 <ListItemSecondaryAction>
@@ -293,7 +297,7 @@ class SettingsFragment extends React.Component {
               </ListItem>
               <ListItem>
                 <ListItemIcon>
-                  <BluetoothIcon />
+                  <TaskTypeIcon type="TODO" />
                 </ListItemIcon>
                 <ListItemText primary="Todos" />
                 <ListItemSecondaryAction>
@@ -314,13 +318,13 @@ class SettingsFragment extends React.Component {
             <List subheader={<ListSubheader>General</ListSubheader>}>
               <ListItem>
                 <ListItemIcon>
-                  <BluetoothIcon />
+                  <Slideshow />
                 </ListItemIcon>
                 <ListItemText primary="Provider" />
                 <ListItemText primary={provider} />
                 <ListItemSecondaryAction>
                   <Button color="secondary" className={classes.button}>
-                    Delete authentication
+                    <DeleteForever />
                   </Button>
                 </ListItemSecondaryAction>
               </ListItem>
