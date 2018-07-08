@@ -17,6 +17,7 @@ import WifiIcon from '@material-ui/icons/Wifi';
 import BluetoothIcon from '@material-ui/icons/Bluetooth';
 import IconButton from '@material-ui/core/IconButton';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import saveSettingsMutation from '../../../mutations/saveSettings';
 
 const styles = theme =>({
   addButton: {
@@ -53,6 +54,43 @@ class SettingsFragment extends React.Component {
   };
 
   state = this.props.data;
+
+  onSave = async () => {
+    const { onSaveDone } = this.props;
+    const settings = this.state;
+    console.log(['Settings:onSave'], this.state);
+
+    try {
+      await saveSettingsMutation({
+        settings: {
+          authentication: {
+            provider: settings.authentication.provider,
+          },
+          notifications: {
+            show: settings.notifications.show,
+            daily: {
+              events: settings.notifications.daily.events,
+              meetings: settings.notifications.daily.meetings,
+              routines: settings.notifications.daily.routines,
+              todos: settings.notifications.daily.todos,
+            },
+            single: {
+              events: settings.notifications.single.events,
+              meetings: settings.notifications.single.meetings,
+              routines: settings.notifications.single.routines,
+              todos: settings.notifications.single.todos,
+            },
+          },
+        },
+        hashId: settings.id,
+      });
+      onSaveDone();
+    }
+
+    catch (error) {
+      console.error(['Settings:onSave:error'], error);
+    }
+  };
 
   updateAuthentication = (key, $set) => {
     console.log(['updateAuthentication'], key, $set);
@@ -104,7 +142,7 @@ class SettingsFragment extends React.Component {
         <IconButton
           className={classes.addButton}
           color="primary"
-          onClick={() => {}}
+          onClick={this.onSave}
         >
           <CheckCircleIcon className={classes.addButtonIcon} />
         </IconButton>
@@ -181,11 +219,11 @@ class SettingsFragment extends React.Component {
                 <ListItemIcon>
                   <BluetoothIcon />
                 </ListItemIcon>
-                <ListItemText primary="Todos" />
+                <ListItemText primary="Routines" />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={(_, checked) => this.updateNotifications('daily', 'todos', checked)}
-                    checked={daily.todos}
+                    onChange={(_, checked) => this.updateNotifications('daily', 'routines', checked)}
+                    checked={daily.routines}
                   />
                 </ListItemSecondaryAction>
               </ListItem>
@@ -193,11 +231,11 @@ class SettingsFragment extends React.Component {
                 <ListItemIcon>
                   <BluetoothIcon />
                 </ListItemIcon>
-                <ListItemText primary="Routines" />
+                <ListItemText primary="Todos" />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={(_, checked) => this.updateNotifications('daily', 'routines', checked)}
-                    checked={daily.routines}
+                    onChange={(_, checked) => this.updateNotifications('daily', 'todos', checked)}
+                    checked={daily.todos}
                   />
                 </ListItemSecondaryAction>
               </ListItem>
@@ -233,11 +271,11 @@ class SettingsFragment extends React.Component {
                 <ListItemIcon>
                   <BluetoothIcon />
                 </ListItemIcon>
-                <ListItemText primary="Todos" />
+                <ListItemText primary="Routines" />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={(_, checked) => this.updateNotifications('single', 'todos', checked)}
-                    checked={single.todos}
+                    onChange={(_, checked) => this.updateNotifications('single', 'routines', checked)}
+                    checked={single.routines}
                   />
                 </ListItemSecondaryAction>
               </ListItem>
@@ -245,11 +283,11 @@ class SettingsFragment extends React.Component {
                 <ListItemIcon>
                   <BluetoothIcon />
                 </ListItemIcon>
-                <ListItemText primary="Routines" />
+                <ListItemText primary="Todos" />
                 <ListItemSecondaryAction>
                   <Switch
-                    onChange={(_, checked) => this.updateNotifications('single', 'routines', checked)}
-                    checked={single.routines}
+                    onChange={(_, checked) => this.updateNotifications('single', 'todos', checked)}
+                    checked={single.todos}
                   />
                 </ListItemSecondaryAction>
               </ListItem>
