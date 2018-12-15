@@ -19,6 +19,11 @@ import Subscriptions from '@material-ui/icons/Subscriptions';
 import Slideshow from '@material-ui/icons/Slideshow';
 import IconButton from '@material-ui/core/IconButton';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+
 import TaskTypeIcon from '../../../components/display/TaskTypeIcon';
 import deleteSubscriptionsMutation from '../../../mutations/deleteSubscriptions';
 import saveSettingsMutation from '../../../mutations/saveSettings';
@@ -38,9 +43,12 @@ const styles = theme =>({
   },
   button: {
   },
-  container: {
+  expansionPanel: {
+    margin: theme.spacing.unit,
+    padding: theme.spacing.unit,
   },
   list: {
+    width: '100%',
   },
   display1: {
     textAlign: 'center',
@@ -48,6 +56,7 @@ const styles = theme =>({
   },
   section: {
     margin: theme.spacing.unit * 2,
+    paddingBottom: theme.spacing.unit,
   },
 });
 
@@ -161,154 +170,168 @@ class SettingsFragment extends React.Component {
           <Typography className={classes.display1} variant="display1" gutterBottom>
             Notifications
           </Typography>
-          <div className={classes.list}>
-            <List subheader={<ListSubheader>General</ListSubheader>}>
-              <ListItem>
-                <ListItemIcon>
-                  <Slideshow />
-                </ListItemIcon>
-                <ListItemText primary="Show" />
-                <ListItemSecondaryAction>
-                  <Switch
-                    onChange={(_, checked) => this.updateNotificationsShow(checked)}
-                    checked={show}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <Vibration />
-                </ListItemIcon>
-                <ListItemText primary="Vibrate" />
-                <ListItemSecondaryAction>
-                  <Switch
-                    onChange={(_, checked) => this.updateNotificationsVibrate(checked)}
-                    checked={vibrate}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <Subscriptions />
-                </ListItemIcon>
-                <ListItemText primary="Subscription" />
-                <ListItemSecondaryAction>
-                  <Button
-                    color="secondary"
-                    className={classes.button}
-                    onClick={this.onDeleteSubscription}
-                  >
-
-                    <DeleteForever />
-                  </Button>
-                </ListItemSecondaryAction>
-              </ListItem>
-            </List>
-          </div>
-          <div className={classes.root}>
-            <List subheader={<ListSubheader>Daily</ListSubheader>}>
-              <ListItem>
-                <ListItemIcon>
-                  <TaskTypeIcon type="EVENT" />
-                </ListItemIcon>
-                <ListItemText primary="Events" />
-                <ListItemSecondaryAction>
-                  <Switch
-                    onChange={(_, checked) => this.updateNotifications('daily', 'events', checked)}
-                    checked={daily.events}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <TaskTypeIcon type="MEETING" />
-                </ListItemIcon>
-                <ListItemText primary="Meetings" />
-                <ListItemSecondaryAction>
-                  <Switch
-                    onChange={(_, checked) => this.updateNotifications('daily', 'meetings', checked)}
-                    checked={daily.meetings}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <TaskTypeIcon type="ROUTINE" />
-                </ListItemIcon>
-                <ListItemText primary="Routines" />
-                <ListItemSecondaryAction>
-                  <Switch
-                    onChange={(_, checked) => this.updateNotifications('daily', 'routines', checked)}
-                    checked={daily.routines}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <TaskTypeIcon type="TODO" />
-                </ListItemIcon>
-                <ListItemText primary="Todos" />
-                <ListItemSecondaryAction>
-                  <Switch
-                    onChange={(_, checked) => this.updateNotifications('daily', 'todos', checked)}
-                    checked={daily.todos}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-            </List>
-          </div>
-          <div className={classes.list}>
-            <List subheader={<ListSubheader>Single</ListSubheader>}>
-              <ListItem>
-                <ListItemIcon>
-                  <TaskTypeIcon type="EVENT" />
-                </ListItemIcon>
-                <ListItemText primary="Events" />
-                <ListItemSecondaryAction>
-                  <Switch
-                    onChange={(_, checked) => this.updateNotifications('single', 'events', checked)}
-                    checked={single.events}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <TaskTypeIcon type="MEETING" />
-                </ListItemIcon>
-                <ListItemText primary="Meetings" />
-                <ListItemSecondaryAction>
-                  <Switch
-                    onChange={(_, checked) => this.updateNotifications('single', 'meetings', checked)}
-                    checked={single.meetings}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <TaskTypeIcon type="ROUTINE" />
-                </ListItemIcon>
-                <ListItemText primary="Routines" />
-                <ListItemSecondaryAction>
-                  <Switch
-                    onChange={(_, checked) => this.updateNotifications('single', 'routines', checked)}
-                    checked={single.routines}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-              <ListItem>
-                <ListItemIcon>
-                  <TaskTypeIcon type="TODO" />
-                </ListItemIcon>
-                <ListItemText primary="Todos" />
-                <ListItemSecondaryAction>
-                  <Switch
-                    onChange={(_, checked) => this.updateNotifications('single', 'todos', checked)}
-                    checked={single.todos}
-                  />
-                </ListItemSecondaryAction>
-              </ListItem>
-            </List>
-          </div>
+          <ExpansionPanel className={classes.expansionPanel}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}>General</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <List className={classes.list}>
+                <ListItem>
+                  <ListItemIcon>
+                    <Slideshow />
+                  </ListItemIcon>
+                  <ListItemText primary="Show" />
+                  <ListItemSecondaryAction>
+                    <Switch
+                      onChange={(_, checked) => this.updateNotificationsShow(checked)}
+                      checked={show}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <Vibration />
+                  </ListItemIcon>
+                  <ListItemText primary="Vibrate" />
+                  <ListItemSecondaryAction>
+                    <Switch
+                      onChange={(_, checked) => this.updateNotificationsVibrate(checked)}
+                      checked={vibrate}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <Subscriptions />
+                  </ListItemIcon>
+                  <ListItemText primary="Subscription" />
+                  <ListItemSecondaryAction>
+                    <Button
+                      color="secondary"
+                      className={classes.button}
+                      onClick={this.onDeleteSubscription}
+                    >
+                      <DeleteForever />
+                    </Button>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </List>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+          <ExpansionPanel className={classes.expansionPanel}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}>Daily</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <List className={classes.list}>
+                <ListItem>
+                  <ListItemIcon>
+                    <TaskTypeIcon type="EVENT" />
+                  </ListItemIcon>
+                  <ListItemText primary="Events" />
+                  <ListItemSecondaryAction>
+                    <Switch
+                      onChange={(_, checked) => this.updateNotifications('daily', 'events', checked)}
+                      checked={daily.events}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <TaskTypeIcon type="MEETING" />
+                  </ListItemIcon>
+                  <ListItemText primary="Meetings" />
+                  <ListItemSecondaryAction>
+                    <Switch
+                      onChange={(_, checked) => this.updateNotifications('daily', 'meetings', checked)}
+                      checked={daily.meetings}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <TaskTypeIcon type="ROUTINE" />
+                  </ListItemIcon>
+                  <ListItemText primary="Routines" />
+                  <ListItemSecondaryAction>
+                    <Switch
+                      onChange={(_, checked) => this.updateNotifications('daily', 'routines', checked)}
+                      checked={daily.routines}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <TaskTypeIcon type="TODO" />
+                  </ListItemIcon>
+                  <ListItemText primary="Todos" />
+                  <ListItemSecondaryAction>
+                    <Switch
+                      onChange={(_, checked) => this.updateNotifications('daily', 'todos', checked)}
+                      checked={daily.todos}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </List>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+          <ExpansionPanel className={classes.expansionPanel}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}>Single</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <List className={classes.list}>
+                <ListItem>
+                  <ListItemIcon>
+                    <TaskTypeIcon type="EVENT" />
+                  </ListItemIcon>
+                  <ListItemText primary="Events" />
+                  <ListItemSecondaryAction>
+                    <Switch
+                      onChange={(_, checked) => this.updateNotifications('single', 'events', checked)}
+                      checked={single.events}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <TaskTypeIcon type="MEETING" />
+                  </ListItemIcon>
+                  <ListItemText primary="Meetings" />
+                  <ListItemSecondaryAction>
+                    <Switch
+                      onChange={(_, checked) => this.updateNotifications('single', 'meetings', checked)}
+                      checked={single.meetings}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <TaskTypeIcon type="ROUTINE" />
+                  </ListItemIcon>
+                  <ListItemText primary="Routines" />
+                  <ListItemSecondaryAction>
+                    <Switch
+                      onChange={(_, checked) => this.updateNotifications('single', 'routines', checked)}
+                      checked={single.routines}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <TaskTypeIcon type="TODO" />
+                  </ListItemIcon>
+                  <ListItemText primary="Todos" />
+                  <ListItemSecondaryAction>
+                    <Switch
+                      onChange={(_, checked) => this.updateNotifications('single', 'todos', checked)}
+                      checked={single.todos}
+                    />
+                  </ListItemSecondaryAction>
+                </ListItem>
+              </List>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
         </Paper>
         <Paper className={classes.section}>
           <Typography className={classes.display1} variant="display1" gutterBottom>
