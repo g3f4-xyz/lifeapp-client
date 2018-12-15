@@ -16,3 +16,5 @@ export const FIELD_FORMATS = {
 export const LOCAL_STORAGE_LAYOUTS_KEY = 'layouts';
 
 export const CUSTOM_OPTION_VALUE = 'CUSTOM';
+
+export const API_HOST = 'http://localhost:30000';

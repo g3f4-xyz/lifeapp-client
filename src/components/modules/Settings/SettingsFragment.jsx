@@ -54,6 +54,10 @@ const styles = theme =>({
     textAlign: 'center',
     paddingTop: theme.spacing.unit,
   },
+  testNotificationButton: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+  },
   section: {
     margin: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit,
@@ -155,7 +159,9 @@ class SettingsFragment extends React.Component {
     const { classes } = this.props;
     const { authentication, notifications } = this.state;
     const { provider } = authentication;
-    const { daily, show, single, vibrate } = notifications;
+    const { daily, show, single, vibrate, subscriptions } = notifications;
+
+    console.log(['subscriptions'], subscriptions)
 
     return (
       <div className={classes.container}>
@@ -332,6 +338,27 @@ class SettingsFragment extends React.Component {
               </List>
             </ExpansionPanelDetails>
           </ExpansionPanel>
+          <ExpansionPanel className={classes.expansionPanel}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography className={classes.heading}>Subscriptions</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <List className={classes.list}>
+              {subscriptions.map(({ id, userDeviceType, userAgent }) => (
+                <ListItem key={id}>
+                  <ListItemText primary={`device: ${userDeviceType}`} />
+                  <ListItemText primary={`browser: ${userAgent}`} />
+                  <ListItemSecondaryAction>
+                    <Button onClick={() => console.log(['Delete subscription'])}>Delete</Button>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
+              </List>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
+          <div className={classes.testNotificationButton}>
+            <Button onClick={() => console.log(['test notifications'])}>Test</Button>
+          </div>
         </Paper>
         <Paper className={classes.section}>
           <Typography className={classes.display1} variant="display1" gutterBottom>
@@ -386,6 +413,11 @@ export default createFragmentContainer(
           meetings
           todos
           routines
+        }
+        subscriptions {
+          id
+          userAgent
+          userDeviceType
         }
       }
     }

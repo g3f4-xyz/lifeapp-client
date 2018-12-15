@@ -1,3 +1,5 @@
+import { API_HOST } from './constans';
+
 const publicVapidKey = 'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo';
 
 (async () => {
@@ -30,11 +32,11 @@ async function send(register) {
     userVisibleOnly: true,
     applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
   });
-  console.log('Push Registered...');
+  console.log('Push Registered...', self); // eslint-disable-line
 
   // Send Push Notification
   console.log('Sending Push...');
-  await fetch('/notifications', {
+  await fetch(`${API_HOST}/notifications`, {
     credentials: 'same-origin',
     method: 'POST',
     headers: {
