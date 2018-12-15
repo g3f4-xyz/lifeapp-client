@@ -1,5 +1,18 @@
 export const MODULES_IDS = {
+  SETTINGS: 'settings',
   TASK: 'task',
   TASK_LIST: 'taskList',
   TASK_TYPE_LIST: 'taskTypeList',
 };
+
+export const FIELD_FORMATS = {
+  BOOL: 'BOOL',
+  CHOICE: 'CHOICE',
+  MULTIPLE_CHOICE_WITH_PARENT: 'MULTIPLE_CHOICE_WITH_PARENT',
+  NUMBER: 'NUMBER',
+  TEXT: 'TEXT',
+};
+
+export const LOCAL_STORAGE_LAYOUTS_KEY = 'layouts';
+
+export const CUSTOM_OPTION_VALUE = 'CUSTOM';

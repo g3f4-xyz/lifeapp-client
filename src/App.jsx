@@ -4,17 +4,18 @@ import immutabilityHelper from 'immutability-helper'
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import CancelIcon from '@material-ui/icons/Cancel';
-import ErrorBoundary from './containers/ErrorBoundary';
-import ResponsiveGrid from './containers/ResponsiveGrid';
-import { MODULES_IDS } from './constans';
 import environment from './environment';
-import Menu from './components/Menu';
-import Loader from './components/Loader';
-import TaskQuery, { handler as taskHandler } from './modules/Task';
-import TaskListQuery, { handler as taskListHandler } from './modules/TaskList';
-import TaskTypeListQuery, { handler as taskTypeListHandler } from './modules/TaskTypeList';
+import ErrorBoundary from './components/containers/ErrorBoundary';
+import ResponsiveGrid from './components/containers/ResponsiveGrid';
+import Menu from './components/display/Menu';
+import Loader from './components/display/Loader';
+import SetttingsQuery, { handler as settingsHandler } from './components/modules/Settings';
+import TaskQuery, { handler as taskHandler } from './components/modules/Task';
+import TaskListQuery, { handler as taskListHandler } from './components/modules/TaskList';
+import TaskTypeListQuery, { handler as taskTypeListHandler } from './components/modules/TaskTypeList';
+import { MODULES_IDS, LOCAL_STORAGE_LAYOUTS_KEY } from './constans';
+import { saveToLS, getFromLS } from './utils/rglLocalStore';
 
-const originalLayouts = getFromLS('layouts') || {};
 const styles = {
   backButton: {
     zIndex: 9,
@@ -35,34 +36,16 @@ const styles = {
 };
 
 const QUERIES_COMPONENTS = {
+  [MODULES_IDS.SETTINGS]: SetttingsQuery,
   [MODULES_IDS.TASK]: TaskQuery,
   [MODULES_IDS.TASK_LIST]: TaskListQuery,
   [MODULES_IDS.TASK_TYPE_LIST]: TaskTypeListQuery,
 };
-const APP_MODULES_IDS = [MODULES_IDS.TASK_LIST, MODULES_IDS.TASK_TYPE_LIST];
-
-function getFromLS(key) {
-  let ls = {};
-  if (global.localStorage) {
-    try {
-      ls = JSON.parse(global.localStorage.getItem('rgl-8')) || {};
-    } catch (e) {
-      /*Ignore*/
-    }
-  }
-  return ls[key];
-}
-
-function saveToLS(key, value) {
-  if (global.localStorage) {
-    global.localStorage.setItem(
-      'rgl-8',
-      JSON.stringify({
-        [key]: value
-      })
-    );
-  }
-}
+const APP_MODULES_IDS = [
+  MODULES_IDS.SETTINGS,
+  MODULES_IDS.TASK_LIST,
+  MODULES_IDS.TASK_TYPE_LIST,
+];
 
 class App extends Component {
   state = {
@@ -70,12 +53,13 @@ class App extends Component {
     activeModulesHistory: [MODULES_IDS.TASK_LIST],
     appOpenedModuleIds: [MODULES_IDS.TASK_LIST],
     openedTasksModulesProps: [],
-    layouts: originalLayouts,
+    layouts: getFromLS(LOCAL_STORAGE_LAYOUTS_KEY) || {},
     gridView: false,
     gridViewLocked: false,
   };
 
   handlers = {
+    [MODULES_IDS.SETTINGS]: settingsHandler,
     [MODULES_IDS.TASK]: taskHandler,
     [MODULES_IDS.TASK_LIST]: taskListHandler,
     [MODULES_IDS.TASK_TYPE_LIST]: taskTypeListHandler,
@@ -149,13 +133,17 @@ class App extends Component {
     }
   };
 
+  onShowSettings= () => {
+    this.setState({ activeModuleId: MODULES_IDS.SETTINGS });
+  };
+
   onResetGrid= () => {
     this.setState({ layouts: {} });
   };
 
   onLayoutChange = (layout, layouts) => {
     console.log(['App:onLayoutChange'], layout, layouts, layouts === this.state.layouts);
-    saveToLS('layouts', layouts);
+    saveToLS(LOCAL_STORAGE_LAYOUTS_KEY, layouts);
     this.setState({ layouts });
   };
 
@@ -189,6 +177,9 @@ class App extends Component {
             label: 'Reset grid',
             action: this.onResetGrid,
             visible: gridView,
+          }, {
+            label: 'Show settings',
+            action: this.onShowSettings,
           }]}
         />
       </div>
