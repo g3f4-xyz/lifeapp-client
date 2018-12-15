@@ -44,7 +44,6 @@
     "build:local:package": "npm run build:local && tar -zcvf client-package-local-$npm_package_version.tar.gz build/",
     "test": "echo \"Error: no test specified\" && exit 0",
     "dev": "node setup && react-scripts start",
-    "start": "npm run package:unpack:heroku && node server",
     "start": "npm run get:remote:schema && npm run relay && npm run build:heroku && node server",
     "eject": "react-scripts eject",
     "get:local:schema": "fetch-graphql-schema http://localhost:30000/graphql -o schema.json",
