@@ -13,6 +13,11 @@ export const FIELD_FORMATS = {
   TEXT: 'TEXT',
 };
 
+export const STATUSES_MAP = {
+  OK: '201',
+  NOT_REGISTERED: '410',
+};
+
 export const LOCAL_STORAGE_LAYOUTS_KEY = 'layouts';
 
 export const CUSTOM_OPTION_VALUE = 'CUSTOM';

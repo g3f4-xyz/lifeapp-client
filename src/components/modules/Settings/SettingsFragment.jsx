@@ -28,6 +28,7 @@ import TaskTypeIcon from '../../../components/display/TaskTypeIcon';
 import deleteSubscriptionMutation from '../../../mutations/deleteSubscription';
 import deleteSubscriptionsMutation from '../../../mutations/deleteSubscriptions';
 import saveSettingsMutation from '../../../mutations/saveSettings';
+import testSubscriptionMutation from '../../../mutations/testSubscription';
 import SubscriptionsPagination from './SubscriptionsPagination';
 
 const styles = theme =>({
@@ -150,11 +151,26 @@ class SettingsFragment extends React.Component {
   };
 
   onDeleteSubscription = async subscriptionId => {
-    console.log(['onDeleteSubscription'], subscriptionId, this.props.data);
+    console.log(['onDeleteSubscription'], subscriptionId);
     await deleteSubscriptionMutation({
       subscriptionId,
       parentID: this.props.data.notifications.id,
     })
+  };
+
+  onTestSubscription = async subscriptionId => {
+    console.log(['onTestSubscription'], subscriptionId);
+    const {
+      testSubscriptionMutation: {
+        statusCode,
+      }
+    } = await testSubscriptionMutation({
+      subscriptionId,
+    });
+
+    console.log(['onTestSubscription:statusCode'], statusCode);
+
+    return statusCode;
   };
 
   onDeleteSubscriptions = async () => {
@@ -355,6 +371,7 @@ class SettingsFragment extends React.Component {
                 className={classes.list}
                 data={this.props.data.notifications}
                 onDelete={this.onDeleteSubscription}
+                onTest={this.onTestSubscription}
               />
             </ExpansionPanelDetails>
           </ExpansionPanel>
