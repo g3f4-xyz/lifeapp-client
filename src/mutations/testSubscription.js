@@ -8,7 +8,7 @@ const mutation = graphql`
   mutation testSubscriptionMutation(
     $input: testSubscriptionMutationInput!
   ) {
-    testSubscriptionMutation(input: $input) {
+    testSubscription(input: $input) {
       clientMutationId
       statusCode
     }

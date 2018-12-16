@@ -1,5 +1,5 @@
 import React from 'react';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -18,7 +18,7 @@ class Label extends React.Component {
     const { className, classes, children } = this.props;
 
     return (
-      <div className={classnames(className, classes.container)}>{children}</div>
+      <div className={classNames(className, classes.container)}>{children}</div>
     );
   }
 }

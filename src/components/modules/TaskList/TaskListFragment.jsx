@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { createFragmentContainer, graphql } from 'react-relay';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
@@ -80,14 +80,14 @@ class TaskListFragment extends React.PureComponent {
           <div>
             <Tooltip title={`Status: ${status}`}>
               {{
-                TODO: <CheckBoxOutlineBlankIcon className={classnames(classes.grey, classes.icon)} />,
-                IN_PROGRESS: <SlideshowIcon className={classnames(classes.yellow, classes.icon)} />,
-                DONE: <CheckBoxIcon className={classnames(classes.green, classes.icon)} />,
+                TODO: <CheckBoxOutlineBlankIcon className={classNames(classes.grey, classes.icon)} />,
+                IN_PROGRESS: <SlideshowIcon className={classNames(classes.yellow, classes.icon)} />,
+                DONE: <CheckBoxIcon className={classNames(classes.green, classes.icon)} />,
               }[status] || <icon />}
             </Tooltip>
           {priority && (
             <Tooltip title="Important!">
-              <PriorityHighIcon className={classnames(classes.red, classes.icon)} />
+              <PriorityHighIcon className={classNames(classes.red, classes.icon)} />
             </Tooltip>
           )}
           </div>

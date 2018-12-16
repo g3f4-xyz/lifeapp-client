@@ -22,8 +22,14 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogContentText from '@material-ui/core/DialogContentText';
+import DialogTitle from '@material-ui/core/DialogTitle';
 
 import TaskTypeIcon from '../../../components/display/TaskTypeIcon';
+import cleanApplicationMutation from '../../../mutations/cleanApplication';
 import deleteSubscriptionMutation from '../../../mutations/deleteSubscription';
 import deleteSubscriptionsMutation from '../../../mutations/deleteSubscriptions';
 import saveSettingsMutation from '../../../mutations/saveSettings';
@@ -72,7 +78,10 @@ class SettingsFragment extends React.Component {
     data: PropTypes.object,
   };
 
-  state = this.props.data;
+  state = {
+    cleanApplicationDialogOpen: false,
+    ...this.props.data,
+  };
 
   onSave = async () => {
     const { onSaveDone } = this.props;
@@ -120,6 +129,23 @@ class SettingsFragment extends React.Component {
     }));
   };
 
+  handleCleanApplicationDialogClose = () => {
+    this.setState({ cleanApplicationDialogOpen: false });
+  };
+
+  handleCleanApplicationDialogOpen = () => {
+    this.setState({ cleanApplicationDialogOpen: true });
+  };
+
+
+  handleCleanApplication = async () => {
+    const { cleanApplication: { navigationUrl } } = await cleanApplicationMutation({
+      ownerId: this.props.data.ownerId,
+    });
+
+    window.location.href = navigationUrl;
+  };
+
   onDeleteSubscription = async subscriptionId => {
     console.log(['onDeleteSubscription'], subscriptionId);
     await deleteSubscriptionMutation({
@@ -131,14 +157,12 @@ class SettingsFragment extends React.Component {
   onTestSubscription = async subscriptionId => {
     console.log(['onTestSubscription'], subscriptionId);
     const {
-      testSubscriptionMutation: {
+      testSubscription: {
         statusCode,
       }
     } = await testSubscriptionMutation({
       subscriptionId,
     });
-
-    console.log(['onTestSubscription:statusCode'], statusCode);
 
     return statusCode;
   };
@@ -314,10 +338,33 @@ class SettingsFragment extends React.Component {
                 <ListItemText primary="Provider" />
                 <ListItemText primary={provider} />
                 <ListItemSecondaryAction>
-                  <Button color="secondary" className={classes.button}>
+                  <Button color="secondary" className={classes.button} onClick={this.handleCleanApplicationDialogOpen}>
                     <DeleteForever />
                   </Button>
                 </ListItemSecondaryAction>
+                <Dialog
+                  open={this.state.cleanApplicationDialogOpen}
+                  onClose={this.handleCleanApplicationDialogClose}
+                  aria-labelledby="alert-dialog-title"
+                  aria-describedby="alert-dialog-description"
+                >
+                  <DialogTitle id="alert-dialog-title">
+                    {"Clean application?"}
+                  </DialogTitle>
+                  <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                      It will erase all related data on database.
+                    </DialogContentText>
+                  </DialogContent>
+                  <DialogActions>
+                    <Button onClick={this.handleCleanApplicationDialogClose} color="primary">
+                      Disagree
+                    </Button>
+                    <Button onClick={this.handleCleanApplication} color="primary" autoFocus>
+                      Agree
+                    </Button>
+                  </DialogActions>
+                </Dialog>
               </ListItem>
             </List>
           </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import SettingsIcon from '@material-ui/icons/Settings';
 import DateRangeIcon from '@material-ui/icons/DateRange';
@@ -29,12 +29,11 @@ class TaskTypeIcon extends React.Component {
   };
 
   render() {
-    console.log(['TaskTypeIcon:render'], this.props);
     const { classes, className, type } = this.props;
     const Icon = ICONS[type] || SettingsIcon;
 
     return (
-      <Icon className={classnames(classes.icon, className)} />
+      <Icon className={classNames(classes.icon, className)} />
     );
   }
 }
