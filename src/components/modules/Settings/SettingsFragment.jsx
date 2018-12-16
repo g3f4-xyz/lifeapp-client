@@ -344,7 +344,7 @@ class SettingsFragment extends React.Component {
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <List className={classes.list}>
-              {subscriptions.map(({ id, userDeviceType, userAgent }) => (
+              {subscriptions.edges.map(({ node: { id, userDeviceType, userAgent } }) => (
                 <ListItem key={id}>
                   <ListItemText primary={`device: ${userDeviceType}`} />
                   <ListItemText primary={`browser: ${userAgent}`} />
@@ -415,9 +415,13 @@ export default createFragmentContainer(
           routines
         }
         subscriptions {
-          id
-          userAgent
-          userDeviceType
+          edges {
+            node {
+              id
+              userAgent
+              userDeviceType
+            }
+          }
         }
       }
     }
