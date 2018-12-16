@@ -25,8 +25,10 @@ import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import TaskTypeIcon from '../../../components/display/TaskTypeIcon';
+import deleteSubscriptionMutation from '../../../mutations/deleteSubscription';
 import deleteSubscriptionsMutation from '../../../mutations/deleteSubscriptions';
 import saveSettingsMutation from '../../../mutations/saveSettings';
+import SubscriptionsPagination from './SubscriptionsPagination';
 
 const styles = theme =>({
   addButton: {
@@ -147,8 +149,16 @@ class SettingsFragment extends React.Component {
     }));
   };
 
-  onDeleteSubscription = async () => {
-    console.log(['onDeleteSubscription']);
+  onDeleteSubscription = async subscriptionId => {
+    console.log(['onDeleteSubscription'], subscriptionId, this.props.data);
+    await deleteSubscriptionMutation({
+      subscriptionId,
+      parentID: this.props.data.notifications.id,
+    })
+  };
+
+  onDeleteSubscriptions = async () => {
+    console.log(['onDeleteSubscriptions']);
     await deleteSubscriptionsMutation({
       ownerId: this.state.ownerId,
     })
@@ -159,9 +169,7 @@ class SettingsFragment extends React.Component {
     const { classes } = this.props;
     const { authentication, notifications } = this.state;
     const { provider } = authentication;
-    const { daily, show, single, vibrate, subscriptions } = notifications;
-
-    console.log(['subscriptions'], subscriptions)
+    const { daily, show, single, vibrate } = notifications;
 
     return (
       <div className={classes.container}>
@@ -215,7 +223,7 @@ class SettingsFragment extends React.Component {
                     <Button
                       color="secondary"
                       className={classes.button}
-                      onClick={this.onDeleteSubscription}
+                      onClick={this.onDeleteSubscriptions}
                     >
                       <DeleteForever />
                     </Button>
@@ -343,17 +351,11 @@ class SettingsFragment extends React.Component {
               <Typography className={classes.heading}>Subscriptions</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <List className={classes.list}>
-              {subscriptions.edges.map(({ node: { id, userDeviceType, userAgent } }) => (
-                <ListItem key={id}>
-                  <ListItemText primary={`device: ${userDeviceType}`} />
-                  <ListItemText primary={`browser: ${userAgent}`} />
-                  <ListItemSecondaryAction>
-                    <Button onClick={() => console.log(['Delete subscription'])}>Delete</Button>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))}
-              </List>
+              <SubscriptionsPagination
+                className={classes.list}
+                data={this.props.data.notifications}
+                onDelete={this.onDeleteSubscription}
+              />
             </ExpansionPanelDetails>
           </ExpansionPanel>
           <div className={classes.testNotificationButton}>
@@ -414,15 +416,7 @@ export default createFragmentContainer(
           todos
           routines
         }
-        subscriptions {
-          edges {
-            node {
-              id
-              userAgent
-              userDeviceType
-            }
-          }
-        }
+        ...SubscriptionsPagination
       }
     }
   `,
