@@ -15,7 +15,6 @@ import Button from '@material-ui/core/Button';
 import Switch from '@material-ui/core/Switch';
 import DeleteForever from '@material-ui/icons/DeleteForever';
 import Vibration from '@material-ui/icons/Vibration';
-import Subscriptions from '@material-ui/icons/Subscriptions';
 import Slideshow from '@material-ui/icons/Slideshow';
 import IconButton from '@material-ui/core/IconButton';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -77,32 +76,30 @@ class SettingsFragment extends React.Component {
 
   onSave = async () => {
     const { onSaveDone } = this.props;
-    const settings = this.state;
-    console.log(['Settings:onSave'], this.state);
+    const { authentication, notifications, id } = this.state;
+    console.log(['Settings:onSave'], { authentication, notifications });
 
     try {
       await saveSettingsMutation({
         settings: {
           authentication: {
-            provider: settings.authentication.provider,
+            provider: authentication.provider,
           },
           notifications: {
-            show: settings.notifications.show,
-            daily: {
-              events: settings.notifications.daily.events,
-              meetings: settings.notifications.daily.meetings,
-              routines: settings.notifications.daily.routines,
-              todos: settings.notifications.daily.todos,
+            general: {
+              show: notifications.general.show,
+              vibrate: notifications.general.vibrate,
             },
-            single: {
-              events: settings.notifications.single.events,
-              meetings: settings.notifications.single.meetings,
-              routines: settings.notifications.single.routines,
-              todos: settings.notifications.single.todos,
+            types: {
+              events: notifications.types.events,
+              meetings: notifications.types.meetings,
+              routines: notifications.types.routines,
+              todos: notifications.types.todos,
+              custom: notifications.types.custom,
             },
           },
         },
-        hashId: settings.id,
+        hashId: id,
       });
       onSaveDone();
     }
@@ -112,15 +109,6 @@ class SettingsFragment extends React.Component {
     }
   };
 
-  updateAuthentication = (key, $set) => {
-    console.log(['updateAuthentication'], key, $set);
-    this.setState(update(this.state, {
-      authentication: {
-        [key]: { $set },
-      }
-    }));
-  };
-
   updateNotifications = (type, key, $set) => {
     console.log(['updateNotifications'], type, key, $set);
     this.setState(update(this.state, {
@@ -128,24 +116,6 @@ class SettingsFragment extends React.Component {
         [type]: {
           [key]: { $set },
         },
-      }
-    }));
-  };
-
-  updateNotificationsShow = ($set) => {
-    console.log(['updateNotificationsShow'], $set);
-    this.setState(update(this.state, {
-      notifications: {
-        show: { $set },
-      }
-    }));
-  };
-
-  updateNotificationsVibrate = ($set) => {
-    console.log(['updateNotificationsVibrate'], $set);
-    this.setState(update(this.state, {
-      notifications: {
-        vibrate: { $set },
       }
     }));
   };
@@ -185,7 +155,19 @@ class SettingsFragment extends React.Component {
     const { classes } = this.props;
     const { authentication, notifications } = this.state;
     const { provider } = authentication;
-    const { daily, show, single, vibrate } = notifications;
+    const {
+      general: {
+        show,
+        vibrate,
+      },
+      types: {
+        events,
+        meetings,
+        todos,
+        routines,
+        custom,
+      },
+    } = notifications;
 
     return (
       <div className={classes.container}>
@@ -213,7 +195,7 @@ class SettingsFragment extends React.Component {
                   <ListItemText primary="Show" />
                   <ListItemSecondaryAction>
                     <Switch
-                      onChange={(_, checked) => this.updateNotificationsShow(checked)}
+                      onChange={(_, checked) => this.updateNotifications('general', 'show', checked)}
                       checked={show}
                     />
                   </ListItemSecondaryAction>
@@ -225,32 +207,17 @@ class SettingsFragment extends React.Component {
                   <ListItemText primary="Vibrate" />
                   <ListItemSecondaryAction>
                     <Switch
-                      onChange={(_, checked) => this.updateNotificationsVibrate(checked)}
+                      onChange={(_, checked) => this.updateNotifications('general', 'vibrate', checked)}
                       checked={vibrate}
                     />
                   </ListItemSecondaryAction>
                 </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <Subscriptions />
-                  </ListItemIcon>
-                  <ListItemText primary="Subscription" />
-                  <ListItemSecondaryAction>
-                    <Button
-                      color="secondary"
-                      className={classes.button}
-                      onClick={this.onDeleteSubscriptions}
-                    >
-                      <DeleteForever />
-                    </Button>
-                  </ListItemSecondaryAction>
-                </ListItem>
               </List>
             </ExpansionPanelDetails>
           </ExpansionPanel>
           <ExpansionPanel className={classes.expansionPanel}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography className={classes.heading}>Daily</Typography>
+              <Typography className={classes.heading}>Types</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <List className={classes.list}>
@@ -261,8 +228,8 @@ class SettingsFragment extends React.Component {
                   <ListItemText primary="Events" />
                   <ListItemSecondaryAction>
                     <Switch
-                      onChange={(_, checked) => this.updateNotifications('daily', 'events', checked)}
-                      checked={daily.events}
+                      onChange={(_, checked) => this.updateNotifications('types', 'events', checked)}
+                      checked={events}
                     />
                   </ListItemSecondaryAction>
                 </ListItem>
@@ -273,8 +240,8 @@ class SettingsFragment extends React.Component {
                   <ListItemText primary="Meetings" />
                   <ListItemSecondaryAction>
                     <Switch
-                      onChange={(_, checked) => this.updateNotifications('daily', 'meetings', checked)}
-                      checked={daily.meetings}
+                      onChange={(_, checked) => this.updateNotifications('types', 'meetings', checked)}
+                      checked={meetings}
                     />
                   </ListItemSecondaryAction>
                 </ListItem>
@@ -285,8 +252,8 @@ class SettingsFragment extends React.Component {
                   <ListItemText primary="Routines" />
                   <ListItemSecondaryAction>
                     <Switch
-                      onChange={(_, checked) => this.updateNotifications('daily', 'routines', checked)}
-                      checked={daily.routines}
+                      onChange={(_, checked) => this.updateNotifications('types', 'routines', checked)}
+                      checked={routines}
                     />
                   </ListItemSecondaryAction>
                 </ListItem>
@@ -297,65 +264,20 @@ class SettingsFragment extends React.Component {
                   <ListItemText primary="Todos" />
                   <ListItemSecondaryAction>
                     <Switch
-                      onChange={(_, checked) => this.updateNotifications('daily', 'todos', checked)}
-                      checked={daily.todos}
-                    />
-                  </ListItemSecondaryAction>
-                </ListItem>
-              </List>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
-          <ExpansionPanel className={classes.expansionPanel}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography className={classes.heading}>Single</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
-              <List className={classes.list}>
-                <ListItem>
-                  <ListItemIcon>
-                    <TaskTypeIcon type="EVENT" />
-                  </ListItemIcon>
-                  <ListItemText primary="Events" />
-                  <ListItemSecondaryAction>
-                    <Switch
-                      onChange={(_, checked) => this.updateNotifications('single', 'events', checked)}
-                      checked={single.events}
+                      onChange={(_, checked) => this.updateNotifications('types', 'todos', checked)}
+                      checked={todos}
                     />
                   </ListItemSecondaryAction>
                 </ListItem>
                 <ListItem>
                   <ListItemIcon>
-                    <TaskTypeIcon type="MEETING" />
+                    <TaskTypeIcon type="CUSTOM" />
                   </ListItemIcon>
-                  <ListItemText primary="Meetings" />
+                  <ListItemText primary="Custom" />
                   <ListItemSecondaryAction>
                     <Switch
-                      onChange={(_, checked) => this.updateNotifications('single', 'meetings', checked)}
-                      checked={single.meetings}
-                    />
-                  </ListItemSecondaryAction>
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <TaskTypeIcon type="ROUTINE" />
-                  </ListItemIcon>
-                  <ListItemText primary="Routines" />
-                  <ListItemSecondaryAction>
-                    <Switch
-                      onChange={(_, checked) => this.updateNotifications('single', 'routines', checked)}
-                      checked={single.routines}
-                    />
-                  </ListItemSecondaryAction>
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <TaskTypeIcon type="TODO" />
-                  </ListItemIcon>
-                  <ListItemText primary="Todos" />
-                  <ListItemSecondaryAction>
-                    <Switch
-                      onChange={(_, checked) => this.updateNotifications('single', 'todos', checked)}
-                      checked={single.todos}
+                      onChange={(_, checked) => this.updateNotifications('types', 'custom', checked)}
+                      checked={custom}
                     />
                   </ListItemSecondaryAction>
                 </ListItem>
@@ -418,15 +340,11 @@ export default createFragmentContainer(
       }
       notifications {
         id
-        daily {
-          id
-          events
-          meetings
-          todos
-          routines
+        general {
+          show
+          vibrate
         }
-        show
-        single {
+        types {
           id
           events
           meetings

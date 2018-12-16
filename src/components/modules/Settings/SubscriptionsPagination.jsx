@@ -16,6 +16,8 @@ class SubscriptionsPagination extends React.Component {
     const { className, data, onDelete, onTest } = this.props;
     const { subscriptions: { edges } }  = data || { subscriptions: { edges: [] } };
 
+    console.log(['SubscriptionsPagination:render'], this.props);
+
     return (
       <List className={className}>
       {edges.map(({ node }, key) => (

@@ -9,29 +9,8 @@ const mutation = graphql`
     $input: saveSettingsMutationInput!
   ) {
     saveSettings(input: $input) {
-      clientMutationId 
-      settings {
-        id
-        ownerId
-        authentication {
-          provider
-        }
-        notifications {
-          daily {
-            events
-            meetings
-            todos
-            routines
-          }
-          show
-          single {
-            events
-            meetings
-            todos
-            routines
-          }
-        }
-      }
+      clientMutationId
+      settingsId
     }
   }
 `;
