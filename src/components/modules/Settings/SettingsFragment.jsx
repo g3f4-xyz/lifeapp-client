@@ -62,10 +62,6 @@ const styles = theme =>({
     textAlign: 'center',
     paddingTop: theme.spacing.unit,
   },
-  testNotificationButton: {
-    display: 'flex',
-    justifyContent: 'flex-end',
-  },
   section: {
     margin: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit,
@@ -104,7 +100,6 @@ class SettingsFragment extends React.Component {
               meetings: notifications.types.meetings,
               routines: notifications.types.routines,
               todos: notifications.types.todos,
-              custom: notifications.types.custom,
             },
           },
         },
@@ -189,7 +184,6 @@ class SettingsFragment extends React.Component {
         meetings,
         todos,
         routines,
-        custom,
       },
     } = notifications;
 
@@ -293,18 +287,6 @@ class SettingsFragment extends React.Component {
                     />
                   </ListItemSecondaryAction>
                 </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <TaskTypeIcon type="CUSTOM" />
-                  </ListItemIcon>
-                  <ListItemText primary="Custom" />
-                  <ListItemSecondaryAction>
-                    <Switch
-                      onChange={(_, checked) => this.updateNotifications('types', 'custom', checked)}
-                      checked={custom}
-                    />
-                  </ListItemSecondaryAction>
-                </ListItem>
               </List>
             </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -321,9 +303,6 @@ class SettingsFragment extends React.Component {
               />
             </ExpansionPanelDetails>
           </ExpansionPanel>
-          <div className={classes.testNotificationButton}>
-            <Button onClick={() => console.log(['test notifications'])}>Test</Button>
-          </div>
         </Paper>
         <Paper className={classes.section}>
           <Typography className={classes.display1} variant="display1" gutterBottom>
