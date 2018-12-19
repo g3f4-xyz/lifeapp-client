@@ -51,6 +51,10 @@ const styles = theme =>({
   },
   button: {
   },
+  accountContent: {
+    display: 'flex',
+    justifyContent: 'center',
+  },
   expansionPanel: {
     margin: theme.spacing.unit,
     padding: theme.spacing.unit,
@@ -87,9 +91,6 @@ class SettingsFragment extends React.Component {
     try {
       await saveSettingsMutation({
         settings: {
-          authentication: {
-            provider: authentication.provider,
-          },
           notifications: {
             general: {
               show: notifications.general.show,
@@ -172,8 +173,7 @@ class SettingsFragment extends React.Component {
   render() {
     console.log(['SettingsFragment:render'], this.props, this.state);
     const { classes } = this.props;
-    const { authentication, notifications } = this.state;
-    const { provider } = authentication;
+    const { notifications } = this.state;
     const {
       general: {
         show,
@@ -306,46 +306,36 @@ class SettingsFragment extends React.Component {
         </Paper>
         <Paper className={classes.section}>
           <Typography className={classes.display1} variant="display1" gutterBottom>
-            Authentication
+            Account
           </Typography>
-          <div className={classes.list}>
-            <List subheader={<ListSubheader>General</ListSubheader>}>
-              <ListItem>
-                <ListItemIcon>
-                  <Slideshow />
-                </ListItemIcon>
-                <ListItemText primary="Provider" />
-                <ListItemText primary={provider} />
-                <ListItemSecondaryAction>
-                  <Button color="secondary" className={classes.button} onClick={this.handleCleanApplicationDialogOpen}>
-                    <DeleteForever />
-                  </Button>
-                </ListItemSecondaryAction>
-                <Dialog
-                  open={this.state.cleanApplicationDialogOpen}
-                  onClose={this.handleCleanApplicationDialogClose}
-                  aria-labelledby="alert-dialog-title"
-                  aria-describedby="alert-dialog-description"
-                >
-                  <DialogTitle id="alert-dialog-title">
-                    {"Clean application?"}
-                  </DialogTitle>
-                  <DialogContent>
-                    <DialogContentText id="alert-dialog-description">
-                      It will erase all related data on database.
-                    </DialogContentText>
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={this.handleCleanApplicationDialogClose} color="primary">
-                      Disagree
-                    </Button>
-                    <Button onClick={this.handleCleanApplication} color="primary" autoFocus>
-                      Agree
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-              </ListItem>
-            </List>
+          <div className={classes.accountContent}>
+            <Button color="secondary" className={classes.button} onClick={this.handleCleanApplicationDialogOpen}>
+              Delete account
+              <DeleteForever />
+            </Button>
+            <Dialog
+              open={this.state.cleanApplicationDialogOpen}
+              onClose={this.handleCleanApplicationDialogClose}
+              aria-labelledby="alert-dialog-title"
+              aria-describedby="alert-dialog-description"
+            >
+              <DialogTitle id="alert-dialog-title">
+                {"Clean application?"}
+              </DialogTitle>
+              <DialogContent>
+                <DialogContentText id="alert-dialog-description">
+                  It will erase all related data on database.
+                </DialogContentText>
+              </DialogContent>
+              <DialogActions>
+                <Button onClick={this.handleCleanApplicationDialogClose} color="primary">
+                  Disagree
+                </Button>
+                <Button onClick={this.handleCleanApplication} color="primary" autoFocus>
+                  Agree
+                </Button>
+              </DialogActions>
+            </Dialog>
           </div>
 
         </Paper>
@@ -360,10 +350,6 @@ export default createFragmentContainer(
     fragment SettingsFragment on SettingsType {
       id
       ownerId
-      authentication {
-        id
-        provider
-      }
       notifications {
         id
         general {
