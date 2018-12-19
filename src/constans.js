@@ -22,4 +22,4 @@ export const LOCAL_STORAGE_LAYOUTS_KEY = 'layouts';
 
 export const CUSTOM_OPTION_VALUE = 'CUSTOM';
 
-export const API_HOST = process.env.HOST || 'http://localhost:30000';
+export const API_HOST = process.env.REACT_APP_HOST || '';
