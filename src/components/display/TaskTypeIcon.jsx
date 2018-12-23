@@ -8,11 +8,13 @@ import GroupIcon from '@material-ui/icons/Group';
 import UpdateIcon from '@material-ui/icons/Update';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
+import { TASK_TYPES } from '../../constans';
+
 const ICONS = {
-  EVENT: DateRangeIcon,
-  MEETING: GroupIcon,
-  ROUTINE: UpdateIcon,
-  TODO: LocalOfferIcon,
+  [TASK_TYPES.EVENT]: DateRangeIcon,
+  [TASK_TYPES.MEETING]: GroupIcon,
+  [TASK_TYPES.ROUTINE]: UpdateIcon,
+  [TASK_TYPES.TODO]: LocalOfferIcon,
 };
 
 const styles = theme => ({

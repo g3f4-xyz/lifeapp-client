@@ -24,6 +24,13 @@ export const STATUSES = {
   NOT_REGISTERED: '410',
 };
 
+export const TASK_TYPES = {
+  EVENT: 'EVENT',
+  MEETING: 'MEETING',
+  ROUTINE: 'ROUTINE',
+  TODO: 'TODO',
+};
+
 export const LOCAL_STORAGE_LAYOUTS_KEY = 'layouts';
 
 export const CUSTOM_OPTION_VALUE = 'CUSTOM';

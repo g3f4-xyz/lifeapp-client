@@ -120,7 +120,7 @@ class App extends Component {
 
     if (isApplicationModule) {
       this.setState({
-        activeModuleId: activeModulesHistory[activeModulesHistory.length - 2],
+        activeModuleId: activeModulesHistory[activeModulesHistory.length - 1],
         activeModulesHistory: activeModulesHistory.filter(moduleId => moduleId !== activeModuleId),
         appOpenedModuleIds: appOpenedModuleIds.filter(id => id !== activeModuleId),
       });
