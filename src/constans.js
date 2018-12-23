@@ -13,7 +13,13 @@ export const FIELD_FORMATS = {
   TEXT: 'TEXT',
 };
 
-export const STATUSES_MAP = {
+export const DEVICES = {
+  DESKTOP: 'desktop',
+  MOBILE: 'mobile',
+  OTHER: '',
+};
+
+export const STATUSES = {
   OK: '201',
   NOT_REGISTERED: '410',
 };

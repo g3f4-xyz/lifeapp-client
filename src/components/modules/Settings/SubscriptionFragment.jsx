@@ -5,14 +5,25 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import Button from '@material-ui/core/Button';
+import IconButton from '@material-ui/core/IconButton';
+import DeleteIcon from '@material-ui/icons/Delete';
+import DevicesOtherIcon from '@material-ui/icons/DevicesOther';
+import ComputerIcon from '@material-ui/icons/Computer';
+import SmartphoneIcon from '@material-ui/icons/Smartphone';
 import HelpOutlineIcon from '@material-ui/icons/HelpOutline';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import green from '@material-ui/core/colors/green';
 import red from '@material-ui/core/colors/red';
 
-import { STATUSES_MAP } from '../../../constans';
+import { DEVICES, STATUSES } from '../../../constans';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+
+const DEVICES_ICONS = {
+  [DEVICES.DESKTOP]: ComputerIcon,
+  [DEVICES.MOBILE]: SmartphoneIcon,
+  [DEVICES.OTHER]: DevicesOtherIcon,
+};
 
 const styles = {
   green: {
@@ -20,6 +31,13 @@ const styles = {
   },
   red: {
     color: red['500'],
+  },
+  listItem: {
+    paddingLeft: 0,
+    paddingRight: 0,
+  },
+  listItemIcon: {
+    marginRight: 0,
   },
 };
 
@@ -46,28 +64,31 @@ class SubscriptionFragment extends React.Component {
   };
 
   render() {
-    console.log(['SubscriptionFragment:render'], this.props, this.state);
     const { classes, data: { id, userDeviceType, userAgent } } = this.props;
     const { statusCode } = this.state;
+    const UserDeviceTypeIcon = DEVICES_ICONS[userDeviceType] || DEVICES_ICONS[DEVICES.OTHER];
 
     return (
-      <ListItem key={id}>
-        <ListItemText primary={`device: ${userDeviceType}`} />
-        <ListItemText primary={`browser: ${userAgent}`} />
+      <ListItem key={id} className={classes.listItem}>
+        <ListItemIcon className={classes.listItemIcon}>
+          <UserDeviceTypeIcon />
+        </ListItemIcon>
+        <ListItemText primary={userAgent} />
         <ListItemSecondaryAction>
-          <Button onClick={this.handleDelete}>Delete</Button>
-          <Button onClick={this.handleTest}>
-            Test
+          <IconButton onClick={this.handleDelete} aria-label="Delete">
+            <DeleteIcon />
+          </IconButton>
+          <IconButton onClick={this.handleTest} aria-label="Test">
           {!statusCode && (
             <HelpOutlineIcon />
           )}
-          {statusCode === STATUSES_MAP.OK && (
+          {statusCode === STATUSES.OK && (
             <CheckCircleIcon className={classes.green} />
           )}
-          {statusCode === STATUSES_MAP.NOT_REGISTERED && (
+          {statusCode === STATUSES.NOT_REGISTERED && (
             <HighlightOffIcon className={classes.red} />
           )}
-          </Button>
+          </IconButton>
         </ListItemSecondaryAction>
       </ListItem>
     );

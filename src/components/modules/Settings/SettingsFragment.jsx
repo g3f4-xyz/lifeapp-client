@@ -10,7 +10,6 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
 import Button from '@material-ui/core/Button';
 import Switch from '@material-ui/core/Switch';
 import DeleteForever from '@material-ui/icons/DeleteForever';
@@ -70,6 +69,9 @@ const styles = theme =>({
     margin: theme.spacing.unit * 2,
     paddingBottom: theme.spacing.unit,
   },
+  subscriptionsPaginationExpansionPanel: {
+    paddingRight: theme.spacing.unit,
+  },
 });
 
 class SettingsFragment extends React.Component {
@@ -85,8 +87,7 @@ class SettingsFragment extends React.Component {
 
   onSave = async () => {
     const { onSaveDone } = this.props;
-    const { authentication, notifications, id } = this.state;
-    console.log(['Settings:onSave'], { authentication, notifications });
+    const { notifications, id } = this.state;
 
     try {
       await saveSettingsMutation({
@@ -115,7 +116,6 @@ class SettingsFragment extends React.Component {
   };
 
   updateNotifications = (type, key, $set) => {
-    console.log(['updateNotifications'], type, key, $set);
     this.setState(update(this.state, {
       notifications: {
         [type]: {
@@ -143,7 +143,6 @@ class SettingsFragment extends React.Component {
   };
 
   onDeleteSubscription = async subscriptionId => {
-    console.log(['onDeleteSubscription'], subscriptionId);
     await deleteSubscriptionMutation({
       subscriptionId,
       parentID: this.props.data.notifications.id,
@@ -151,7 +150,6 @@ class SettingsFragment extends React.Component {
   };
 
   onTestSubscription = async subscriptionId => {
-    console.log(['onTestSubscription'], subscriptionId);
     const {
       testSubscription: {
         statusCode,
@@ -164,14 +162,12 @@ class SettingsFragment extends React.Component {
   };
 
   onDeleteSubscriptions = async () => {
-    console.log(['onDeleteSubscriptions']);
     await deleteSubscriptionsMutation({
       ownerId: this.state.ownerId,
     })
   };
 
   render() {
-    console.log(['SettingsFragment:render'], this.props, this.state);
     const { classes } = this.props;
     const { notifications } = this.state;
     const {
@@ -294,7 +290,7 @@ class SettingsFragment extends React.Component {
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography className={classes.heading}>Subscriptions</Typography>
             </ExpansionPanelSummary>
-            <ExpansionPanelDetails>
+            <ExpansionPanelDetails className={classes.subscriptionsPaginationExpansionPanel}>
               <SubscriptionsPagination
                 className={classes.list}
                 data={this.props.data.notifications}
