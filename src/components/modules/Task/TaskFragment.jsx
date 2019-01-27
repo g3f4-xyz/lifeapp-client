@@ -133,7 +133,7 @@ export default createFragmentContainer(
               }
               parentValue
             }
-            parentId
+            parentID
           }
           ... on TextMetaType {
             required
