@@ -12,7 +12,7 @@ export default (data, update, { onSave }) => {
         defaultValue,
         options,
         optionsSet,
-        parentId,
+        parentID,
       },
       value: {
         bool,
@@ -76,7 +76,7 @@ export default (data, update, { onSave }) => {
       }
     }
     else if (format === FIELD_FORMATS.MULTIPLE_CHOICE_WITH_PARENT) {
-      const { value: { id: parentValue }, label: parentLabel } = getField(parentId);
+      const { value: { id: parentValue }, label: parentLabel } = getField(parentID);
 
       return {
         ids,

@@ -9,10 +9,11 @@ import ErrorBoundary from './components/containers/ErrorBoundary';
 import ResponsiveGrid from './components/containers/ResponsiveGrid';
 import Menu from './components/display/Menu';
 import Loader from './components/display/Loader';
+import SetttingsQuery, { handler as settingsHandler } from './components/modules/Settings';
 import TaskQuery, { handler as taskHandler } from './components/modules/Task';
 import TaskListQuery, { handler as taskListHandler } from './components/modules/TaskList';
 import TaskTypeListQuery, { handler as taskTypeListHandler } from './components/modules/TaskTypeList';
-import { MODULES_IDS } from './constans';
+import { MODULES_IDS, LOCAL_STORAGE_LAYOUTS_KEY } from './constans';
 import { saveToLS, getFromLS } from './utils/rglLocalStore';
 
 const styles = {
@@ -35,11 +36,16 @@ const styles = {
 };
 
 const QUERIES_COMPONENTS = {
+  [MODULES_IDS.SETTINGS]: SetttingsQuery,
   [MODULES_IDS.TASK]: TaskQuery,
   [MODULES_IDS.TASK_LIST]: TaskListQuery,
   [MODULES_IDS.TASK_TYPE_LIST]: TaskTypeListQuery,
 };
-const APP_MODULES_IDS = [MODULES_IDS.TASK_LIST, MODULES_IDS.TASK_TYPE_LIST];
+const APP_MODULES_IDS = [
+  MODULES_IDS.SETTINGS,
+  MODULES_IDS.TASK_LIST,
+  MODULES_IDS.TASK_TYPE_LIST,
+];
 
 class App extends Component {
   state = {
@@ -47,12 +53,13 @@ class App extends Component {
     activeModulesHistory: [MODULES_IDS.TASK_LIST],
     appOpenedModuleIds: [MODULES_IDS.TASK_LIST],
     openedTasksModulesProps: [],
-    layouts: getFromLS('layouts') || {},
+    layouts: getFromLS(LOCAL_STORAGE_LAYOUTS_KEY) || {},
     gridView: false,
     gridViewLocked: false,
   };
 
   handlers = {
+    [MODULES_IDS.SETTINGS]: settingsHandler,
     [MODULES_IDS.TASK]: taskHandler,
     [MODULES_IDS.TASK_LIST]: taskListHandler,
     [MODULES_IDS.TASK_TYPE_LIST]: taskTypeListHandler,
@@ -113,7 +120,7 @@ class App extends Component {
 
     if (isApplicationModule) {
       this.setState({
-        activeModuleId: activeModulesHistory[activeModulesHistory.length - 2],
+        activeModuleId: activeModulesHistory[activeModulesHistory.length - 1],
         activeModulesHistory: activeModulesHistory.filter(moduleId => moduleId !== activeModuleId),
         appOpenedModuleIds: appOpenedModuleIds.filter(id => id !== activeModuleId),
       });
@@ -126,13 +133,17 @@ class App extends Component {
     }
   };
 
+  onShowSettings= () => {
+    this.setState({ activeModuleId: MODULES_IDS.SETTINGS });
+  };
+
   onResetGrid= () => {
     this.setState({ layouts: {} });
   };
 
   onLayoutChange = (layout, layouts) => {
     console.log(['App:onLayoutChange'], layout, layouts, layouts === this.state.layouts);
-    saveToLS('layouts', layouts);
+    saveToLS(LOCAL_STORAGE_LAYOUTS_KEY, layouts);
     this.setState({ layouts });
   };
 
@@ -166,6 +177,9 @@ class App extends Component {
             label: 'Reset grid',
             action: this.onResetGrid,
             visible: gridView,
+          }, {
+            label: 'Show settings',
+            action: this.onShowSettings,
           }]}
         />
       </div>

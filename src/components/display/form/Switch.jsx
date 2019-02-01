@@ -18,7 +18,7 @@ class Switch extends React.Component {
   };
 
   render() {
-    const { classes, id, fieldId, label, checked, onChange } = this.props;
+    const { id, fieldId, label, checked, onChange } = this.props;
 
     return (
       <FormControlLabel

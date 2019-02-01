@@ -45,7 +45,7 @@ const mutation = graphql`
                       }
                       parentValue
                   }
-                  parentId
+                  parentID
               }
               ... on NumberMetaType {
                   required

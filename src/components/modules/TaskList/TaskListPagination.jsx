@@ -59,7 +59,7 @@ class TaskListPagination extends React.Component {
 
   onDelete = id => {
     console.log(['TaskListPagination:onDelete'], id);
-    onDeleteMutation({ id, parentId: this.props.data.id });
+    onDeleteMutation({ id, parentID: this.props.data.id });
   };
 
   render() {

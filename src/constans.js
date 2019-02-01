@@ -1,4 +1,5 @@
 export const MODULES_IDS = {
+  SETTINGS: 'settings',
   TASK: 'task',
   TASK_LIST: 'taskList',
   TASK_TYPE_LIST: 'taskTypeList',
@@ -11,4 +12,27 @@ export const FIELD_FORMATS = {
   NUMBER: 'NUMBER',
   TEXT: 'TEXT',
 };
+
+export const DEVICES = {
+  DESKTOP: 'desktop',
+  MOBILE: 'mobile',
+  OTHER: '',
+};
+
+export const STATUSES = {
+  OK: '201',
+  NOT_REGISTERED: '410',
+};
+
+export const TASK_TYPES = {
+  EVENT: 'EVENT',
+  MEETING: 'MEETING',
+  ROUTINE: 'ROUTINE',
+  TODO: 'TODO',
+};
+
+export const LOCAL_STORAGE_LAYOUTS_KEY = 'layouts';
+
 export const CUSTOM_OPTION_VALUE = 'CUSTOM';
+
+export const API_HOST = process.env.REACT_APP_HOST || '';

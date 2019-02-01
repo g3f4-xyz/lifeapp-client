@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classnames from 'classnames';
+import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import SettingsIcon from '@material-ui/icons/Settings';
 import DateRangeIcon from '@material-ui/icons/DateRange';
@@ -8,11 +8,13 @@ import GroupIcon from '@material-ui/icons/Group';
 import UpdateIcon from '@material-ui/icons/Update';
 import LocalOfferIcon from '@material-ui/icons/LocalOffer';
 
+import { TASK_TYPES } from '../../constans';
+
 const ICONS = {
-  EVENT: DateRangeIcon,
-  MEETING: GroupIcon,
-  ROUTINE: UpdateIcon,
-  TODO: LocalOfferIcon,
+  [TASK_TYPES.EVENT]: DateRangeIcon,
+  [TASK_TYPES.MEETING]: GroupIcon,
+  [TASK_TYPES.ROUTINE]: UpdateIcon,
+  [TASK_TYPES.TODO]: LocalOfferIcon,
 };
 
 const styles = theme => ({
@@ -29,12 +31,11 @@ class TaskTypeIcon extends React.Component {
   };
 
   render() {
-    console.log(['TaskTypeIcon:render'], this.props);
     const { classes, className, type } = this.props;
     const Icon = ICONS[type] || SettingsIcon;
 
     return (
-      <Icon className={classnames(classes.icon, className)} />
+      <Icon className={classNames(classes.icon, className)} />
     );
   }
 }

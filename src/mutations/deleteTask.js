@@ -16,13 +16,13 @@ const mutation = graphql`
   }
 `;
 
-export default ({ id, parentId }) => new Promise((resolve, reject) => {
+export default ({ id, parentID }) => new Promise((resolve, reject) => {
   const variables = { input: { id } };
   console.log(['mutation:deleteTask:id'], id);
 
   const configs = [{
     type: 'RANGE_DELETE',
-    parentID: parentId,
+    parentID: parentID,
     connectionKeys: [{
       key: 'TaskList_list',
     }],

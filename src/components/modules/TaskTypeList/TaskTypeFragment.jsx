@@ -4,7 +4,7 @@ import { createFragmentContainer, graphql } from 'react-relay';
 import { withStyles } from '@material-ui/core/styles';
 import IconButton from '@material-ui/core/IconButton';
 import AddCircle from '@material-ui/icons/AddCircle';
-import InfoOutline from '@material-ui/icons/InfoOutline';
+import InfoOutlined from '@material-ui/icons/InfoOutlined';
 import TaskTypeIcon from '../../display/TaskTypeIcon';
 
 const styles = {
@@ -91,7 +91,7 @@ class TaskTypeFragment extends React.Component {
             className={classes.infoButton}
             onClick={this.onInfo}
           >
-            <InfoOutline className={classes.fontSize72} />
+            <InfoOutlined className={classes.fontSize72} />
           </IconButton>
           <IconButton
             key="TaskTypeList:List:IconButton:Add"
