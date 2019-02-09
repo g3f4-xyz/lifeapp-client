@@ -14,7 +14,7 @@ interface Props extends MultipleSelectProps {
 }
 
 class MultipleChoiceWithParent extends React.Component<Props> {
-  render() {
+  render(): React.ReactNode {
     const {
       classes,
       defaultValue,

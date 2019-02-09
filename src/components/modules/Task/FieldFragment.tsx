@@ -96,68 +96,64 @@ class TaskFragment extends React.Component<Props, TaskFragmentResponse> {
 export default createFragmentContainer<Props>(
   TaskFragment,
   graphql`
-    fragment TaskFragment on TaskType {
-      id
-      taskType
-      fields {
-        fieldId
-        helperText
-        label
-        order
-        type
-        format
-        meta {
-          ... on BoolMetaType {
-            required
+    fragment FieldFragment on FieldType {
+      fieldId
+      helperText
+      label
+      order
+      type
+      format
+      meta {
+        ... on BoolMetaType {
+          required
+        }
+        ... on ChoiceMetaType {
+          defaultValue
+          options {
+            text
+            value
           }
-          ... on ChoiceMetaType {
-            defaultValue
+        }
+        ... on NumberMetaType {
+          max
+          min
+          required
+        }
+        ... on MultipleChoiceWithParentType {
+          defaultValue
+          parentID
+          optionsSet {
+            customValueOptionMask
+            parentValue
             options {
               text
               value
             }
           }
-          ... on NumberMetaType {
-            max
-            min
-            required
-          }
-          ... on MultipleChoiceWithParentType {
-            defaultValue
-            parentID
-            optionsSet {
-              customValueOptionMask
-              parentValue
-              options {
-                text
-                value
-              }
-            }
-          }
-          ... on TextMetaType {
-            maxLen
-            minLen
-            required
-          }
         }
-        value {
-          ... on BoolValueType {
-            bool
-          }
-          ... on ChoiceValueType {
-            id
-          }
-          ... on MultipleChoiceWithParentValueType {
-            customValueOptionValue
-            ids
-            parentValue
-          }
-          ... on NumberValueType {
-            number
-          }
-          ... on TextValueType {
-            text
-          }
+        ... on TextMetaType {
+          maxLen
+          minLen
+          required
+        }
+      }
+      value {
+        ... on BoolValueType {
+          bool
+        }
+        ... on ChoiceValueType {
+          id
+        }
+        ... on MultipleChoiceWithParentValueType {
+          customValueOptionValue
+          ids
+          parentValue
+        }
+        ... on NumberValueType {
+          number
+        }
+        ... on TextValueType {
+          text
         }
       }
     }

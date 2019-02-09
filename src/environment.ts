@@ -1,9 +1,9 @@
-import { Environment, Network, RecordSource, Store } from 'relay-runtime';
+import { Environment, FetchFunction, Network, RecordSource, Store } from 'relay-runtime';
 import { API_HOST } from './constans';
 
 const GRAPHQL_API_HOST = process.env.REACT_APP_GRAPHQL_HOST || `${API_HOST}/graphql`;
 
-function fetchQuery(operation: any, variables: any) {
+const fetchQuery: FetchFunction = (operation, variables) => {
   return fetch(GRAPHQL_API_HOST, {
     credentials: 'same-origin',
     method: 'POST',
@@ -16,7 +16,7 @@ function fetchQuery(operation: any, variables: any) {
       variables,
     }),
   }).then((response) => response.json());
-}
+};
 
 const network = Network.create(fetchQuery);
 const source = new RecordSource();

@@ -8,7 +8,7 @@ import Loader from '../../display/Loader';
 import SettingsFragment from './SettingsFragment';
 
 class SettingsQuery extends Component {
-  render() {
+  render(): React.ReactNode {
     return (
       <ErrorBoundary>
         <QueryRenderer

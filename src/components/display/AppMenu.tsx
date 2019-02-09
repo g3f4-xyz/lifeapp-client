@@ -23,7 +23,7 @@ class AppMenu extends React.Component<Props, State> {
     this.setState({ anchorEl: null });
   };
 
-  render() {
+  render(): React.ReactNode {
     const { options } = this.props;
     const { anchorEl } = this.state;
 

@@ -1,6 +1,7 @@
+import { TaskFragment } from '../components/modules/Task/__generated__/TaskFragment.graphql';
 import { FIELD_FORMATS } from '../constans';
 
-export default (data: any, update: any, { onSave }: any): any => {
+export default (data: TaskFragment, update: any, { onSave }: any): any => {
   const mapFields = (field: any) => {
     const {
       fieldId,
@@ -29,7 +30,8 @@ export default (data: any, update: any, { onSave }: any): any => {
       label,
       order,
     };
-    const getField = (id: any): any => data.fields.find(({ fieldId }: any): any => fieldId === id);
+    const getField = (id: any): any => data && data.fields ? data.fields
+      .find(({ fieldId: f }: any): any => f === id) : {};
 
     if (fieldId === 'CYCLE') {
       return {
@@ -116,7 +118,7 @@ export default (data: any, update: any, { onSave }: any): any => {
   };
 
   return {
-    fields: data.fields.map(mapFields),
+    fields: data && data.fields ? data.fields.map(mapFields) : [],
     taskType: data.taskType,
     onSave,
   };

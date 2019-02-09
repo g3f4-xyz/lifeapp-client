@@ -53,7 +53,7 @@ class NotificationsGeneral extends React.Component<Props> {
     });
   };
 
-  render() {
+  render(): React.ReactNode {
     const { classes, data: { show, vibrate } } = this.props;
 
     return (

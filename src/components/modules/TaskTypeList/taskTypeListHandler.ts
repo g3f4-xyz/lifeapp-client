@@ -1,4 +1,11 @@
-export default ({ moduleId }: any, data: any, state: any, update: any) => ({
+import { TASK_TYPE } from '../../../constans';
+import { ModuleProps } from '../../App';
+
+interface TaskTypeListHandlerProps extends ModuleProps {
+  onSelect(type: TASK_TYPE): void;
+}
+
+export default ({ moduleId }: ModuleProps, state: any, update: any): TaskTypeListHandlerProps => ({
   moduleId,
   onSelect: (type: any) => {
     const { gridView, gridViewLocked, openedTasksModulesProps } = state;

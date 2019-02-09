@@ -1,8 +1,8 @@
-import withStyles from '@material-ui/core/styles/withStyles';
-import Grid from '@material-ui/core/Grid';
-import { Theme } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import { Theme } from '@material-ui/core/styles';
+import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
 

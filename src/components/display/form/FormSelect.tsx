@@ -10,7 +10,7 @@ export interface FormSelectProps extends SelectProps {
 }
 
 class FormSelect extends React.Component<FormSelectProps> {
-  render() {
+  render(): React.ReactNode {
     const { fieldId, helperText, id, label, options, ...selectProps } = this.props;
 
     return (

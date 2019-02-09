@@ -52,7 +52,7 @@ interface Props {
 }
 
 class FieldValue extends React.Component<Props> {
-  render() {
+  render(): React.ReactNode {
     const { classes, format, meta, value } = this.props;
 
     return (

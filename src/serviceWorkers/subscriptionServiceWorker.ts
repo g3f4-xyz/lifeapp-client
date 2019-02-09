@@ -2,37 +2,30 @@ import { API_HOST } from '../constans';
 
 const publicVapidKey = 'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo';
 
-export const registerSubscription = async (): Promise<any> => {
-  // Check for service worker
+export const registerSubscription = async (): Promise<void> => {
   if ('serviceWorker' in navigator) {
-    // Register Service Worker
     const register = await navigator.serviceWorker.register('/subscriptionWorker.js', {
       scope: '/',
     });
     const subscription = await register.pushManager.getSubscription();
 
-    if (subscription) {
-      return null;
-    }
-
-    try {
-      await send(register);
-    } catch (e) {
-      throw e;
+    if (!subscription) {
+      try {
+        await send(register);
+      } catch (e) {
+        throw e;
+      }
     }
   }
 };
 
-// Register SW, Register Push, Send Push
-async function send(register: any): Promise<any> {
-  // Register Push
+async function send(register: ServiceWorkerRegistration): Promise<void> {
   try {
     const newSubscription = await register.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: urlBase64ToUint8Array(publicVapidKey),
     });
 
-    // Send Push Notification
     await fetch(`${API_HOST}/notifications`, {
       credentials: 'same-origin',
       method: 'POST',
@@ -47,7 +40,7 @@ async function send(register: any): Promise<any> {
   }
 }
 
-function urlBase64ToUint8Array(base64String: any): any {
+function urlBase64ToUint8Array(base64String: string): Uint8Array {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
   const base64 = (base64String + padding)
     .replace(/\-/g, '+')// eslint-disable-line no-useless-escape
@@ -59,5 +52,6 @@ function urlBase64ToUint8Array(base64String: any): any {
   for (let i = 0; i < rawData.length; ++i) {
     outputArray[i] = rawData.charCodeAt(i);
   }
+
   return outputArray;
 }

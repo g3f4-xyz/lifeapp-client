@@ -1,1 +1,3 @@
-export default (moduleProps: any) => moduleProps;
+import { ModuleProps } from '../../App';
+
+export default (moduleProps: ModuleProps) => moduleProps;

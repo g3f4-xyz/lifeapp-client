@@ -1,6 +1,3 @@
-// @ts-ignore
-import graphql from 'babel-plugin-relay/macro';
-import { green, red } from '@material-ui/core/colors';
 import {
   IconButton,
   ListItem,
@@ -9,7 +6,10 @@ import {
   ListItemText,
   withStyles,
 } from '@material-ui/core';
+import { green, red } from '@material-ui/core/colors';
 import { CheckCircle, Computer, Delete, DevicesOther, HelpOutline, HighlightOff, Smartphone } from '@material-ui/icons';
+// @ts-ignore
+import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import { DEVICES, STATUSES } from '../../../constans';
@@ -62,7 +62,7 @@ class SubscriptionFragment extends React.Component<Props, State> {
     this.setState({ statusCode });
   };
 
-  render() {
+  render(): React.ReactNode {
     const { classes, data: { id, userDeviceType, userAgent } } = this.props;
     const { statusCode } = this.state;
     const UserDeviceTypeIcon = DEVICES_ICONS[userDeviceType] || DEVICES_ICONS[DEVICES.OTHER];

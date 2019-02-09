@@ -21,7 +21,7 @@ interface Props {
 }
 
 class Fields extends React.Component<Props> {
-  render() {
+  render(): React.ReactNode {
     const { classes, fields } = this.props;
     const fieldsGroupedByOrder = fields.reduce((acc: any, { order, ...field }: any) => {
       if (!acc[order]) {

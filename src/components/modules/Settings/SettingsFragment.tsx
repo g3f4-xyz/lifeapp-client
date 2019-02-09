@@ -76,11 +76,11 @@ class SettingsFragment extends React.Component<Props, State> {
 
 
   handleCleanApplication = async () => {
-    const { cleanApplication: { navigationUrl } }: any = await cleanApplicationMutation({
+    const { cleanApplication } = await cleanApplicationMutation({
       ownerId: this.props.data.ownerId,
     });
 
-    window.location.href = navigationUrl;
+    window.location.href = cleanApplication && cleanApplication.navigationUrl ? cleanApplication.navigationUrl : '';
   };
 
   onDeleteSubscription = async (subscriptionId: any) => {
@@ -110,7 +110,7 @@ class SettingsFragment extends React.Component<Props, State> {
     }
   };
 
-  render() {
+  render(): React.ReactNode {
     const { classes } = this.props;
 
     return (

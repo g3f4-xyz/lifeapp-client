@@ -24,7 +24,7 @@ interface Props {
 }
 
 class TaskTypeIcon extends React.Component<Props> {
-  render() {
+  render(): React.ReactNode {
     const { classes, className, type } = this.props;
     const Icon = ICONS[type] || Settings;
 

@@ -1,8 +1,12 @@
 import { MODULES_IDS } from '../../../constans';
+import { AppState, ModuleProps } from '../../App';
 
-export default (moduleProps: any, data: any, state: any, update: any) => ({
+interface TaskHandlerProps extends ModuleProps {
+  onSaveDone(taskId: string): void;
+}
+
+export default (moduleProps: ModuleProps, state: AppState, update: any): TaskHandlerProps => ({
   ...moduleProps,
-  taskListId: data.app.taskList.id,
   onSaveDone: (taskId: any) => {
     update({
       $merge: {

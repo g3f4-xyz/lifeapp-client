@@ -32,7 +32,7 @@ class ErrorBoundary extends React.Component<Props, State> {
     console.error(error);
   }
 
-  render() {
+  render(): React.ReactNode {
     const { classes } = this.props;
 
     if (this.state.hasError) {

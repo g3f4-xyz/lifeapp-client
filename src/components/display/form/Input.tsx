@@ -7,7 +7,7 @@ interface Props extends BaseTextFieldProps {
 }
 
 class Input extends React.Component<Props> {
-  render() {
+  render(): React.ReactNode {
     const { helperText, ...props } = this.props;
 
     return (

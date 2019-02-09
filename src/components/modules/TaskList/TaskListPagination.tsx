@@ -62,7 +62,7 @@ class TaskListPagination extends React.Component<Props> {
     await deleteTaskMutation({ id, parentID: this.props.data.id });
   };
 
-  render() {
+  render(): React.ReactNode {
     const { classes, data, onAdd, onDetails, onEdit } = this.props;
     const { list: { edges, pageInfo } } = data || { list: { edges: [], pageInfo: {} } };
     const tasks = edges.map(({ node }: any): any => node);

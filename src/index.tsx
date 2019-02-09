@@ -8,12 +8,12 @@ import assetsServiceWorker from './serviceWorkers/assetsServiceWorker';
 const App = React.lazy(() => import('./components/App'));
 const Login = React.lazy(() => import('./components/Login'));
 
-const logged = getCookie('logged');
+const logged: boolean = getCookie('logged');
 
 ReactDOM.render(
   <Suspense fallback={<Loader/>}>
     {logged ? (
-        <App/>
+        <App />
       ) : (
         <Login />
     )}

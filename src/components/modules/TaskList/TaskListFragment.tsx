@@ -61,7 +61,7 @@ interface Props {
 }
 
 class TaskListFragment extends React.PureComponent<Props> {
-  render() {
+  render(): React.ReactNode {
     const { classes, data, onDelete, onDetails, onEdit } = this.props;
     const { id, taskType, title, note, priority, status } = data;
     // @ts-ignore

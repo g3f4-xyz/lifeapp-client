@@ -3,7 +3,9 @@ import React from 'react';
 import FieldIcon from '../../display/FieldIcon';
 import FieldValue from '../../display/FieldValue';
 import Label from '../../display/Label';
+import Loader from '../../display/Loader';
 import TaskTypeIcon from '../../display/TaskTypeIcon';
+import { TaskFragment as TaskFragmentResponse } from './__generated__/TaskFragment.graphql';
 
 const styles = (theme: Theme) => ({
   label: {
@@ -27,19 +29,25 @@ const styles = (theme: Theme) => ({
 
 interface Props {
   classes: any;
-  data: any;
+  data: TaskFragmentResponse;
 }
 
 class TaskDetails extends React.Component<Props> {
-  render() {
+  render(): React.ReactNode {
     const { classes } = this.props;
     const { taskType, fields } = this.props.data;
+
+    if (!fields) {
+      return (
+        <Loader />
+      );
+    }
 
     return (
       <div className={classes.root}>
         <TaskTypeIcon type={taskType} />
       {[...fields]
-        .sort((a, b) => a.order - b.order)
+        .sort((a, b) => a && b && a.order && b.order ? a.order - b.order : 0)
         .map(({ fieldId, format, label, type, meta, value }: any) => (
         <div key={fieldId}>
           <Paper className={classes.row}>

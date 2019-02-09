@@ -1,6 +1,13 @@
 import { MODULES_IDS } from '../../../constans';
+import { AppState, ModuleProps } from '../../App';
 
-export default ({ moduleId }: any, data: any, state: any, update: any): any => ({
+interface TaskListHandlerProps extends ModuleProps {
+  onAdd(): void;
+  onDetails(taskId: string): void;
+  onEdit(taskId: string): void;
+}
+
+export default ({ moduleId }: ModuleProps, state: AppState, update: any): TaskListHandlerProps => ({
   moduleId,
   onAdd: () => {
     update({

@@ -53,7 +53,7 @@ class MultipleSelect extends React.Component<MultipleSelectProps> {
     }).join(', ');
   };
 
-  render() {
+  render(): React.ReactNode {
     const {
       classes,
       fieldId,

@@ -34,7 +34,7 @@ interface Props {
 }
 
 class Field extends React.Component<Props> {
-  render() {
+  render(): React.ReactNode {
     const { classes, format, props } = this.props;
     const Component = getComponent(format);
 

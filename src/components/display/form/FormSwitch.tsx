@@ -10,7 +10,7 @@ interface Props {
 }
 
 class FormSwitch extends React.Component<Props> {
-  render() {
+  render(): React.ReactNode {
     const { id, fieldId, label, checked, onChange } = this.props;
 
     return (

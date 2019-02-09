@@ -2,11 +2,13 @@
 import graphql from 'babel-plugin-relay/macro';
 import { commitMutation } from 'react-relay';
 import environment from '../environment';
+import {
+  deleteSubscriptionMutation,
+  deleteSubscriptionMutationInput, deleteSubscriptionMutationResponse,
+} from './__generated__/deleteSubscriptionMutation.graphql';
 
 const mutation = graphql`
-  mutation deleteSubscriptionMutation(
-  $input: deleteSubscriptionMutationInput!
-  ) {
+  mutation deleteSubscriptionMutation($input: deleteSubscriptionMutationInput!) {
     deleteSubscription(input: $input) {
       clientMutationId
       subscriptionId
@@ -14,7 +16,9 @@ const mutation = graphql`
   }
 `;
 
-export default ({ parentID, subscriptionId }: any): any => new Promise((resolve: any, reject: any): any => {
+export default (
+  { parentID, subscriptionId }: deleteSubscriptionMutationInput & { parentID: string },
+): Promise<deleteSubscriptionMutationResponse> => new Promise((onCompleted, onError): void => {
   const variables = { input: { subscriptionId } };
   const configs = [{
     type: 'RANGE_DELETE',
@@ -26,15 +30,15 @@ export default ({ parentID, subscriptionId }: any): any => new Promise((resolve:
     deletedIDFieldName: 'subscriptionId',
   }];
 
-  commitMutation(
+  commitMutation<deleteSubscriptionMutation>(
     environment,
     {
       // @ts-ignore
       configs,
       mutation,
       variables,
-      onCompleted: resolve,
-      onError: reject,
+      onCompleted,
+      onError,
     },
   );
 });

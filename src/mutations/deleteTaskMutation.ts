@@ -2,11 +2,14 @@
 import graphql from 'babel-plugin-relay/macro';
 import { commitMutation } from 'react-relay';
 import environment from '../environment';
+import {
+  deleteTaskMutation,
+  deleteTaskMutationInput,
+  deleteTaskMutationResponse,
+} from './__generated__/deleteTaskMutation.graphql';
 
 const mutation = graphql`
-  mutation deleteTaskMutation(
-  $input: deleteTaskMutationInput!
-  ) {
+  mutation deleteTaskMutation($input: deleteTaskMutationInput!) {
     deleteTask(input: $input) {
       # Aktualnie serwer zwraca null przez co za pewne nie działa jakiś mechanizm relay
       clientMutationId
@@ -15,7 +18,9 @@ const mutation = graphql`
   }
 `;
 
-export default ({ id, parentID }: any): any => new Promise((resolve: any, reject: any): any => {
+export default (
+  { id, parentID }: deleteTaskMutationInput & { parentID: string },
+): Promise<deleteTaskMutationResponse> => new Promise((resolve: any, reject: any): any => {
   const variables = { input: { id } };
   const configs = [{
     type: 'RANGE_DELETE',
@@ -27,7 +32,7 @@ export default ({ id, parentID }: any): any => new Promise((resolve: any, reject
     deletedIDFieldName: 'deletedTaskId',
   }];
 
-  commitMutation(
+  commitMutation<deleteTaskMutation>(
     environment,
     {
       mutation,

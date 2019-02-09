@@ -1,15 +1,13 @@
 import { IconButton, withStyles } from '@material-ui/core';
 import { Cancel } from '@material-ui/icons';
-// @ts-ignore
-import graphql from 'babel-plugin-relay/macro';
-import immutabilityHelper from 'immutability-helper';
-import React from 'react';
-import { Component, Fragment } from 'react';
-import { QueryRenderer } from 'react-relay';
+import immutabilityHelper, { Spec } from 'immutability-helper';
+import React, { Fragment } from 'react';
+import { Layout, Layouts } from 'react-grid-layout';
+import { LOCAL_STORAGE_LAYOUTS_KEY, MODULE, MODULES_IDS } from '../constans';
+import { getFromLS, saveToLS } from '../utils/rglLocalStore';
 import ErrorBoundary from './containers/ErrorBoundary';
 import ResponsiveGrid from './containers/ResponsiveGrid';
 import AppMenu from './display/AppMenu';
-import Loader from './display/Loader';
 import settingsHandler from './modules/Settings/settingsHandler';
 import SettingsQuery from './modules/Settings/SettingsQuery';
 import taskHandler from './modules/Task/taskHandler';
@@ -18,9 +16,6 @@ import taskListHandler from './modules/TaskList/taskListHandler';
 import TaskListQuery from './modules/TaskList/TaskListQuery';
 import taskTypeListHandler from './modules/TaskTypeList/taskTypeListHandler';
 import TaskTypeListQuery from './modules/TaskTypeList/TaskTypeListQuery';
-import { LOCAL_STORAGE_LAYOUTS_KEY, MODULES_IDS } from '../constans';
-import environment from '../environment';
-import { getFromLS, saveToLS } from '../utils/rglLocalStore';
 
 const styles = {
   backButton: {
@@ -53,21 +48,25 @@ const APP_MODULES_IDS = [
   MODULES_IDS.TASK_TYPE_LIST,
 ];
 
+export interface ModuleProps {
+  moduleId: string;
+}
+
 interface Props {
   classes?: any;
 }
 
-interface State {
-  activeModuleId: any;
-  activeModulesHistory: any;
-  appOpenedModuleIds: any;
-  openedTasksModulesProps: any;
-  layouts: any;
-  gridView: any;
-  gridViewLocked: any;
+export interface AppState {
+  activeModuleId: string;
+  activeModulesHistory: string[];
+  appOpenedModuleIds: MODULE[];
+  openedTasksModulesProps: ModuleProps[];
+  layouts: Layouts;
+  gridView: boolean;
+  gridViewLocked: boolean;
 }
 
-class App extends Component<Props, State> {
+class App extends React.Component<Props, AppState> {
   state = {
     activeModuleId: MODULES_IDS.TASK_LIST,
     activeModulesHistory: [MODULES_IDS.TASK_LIST],
@@ -78,25 +77,84 @@ class App extends Component<Props, State> {
     gridViewLocked: false,
   };
 
-  handlers = {
+  private handlers = {
     [MODULES_IDS.SETTINGS]: settingsHandler,
     [MODULES_IDS.TASK]: taskHandler,
     [MODULES_IDS.TASK_LIST]: taskListHandler,
     [MODULES_IDS.TASK_TYPE_LIST]: taskTypeListHandler,
   };
 
-  moduleHandler(handlerName: any, moduleProps: any, data: any): any {
-    const handler = this.handlers[handlerName];
-    const updateState = (spec: any): any => this.setState(immutabilityHelper(this.state, spec));
-
-    if (handler) {
-      return handler(moduleProps, data, this.state, updateState);
-    }
-
-    console.error(`No module handler provider for module ${moduleProps.moduleId}`);
+  render(): React.ReactNode {
+    return (
+      <ErrorBoundary>
+        {this.renderApplication()}
+      </ErrorBoundary>
+    );
   }
 
-  onModuleZoom = (activeModuleId: any): any => {
+  private renderApplication(): React.ReactNode {
+    const { classes } = this.props;
+    const { activeModuleId, gridView } = this.state;
+    const isTaskListModuleActive = MODULES_IDS.TASK_LIST === activeModuleId;
+
+    return (
+      <Fragment>
+        {this.renderMenu()}
+        {this.state.gridView ? this.renderResponsiveGrid() : this.renderModule()}
+        {!(isTaskListModuleActive || gridView) && (
+          <IconButton
+            className={classes.backButton}
+            color="secondary"
+            onClick={this.onActiveModuleBack}
+          >
+            <Cancel className={classes.backButtonIcon}/>
+          </IconButton>
+        )}
+      </Fragment>
+    );
+  }
+
+  private updateState = (spec: Spec<AppState>): void => this.setState(immutabilityHelper(this.state, spec));
+
+  private moduleHandler(moduleId: MODULE, moduleProps: ModuleProps): any {
+    const handler = this.handlers[moduleId];
+
+    if (handler) {
+      return handler(moduleProps, this.state, this.updateState);
+    }
+
+    throw new Error(`No module handler provider for module ${moduleProps.moduleId}`);
+  }
+
+  private renderMenu(): React.ReactNode {
+    const { gridView, gridViewLocked } = this.state;
+
+    return (
+      <div className={this.props.classes.menuContainer}>
+        <AppMenu
+          options={[{
+            label: 'Log out',
+            action: () => window.location.replace('logout'),
+          }, {
+            label: gridView ? 'Hide grid' : 'Show grid',
+            action: this.onToggleGridView,
+          }, {
+            label: gridViewLocked ? 'Unlock grid' : 'Lock grid',
+            action: this.onToggleGridViewLocked,
+          }, {
+            label: 'Reset grid',
+            action: this.onResetGrid,
+            visible: gridView,
+          }, {
+            label: 'Show settings',
+            action: this.onShowSettings,
+          }]}
+        />
+      </div>
+    );
+  }
+
+  private onModuleZoom = (activeModuleId: MODULE): void => {
     const { appOpenedModuleIds } = this.state;
     const isApplicationModule = APP_MODULES_IDS.includes(activeModuleId);
     const setAppOpenedModuleIds = () => {
@@ -115,121 +173,95 @@ class App extends Component<Props, State> {
     });
   };
 
-  onModuleClose = (moduleId: any): any => {
+  private onModuleClose = (moduleId: MODULE | string): void => {
     if (moduleId !== MODULES_IDS.TASK_LIST) {
       const { appOpenedModuleIds, openedTasksModulesProps } = this.state;
 
-      if (APP_MODULES_IDS.includes(moduleId)) {
+      if (APP_MODULES_IDS.includes(moduleId as MODULE)) {
         this.setState({
-          appOpenedModuleIds: appOpenedModuleIds.filter((id: any): any => id !== moduleId),
+          appOpenedModuleIds: appOpenedModuleIds.filter((id: MODULE) => id !== moduleId),
         });
       } else {
         this.setState({
-          openedTasksModulesProps: openedTasksModulesProps.filter((props: any): any => props.moduleId !== moduleId),
+          openedTasksModulesProps: openedTasksModulesProps
+            .filter((props: ModuleProps): boolean => props.moduleId !== moduleId),
         });
       }
     }
   };
 
-  onActiveModuleBack = (): any => {
+  private onActiveModuleBack = (): void => {
     const { activeModuleId, activeModulesHistory, appOpenedModuleIds, openedTasksModulesProps } = this.state;
     const isApplicationModule = APP_MODULES_IDS.includes(activeModuleId);
 
     if (isApplicationModule) {
       this.setState({
         activeModuleId: activeModulesHistory[activeModulesHistory.length - 1],
-        activeModulesHistory: activeModulesHistory.filter((moduleId: any): any => moduleId !== activeModuleId),
-        appOpenedModuleIds: appOpenedModuleIds.filter((id: any): any => id !== activeModuleId),
+        activeModulesHistory: activeModulesHistory.filter((moduleId) => moduleId !== activeModuleId),
+        appOpenedModuleIds: appOpenedModuleIds.filter((id) => id !== activeModuleId),
       });
     } else {
       this.setState({
         activeModuleId: activeModulesHistory[activeModulesHistory.length - 2],
-        activeModulesHistory: activeModulesHistory.filter((moduleId: any): any => moduleId !== activeModuleId),
+        activeModulesHistory: activeModulesHistory.filter((moduleId): any => moduleId !== activeModuleId),
         openedTasksModulesProps: openedTasksModulesProps.filter((props: any): any => props.moduleId !== activeModuleId),
       });
     }
   };
 
-  onShowSettings = (): any => {
+  private onShowSettings = (): void => {
     this.setState({ activeModuleId: MODULES_IDS.SETTINGS });
   };
 
-  onResetGrid = (): any => {
+  private onResetGrid = (): void => {
     this.setState({ layouts: {} });
   };
 
-  onLayoutChange = (layout: any, layouts: any): any => {
+  private onLayoutChange = (layout: Layout, layouts: Layouts): void => {
     saveToLS(LOCAL_STORAGE_LAYOUTS_KEY, layouts);
     this.setState({ layouts });
   };
 
-  onToggleGridView = (): any => {
+  private onToggleGridView = (): void => {
     this.setState({ gridView: !this.state.gridView });
   };
 
-  onToggleGridViewLocked = (): any => {
+  private onToggleGridViewLocked = (): void => {
     this.setState({
       gridView: !this.state.gridViewLocked,
       gridViewLocked: !this.state.gridViewLocked,
     });
   };
 
-  renderMenu(): any {
-    const { gridView, gridViewLocked } = this.state;
 
+  private renderTaskModule(moduleProps: ModuleProps): React.ReactNode {
     return (
-      <div className={this.props.classes.menuContainer}>
-        <AppMenu
-          options={[{
-            label: 'Log out',
-            action: () => window.location.replace('logout'),
-          }, {
-            label: gridView ? 'Hide grid' : 'Show grid',
-            action: this.onToggleGridView,
-          },  {
-            label: gridViewLocked ? 'Unlock grid' : 'Lock grid',
-            action: this.onToggleGridViewLocked,
-          }, {
-            label: 'Reset grid',
-            action: this.onResetGrid,
-            visible: gridView,
-          }, {
-            label: 'Show settings',
-            action: this.onShowSettings,
-          }]}
-        />
-      </div>
+      <TaskQuery key={moduleProps.moduleId} {...this.moduleHandler(MODULES_IDS.TASK, moduleProps)} />
     );
   }
 
-  renderTaskModule(moduleProps: any, data: any): any {
-    return (
-      <TaskQuery key={moduleProps.moduleId} { ...this.moduleHandler(MODULES_IDS.TASK, moduleProps, data) } />
-    );
+  private renderTaskModules(): React.ReactNode {
+    return this.state.openedTasksModulesProps.map((module: ModuleProps) => this.renderTaskModule(module));
   }
 
-  renderTaskModules(data: any): any {
-    return this.state.openedTasksModulesProps.map(module => this.renderTaskModule(module, data));
-  }
-
-  renderApplicationModule(moduleId: any, data: any) {
+  private renderApplicationModule(moduleId: MODULE): React.ReactNode {
     const Component = QUERIES_COMPONENTS[moduleId];
 
     return (
       <Component
         key={moduleId}
         moduleId={moduleId}
-        {...this.moduleHandler(moduleId, { moduleId }, data)}
+        {...this.moduleHandler(moduleId, { moduleId })}
       />
     );
   }
 
-  renderApplicationModules(data: any): any {
-    return this.state.appOpenedModuleIds.map((moduleId: any): any =>
-      this.renderApplicationModule(moduleId, data.app[moduleId]));
+  private renderApplicationModules(): React.ReactNode {
+    return this.state.appOpenedModuleIds.map((moduleId) =>
+      this.renderApplicationModule(moduleId));
   }
 
-  renderResponsiveGrid(data: any): any {
+  private renderResponsiveGrid(): React.ReactNode {
     const { layouts } = this.state;
 
     return (
@@ -239,83 +271,29 @@ class App extends Component<Props, State> {
         onModuleZoom={this.onModuleZoom}
         onLayoutChange={this.onLayoutChange}
       >
-        {this.renderApplicationModules(data)}
-        {this.renderTaskModules(data)}
+        {this.renderApplicationModules()}
+        {this.renderTaskModules()}
       </ResponsiveGrid>
     );
   }
 
-  renderModule(data: any): any {
+  private renderModule(): React.ReactNode {
     const { activeModuleId } = this.state;
     const isApplicationModule = APP_MODULES_IDS.includes(activeModuleId);
 
     if (isApplicationModule) {
-      return this.renderApplicationModule(activeModuleId, data);
+      return this.renderApplicationModule(activeModuleId);
     }
 
     const taskModuleProps = this.state.openedTasksModulesProps.find(({ moduleId }) => activeModuleId === moduleId);
 
     if (!taskModuleProps) {
-      console.error(`No moduleProps for module "${activeModuleId}"`);
+      throw new Error(`No moduleProps for module "${activeModuleId}"`);
     }
 
-    return this.renderTaskModule(taskModuleProps, data);
+    return this.renderTaskModule(taskModuleProps);
   }
 
-  renderApplication(data: any): any {
-    const { classes } = this.props;
-    const { activeModuleId, gridView } = this.state;
-    const isTaskListModuleActive = MODULES_IDS.TASK_LIST === activeModuleId;
-
-    return (
-      <Fragment>
-        {this.renderMenu()}
-        {this.state.gridView ? this.renderResponsiveGrid(data) : this.renderModule(data)}
-        {!(isTaskListModuleActive || gridView) && (
-          <IconButton
-            className={classes.backButton}
-            color="secondary"
-            onClick={this.onActiveModuleBack}
-          >
-            <Cancel className={classes.backButtonIcon} />
-          </IconButton>
-        )}
-      </Fragment>
-    );
-  }
-
-  render() {
-    return (
-      <ErrorBoundary>
-        <QueryRenderer
-          environment={environment}
-          variables={{}}
-          query={graphql`
-            query AppQuery {
-              app {
-                taskList {
-                  id
-                }
-                taskTypeList {
-                  id
-                }
-              }
-            }
-          `}
-          render={({error, props}) => {
-            if (error) {
-              return <div>{JSON.stringify(error)}</div>;
-            } else if (props) {
-              return this.renderApplication(props);
-            }
-            return (
-              <Loader />
-            );
-          }}
-        />
-      </ErrorBoundary>
-    );
-  }
 }
 
 // @ts-ignore

@@ -14,7 +14,7 @@ interface Props {
 }
 
 class SubscriptionsPagination extends React.Component<Props> {
-  render() {
+  render(): React.ReactNode {
     const { className, data, onDelete, onTest } = this.props;
     const { subscriptions: { edges } }  = data || { subscriptions: { edges: [] } };
 

@@ -16,7 +16,7 @@ interface Props {
 }
 
 export default class TaskListQuery extends React.Component<Props> {
-  render() {
+  render(): React.ReactNode {
     return (
       <ErrorBoundary>
         <QueryRenderer

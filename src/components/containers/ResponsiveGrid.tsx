@@ -37,7 +37,7 @@ class ResponsiveGrid extends React.PureComponent<Props> {
     rowHeight: 30,
   };
 
-  render() {
+  render(): React.ReactNode {
     const { classes, children, layouts, onLayoutChange, onModuleClose, onModuleZoom } = this.props;
 
     return (

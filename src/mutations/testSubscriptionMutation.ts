@@ -2,6 +2,11 @@
 import graphql from 'babel-plugin-relay/macro';
 import { commitMutation } from 'react-relay';
 import environment from '../environment';
+import {
+  testSubscriptionMutation,
+  testSubscriptionMutationInput,
+  testSubscriptionMutationResponse,
+} from './__generated__/testSubscriptionMutation.graphql';
 
 const mutation = graphql`
   mutation testSubscriptionMutation(
@@ -14,16 +19,18 @@ const mutation = graphql`
   }
 `;
 
-export default ({ subscriptionId }: any): any => new Promise((resolve: any, reject: any): any => {
+export default (
+  { subscriptionId }: testSubscriptionMutationInput,
+): Promise<testSubscriptionMutationResponse> => new Promise((onCompleted, onError): void => {
   const variables = { input: { subscriptionId } };
 
-  commitMutation(
+  commitMutation<testSubscriptionMutation>(
     environment,
     {
       mutation,
       variables,
-      onCompleted: resolve,
-      onError: reject,
+      onCompleted,
+      onError,
     },
   );
 });

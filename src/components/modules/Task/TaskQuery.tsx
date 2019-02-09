@@ -2,25 +2,26 @@
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { QueryRenderer } from 'react-relay';
+import { TASK_TYPE } from '../../../constans';
 import environment from '../../../environment';
 import ErrorBoundary from '../../containers/ErrorBoundary';
 import Loader from '../../display/Loader';
+import { TaskQuery as ITaskQuery } from './__generated__/TaskQuery.graphql';
 import TaskFragment from './TaskFragment';
 
 interface Props {
-  isNew: any;
-  taskId: any;
-  type: any;
-  editMode: any;
-  taskListId: any;
-  onSaveDone: any;
+  isNew: boolean;
+  taskId: string;
+  type: TASK_TYPE;
+  editMode: boolean;
+  onSaveDone(): void;
 }
 
-class TaskQuery extends React.Component<Props> {
-  render() {
+export default class TaskQuery extends React.Component<Props> {
+  render(): React.ReactNode {
     return (
       <ErrorBoundary>
-        <QueryRenderer
+        <QueryRenderer<ITaskQuery>
           environment={environment}
           query={graphql`
             query TaskQuery (
@@ -32,6 +33,9 @@ class TaskQuery extends React.Component<Props> {
                   id
                   ...TaskFragment
                 }
+                taskList {
+                  id
+                }
               }
             }
           `}
@@ -42,9 +46,9 @@ class TaskQuery extends React.Component<Props> {
           render={({ error, props }) => {
             if (error) {
               return <div>{JSON.stringify(error)}</div>;
-            } else if (props) {
+            } else if (props && props.app.task) {
               return (
-                <TaskFragment data={props.app.task} {...this.props} />
+                <TaskFragment data={props.app.task} {...this.props} taskListId={props.app.taskList.id} />
               );
             }
             return (
@@ -56,5 +60,3 @@ class TaskQuery extends React.Component<Props> {
     );
   }
 }
-
-export default TaskQuery;

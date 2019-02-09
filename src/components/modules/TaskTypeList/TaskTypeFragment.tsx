@@ -71,7 +71,7 @@ class TaskTypeFragment extends React.Component<Props, State> {
     });
   };
 
-  render() {
+  render(): React.ReactNode {
     const { classes, data, onSelect } = this.props;
     const { name, description, typeId } = data;
 

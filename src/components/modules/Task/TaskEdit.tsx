@@ -1,6 +1,7 @@
 import { IconButton, withStyles } from '@material-ui/core';
 import { CheckCircle } from '@material-ui/icons';
 import React from 'react';
+import { TASK_TYPE } from '../../../constans';
 import Fields from '../../containers/Fields';
 import TaskTypeIcon from '../../display/TaskTypeIcon';
 
@@ -28,12 +29,12 @@ const styles = {
 interface Props {
   classes?: any;
   fields: any;
-  taskType: any;
-  onSave: any;
+  taskType: TASK_TYPE;
+  onSave(): void;
 }
 
 class TaskEdit extends React.Component<Props> {
-  render() {
+  render(): React.ReactNode {
     const { classes, fields, taskType, onSave } = this.props;
 
     return (

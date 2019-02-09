@@ -1,7 +1,13 @@
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import { commitMutation } from 'react-relay';
+import { RecordProxy, RecordSourceSelectorProxy } from 'relay-runtime';
 import environment from '../environment';
+import {
+  saveTaskMutation,
+  saveTaskMutationInput,
+  saveTaskMutationResponse,
+} from './__generated__/saveTaskMutation.graphql';
 
 const updateValueRecord = (record: any, value: any, key: any): any => {
   record.getLinkedRecord('value').setValue(value, key);
@@ -85,7 +91,9 @@ const mutation = graphql`
   }
 `;
 
-export default ({ isNew, task, parentID }: any): any => new Promise((resolve: any, reject: any): any => {
+export default (
+  { isNew, task, parentID }: saveTaskMutationInput & { parentID: string },
+): Promise<saveTaskMutationResponse> => new Promise((onCompleted, onError): void => {
   const variables = { input: { isNew, task } };
   const configs = isNew ? [{
     parentID,
@@ -97,58 +105,61 @@ export default ({ isNew, task, parentID }: any): any => new Promise((resolve: an
     edgeName: 'newTaskEdge',
   }] : [];
 
-  commitMutation(
+  commitMutation<saveTaskMutation>(
     environment,
     {
       // @ts-ignore
       configs,
       mutation,
       variables,
-      onCompleted: resolve,
-      onError: reject,
-      optimisticUpdater: (proxyStore: any) => {
-        if (isNew) {
-          throw { error: 'Brak implementacji' };
-        } else {
-          const fieldsRecords = proxyStore.get(task.id).getLinkedRecords('fields');
-
-          fieldsRecords.forEach((record: any) => {
-            const format = record.getValue('format');
-            const fieldId = record.getValue('fieldId');
-            const { id, text } = task.fields.find((field: any) => fieldId === field.fieldId).value;
-
-            if (['ELIXIR'].includes(format)) {
-              updateValueRecord(record, text, 'text');
-            } else if (['CHOICE'].includes(format)) {
-              updateValueRecord(record, id, 'id');
-            }
-          });
-        }
-      },
-      updater: (proxyStore: any) => {
-        if (!isNew) {
-          const fieldsRecords = proxyStore.get(task.id).getLinkedRecords('fields');
-          const mutationRootRecord = proxyStore.getRootField('saveTask');
-          const mutatedFieldsRecords = mutationRootRecord
-            .getLinkedRecord('newTaskEdge')
-            .getLinkedRecord('node')
-            .getLinkedRecords('fields');
-
-          fieldsRecords.forEach((record: any) => {
-            const format = record.getValue('format');
-            const fieldId = record.getValue('fieldId');
-            const mutatedValue = mutatedFieldsRecords
-              .find((record: any) => record.getValue('fieldId') === fieldId)
-              .getLinkedRecord('value');
-
-            if (['ELIXIR'].includes(format)) {
-              updateValueRecord(record, mutatedValue.getValue('text'), 'text');
-            } else if (['CHOICE'].includes(format)) {
-              updateValueRecord(record, mutatedValue.getValue('id'), 'id');
-            }
-          });
-        }
-      },
+      onCompleted,
+      onError,
+      // optimisticUpdater: (proxyStore: RecordSourceSelectorProxy) => {
+      //   if (isNew) {
+      //     throw { error: 'Brak implementacji' };
+      //   } else {
+      //     const fieldsRecords = proxyStore.get(task.id).getLinkedRecords('fields');
+      //
+      //     fieldsRecords.forEach((record: RecordProxy) => {
+      //       const format = record.getValue('format');
+      //       const fieldId = record.getValue('fieldId');
+      //       const { id, text } = task.fields.find((field: any) => fieldId === field.fieldId).value;
+      //
+      //       if (['ELIXIR'].includes(format)) {
+      //         updateValueRecord(record, text, 'text');
+      //       } else if (['CHOICE'].includes(format)) {
+      //         updateValueRecord(record, id, 'id');
+      //       }
+      //     });
+      //   }
+      // },
+      // updater: (proxyStore: RecordSourceSelectorProxy) => {
+      //   if (!isNew) {
+      //     const fieldsRecords = proxyStore.get(task.id).getLinkedRecords('fields');
+      //     const mutationRootRecord = proxyStore.getRootField('saveTask');
+      //
+      //     if (mutationRootRecord) {
+      //       const mutatedFieldsRecords = mutationRootRecord
+      //         .getLinkedRecord('newTaskEdge')
+      //         .getLinkedRecord('node')
+      //         .getLinkedRecords('fields');
+      //
+      //       fieldsRecords.forEach((record: any) => {
+      //         const format = record.getValue('format');
+      //         const fieldId = record.getValue('fieldId');
+      //         const mutatedValue = mutatedFieldsRecords
+      //           .find((fieldRecord: RecordProxy) => fieldRecord.getValue('fieldId') === fieldId)
+      //           .getLinkedRecord('value');
+      //
+      //         if (['ELIXIR'].includes(format)) {
+      //           updateValueRecord(record, mutatedValue.getValue('text'), 'text');
+      //         } else if (['CHOICE'].includes(format)) {
+      //           updateValueRecord(record, mutatedValue.getValue('id'), 'id');
+      //         }
+      //       });
+      //     }
+      //   }
+      // },
     },
   );
 });

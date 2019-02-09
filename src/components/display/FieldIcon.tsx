@@ -32,7 +32,7 @@ interface Props {
 }
 
 class FieldIcon extends React.Component<Props> {
-  render() {
+  render(): React.ReactNode {
     const { classes, fieldId } = this.props;
     // @ts-ignore
     const Icon = ICONS[fieldId] || Create;

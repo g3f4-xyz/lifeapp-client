@@ -1,27 +1,27 @@
-export const getFromLS = (key: any): any => {
-  let ls = {};
-  // @ts-ignore
-  if (global.localStorage) {
-    try {
-      // @ts-ignore
-      ls = JSON.parse(global.localStorage.getItem('rgl-8')) || {};
-    } catch (e) {
-      /*Ignore*/
-    }
+import { Layouts } from 'react-grid-layout';
+import { LOCAL_STORAGE_LAYOUT_KEY } from '../constans';
+
+const ITEM_KEY = 'rgl-8';
+
+export const getFromLS = (key: LOCAL_STORAGE_LAYOUT_KEY): Layouts => {
+  try {
+    const ls = JSON.parse(window.localStorage.getItem(ITEM_KEY) || '');
+
+    return ls[key];
+  } catch (e) {
+    throw e;
   }
-  // @ts-ignore
-  return ls[key];
 };
 
-export const saveToLS = (key: any, value: any): any => {
-  // @ts-ignore
-  if (global.localStorage) {
-    // @ts-ignore
-    global.localStorage.setItem(
-      'rgl-8',
+export const saveToLS = (key: LOCAL_STORAGE_LAYOUT_KEY, value: Layouts): void => {
+  try {
+    window.localStorage.setItem(
+      ITEM_KEY,
       JSON.stringify({
         [key]: value,
       }),
     );
+  } catch (e) {
+    throw e;
   }
 };

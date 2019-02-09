@@ -23,7 +23,7 @@ interface Props {
 }
 
 class TaskTypeListPagination extends React.Component<Props> {
-  render() {
+  render(): React.ReactNode {
     const { classes, data: { list: { edges } }, onSelect } = this.props;
     const list = edges.map(({ node }: any): any => node);
 

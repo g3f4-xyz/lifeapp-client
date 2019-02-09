@@ -74,7 +74,7 @@ class NotificationsTypes extends React.Component<Props> {
     });
   };
 
-  render() {
+  render(): React.ReactNode {
     const { classes, data: { events, meetings, routines, todos } } = this.props;
 
     return (
