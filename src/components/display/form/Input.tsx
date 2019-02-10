@@ -20,7 +20,7 @@ class Input extends React.Component<Props> {
         fullWidth
         {...props}
       />
-    )
+    );
   }
 }
 

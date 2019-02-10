@@ -4,15 +4,15 @@ import {
   InputLabel,
   ListItemText,
   MenuItem,
-  Select,
+  Select, StyledComponentProps,
   TextField,
   Theme,
   withStyles,
 } from '@material-ui/core';
-import React, { ChangeEvent, Fragment, SyntheticEvent } from 'react';
-import ReactInputMask from 'react-input-mask';
+import { SelectProps } from '@material-ui/core/Select';
+import React, { ChangeEvent, Fragment } from 'react';
+import ReactInputMask, { InputState } from 'react-input-mask';
 import { CUSTOM_OPTION_VALUE } from '../../../constans';
-import { FormSelectProps } from './FormSelect';
 
 const styles = (theme: Theme) => ({
   textField: {
@@ -22,7 +22,8 @@ const styles = (theme: Theme) => ({
 });
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
-const MenuProps = {
+
+const menuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
@@ -31,26 +32,33 @@ const MenuProps = {
   },
 };
 
-export interface MultipleSelectProps extends FormSelectProps {
-  classes?: any;
-  customValueOptionMask: any;
-  customValueOptionValue: any;
-  ids: any;
-  optionsSet: any;
+export interface MultipleSelectProps extends StyledComponentProps<keyof ReturnType<typeof styles>> {
+  fieldId: string;
+  ids: string[];
+  label: string;
+  options: Array<{ value: string, text: string }>;
+  customValueOptionMask: string;
+  customValueOptionValue: string;
+  onChange(
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+    options: { isCustomOptionValueUpdate: boolean },
+  ): void;
 }
 
 class MultipleSelect extends React.Component<MultipleSelectProps> {
-  renderValue = (selected: any) => {
-    const { customValueOptionValue, options } = this.props;
-    const filteredOptions = options.filter(({ value }: any) => selected.includes(value));
+  renderValue = (values: SelectProps['value']): React.ReactNode => {
+    if (values && Array.isArray(values)) {
+      const { customValueOptionValue, options } = this.props;
+      const filteredOptions = options.filter(({ value }) => values.includes(value));
 
-    return filteredOptions.map(({ text, value }: any) => {
-      if (value !== CUSTOM_OPTION_VALUE) {
-        return text;
-      }
+      return filteredOptions.map(({ text, value }): string => {
+        if (value !== CUSTOM_OPTION_VALUE) {
+          return text;
+        }
 
-      return `${text} (${customValueOptionValue})`;
-    }).join(', ');
+        return `${text} (${customValueOptionValue})`;
+      }).join(', ');
+    }
   };
 
   render(): React.ReactNode {
@@ -63,8 +71,11 @@ class MultipleSelect extends React.Component<MultipleSelectProps> {
       customValueOptionMask,
       customValueOptionValue = '',
       onChange,
-      ...selectProps
     } = this.props;
+
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
 
     return (
       <Fragment>
@@ -74,11 +85,10 @@ class MultipleSelect extends React.Component<MultipleSelectProps> {
           value={ids || []}
           input={<Input id={fieldId} />}
           renderValue={this.renderValue}
-          MenuProps={MenuProps}
-          onChange={onChange}
-          {...selectProps}
+          MenuProps={menuProps}
+          onChange={(e: ChangeEvent<HTMLSelectElement>) => onChange(e, { isCustomOptionValueUpdate: false })}
         >
-        {options.map(({ text, value }: any) => (
+        {options.map(({ text, value }) => (
           <MenuItem key={value} value={value}>
             <ListItemText primary={text} />
           {value !== CUSTOM_OPTION_VALUE ? (
@@ -88,10 +98,10 @@ class MultipleSelect extends React.Component<MultipleSelectProps> {
               <ReactInputMask
                 mask={customValueOptionMask}
                 value={customValueOptionValue}
-                onChange={(e: any): void => onChange && onChange(e, { isCustomOptionValueUpdate: true })}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e, { isCustomOptionValueUpdate: true })}
               >
-              {(inputProps: any) => (
-                <TextField className={classes.textField} {...inputProps} />
+              {(inputState: InputState) => (
+                <TextField className={classes.textField} {...inputState} />
               )}
               </ReactInputMask>
               <Checkbox checked={ids && ids.indexOf(value) > -1} />

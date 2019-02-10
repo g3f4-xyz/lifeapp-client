@@ -1,11 +1,13 @@
-import { FormControl, Theme, withStyles } from '@material-ui/core';
+import { FormControl, StyledComponentProps, Theme, withStyles } from '@material-ui/core';
 import React from 'react';
+import { FieldFormatEnum } from '../modules/Task/__generated__/TaskFragment.graphql';
+import { Field as IField } from '../modules/Task/TaskFragment';
 import FormSelect from './form/FormSelect';
 import FormSwitch from './form/FormSwitch';
 import Input from './form/Input';
 import MultipleChoiceWithParent from './form/MultipleChoiceWithParent';
 
-const getComponent = (format: any): any => {
+const getComponent = (format: FieldFormatEnum) => {
   // @ts-ignore
   return ({
     BOOL: FormSwitch,
@@ -23,19 +25,22 @@ const styles = (theme: Theme) => ({
     [theme.breakpoints.down('xs')]: {
       padding: theme.spacing.unit * 2,
     },
-  }
+  },
 });
 
-interface Props {
-  classes?: any;
-  className: any;
-  props: any;
-  format: any;
+interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
+  props: IField;
+  format: FieldFormatEnum;
 }
 
 class Field extends React.Component<Props> {
   render(): React.ReactNode {
     const { classes, format, props } = this.props;
+
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
     const Component = getComponent(format);
 
     return (

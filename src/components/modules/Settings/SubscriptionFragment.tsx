@@ -3,7 +3,7 @@ import {
   ListItem,
   ListItemIcon,
   ListItemSecondaryAction,
-  ListItemText,
+  ListItemText, StyledComponentProps,
   withStyles,
 } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
@@ -13,6 +13,8 @@ import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import { DEVICES, STATUSES } from '../../../constans';
+import testSubscriptionMutation from '../../../mutations/testSubscriptionMutation';
+import { SubscriptionFragment } from './__generated__/SubscriptionFragment.graphql';
 
 const DEVICES_ICONS = {
   [DEVICES.DESKTOP]: Computer,
@@ -36,18 +38,16 @@ const styles = {
   },
 };
 
-interface Props {
-  classes?: any;
-  data: any;
-  onDelete: any;
-  onTest: any;
+interface Props extends StyledComponentProps<keyof typeof styles> {
+  data: SubscriptionFragment;
+  onDelete(subscriptionId: string): void;
 }
 
 interface State {
   statusCode: string;
 }
 
-class SubscriptionFragment extends React.Component<Props, State> {
+class Subscription extends React.Component<Props, State> {
   state = {
     statusCode: '',
   };
@@ -57,35 +57,44 @@ class SubscriptionFragment extends React.Component<Props, State> {
   };
 
   handleTest = async () => {
-    const statusCode = await this.props.onTest(this.props.data.id);
+    const { testSubscription } = await testSubscriptionMutation({
+      subscriptionId: this.props.data.id,
+    });
 
-    this.setState({ statusCode });
+    if (testSubscription) {
+      this.setState({ statusCode: testSubscription.statusCode });
+    }
   };
 
   render(): React.ReactNode {
     const { classes, data: { id, userDeviceType, userAgent } } = this.props;
+
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
     const { statusCode } = this.state;
     const UserDeviceTypeIcon = DEVICES_ICONS[userDeviceType] || DEVICES_ICONS[DEVICES.OTHER];
 
     return (
       <ListItem key={id} className={classes.listItem}>
         <ListItemIcon className={classes.listItemIcon}>
-          <UserDeviceTypeIcon/>
+          <UserDeviceTypeIcon />
         </ListItemIcon>
-        <ListItemText primary={userAgent}/>
+        <ListItemText primary={userAgent} />
         <ListItemSecondaryAction>
           <IconButton onClick={this.handleDelete} aria-label="Delete">
-            <Delete/>
+            <Delete />
           </IconButton>
           <IconButton onClick={this.handleTest} aria-label="Test">
             {!statusCode && (
-              <HelpOutline/>
+              <HelpOutline />
             )}
             {statusCode === STATUSES.OK && (
-              <CheckCircle className={classes.green}/>
+              <CheckCircle className={classes.green} />
             )}
             {statusCode === STATUSES.NOT_REGISTERED && (
-              <HighlightOff className={classes.red}/>
+              <HighlightOff className={classes.red} />
             )}
           </IconButton>
         </ListItemSecondaryAction>
@@ -94,8 +103,8 @@ class SubscriptionFragment extends React.Component<Props, State> {
   }
 }
 
-export default createFragmentContainer(
-  withStyles(styles)(SubscriptionFragment),
+export default createFragmentContainer<Props>(
+  withStyles(styles)(Subscription),
   graphql`
     fragment SubscriptionFragment on SubscriptionType {
       id
@@ -104,4 +113,3 @@ export default createFragmentContainer(
     }
   `,
 );
-

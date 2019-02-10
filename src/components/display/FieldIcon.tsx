@@ -1,4 +1,4 @@
-import { Theme, withStyles } from '@material-ui/core';
+import { StyledComponentProps, Theme, withStyles } from '@material-ui/core';
 import {
   BatteryAlert, Create,
   EventNote,
@@ -26,9 +26,8 @@ const styles = (theme: Theme) => ({
   },
 });
 
-interface Props {
-  classes?: any;
-  fieldId: any;
+interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
+  fieldId: string;
 }
 
 class FieldIcon extends React.Component<Props> {
@@ -37,9 +36,13 @@ class FieldIcon extends React.Component<Props> {
     // @ts-ignore
     const Icon = ICONS[fieldId] || Create;
 
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
     return (
       <Icon className={classes.icon} />
-    )
+    );
   }
 }
 

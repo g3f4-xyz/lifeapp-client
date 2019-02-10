@@ -1,11 +1,12 @@
-import { IconButton, withStyles } from '@material-ui/core';
+import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
 import { AddCircle, More } from '@material-ui/icons';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React, { Fragment } from 'react';
-import { createPaginationContainer } from 'react-relay';
+import { ConnectionData, createPaginationContainer, RelayPaginationProp } from 'react-relay';
 import deleteTaskMutation from '../../../mutations/deleteTaskMutation';
 import Loader from '../../display/Loader';
+import { TaskListPagination as TaskListPaginationResponse } from './__generated__/TaskListPagination.graphql';
 import TaskListFragment from './TaskListFragment';
 
 const PAGE_SIZE = 5;
@@ -35,45 +36,51 @@ const styles = {
   },
 };
 
-interface Props {
-  classes?: any;
-  data: any;
-  onAdd: any;
-  onMore: any;
-  onDetails: any;
-  onEdit: any;
-  relay: any;
+interface Props extends StyledComponentProps<keyof typeof styles> {
+  data: TaskListPaginationResponse;
+  relay: RelayPaginationProp;
+  onAdd(): void;
+  onDetails(taskId: string): void;
+  onEdit(taskId: string): void;
 }
 
 class TaskListPagination extends React.Component<Props> {
   onMore = () => {
-    if (!this.props.relay.hasMore() || this.props.relay.isLoading()) {
-      return;
+    if (!this.props.relay.isLoading()) {
+      // TODO when data comes, relay.isLoading is returning true, so we need to render page one more time
+      this.forceUpdate();
+      this.props.relay.loadMore(PAGE_SIZE, () => {
+        this.forceUpdate();
+      });
     }
-
-    this.props.relay.loadMore(PAGE_SIZE, () => { // #FIXIT
-      this.forceUpdate(); // when data comes, relay.isLoading is returning true, so we need to render page one more time
-    });
-
-    this.forceUpdate(); // initializing loadMore doesn't invoke rendering DOM. To change moreIcon to loader we need to render page
   };
 
-  onDelete = async (id: any): Promise<void> => {
+  onDelete = async (id: string): Promise<void> => {
     await deleteTaskMutation({ id, parentID: this.props.data.id });
   };
 
   render(): React.ReactNode {
     const { classes, data, onAdd, onDetails, onEdit } = this.props;
-    const { list: { edges, pageInfo } } = data || { list: { edges: [], pageInfo: {} } };
-    const tasks = edges.map(({ node }: any): any => node);
+
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
+    if (!data || !data.list || !data.list.edges)  {
+      return (
+        <Loader />
+      );
+    }
+
+    const { list: { edges } } = data;
 
     return (
       <Fragment>
-        {tasks.map((data: any) => (
+        {edges.map((edge) => edge && edge.node && (
           <TaskListFragment
-            key={data.id}
-            data={data}
-            onDelete={(id: any): any => this.onDelete(id)}
+            key={edge.cursor}
+            data={edge.node}
+            onDelete={this.onDelete}
             onDetails={onDetails}
             onEdit={onEdit}
           />
@@ -83,19 +90,21 @@ class TaskListPagination extends React.Component<Props> {
           color="primary"
           onClick={onAdd}
         >
-          <AddCircle className={classes.addButtonIcon}/>
+          <AddCircle className={classes.addButtonIcon} />
         </IconButton>
-        {pageInfo.hasNextPage && (this.props.relay.hasMore() && !this.props.relay.isLoading() ? (
+        {this.props.relay.hasMore() && (
           <IconButton
             className={classes.moreButton}
             color="primary"
             onClick={this.onMore}
           >
-            <More className={classes.moreButtonIcon}/>
+            {this.props.relay.isLoading() ? (
+              <Loader />
+            ) : (
+              <More className={classes.moreButtonIcon} />
+            )}
           </IconButton>
-        ) : (
-          <Loader/>
-        ))}
+        )}
       </Fragment>
     );
   }
@@ -105,18 +114,14 @@ export default createPaginationContainer<Props>(
   // @ts-ignore
   withStyles(styles)(TaskListPagination),
   graphql`
-    fragment TaskListPagination on TaskListType
-    @argumentDefinitions(
-      count: { type: "Int", defaultValue: 10 }
-      cursor: { type: "String" }
-    )
-    {
+    fragment TaskListPagination on TaskListType {
       id
-      list (
-        first: $count
-        after: $cursor
+      list(
+        first: $count,
+        after: $after,
       ) @connection(key: "TaskList_list") {
         edges {
+          cursor
           node {
             id
             ...TaskListFragment
@@ -130,22 +135,11 @@ export default createPaginationContainer<Props>(
     }
   `,
   {
-    getConnectionFromProps(props) {
-      return props.data && props.data.list;
-    },
-    getFragmentVariables(prevVars, totalCount) {
-      return {
-        ...prevVars,
-        count: totalCount,
-      };
-    },
-    getVariables(props, { count, cursor }) {
-      return { count, cursor };
-    },
+    direction: 'forward',
     query: graphql`
-      query TaskListPaginationQuery (
-      $count: Int!
-      $cursor: String
+      query TaskListPaginationQuery(
+        $count: Int!,
+        $after: String,
       ) {
         app {
           taskList {
@@ -154,5 +148,20 @@ export default createPaginationContainer<Props>(
         }
       }
     `,
-  }
+    getConnectionFromProps(props) {
+      return props.data && props.data.list as ConnectionData;
+    },
+    getFragmentVariables(previousVariables, totalCount) {
+      return {
+        ...previousVariables,
+        count: totalCount,
+      };
+    },
+    getVariables(props, { cursor, count }) {
+      return {
+        count,
+        after: cursor,
+      };
+    },
+  },
 );

@@ -1,9 +1,10 @@
-import { IconButton, withStyles } from '@material-ui/core';
+import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
 import { CheckCircle } from '@material-ui/icons';
 import React from 'react';
-import { TASK_TYPE } from '../../../constans';
 import Fields from '../../containers/Fields';
 import TaskTypeIcon from '../../display/TaskTypeIcon';
+import { TaskTypeEnum } from './__generated__/TaskFragment.graphql';
+import { Field } from './TaskFragment';
 
 const styles = {
   row: {
@@ -26,10 +27,9 @@ const styles = {
   },
 };
 
-interface Props {
-  classes?: any;
-  fields: any;
-  taskType: TASK_TYPE;
+interface Props extends StyledComponentProps<keyof typeof styles> {
+  fields: Field[];
+  taskType: TaskTypeEnum;
   onSave(): void;
 }
 
@@ -37,8 +37,12 @@ class TaskEdit extends React.Component<Props> {
   render(): React.ReactNode {
     const { classes, fields, taskType, onSave } = this.props;
 
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
     return (
-      <div className={classes.root}>
+      <div>
         <IconButton
           className={classes.addButton}
           color="primary"

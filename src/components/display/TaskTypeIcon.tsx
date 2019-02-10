@@ -1,8 +1,9 @@
-import { Theme, withStyles } from '@material-ui/core';
+import { StyledComponentProps, Theme, withStyles } from '@material-ui/core';
 import { DateRange, Group, LocalOffer, Settings, Update } from '@material-ui/icons';
 import classNames from 'classnames';
 import React from 'react';
 import { TASK_TYPES } from '../../constans';
+import { TaskTypeEnum } from '../modules/Task/__generated__/TaskFragment.graphql';
 
 const ICONS = {
   [TASK_TYPES.EVENT]: DateRange,
@@ -17,15 +18,19 @@ const styles = (theme: Theme) => ({
   },
 });
 
-interface Props {
-  classes?: any;
-  className?: any;
-  type: any;
+interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
+  className?: string;
+  type: TaskTypeEnum;
 }
 
 class TaskTypeIcon extends React.Component<Props> {
   render(): React.ReactNode {
     const { classes, className, type } = this.props;
+
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
     const Icon = ICONS[type] || Settings;
 
     return (

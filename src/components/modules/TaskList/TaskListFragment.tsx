@@ -1,20 +1,23 @@
-import { CheckBox, CheckBoxOutlineBlank, ExpandMore, PriorityHigh, Slideshow } from '@material-ui/icons';
-import { green, grey, red, yellow } from '@material-ui/core/colors';
 import {
   Button,
   ExpansionPanel,
   ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  ExpansionPanelSummary, StyledComponentProps,
   Theme,
   Tooltip,
   Typography, withStyles,
 } from '@material-ui/core';
+import { green, grey, red, yellow } from '@material-ui/core/colors';
+import { SvgIconProps } from '@material-ui/core/SvgIcon';
+import { CheckBox, CheckBoxOutlineBlank, ExpandMore, PriorityHigh, Slideshow } from '@material-ui/icons';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import classNames from 'classnames';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
+import { TASK_STATUSES } from '../../../constans';
 import TaskTypeIcon from '../../display/TaskTypeIcon';
+import { TaskListFragment as TaskListFragmentResponse, TaskStatusEnum } from './__generated__/TaskListFragment.graphql';
 
 const styles = (theme: Theme) => ({
   actions: {
@@ -52,42 +55,35 @@ const styles = (theme: Theme) => ({
   },
 });
 
-interface Props {
-  classes?: any;
-  data: any;
-  onDelete: any;
-  onDetails: any;
-  onEdit: any;
+interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
+  data: TaskListFragmentResponse;
+  onDelete(id: string): void;
+  onDetails(id: string): void;
+  onEdit(id: string): void;
 }
 
 class TaskListFragment extends React.PureComponent<Props> {
   render(): React.ReactNode {
     const { classes, data, onDelete, onDetails, onEdit } = this.props;
     const { id, taskType, title, note, priority, status } = data;
-    // @ts-ignore
-    const TooltipIcon = {
-      TODO: <CheckBoxOutlineBlank className={classNames(classes.grey, classes.icon)}/>,
-      IN_PROGRESS: <Slideshow className={classNames(classes.yellow, classes.icon)}/>,
-      DONE: <CheckBox className={classNames(classes.green, classes.icon)}/>,
-    }[status];
+
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
 
     return (
       <ExpansionPanel>
-        <ExpansionPanelSummary expandIcon={<ExpandMore/>}>
+        <ExpansionPanelSummary expandIcon={<ExpandMore />}>
           <div>
-            {TooltipIcon && (
-              <Tooltip title={`Status: ${status}`}>
-                {TooltipIcon}
-              </Tooltip>
-            )}
+            {this.renderStatusTooltip(status)}
             {priority && (
               <Tooltip title="Important!">
-                <PriorityHigh className={classNames(classes.red, classes.icon)}/>
+                <PriorityHigh className={classNames(classes.red, classes.icon)} />
               </Tooltip>
             )}
           </div>
           <Typography className={classes.heading}>{title}</Typography>
-          <TaskTypeIcon type={taskType} className={classes.taskTypeIcon}/>
+          <TaskTypeIcon type={taskType} className={classes.taskTypeIcon} />
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.content}>
           <div>
@@ -100,6 +96,45 @@ class TaskListFragment extends React.PureComponent<Props> {
           </div>
         </ExpansionPanelDetails>
       </ExpansionPanel>
+    );
+  }
+
+  private renderStatusIcon(status: TaskStatusEnum): React.ReactElement<SvgIconProps> | null {
+    const { classes } = this.props;
+
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
+    switch (status) {
+      case TASK_STATUSES.TODO: {
+        return (
+          <CheckBoxOutlineBlank className={classNames(classes.grey, classes.icon)} />
+        );
+      }
+      case TASK_STATUSES.IN_PROGRESS: {
+        return (
+          <Slideshow className={classNames(classes.yellow, classes.icon)} />
+        );
+      }
+      case TASK_STATUSES.DONE: {
+        return (
+          <CheckBox className={classNames(classes.green, classes.icon)} />
+        );
+      }
+      default: {
+        throw new Error(`no status icon for status: ${status}`);
+      }
+    }
+  }
+
+  private renderStatusTooltip(status: TaskStatusEnum): React.ReactNode {
+    const icon = this.renderStatusIcon(status);
+
+    return icon && (
+      <Tooltip title={`Status: ${status}`}>
+        {icon}
+      </Tooltip>
     );
   }
 }
@@ -116,5 +151,5 @@ export default createFragmentContainer<Props>(
       priority
       status
     }
-  `
+  `,
 );

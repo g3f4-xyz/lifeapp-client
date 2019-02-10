@@ -1,26 +1,31 @@
-import { TASK_TYPE } from '../../../constans';
-import { ModuleProps } from '../../App';
+import { Spec } from 'immutability-helper';
+import { AppState, ModuleProps } from '../../App';
+import { TaskTypeEnum } from '../Task/__generated__/TaskFragment.graphql';
 
 interface TaskTypeListHandlerProps extends ModuleProps {
-  onSelect(type: TASK_TYPE): void;
+  onSelect(type: TaskTypeEnum): void;
 }
 
-export default ({ moduleId }: ModuleProps, state: any, update: any): TaskTypeListHandlerProps => ({
+export default (
+  { moduleId }: ModuleProps,
+  state: AppState,
+  update: (spec: Spec<AppState>) => void,
+): TaskTypeListHandlerProps => ({
   moduleId,
-  onSelect: (type: any) => {
+  onSelect: (type: TaskTypeEnum) => {
     const { gridView, gridViewLocked, openedTasksModulesProps } = state;
-    const temporaryId = `${Date.now()}:temporaryId`;
+    const taskModuleId = `task:${Date.now()}`;
 
     update({
       $merge: {
-        activeModuleId: temporaryId,
-        activeModulesHistory: [...state.activeModulesHistory, temporaryId],
+        activeModuleId: taskModuleId,
+        activeModulesHistory: [...state.activeModulesHistory, taskModuleId],
         gridView: gridView ? gridView : gridViewLocked,
         openedTasksModulesProps: [...openedTasksModulesProps, {
           editMode: true,
           isNew: true,
-          moduleId: temporaryId,
-          taskId: temporaryId,
+          moduleId: taskModuleId,
+          taskId: '',
           type,
         }],
       },

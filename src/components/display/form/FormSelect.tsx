@@ -3,10 +3,10 @@ import { SelectProps } from '@material-ui/core/Select';
 import React, { Fragment } from 'react';
 
 export interface FormSelectProps extends SelectProps {
-  fieldId: any;
-  helperText: any;
-  label: any;
-  options: any;
+  fieldId: string;
+  helperText: string;
+  label: string;
+  options: Array<{ text: string, value: string }>;
 }
 
 class FormSelect extends React.Component<FormSelectProps> {
@@ -20,9 +20,9 @@ class FormSelect extends React.Component<FormSelectProps> {
           {...selectProps}
           input={<Input name={fieldId} id={id} />}
         >
-        {options.map(({ value, text }: any, key: any) => (
+        {options.map(({ value, text }) => (
           <MenuItem
-            key={key}
+            key={value}
             value={value}
           >{text}</MenuItem>
         ))}

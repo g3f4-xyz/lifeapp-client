@@ -8,7 +8,7 @@ import {
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
-  Paper,
+  Paper, StyledComponentProps,
   Theme,
   Typography,
   withStyles,
@@ -20,8 +20,8 @@ import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import cleanApplicationMutation from '../../../mutations/cleanApplicationMutation';
 import deleteSubscriptionMutation from '../../../mutations/deleteSubscriptionMutation';
-import testSubscriptionMutation from '../../../mutations/testSubscriptionMutation';
 import { registerSubscription } from '../../../serviceWorkers/subscriptionServiceWorker';
+import { SettingsFragment as SettingsFragmentResponse } from './__generated__/SettingsFragment.graphql';
 import NotificationsGeneralFragment from './NotificationsGeneralFragment';
 import NotificationsTypesFragment from './NotificationsTypesFragment';
 import SubscriptionsPagination from './SubscriptionsPagination';
@@ -52,9 +52,8 @@ const styles = (theme: Theme) => ({
   },
 });
 
-interface Props {
-  classes?: any;
-  data: any;
+interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
+  data: SettingsFragmentResponse;
 }
 
 interface State {
@@ -74,7 +73,6 @@ class SettingsFragment extends React.Component<Props, State> {
     this.setState({ cleanApplicationDialogOpen: true });
   };
 
-
   handleCleanApplication = async () => {
     const { cleanApplication } = await cleanApplicationMutation({
       ownerId: this.props.data.ownerId,
@@ -83,38 +81,30 @@ class SettingsFragment extends React.Component<Props, State> {
     window.location.href = cleanApplication && cleanApplication.navigationUrl ? cleanApplication.navigationUrl : '';
   };
 
-  onDeleteSubscription = async (subscriptionId: any) => {
+  onDeleteSubscription = async (subscriptionId: string) => {
     await deleteSubscriptionMutation({
       subscriptionId,
       parentID: this.props.data.notifications.id,
     });
   };
 
-  onTestSubscription = async (subscriptionId: any) => {
-    const {
-      testSubscription: {
-        statusCode,
-      },
-    }: any = await testSubscriptionMutation({
-      subscriptionId,
-    });
-
-    return statusCode;
-  };
-
   onNotificationsActivate = async (): Promise<void> => {
     try {
-      await registerSubscription()
+      await registerSubscription();
     } catch (e) {
-      console.error(e);
+      throw e;
     }
   };
 
   render(): React.ReactNode {
     const { classes } = this.props;
 
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
     return (
-      <div className={classes.container}>
+      <div>
         <Paper className={classes.section}>
           <Typography align="center" variant="display1">
             Notifications
@@ -128,14 +118,13 @@ class SettingsFragment extends React.Component<Props, State> {
           <NotificationsTypesFragment data={this.props.data.notifications.types}/>
           <ExpansionPanel className={classes.expansionPanel}>
             <ExpansionPanelSummary expandIcon={<ExpandMore/>}>
-              <Typography className={classes.heading}>Subscriptions</Typography>
+              <Typography>Subscriptions</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails className={classes.subscriptionsPaginationExpansionPanel}>
               <SubscriptionsPagination
                 className={classes.list}
                 data={this.props.data.notifications}
                 onDelete={this.onDeleteSubscription}
-                onTest={this.onTestSubscription}
               />
             </ExpansionPanelDetails>
           </ExpansionPanel>
@@ -145,7 +134,7 @@ class SettingsFragment extends React.Component<Props, State> {
             Account
           </Typography>
           <div className={classes.accountContent}>
-            <Button color="secondary" className={classes.button} onClick={this.handleCleanApplicationDialogOpen}>
+            <Button color="secondary" onClick={this.handleCleanApplicationDialogOpen}>
               Delete account
               <DeleteForever/>
             </Button>
@@ -173,7 +162,6 @@ class SettingsFragment extends React.Component<Props, State> {
               </DialogActions>
             </Dialog>
           </div>
-
         </Paper>
       </div>
     );
@@ -198,5 +186,5 @@ export default createFragmentContainer<Props>(
         ...SubscriptionsPagination
       }
     }
-  `
+  `,
 );

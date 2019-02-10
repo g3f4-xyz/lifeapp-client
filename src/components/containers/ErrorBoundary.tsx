@@ -1,6 +1,6 @@
-import { withStyles } from '@material-ui/core';
+import { StyledComponentProps, withStyles } from '@material-ui/core';
 import { BugReport } from '@material-ui/icons';
-import React from 'react';
+import React, { Fragment } from 'react';
 
 const styles = {
   header: {
@@ -14,32 +14,43 @@ const styles = {
   },
 };
 
-interface Props {
-  classes?: any;
-  children: any;
+interface Props extends StyledComponentProps<keyof typeof styles> {
+  children: React.ReactNode;
 }
 
 interface State {
   hasError: boolean;
+  error: Error;
 }
 
 class ErrorBoundary extends React.Component<Props, State> {
-  state = { hasError: false };
+  state = { hasError: false, error: new Error() };
 
-  componentDidCatch(error: any, info: any) {
-    this.setState({ hasError: true });
-    console.info(info);
-    console.error(error);
+  componentDidCatch(error: Error) {
+    this.setState({ hasError: true, error });
   }
 
   render(): React.ReactNode {
     const { classes } = this.props;
 
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
     if (this.state.hasError) {
-      return [
-        <h1 key="ErrorBoundary:Header" className={classes.header}>ERROR!</h1>,
-        <BugReport key="ErrorBoundary:BugReportIcon" className={classes.icon} />
-      ];
+      return (
+        <Fragment>
+          <h1 key="ErrorBoundary:Header" className={classes.header}>ERROR!</h1>
+          <BugReport key="ErrorBoundary:BugReportIcon" className={classes.icon} />
+          {process.env.NODE_ENV === 'development' && (
+            <div>
+              <div>{this.state.error.name}</div>
+              <div>{this.state.error.message}</div>
+              <div>{this.state.error.stack}</div>
+            </div>
+          )}
+        </Fragment>
+      );
     }
 
     return this.props.children;

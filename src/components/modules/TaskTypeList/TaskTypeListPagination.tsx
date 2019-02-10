@@ -1,8 +1,11 @@
+import { StyledComponentProps, withStyles } from '@material-ui/core';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
-import { withStyles } from '@material-ui/core';
 import React from 'react';
-import { createPaginationContainer } from 'react-relay';
+import { ConnectionData, createPaginationContainer } from 'react-relay';
+import Loader from '../../display/Loader';
+import { TaskTypeEnum } from '../Task/__generated__/TaskFragment.graphql';
+import { TaskTypeListPagination } from './__generated__/TaskTypeListPagination.graphql';
 import TaskTypeFragment from './TaskTypeFragment';
 
 const styles = {
@@ -15,24 +18,32 @@ const styles = {
   },
 };
 
-interface Props {
-  classes?: any;
-  data: any;
-  relay: any;
-  onSelect: any;
+interface Props extends StyledComponentProps<keyof typeof styles> {
+  data: TaskTypeListPagination;
+  onSelect(taskType: TaskTypeEnum): void;
 }
 
-class TaskTypeListPagination extends React.Component<Props> {
+class TaskTypeList extends React.Component<Props> {
   render(): React.ReactNode {
     const { classes, data: { list: { edges } }, onSelect } = this.props;
-    const list = edges.map(({ node }: any): any => node);
+
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
+    if (!edges) {
+      return (
+        <Loader />
+      );
+    }
 
     return (
       <div className={classes.container}>
-        {[...list]
-          .sort(({ order: orderA }, { order: orderB }) => orderA - orderB)
-          .map((data: any, key: any): any => (
-            <TaskTypeFragment key={key} data={data} onSelect={onSelect}/>
+        {[...edges]
+          .map((edge) => edge && edge.node)
+          .sort((nodeA, nodeB) => nodeA && nodeB ? nodeA.order - nodeB.order : 0)
+          .map((data): React.ReactNode => data && (
+            <TaskTypeFragment key={data ? data.id : ''} data={data} onSelect={onSelect} />
           ))}
       </div>
     );
@@ -41,18 +52,13 @@ class TaskTypeListPagination extends React.Component<Props> {
 
 export default createPaginationContainer<Props>(
   // @ts-ignore
-  withStyles(styles)(TaskTypeListPagination),
+  withStyles(styles)(TaskTypeList),
   graphql`
-    fragment TaskTypeListPagination on TaskTypeListType
-    @argumentDefinitions(
-      count: { type: "Int", defaultValue: 10 }
-      cursor: { type: "String" }
-    )
-    {
+    fragment TaskTypeListPagination on TaskTypeListType {
       id
-      list (
-        first: $count
-        after: $cursor
+      list(
+        first: $count,
+        after: $after,
       ) @connection(key: "TaskTypeList_list") {
         edges {
           node {
@@ -69,22 +75,11 @@ export default createPaginationContainer<Props>(
     }
   `,
   {
-    getConnectionFromProps(props) {
-      return props.data && props.data.list;
-    },
-    getFragmentVariables(prevVars, totalCount) {
-      return {
-        ...prevVars,
-        count: totalCount,
-      };
-    },
-    getVariables(props, { count, cursor }) {
-      return { count, cursor };
-    },
+    direction: 'forward',
     query: graphql`
-      query TaskTypeListPaginationQuery (
-      $count: Int!
-      $cursor: String
+      query TaskTypeListPaginationQuery(
+        $count: Int!,
+        $after: String,
       ) {
         app {
           taskTypeList {
@@ -93,5 +88,20 @@ export default createPaginationContainer<Props>(
         }
       }
     `,
-  }
+    getConnectionFromProps(props) {
+      return props.data && props.data.list as ConnectionData;
+    },
+    getFragmentVariables(previousVariables, totalCount) {
+      return {
+        ...previousVariables,
+        count: totalCount,
+      };
+    },
+    getVariables(props, { cursor, count }) {
+      return {
+        count,
+        after: cursor,
+      };
+    },
+  },
 );

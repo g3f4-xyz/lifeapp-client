@@ -5,22 +5,62 @@ import React from 'react';
 import { createFragmentContainer, RelayProp } from 'react-relay';
 import editHandler from '../../../handlers/editHandler';
 import saveTaskMutation from '../../../mutations/saveTaskMutation';
-import { TaskFragment as TaskFragmentResponse } from './__generated__/TaskFragment.graphql';
+import {
+  FieldFormatEnum,
+  TaskFragment as TaskFragmentResponse,
+  TaskTypeEnum,
+} from './__generated__/TaskFragment.graphql';
 import TaskDetails from './TaskDetails';
 import TaskEdit from './TaskEdit';
 
-const valueParser = (field: any) => {
-  if (field.type === 'datetime-local') {
-    return {
-      ...field,
-      value: {
-        text: (new Date(field.value.text)),
-      },
-    };
-  }
+export interface FieldMeta {
+  readonly required?: boolean;
+  readonly defaultValue?: string | null;
+  readonly options?: ReadonlyArray<({
+    readonly text: string;
+    readonly value: string;
+  }) | null>;
+  readonly max?: number;
+  readonly min?: number;
+  readonly parentID?: string;
+  readonly optionsSet?: ReadonlyArray<({
+    readonly customValueOptionMask: string;
+    readonly parentValue: string;
+    readonly options: ReadonlyArray<({
+      readonly text: string;
+      readonly value: string;
+    }) | null> | null;
+  }) | null>;
+  readonly maxLen?: number;
+  readonly minLen?: number;
+}
 
-  return field;
-};
+export interface FieldValue {
+  readonly bool?: boolean | null;
+  readonly id?: string | null;
+  readonly customValueOptionValue?: string | null;
+  readonly ids?: ReadonlyArray<string | null>;
+  readonly parentValue?: string | null;
+  readonly number?: number | null;
+  readonly text?: string | null;
+}
+
+export interface Task {
+  readonly id: string;
+  readonly taskType: TaskTypeEnum;
+  readonly fields: ReadonlyArray<Field>;
+}
+
+export interface Field {
+  readonly fieldId: string;
+  readonly helperText: string;
+  readonly label: string;
+  readonly order: number;
+  readonly type: string;
+  readonly format: FieldFormatEnum;
+  readonly meta: FieldMeta;
+  readonly value: FieldValue;
+}
 
 interface Props {
   editMode: boolean;
@@ -45,7 +85,7 @@ class TaskFragment extends React.Component<Props, TaskFragmentResponse> {
           isNew,
           task: {
             id,
-            fields: task.fields.map(valueParser),
+            fields: task.fields,
             taskType: task.taskType,
           },
           parentID: taskListId,
@@ -58,7 +98,7 @@ class TaskFragment extends React.Component<Props, TaskFragmentResponse> {
   };
 
   // TODO fieldId i value nie powinno być unią
-  updateFieldsValue = (fieldId: string | string[], value: string | string[]) => {
+  updateFieldsValue = (fieldId: string | string[], value: FieldValue | FieldValue[]) => {
     const ids = Array.isArray(fieldId) ? fieldId : [fieldId];
     const values = Array.isArray(value) ? value : [value];
     const fields = this.state.fields ? this.state.fields : [];
@@ -161,5 +201,5 @@ export default createFragmentContainer<Props>(
         }
       }
     }
-  `
+  `,
 );

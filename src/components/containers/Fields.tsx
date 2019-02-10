@@ -1,7 +1,8 @@
-import { Paper, Theme } from '@material-ui/core';
+import { Paper, StyledComponentProps, Theme } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import React from 'react';
 import Field from '../display/Field';
+import { Field as IField } from '../modules/Task/TaskFragment';
 
 const styles = (theme: Theme) => ({
   row: {
@@ -12,18 +13,24 @@ const styles = (theme: Theme) => ({
     [theme.breakpoints.down('xs')]: {
       display: 'block',
     },
-  }
+  },
 });
 
-interface Props {
-  classes?: any;
-  fields: any;
+interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
+  fields: IField[];
 }
 
 class Fields extends React.Component<Props> {
   render(): React.ReactNode {
     const { classes, fields } = this.props;
-    const fieldsGroupedByOrder = fields.reduce((acc: any, { order, ...field }: any) => {
+
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
+    const fieldsGroupedByOrder = fields.reduce((acc, field) => {
+      const { order } = field;
+
       if (!acc[order]) {
         acc[order] = [];
       }
@@ -31,12 +38,12 @@ class Fields extends React.Component<Props> {
       acc[order].push(field);
 
       return acc;
-    }, []);
+    }, new Array<IField[]>());
 
-    return fieldsGroupedByOrder.map((fieldsInRow: any, key: any) => (
+    return fieldsGroupedByOrder.map((fieldsInRow, key) => (
       <Paper className={classes.row} key={key}>
-      {fieldsInRow.map(({ format, ...props }: any) => ({ format, props })).map((props: any, key: any) => (
-        <Field key={key} {...props} />
+      {fieldsInRow.map((field) => (
+        <Field key={field.fieldId} props={field} format={field.format} />
       ))}
       </Paper>
     ));

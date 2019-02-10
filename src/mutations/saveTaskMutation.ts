@@ -1,7 +1,7 @@
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import { commitMutation } from 'react-relay';
-import { RecordProxy, RecordSourceSelectorProxy } from 'relay-runtime';
+// import { RecordProxy, RecordSourceSelectorProxy } from 'relay-runtime';
 import environment from '../environment';
 import {
   saveTaskMutation,
@@ -9,9 +9,9 @@ import {
   saveTaskMutationResponse,
 } from './__generated__/saveTaskMutation.graphql';
 
-const updateValueRecord = (record: any, value: any, key: any): any => {
-  record.getLinkedRecord('value').setValue(value, key);
-};
+// const updateValueRecord = (record: any, value: any, key: any): any => {
+//   record.getLinkedRecord('value').setValue(value, key);
+// };
 
 const mutation = graphql`
   mutation saveTaskMutation(

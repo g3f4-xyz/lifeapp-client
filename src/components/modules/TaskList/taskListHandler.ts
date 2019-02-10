@@ -1,14 +1,19 @@
+import { Spec } from 'immutability-helper';
 import { MODULES_IDS } from '../../../constans';
 import { AppState, ModuleProps } from '../../App';
 
-interface TaskListHandlerProps extends ModuleProps {
+export interface TaskListHandlerProps extends ModuleProps {
   onAdd(): void;
   onDetails(taskId: string): void;
   onEdit(taskId: string): void;
 }
 
-export default ({ moduleId }: ModuleProps, state: AppState, update: any): TaskListHandlerProps => ({
-  moduleId,
+export default (
+  moduleProps: ModuleProps,
+  state: AppState,
+  update: (spec: Spec<AppState>,
+) => void): TaskListHandlerProps => ({
+  moduleId: moduleProps.moduleId,
   onAdd: () => {
     update({
       $merge: {
@@ -20,7 +25,7 @@ export default ({ moduleId }: ModuleProps, state: AppState, update: any): TaskLi
       },
     });
   },
-  onDetails: (taskId: any) => {
+  onDetails: (taskId: string) => {
     const activeModuleId = `${taskId}:details`;
     const { gridView, gridViewLocked, openedTasksModulesProps } = state;
 
@@ -34,11 +39,12 @@ export default ({ moduleId }: ModuleProps, state: AppState, update: any): TaskLi
           isNew: false,
           moduleId: activeModuleId,
           taskId,
+          type: null,
         }],
       },
     });
   },
-  onEdit: (taskId: any) => {
+  onEdit: (taskId: string) => {
     const { gridView, gridViewLocked, openedTasksModulesProps } = state;
     const moduleId = `${taskId}:edit`;
 
@@ -52,6 +58,7 @@ export default ({ moduleId }: ModuleProps, state: AppState, update: any): TaskLi
           isNew: false,
           moduleId,
           taskId,
+          type: null,
         }],
       },
     });

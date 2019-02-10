@@ -1,18 +1,23 @@
+import { Spec } from 'immutability-helper';
 import { MODULES_IDS } from '../../../constans';
-import { AppState, ModuleProps } from '../../App';
+import { AppState, TaskModuleProps } from '../../App';
 
-interface TaskHandlerProps extends ModuleProps {
+interface TaskHandlerProps extends TaskModuleProps {
   onSaveDone(taskId: string): void;
 }
 
-export default (moduleProps: ModuleProps, state: AppState, update: any): TaskHandlerProps => ({
+export default (
+  moduleProps: TaskModuleProps,
+  state: AppState,
+  update: (spec: Spec<AppState>) => void,
+): TaskHandlerProps => ({
   ...moduleProps,
-  onSaveDone: (taskId: any) => {
+  onSaveDone: (taskId: string) => {
     update({
       $merge: {
         activeModuleId: MODULES_IDS.TASK_LIST,
         activeModulesHistory: [MODULES_IDS.TASK_LIST],
-        openedTasksModulesProps: state.openedTasksModulesProps.filter((props: any) => props.taskId === taskId),
+        openedTasksModulesProps: state.openedTasksModulesProps.filter((props) => props.taskId === taskId),
       },
     });
   },

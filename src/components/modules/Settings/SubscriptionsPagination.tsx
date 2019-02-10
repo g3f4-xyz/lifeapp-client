@@ -2,26 +2,36 @@ import { List } from '@material-ui/core';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
-import { createPaginationContainer } from 'react-relay';
+import { ConnectionData, createPaginationContainer } from 'react-relay';
+import Loader from '../../display/Loader';
+import { SubscriptionsPagination } from './__generated__/SubscriptionsPagination.graphql';
 import SubscriptionFragment from './SubscriptionFragment';
 
 interface Props {
-  classes?: any;
-  className: any;
-  data: any;
-  onDelete: any;
-  onTest: any;
+  className?: string;
+  data: SubscriptionsPagination;
+  onDelete(subscriptionId: string): void;
 }
 
-class SubscriptionsPagination extends React.Component<Props> {
+class Subscriptions extends React.Component<Props> {
   render(): React.ReactNode {
-    const { className, data, onDelete, onTest } = this.props;
-    const { subscriptions: { edges } }  = data || { subscriptions: { edges: [] } };
+    const { className, data, onDelete } = this.props;
+    const { subscriptions: { edges } }  = data;
+
+    if (!edges) {
+      return (
+        <Loader />
+      );
+    }
 
     return (
       <List className={className}>
-      {edges.map(({ node }: any, key: any): any => (
-        <SubscriptionFragment key={key} data={node} onDelete={onDelete} onTest={onTest} />
+      {edges.map((edge): React.ReactNode => edge && edge.node && (
+        <SubscriptionFragment
+          key={edge.node.id}
+          data={edge.node}
+          onDelete={onDelete}
+        />
       ))}
       </List>
     );
@@ -29,24 +39,18 @@ class SubscriptionsPagination extends React.Component<Props> {
 }
 
 export default createPaginationContainer<Props>(
-  SubscriptionsPagination,
+  Subscriptions,
   graphql`
     fragment SubscriptionsPagination on NotificationsType
-    @argumentDefinitions(
-        count: { type: "Int", defaultValue: 999 }
-        cursor: { type: "String" }
-#        cursor: { type: "ID" }
-#        GraphQLParser: Variable \`$cursor\` was defined as type \`ID\`, but used in a location that expects type \`String\`. Source: document \`TaskListPagination\` file: \`modules/TaskList/TaskListPagination.jsx\`.
-#        orderby: {type: "[FriendsOrdering]", defaultValue: [DATE_ADDED]}
-    )
     {
       id
       subscriptions (
-        first: $count
-        after: $cursor
+        first: $count,
+        after: $after,
       ) @connection(key: "Notifications_subscriptions") {
         edges {
           node {
+            id
             ...SubscriptionFragment
           }
         }
@@ -54,8 +58,9 @@ export default createPaginationContainer<Props>(
     }
   `,
   {
+    direction: 'forward',
     getConnectionFromProps(props) {
-      return props.data && props.data.list;
+      return props.data && props.data.subscriptions as ConnectionData;
     },
     getFragmentVariables(prevVars, totalCount) {
       return {
@@ -68,8 +73,8 @@ export default createPaginationContainer<Props>(
     },
     query: graphql`
       query SubscriptionsPaginationQuery (
-        $count: Int!
-        $cursor: String
+        $count: Int!,
+        $after: String,
       ) {
         app {
           settings {
@@ -80,5 +85,5 @@ export default createPaginationContainer<Props>(
         }
       }
     `,
-  }
+  },
 );

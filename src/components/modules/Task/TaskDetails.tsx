@@ -1,4 +1,4 @@
-import { Paper, Theme, withStyles } from '@material-ui/core';
+import { Paper, StyledComponentProps, Theme, withStyles } from '@material-ui/core';
 import React from 'react';
 import FieldIcon from '../../display/FieldIcon';
 import FieldValue from '../../display/FieldValue';
@@ -27,8 +27,7 @@ const styles = (theme: Theme) => ({
   },
 });
 
-interface Props {
-  classes: any;
+interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
   data: TaskFragmentResponse;
 }
 
@@ -37,6 +36,10 @@ class TaskDetails extends React.Component<Props> {
     const { classes } = this.props;
     const { taskType, fields } = this.props.data;
 
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
     if (!fields) {
       return (
         <Loader />
@@ -44,11 +47,11 @@ class TaskDetails extends React.Component<Props> {
     }
 
     return (
-      <div className={classes.root}>
+      <div>
         <TaskTypeIcon type={taskType} />
       {[...fields]
         .sort((a, b) => a && b && a.order && b.order ? a.order - b.order : 0)
-        .map(({ fieldId, format, label, type, meta, value }: any) => (
+        .map(({ fieldId, format, label, type, meta, value }) => (
         <div key={fieldId}>
           <Paper className={classes.row}>
             <FieldIcon fieldId={fieldId} />

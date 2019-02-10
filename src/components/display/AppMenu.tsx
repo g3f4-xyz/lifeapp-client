@@ -1,26 +1,18 @@
 import { IconButton, Menu, MenuItem } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
-import React from 'react';
+import React, { ChangeEvent, MouseEvent, MouseEventHandler } from 'react';
 
 interface Props {
-  options: any;
+  options: Array<{ label: string, action: () => void, visible?: boolean }>;
 }
 
 interface State {
-  anchorEl: any;
+  anchorEl: HTMLElement | null;
 }
 
 class AppMenu extends React.Component<Props, State> {
   state = {
     anchorEl: null,
-  };
-
-  handleClick = (event: any) => {
-    this.setState({ anchorEl: event.currentTarget });
-  };
-
-  handleClose = () => {
-    this.setState({ anchorEl: null });
   };
 
   render(): React.ReactNode {
@@ -42,8 +34,8 @@ class AppMenu extends React.Component<Props, State> {
           open={Boolean(anchorEl)}
           onClose={this.handleClose}
         >
-          {options.filter(({ visible = true }: any) => visible).map(({ label, action, disabled }: any, key: any) => (
-            <MenuItem key={key} disabled={disabled} onClick={action}>
+          {options.filter(({ visible = true }) => visible).map(({ label, action }) => (
+            <MenuItem key={label} onClick={action}>
               {label}
             </MenuItem>
           ))}
@@ -51,6 +43,14 @@ class AppMenu extends React.Component<Props, State> {
       </div>
     );
   }
+
+  private handleClick = (event: MouseEvent<HTMLButtonElement>): void => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  private handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
 }
 
 export default AppMenu;

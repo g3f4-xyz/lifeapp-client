@@ -1,4 +1,9 @@
+import { FieldFormatEnum, TaskTypeEnum } from './components/modules/Task/__generated__/TaskFragment.graphql';
+import { TaskStatusEnum } from './components/modules/TaskList/__generated__/TaskListFragment.graphql';
+
 export type MODULE = 'settings' | 'task' | 'taskList' | 'taskTypeList';
+
+export const ITEMS_PER_PAGE = 5;
 
 export const MODULES_IDS: { [key: string]: MODULE } = {
   SETTINGS: 'settings',
@@ -7,13 +12,10 @@ export const MODULES_IDS: { [key: string]: MODULE } = {
   TASK_TYPE_LIST: 'taskTypeList',
 };
 
-export type FIELD_FORMAT = 'BOOL' | 'CHOICE' | 'MULTIPLE_CHOICE_WITH_PARENT' | 'NUMBER' | 'TEXT';
-
-export const FIELD_FORMATS: { [key: string]: FIELD_FORMAT } = {
+export const FIELD_FORMATS: { [key: string]: FieldFormatEnum } = {
   BOOL: 'BOOL',
   CHOICE: 'CHOICE',
   MULTIPLE_CHOICE_WITH_PARENT: 'MULTIPLE_CHOICE_WITH_PARENT',
-  NUMBER: 'NUMBER',
   TEXT: 'TEXT',
 };
 
@@ -32,13 +34,19 @@ export const STATUSES: { [key: string]: STATUS } = {
   NOT_REGISTERED: '410',
 };
 
-export type TASK_TYPE = 'EVENT' | 'MEETING' | 'ROUTINE' | 'TODO';
-
-export const TASK_TYPES: { [key: string]: TASK_TYPE } = {
+export const TASK_TYPES: { [key: string]: TaskTypeEnum } = {
   EVENT: 'EVENT',
   MEETING: 'MEETING',
   ROUTINE: 'ROUTINE',
   TODO: 'TODO',
+};
+
+export type TASK_STATUS = 'TODO' | 'IN_PROGRESS' | 'DONE';
+
+export const TASK_STATUSES: { [key: string]: TaskStatusEnum } = {
+  TODO: 'TODO',
+  IN_PROGRESS: 'IN_PROGRESS',
+  DONE: 'DONE',
 };
 
 export type LOCAL_STORAGE_LAYOUT_KEY = 'layouts';

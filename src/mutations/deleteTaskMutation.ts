@@ -20,7 +20,7 @@ const mutation = graphql`
 
 export default (
   { id, parentID }: deleteTaskMutationInput & { parentID: string },
-): Promise<deleteTaskMutationResponse> => new Promise((resolve: any, reject: any): any => {
+): Promise<deleteTaskMutationResponse> => new Promise((onCompleted, onError): void => {
   const variables = { input: { id } };
   const configs = [{
     type: 'RANGE_DELETE',
@@ -39,8 +39,8 @@ export default (
       // @ts-ignore
       configs,
       variables,
-      onCompleted: resolve,
-      onError: reject,
+      onCompleted,
+      onError,
     },
   );
 });

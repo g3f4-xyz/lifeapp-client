@@ -1,12 +1,12 @@
 import { FormControlLabel, Switch } from '@material-ui/core';
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
 interface Props {
-  id: string,
-  fieldId: string,
-  label: string,
-  checked: boolean,
-  onChange: any,
+  id: string;
+  fieldId: string;
+  label: string;
+  checked: boolean;
+  onChange(event: ChangeEvent<HTMLInputElement>, checked: boolean): void;
 }
 
 class FormSwitch extends React.Component<Props> {
@@ -25,7 +25,7 @@ class FormSwitch extends React.Component<Props> {
         }
         label={label}
       />
-    )
+    );
   }
 }
 

@@ -1,10 +1,12 @@
-import { IconButton, withStyles } from '@material-ui/core';
+import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
 import { AddCircle, InfoOutlined } from '@material-ui/icons';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import TaskTypeIcon from '../../display/TaskTypeIcon';
+import { TaskTypeEnum } from '../Task/__generated__/TaskFragment.graphql';
+import { TaskTypeFragment } from './__generated__/TaskTypeFragment.graphql';
 
 const styles = {
   actionsContainer: {
@@ -50,17 +52,16 @@ const styles = {
   },
 };
 
-interface Props {
-  classes?: any;
-  data: any;
-  onSelect: any;
+interface Props extends StyledComponentProps<keyof typeof styles> {
+  data: TaskTypeFragment;
+  onSelect(taskType: TaskTypeEnum): void;
 }
 
 interface State {
   info: boolean;
 }
 
-class TaskTypeFragment extends React.Component<Props, State> {
+class TaskType extends React.Component<Props, State> {
   state = {
     info: false,
   };
@@ -75,6 +76,10 @@ class TaskTypeFragment extends React.Component<Props, State> {
     const { classes, data, onSelect } = this.props;
     const { name, description, typeId } = data;
 
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
     return (
       <div className={classes.container}>
         <div className={classes.nameContainer}>
@@ -84,7 +89,7 @@ class TaskTypeFragment extends React.Component<Props, State> {
           {this.state.info ? (
             <h3 className={classes.descText}>{description}</h3>
           ) : (
-            <TaskTypeIcon type={typeId} className={classes.icon}/>
+            <TaskTypeIcon type={typeId} className={classes.icon} />
           )}
         </div>
         <div className={classes.actionsContainer}>
@@ -92,13 +97,13 @@ class TaskTypeFragment extends React.Component<Props, State> {
             className={classes.infoButton}
             onClick={this.onInfo}
           >
-            <InfoOutlined className={classes.fontSize72}/>
+            <InfoOutlined className={classes.fontSize72} />
           </IconButton>
           <IconButton
             className={classes.addButton}
             onClick={() => onSelect(typeId)}
           >
-            <AddCircle className={classes.fontSize72}/>
+            <AddCircle className={classes.fontSize72} />
           </IconButton>
         </div>
       </div>
@@ -108,7 +113,7 @@ class TaskTypeFragment extends React.Component<Props, State> {
 
 export default createFragmentContainer<Props>(
   // @ts-ignore
-  withStyles(styles)(TaskTypeFragment),
+  withStyles(styles)(TaskType),
   graphql`
     fragment TaskTypeFragment on TaskTypeType {
       id
@@ -116,5 +121,5 @@ export default createFragmentContainer<Props>(
       name
       description
     }
-  `
+  `,
 );

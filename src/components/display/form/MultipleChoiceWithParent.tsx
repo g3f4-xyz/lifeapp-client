@@ -1,6 +1,6 @@
-import { Theme, Typography, withStyles } from '@material-ui/core';
+import { StyledComponentProps, Theme, Typography, withStyles } from '@material-ui/core';
 import React from 'react';
-import MultipleSelect, { MultipleSelectProps } from './MultipleSelect';
+import MultipleSelect from './MultipleSelect';
 
 const styles = (theme: Theme) => ({
   noParentValue: {
@@ -8,9 +8,13 @@ const styles = (theme: Theme) => ({
   },
 });
 
-interface Props extends MultipleSelectProps {
-  parentLabel: any;
-  parentValue: any;
+interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
+  parentLabel: string;
+  parentValue: string;
+  defaultValue: string;
+  ids: string[];
+  optionsSet:
+    Array<{ options: Array<{ text: string, value: string }>, parentValue: string, customValueOptionMask: string }>;
 }
 
 class MultipleChoiceWithParent extends React.Component<Props> {
@@ -25,9 +29,17 @@ class MultipleChoiceWithParent extends React.Component<Props> {
       ...selectProps
     } = this.props;
 
-    const { options, customValueOptionMask } =
-      optionsSet.find((item: any): any => item.parentValue === (parentValue || defaultValue))
-      || { options: [], customValueOptionMask: '' };
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
+    const set = optionsSet.find((item) => item.parentValue === (parentValue || defaultValue));
+
+    if (!set) {
+      throw new Error(`no options set for parentValue: ${parentValue}`);
+    }
+
+    const { options, customValueOptionMask } = set;
 
     return ids !== null ? (
       <MultipleSelect
@@ -42,7 +54,7 @@ class MultipleChoiceWithParent extends React.Component<Props> {
           {`Select ${parentLabel}`}
         </Typography>
       </div>
-    )
+    );
   }
 }
 

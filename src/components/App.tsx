@@ -1,4 +1,5 @@
-import { IconButton, withStyles } from '@material-ui/core';
+import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
+import { StyleRules } from '@material-ui/core/styles';
 import { Cancel } from '@material-ui/icons';
 import immutabilityHelper, { Spec } from 'immutability-helper';
 import React, { Fragment } from 'react';
@@ -10,12 +11,13 @@ import ResponsiveGrid from './containers/ResponsiveGrid';
 import AppMenu from './display/AppMenu';
 import settingsHandler from './modules/Settings/settingsHandler';
 import SettingsQuery from './modules/Settings/SettingsQuery';
+import { TaskTypeEnum } from './modules/Task/__generated__/TaskFragment.graphql';
+import Task from './modules/Task/Task';
 import taskHandler from './modules/Task/taskHandler';
-import TaskQuery from './modules/Task/TaskQuery';
+import TaskList from './modules/TaskList/TaskList';
 import taskListHandler from './modules/TaskList/taskListHandler';
-import TaskListQuery from './modules/TaskList/TaskListQuery';
+import TaskTypeList from './modules/TaskTypeList/TaskTypeList';
 import taskTypeListHandler from './modules/TaskTypeList/taskTypeListHandler';
-import TaskTypeListQuery from './modules/TaskTypeList/TaskTypeListQuery';
 
 const styles = {
   backButton: {
@@ -36,12 +38,6 @@ const styles = {
   },
 };
 
-const QUERIES_COMPONENTS = {
-  [MODULES_IDS.SETTINGS]: SettingsQuery,
-  [MODULES_IDS.TASK]: TaskQuery,
-  [MODULES_IDS.TASK_LIST]: TaskListQuery,
-  [MODULES_IDS.TASK_TYPE_LIST]: TaskTypeListQuery,
-};
 const APP_MODULES_IDS = [
   MODULES_IDS.SETTINGS,
   MODULES_IDS.TASK_LIST,
@@ -52,15 +48,21 @@ export interface ModuleProps {
   moduleId: string;
 }
 
-interface Props {
-  classes?: any;
+export interface TaskModuleProps extends ModuleProps {
+  editMode: boolean;
+  isNew: boolean;
+  taskId: string;
+  type: TaskTypeEnum | null;
+}
+
+interface Props extends StyledComponentProps<keyof typeof styles> {
 }
 
 export interface AppState {
   activeModuleId: string;
   activeModulesHistory: string[];
   appOpenedModuleIds: MODULE[];
-  openedTasksModulesProps: ModuleProps[];
+  openedTasksModulesProps: TaskModuleProps[];
   layouts: Layouts;
   gridView: boolean;
   gridViewLocked: boolean;
@@ -71,17 +73,10 @@ class App extends React.Component<Props, AppState> {
     activeModuleId: MODULES_IDS.TASK_LIST,
     activeModulesHistory: [MODULES_IDS.TASK_LIST],
     appOpenedModuleIds: [MODULES_IDS.TASK_LIST],
-    openedTasksModulesProps: [],
+    openedTasksModulesProps: new Array<TaskModuleProps>(),
     layouts: getFromLS(LOCAL_STORAGE_LAYOUTS_KEY) || {},
     gridView: false,
     gridViewLocked: false,
-  };
-
-  private handlers = {
-    [MODULES_IDS.SETTINGS]: settingsHandler,
-    [MODULES_IDS.TASK]: taskHandler,
-    [MODULES_IDS.TASK_LIST]: taskListHandler,
-    [MODULES_IDS.TASK_TYPE_LIST]: taskTypeListHandler,
   };
 
   render(): React.ReactNode {
@@ -94,6 +89,11 @@ class App extends React.Component<Props, AppState> {
 
   private renderApplication(): React.ReactNode {
     const { classes } = this.props;
+
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
     const { activeModuleId, gridView } = this.state;
     const isTaskListModuleActive = MODULES_IDS.TASK_LIST === activeModuleId;
 
@@ -116,18 +116,12 @@ class App extends React.Component<Props, AppState> {
 
   private updateState = (spec: Spec<AppState>): void => this.setState(immutabilityHelper(this.state, spec));
 
-  private moduleHandler(moduleId: MODULE, moduleProps: ModuleProps): any {
-    const handler = this.handlers[moduleId];
-
-    if (handler) {
-      return handler(moduleProps, this.state, this.updateState);
-    }
-
-    throw new Error(`No module handler provider for module ${moduleProps.moduleId}`);
-  }
-
   private renderMenu(): React.ReactNode {
     const { gridView, gridViewLocked } = this.state;
+
+    if (!this.props.classes) {
+      return null;
+    }
 
     return (
       <div className={this.props.classes.menuContainer}>
@@ -203,8 +197,8 @@ class App extends React.Component<Props, AppState> {
     } else {
       this.setState({
         activeModuleId: activeModulesHistory[activeModulesHistory.length - 2],
-        activeModulesHistory: activeModulesHistory.filter((moduleId): any => moduleId !== activeModuleId),
-        openedTasksModulesProps: openedTasksModulesProps.filter((props: any): any => props.moduleId !== activeModuleId),
+        activeModulesHistory: activeModulesHistory.filter((moduleId) => moduleId !== activeModuleId),
+        openedTasksModulesProps: openedTasksModulesProps.filter((props) => props.moduleId !== activeModuleId),
       });
     }
   };
@@ -233,36 +227,49 @@ class App extends React.Component<Props, AppState> {
     });
   };
 
-
-  private renderTaskModule(moduleProps: ModuleProps): React.ReactNode {
+  private renderTaskModule = (taskModuleProps: TaskModuleProps): React.ReactNode => {
     return (
-      <TaskQuery key={moduleProps.moduleId} {...this.moduleHandler(MODULES_IDS.TASK, moduleProps)} />
+      <Task key={taskModuleProps.moduleId} {...taskHandler(taskModuleProps, this.state, this.updateState)} />
     );
-  }
+  };
 
-  private renderTaskModules(): React.ReactNode {
-    return this.state.openedTasksModulesProps.map((module: ModuleProps) => this.renderTaskModule(module));
-  }
-
-  private renderApplicationModule(moduleId: MODULE): React.ReactNode {
-    const Component = QUERIES_COMPONENTS[moduleId];
-
-    return (
-      <Component
-        key={moduleId}
-        moduleId={moduleId}
-        {...this.moduleHandler(moduleId, { moduleId })}
-      />
-    );
-  }
-
-  private renderApplicationModules(): React.ReactNode {
-    return this.state.appOpenedModuleIds.map((moduleId) =>
-      this.renderApplicationModule(moduleId));
-  }
+  private renderApplicationModule = (moduleId: MODULE): React.ReactNode => {
+    switch (moduleId) {
+      case MODULES_IDS.TASK_LIST: {
+        return (
+          <TaskList
+            key={MODULES_IDS.TASK_LIST}
+            moduleId={MODULES_IDS.TASK_LIST}
+            {...taskListHandler({ moduleId: MODULES_IDS.TASK_LIST }, this.state, this.updateState)}
+          />
+        );
+      }
+      case MODULES_IDS.TASK_TYPE_LIST: {
+        return (
+          <TaskTypeList
+            key={MODULES_IDS.TASK_TYPE_LIST}
+            moduleId={MODULES_IDS.TASK_TYPE_LIST}
+            {...taskTypeListHandler({ moduleId: MODULES_IDS.TASK_TYPE_LIST }, this.state, this.updateState)}
+          />
+        );
+      }
+      case MODULES_IDS.SETTINGS: {
+        return (
+          <SettingsQuery
+            key={MODULES_IDS.SETTINGS}
+            moduleId={MODULES_IDS.SETTINGS}
+            {...settingsHandler({ moduleId: MODULES_IDS.SETTINGS })}
+          />
+        );
+      }
+      default: {
+        throw new Error(`no application module: ${moduleId}`);
+      }
+    }
+  };
 
   private renderResponsiveGrid(): React.ReactNode {
-    const { layouts } = this.state;
+    const { appOpenedModuleIds, openedTasksModulesProps, layouts } = this.state;
 
     return (
       <ResponsiveGrid
@@ -271,8 +278,8 @@ class App extends React.Component<Props, AppState> {
         onModuleZoom={this.onModuleZoom}
         onLayoutChange={this.onLayoutChange}
       >
-        {this.renderApplicationModules()}
-        {this.renderTaskModules()}
+        {appOpenedModuleIds.map(this.renderApplicationModule)}
+        {openedTasksModulesProps.map(this.renderTaskModule)}
       </ResponsiveGrid>
     );
   }

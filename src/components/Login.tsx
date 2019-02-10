@@ -1,7 +1,7 @@
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { Theme } from '@material-ui/core/styles';
+import { StyledComponentProps, Theme } from '@material-ui/core/styles';
 import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
 import React from 'react';
@@ -20,12 +20,16 @@ const styles = (theme: Theme) => ({
   },
 });
 
-interface Props {
-  classes?: any;
+interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
 }
 
 function Login(props: Props) {
   const { classes } = props;
+
+  if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
   return (
     <div className={classes.root}>
       <div>
