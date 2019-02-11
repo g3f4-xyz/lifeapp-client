@@ -1,6 +1,12 @@
 import { FieldFormatEnum, TaskTypeEnum } from './components/modules/Task/__generated__/TaskFragment.graphql';
 import { TaskStatusEnum } from './components/modules/TaskList/__generated__/TaskListFragment.graphql';
 
+type Without<T, K> = Pick<T, Exclude<keyof T, K>>;
+type ExcludeFutureAdded<T> = Without<T, '%future added value'>;
+type UnionKeyToValue<U extends string> = {
+  [K in U]: K
+};
+
 export type MODULE = 'settings' | 'task' | 'taskList' | 'taskTypeList';
 
 export const ITEMS_PER_PAGE = 5;
@@ -34,16 +40,18 @@ export const STATUSES: { [key: string]: STATUS } = {
   NOT_REGISTERED: '410',
 };
 
-export const TASK_TYPES: { [key: string]: TaskTypeEnum } = {
+export const TASK_TYPES: ExcludeFutureAdded<UnionKeyToValue<TaskTypeEnum>> = {
   EVENT: 'EVENT',
   MEETING: 'MEETING',
   ROUTINE: 'ROUTINE',
   TODO: 'TODO',
 };
 
-export type TASK_STATUS = 'TODO' | 'IN_PROGRESS' | 'DONE';
+export type TaskTypesValueMap<V> = {
+  [K in keyof typeof TASK_TYPES]: V
+};
 
-export const TASK_STATUSES: { [key: string]: TaskStatusEnum } = {
+export const TASK_STATUSES: ExcludeFutureAdded<UnionKeyToValue<TaskStatusEnum>> = {
   TODO: 'TODO',
   IN_PROGRESS: 'IN_PROGRESS',
   DONE: 'DONE',
