@@ -58,13 +58,12 @@ const styles = (theme: Theme) => ({
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
   data: TaskListFragmentResponse;
   onDelete(id: string): void;
-  onDetails(id: string): void;
   onEdit(id: string): void;
 }
 
 class TaskListFragment extends React.PureComponent<Props> {
   render(): React.ReactNode {
-    const { classes, data, onDelete, onDetails, onEdit } = this.props;
+    const { classes, data, onDelete, onEdit } = this.props;
     const { id, taskType, title, note, priority, status } = data;
 
     if (!classes) {
@@ -90,7 +89,6 @@ class TaskListFragment extends React.PureComponent<Props> {
             {note}
           </div>
           <div className={classes.actions}>
-            <Button onClick={() => onDetails(id)}>Show</Button>
             <Button onClick={() => onEdit(id)}>Edit</Button>
             <Button onClick={() => onDelete(id)}>Delete</Button>
           </div>

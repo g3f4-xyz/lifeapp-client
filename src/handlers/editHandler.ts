@@ -1,51 +1,19 @@
 import { ChangeEvent } from 'react';
-import { TaskFragment, TaskTypeEnum } from '../components/modules/Task/__generated__/TaskFragment.graphql';
-import { Field, FieldValue } from '../components/modules/Task/TaskFragment';
+import { TaskTypeEnum } from '../components/modules/Task/__generated__/TaskFragment.graphql';
 import { FIELD_FORMATS } from '../constans';
 
-export type FieldProps = Partial<{
-  readonly id?: string | null;
-  readonly type?: string | null;
-  readonly label?: string | null;
-  readonly order?: number | null;
-  readonly format?: string | null;
-  readonly options?: ReadonlyArray<({
-    readonly text: string;
-    readonly value: string;
-  }) | null>;
-  readonly value?: string | null;
-  readonly optionsSet?: ReadonlyArray<({
-    readonly customValueOptionMask: string;
-    readonly parentValue: string;
-    readonly options: ReadonlyArray<({
-      readonly text: string;
-      readonly value: string;
-    }) | null> | null;
-  }) | null>;
-  readonly defaultValue?: string | null;
-  readonly parentLabel?: string | null;
-  readonly parentValue?: string | null;
-  readonly customValueOptionValue?: string | null;
-  readonly checked?: boolean | null;
-  readonly ids?: ReadonlyArray<string | null>;
-  onChange(
-    { target: { value }}: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    alternativeValue: boolean | { isCustomOptionValueUpdate: boolean },
-  ): void;
-}>;
-
 export interface EditHandlerProps {
-  fields: ReadonlyArray<FieldProps>;
+  fields: any[];
   taskType: TaskTypeEnum;
   onSave(): void;
 }
 
 export default (
-  data: TaskFragment,
-  update: (fieldId: string | string[], value: FieldValue | FieldValue[]) => void,
+  data: any,
+  update: (fieldId: string | string[], value: any | any[]) => void,
   { onSave }: { onSave(): void },
 ): EditHandlerProps => {
-  const mapFieldToProps = (field: Field): FieldProps => {
+  const mapFieldToProps = (field: any): any => {
     const {
       fieldId,
       format,
@@ -72,7 +40,7 @@ export default (
       label,
       order,
     };
-    const getField = (parentId: string) => data.fields.find((f) => f.fieldId === parentId);
+    const getField = (parentId: string) => data.fields.find((f: any) => f.fieldId === parentId);
 
     if (fieldId === 'CYCLE' && options) {
       return {
@@ -156,7 +124,7 @@ export default (
   };
 
   return {
-    fields: data.fields.map((field: Field) => mapFieldToProps(field)),
+    fields: data.fields.map((field: any) => mapFieldToProps(field as any)),
     taskType: data.taskType,
     onSave,
   };

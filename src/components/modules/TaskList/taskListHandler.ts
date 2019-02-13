@@ -4,7 +4,6 @@ import { AppState, ModuleProps } from '../../App';
 
 export interface TaskListHandlerProps extends ModuleProps {
   onAdd(): void;
-  onDetails(taskId: string): void;
   onEdit(taskId: string): void;
 }
 
@@ -22,25 +21,6 @@ export default (
           : [...state.appOpenedModuleIds, MODULES_IDS.TASK_TYPE_LIST],
         activeModuleId: MODULES_IDS.TASK_TYPE_LIST,
         activeModulesHistory: [...state.activeModulesHistory, MODULES_IDS.TASK_TYPE_LIST],
-      },
-    });
-  },
-  onDetails: (taskId: string) => {
-    const activeModuleId = `${taskId}:details`;
-    const { gridView, gridViewLocked, openedTasksModulesProps } = state;
-
-    update({
-      $merge: {
-        activeModuleId,
-        activeModulesHistory: [...state.activeModulesHistory, activeModuleId],
-        gridView: gridView ? gridView : gridViewLocked,
-        openedTasksModulesProps: [...openedTasksModulesProps, {
-          editMode: false,
-          isNew: false,
-          moduleId: activeModuleId,
-          taskId,
-          type: null,
-        }],
       },
     });
   },

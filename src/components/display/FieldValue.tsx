@@ -1,8 +1,7 @@
 import { StyledComponentProps, Theme, withStyles } from '@material-ui/core';
 import React from 'react';
 import { CUSTOM_OPTION_VALUE, FIELD_FORMATS } from '../../constans';
-import { FieldFormatEnum } from '../modules/Task/__generated__/TaskFragment.graphql';
-import { FieldMeta, FieldValue as FieldValueFragment } from '../modules/Task/TaskFragment';
+import { FieldFormatEnum } from '../modules/Task/__generated__/FieldFragment.graphql';
 
 const styles = (theme: Theme) => ({
   value: {
@@ -14,13 +13,13 @@ const styles = (theme: Theme) => ({
   },
 });
 
-const valueFormatter = (value: FieldValueFragment, format: FieldFormatEnum, meta: FieldMeta): string => {
+const valueFormatter = (value: any, format: FieldFormatEnum, meta: any): string => {
   const { options, optionsSet } = meta;
 
   if (format === FIELD_FORMATS.BOOL) {
     return value.bool ? 'Yes' : 'No';
   } else if (format === FIELD_FORMATS.CHOICE && options) {
-    const foundOption = options.find((option) => {
+    const foundOption = options.find((option: any) => {
       if (option) {
         return option.value === value.id;
       }
@@ -30,7 +29,7 @@ const valueFormatter = (value: FieldValueFragment, format: FieldFormatEnum, meta
 
     return foundOption ? foundOption.text : '';
   } else if (format === FIELD_FORMATS.MULTIPLE_CHOICE_WITH_PARENT && optionsSet) {
-    const foundOptionsSet = optionsSet.find((set) => {
+    const foundOptionsSet = optionsSet.find((set: any) => {
       if (set && set.parentValue) {
         return set.parentValue === value.parentValue;
       }
@@ -48,7 +47,7 @@ const valueFormatter = (value: FieldValueFragment, format: FieldFormatEnum, meta
     }
 
     return value.ids
-      .map((id) =>
+      .map((id: any) =>
         `${valueFormatter(
             { id },
             FIELD_FORMATS.CHOICE,
@@ -69,8 +68,8 @@ const valueFormatter = (value: FieldValueFragment, format: FieldFormatEnum, meta
 };
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
-  meta: FieldMeta;
-  value: FieldValueFragment;
+  meta: any;
+  value: any;
   format: FieldFormatEnum;
 }
 

@@ -1,9 +1,10 @@
-import { FieldFormatEnum, TaskTypeEnum } from './components/modules/Task/__generated__/TaskFragment.graphql';
+import { FieldFormatEnum } from './components/modules/Task/__generated__/FieldFragment.graphql';
+import { TaskTypeEnum } from './components/modules/Task/__generated__/TaskFragment.graphql';
 import { TaskStatusEnum } from './components/modules/TaskList/__generated__/TaskListFragment.graphql';
 
-type Without<T, K> = Pick<T, Exclude<keyof T, K>>;
-type ExcludeFutureAdded<T> = Without<T, '%future added value'>;
-type UnionKeyToValue<U extends string> = {
+export type Without<T, K> = Pick<T, Exclude<keyof T, K>>;
+export type ExcludeFutureAdded<T> = Without<T, '%future added value'>;
+export type UnionKeyToValue<U extends string> = {
   [K in U]: K
 };
 
@@ -18,11 +19,15 @@ export const MODULES_IDS: { [key: string]: MODULE } = {
   TASK_TYPE_LIST: 'taskTypeList',
 };
 
-export const FIELD_FORMATS: { [key: string]: FieldFormatEnum } = {
+export const FIELD_FORMATS: ExcludeFutureAdded<UnionKeyToValue<FieldFormatEnum>> = {
   BOOL: 'BOOL',
   CHOICE: 'CHOICE',
   MULTIPLE_CHOICE_WITH_PARENT: 'MULTIPLE_CHOICE_WITH_PARENT',
   TEXT: 'TEXT',
+};
+
+export type UnionKeyToGenericValue<U extends string, V> = {
+  [K in U]: V
 };
 
 export type DEVICE = 'desktop' | 'mobile' | '';
@@ -45,10 +50,6 @@ export const TASK_TYPES: ExcludeFutureAdded<UnionKeyToValue<TaskTypeEnum>> = {
   MEETING: 'MEETING',
   ROUTINE: 'ROUTINE',
   TODO: 'TODO',
-};
-
-export type TaskTypesValueMap<V> = {
-  [K in keyof typeof TASK_TYPES]: V
 };
 
 export const TASK_STATUSES: ExcludeFutureAdded<UnionKeyToValue<TaskStatusEnum>> = {

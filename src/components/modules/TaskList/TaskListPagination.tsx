@@ -40,7 +40,6 @@ interface Props extends StyledComponentProps<keyof typeof styles> {
   data: TaskListPaginationResponse;
   relay: RelayPaginationProp;
   onAdd(): void;
-  onDetails(taskId: string): void;
   onEdit(taskId: string): void;
 }
 
@@ -60,7 +59,7 @@ class TaskListPagination extends React.Component<Props> {
   };
 
   render(): React.ReactNode {
-    const { classes, data, onAdd, onDetails, onEdit } = this.props;
+    const { classes, data, onAdd, onEdit } = this.props;
 
     if (!classes) {
       throw new Error(`error loading styles`);
@@ -81,7 +80,6 @@ class TaskListPagination extends React.Component<Props> {
             key={edge.cursor}
             data={edge.node}
             onDelete={this.onDelete}
-            onDetails={onDetails}
             onEdit={onEdit}
           />
         ))}
