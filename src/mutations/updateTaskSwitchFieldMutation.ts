@@ -4,31 +4,31 @@ import { commitMutation } from 'react-relay';
 import { RecordSourceSelectorProxy } from 'relay-runtime';
 import environment from '../environment';
 import {
-  updateTaskBoolFieldMutation,
-  updateTaskBoolFieldMutationInput,
-  updateTaskBoolFieldMutationResponse
-} from './__generated__/updateTaskBoolFieldMutation.graphql';
+  updateTaskSwitchFieldMutation,
+  updateTaskSwitchFieldMutationInput,
+  updateTaskSwitchFieldMutationResponse,
+} from './__generated__/updateTaskSwitchFieldMutation.graphql';
 
 const mutation = graphql`
-  mutation updateTaskBoolFieldMutation(
-    $input: updateTaskBoolFieldMutationInput!
+  mutation updateTaskSwitchFieldMutation(
+    $input: updateTaskSwitchFieldMutationInput!
   ) {
-    updateTaskBoolField(input: $input) {
+    updateTaskSwitchField(input: $input) {
       fieldId
       taskId
       updatedFieldValue {
-        bool
+        enabled
       }
     }
   }
 `;
 
 export default (
-  { fieldId, fieldValue, taskId }: updateTaskBoolFieldMutationInput,
-): Promise<updateTaskBoolFieldMutationResponse> => new Promise((onCompleted, onError): void => {
+  { fieldId, fieldValue, taskId }: updateTaskSwitchFieldMutationInput,
+): Promise<updateTaskSwitchFieldMutationResponse> => new Promise((onCompleted, onError): void => {
   const variables = { input: { fieldId, fieldValue, taskId } };
 
-  commitMutation<updateTaskBoolFieldMutation>(
+  commitMutation<updateTaskSwitchFieldMutation>(
     environment,
     {
       // @ts-ignore
@@ -41,11 +41,11 @@ export default (
         const valueRecord = fieldRecord && fieldRecord.getLinkedRecord('value');
 
         if (valueRecord) {
-          valueRecord.setValue(fieldValue.bool, 'bool');
+          valueRecord.setValue(fieldValue.enabled, 'enabled');
         }
       },
       updater: (store: RecordSourceSelectorProxy) => {
-        const mutationRecord = store.getRootField('updateTaskBoolField');
+        const mutationRecord = store.getRootField('updateTaskSwitchField');
         const updatedFieldValue = mutationRecord && mutationRecord.getLinkedRecord('updatedFieldValue');
         const fieldRecord = store.get(fieldId);
 

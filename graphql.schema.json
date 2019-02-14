@@ -948,22 +948,7 @@
             {
               "name": "fields",
               "description": null,
-              "args": [
-                {
-                  "name": "filterByIds",
-                  "description": null,
-                  "type": {
-                    "kind": "LIST",
-                    "name": null,
-                    "ofType": {
-                      "kind": "SCALAR",
-                      "name": "String",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
+              "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
@@ -1098,22 +1083,6 @@
               "deprecationReason": null
             },
             {
-              "name": "format",
-              "description": "format field description",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "ENUM",
-                  "name": "FieldFormatEnum",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "order",
               "description": "order field description",
               "args": [],
@@ -1131,14 +1100,14 @@
             },
             {
               "name": "type",
-              "description": "type field description",
+              "description": "field type description",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
+                  "kind": "ENUM",
+                  "name": "FieldTypeEnum",
                   "ofType": null
                 }
               },
@@ -1223,7 +1192,7 @@
         },
         {
           "kind": "ENUM",
-          "name": "FieldFormatEnum",
+          "name": "FieldTypeEnum",
           "description": null,
           "fields": null,
           "inputFields": null,
@@ -1236,19 +1205,13 @@
               "deprecationReason": null
             },
             {
-              "name": "BOOL",
+              "name": "SWITCH",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
               "name": "CHOICE",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "MULTIPLE_CHOICE_WITH_PARENT",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -1267,22 +1230,12 @@
           "possibleTypes": [
             {
               "kind": "OBJECT",
-              "name": "BoolValueType",
+              "name": "SwitchValueType",
               "ofType": null
             },
             {
               "kind": "OBJECT",
               "name": "ChoiceValueType",
-              "ofType": null
-            },
-            {
-              "kind": "OBJECT",
-              "name": "MultipleChoiceWithParentValueType",
-              "ofType": null
-            },
-            {
-              "kind": "OBJECT",
-              "name": "NumberValueType",
               "ofType": null
             },
             {
@@ -1294,11 +1247,11 @@
         },
         {
           "kind": "OBJECT",
-          "name": "BoolValueType",
-          "description": "choice value type",
+          "name": "SwitchValueType",
+          "description": "switch value type",
           "fields": [
             {
-              "name": "bool",
+              "name": "enabled",
               "description": null,
               "args": [],
               "type": {
@@ -1329,104 +1282,20 @@
               "description": null,
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "MultipleChoiceWithParentValueType",
-          "description": "choice value type",
-          "fields": [
-            {
-              "name": "ids",
-              "description": null,
-              "args": [],
-              "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "SCALAR",
-                    "name": "String",
-                    "ofType": null
-                  }
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
                 }
               },
               "isDeprecated": false,
               "deprecationReason": null
-            },
-            {
-              "name": "customValueOptionValue",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "parentValue",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
             }
           ],
           "inputFields": null,
           "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "NumberValueType",
-          "description": "number value type",
-          "fields": [
-            {
-              "name": "number",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "Float",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "SCALAR",
-          "name": "Float",
-          "description": "The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](http://en.wikipedia.org/wiki/IEEE_floating_point). ",
-          "fields": null,
-          "inputFields": null,
-          "interfaces": null,
           "enumValues": null,
           "possibleTypes": null
         },
@@ -1440,9 +1309,13 @@
               "description": null,
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1464,57 +1337,20 @@
           "possibleTypes": [
             {
               "kind": "OBJECT",
-              "name": "BoolMetaType",
-              "ofType": null
-            },
-            {
-              "kind": "OBJECT",
               "name": "ChoiceMetaType",
-              "ofType": null
-            },
-            {
-              "kind": "OBJECT",
-              "name": "MultipleChoiceWithParentType",
-              "ofType": null
-            },
-            {
-              "kind": "OBJECT",
-              "name": "NumberMetaType",
               "ofType": null
             },
             {
               "kind": "OBJECT",
               "name": "TextMetaType",
               "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "SwitchMetaType",
+              "ofType": null
             }
           ]
-        },
-        {
-          "kind": "OBJECT",
-          "name": "BoolMetaType",
-          "description": "bool meta type",
-          "fields": [
-            {
-              "name": "required",
-              "description": "required",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
         },
         {
           "kind": "OBJECT",
@@ -1620,211 +1456,6 @@
         },
         {
           "kind": "OBJECT",
-          "name": "MultipleChoiceWithParentType",
-          "description": "choice meta type",
-          "fields": [
-            {
-              "name": "required",
-              "description": "required",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "parentID",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "defaultValue",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "optionsSet",
-              "description": "optionsSet",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "OptionsMapType",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "OptionsMapType",
-          "description": "options map type",
-          "fields": [
-            {
-              "name": "customValueOptionMask",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "parentValue",
-              "description": "parentValue",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "options",
-              "description": "options",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "OBJECT",
-                      "name": "ChoiceOptionsMetaType",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "NumberMetaType",
-          "description": "number meta type",
-          "fields": [
-            {
-              "name": "required",
-              "description": "required",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "min",
-              "description": "min",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Float",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "max",
-              "description": "max",
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Float",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
           "name": "TextMetaType",
           "description": "text meta type",
           "fields": [
@@ -1845,31 +1476,90 @@
               "deprecationReason": null
             },
             {
-              "name": "minLen",
-              "description": "minLen",
+              "name": "minLength",
+              "description": "minLength",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "maxLen",
-              "description": "maxLen",
+              "name": "maxLength",
+              "description": "maxLength",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "min",
+              "description": "min",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "max",
+              "description": "max",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "type",
+              "description": "input type field description",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
                   "kind": "SCALAR",
-                  "name": "Int",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SwitchMetaType",
+          "description": "switch meta type",
+          "fields": [
+            {
+              "name": "required",
+              "description": "required",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
                   "ofType": null
                 }
               },
@@ -2558,7 +2248,7 @@
               "deprecationReason": null
             },
             {
-              "name": "updateTaskBoolField",
+              "name": "updateTaskSwitchField",
               "description": null,
               "args": [
                 {
@@ -2569,7 +2259,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "updateTaskBoolFieldMutationInput",
+                      "name": "updateTaskSwitchFieldMutationInput",
                       "ofType": null
                     }
                   },
@@ -2578,7 +2268,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "updateTaskBoolFieldMutationPayload",
+                "name": "updateTaskSwitchFieldMutationPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -3231,20 +2921,6 @@
               "defaultValue": null
             },
             {
-              "name": "format",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
               "name": "order",
               "description": null,
               "type": {
@@ -3340,7 +3016,7 @@
           "fields": null,
           "inputFields": [
             {
-              "name": "bool",
+              "name": "enabled",
               "description": null,
               "type": {
                 "kind": "SCALAR",
@@ -3374,36 +3050,6 @@
               "defaultValue": null
             },
             {
-              "name": "customValueOptionValue",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "number",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "Int",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "parentValue",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
               "name": "text",
               "description": null,
               "type": {
@@ -3425,6 +3071,16 @@
           "fields": null,
           "inputFields": [
             {
+              "name": "type",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
               "name": "required",
               "description": null,
               "type": {
@@ -3439,7 +3095,7 @@
               "description": null,
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
@@ -3449,13 +3105,13 @@
               "description": null,
               "type": {
                 "kind": "SCALAR",
-                "name": "Float",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
-              "name": "minLen",
+              "name": "minLength",
               "description": null,
               "type": {
                 "kind": "SCALAR",
@@ -3465,7 +3121,7 @@
               "defaultValue": null
             },
             {
-              "name": "maxLen",
+              "name": "maxLength",
               "description": null,
               "type": {
                 "kind": "SCALAR",
@@ -3722,7 +3378,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "updateTaskBoolFieldMutationInput",
+          "name": "updateTaskSwitchFieldMutationInput",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -3762,7 +3418,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "BoolValueInputType",
+                  "name": "SwitchValueInputType",
                   "ofType": null
                 }
               },
@@ -3785,12 +3441,12 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "BoolValueInputType",
-          "description": "choice value input type",
+          "name": "SwitchValueInputType",
+          "description": "switch value input type",
           "fields": null,
           "inputFields": [
             {
-              "name": "bool",
+              "name": "enabled",
               "description": null,
               "type": {
                 "kind": "NON_NULL",
@@ -3810,7 +3466,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "updateTaskBoolFieldMutationPayload",
+          "name": "updateTaskSwitchFieldMutationPayload",
           "description": null,
           "fields": [
             {
@@ -3854,7 +3510,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "BoolValueType",
+                  "name": "SwitchValueType",
                   "ofType": null
                 }
               },

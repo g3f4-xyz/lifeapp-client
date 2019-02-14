@@ -1,13 +1,12 @@
 import { FormControl, StyledComponentProps, Theme, withStyles } from '@material-ui/core';
-import React from 'react';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
+import React from 'react';
 import { createFragmentContainer } from 'react-relay';
-import { FIELD_FORMATS } from '../../../constans';
+import { FIELD_TYPE } from '../../../constans';
 import { FieldFragment } from './__generated__/FieldFragment.graphql';
-import BoolFieldFragment from './BoolFieldFragment';
 import ChoiceFieldFragment from './ChoiceFieldFragment';
-import MultipleChoiceWithParentFieldFragment from './MultipleChoiceWithParentFieldFragment';
+import SwitchFieldFragment from './SwitchFieldFragment';
 import TextFieldFragment from './TextFieldFragment';
 
 const styles = (theme: Theme) => ({
@@ -51,23 +50,18 @@ class Field extends React.Component<Props> {
   }
 
   private renderField(field: FieldFragment): React.ReactNode {
-    switch (field.format) {
-      case FIELD_FORMATS.BOOL: {
+    switch (field.type) {
+      case FIELD_TYPE.SWITCH: {
         return (
-          <BoolFieldFragment data={field} taskId={this.props.taskId} />
+          <SwitchFieldFragment data={field} taskId={this.props.taskId} />
         );
       }
-      case FIELD_FORMATS.CHOICE: {
+      case FIELD_TYPE.CHOICE: {
         return (
           <ChoiceFieldFragment data={field} taskId={this.props.taskId} />
         );
       }
-      case FIELD_FORMATS.MULTIPLE_CHOICE_WITH_PARENT: {
-        return (
-          <MultipleChoiceWithParentFieldFragment data={field} taskId={this.props.taskId} />
-        );
-      }
-      case FIELD_FORMATS.TEXT: {
+      case FIELD_TYPE.TEXT: {
         return (
           <TextFieldFragment data={field} taskId={this.props.taskId} />
         );
@@ -81,10 +75,9 @@ export default createFragmentContainer<Props>(
   withStyles(styles)(Field),
   graphql`
     fragment FieldFragment on FieldType {
-      format
-      ...BoolFieldFragment
+      type
+      ...SwitchFieldFragment
       ...ChoiceFieldFragment
-      ...MultipleChoiceWithParentFieldFragment
       ...TextFieldFragment
     }
   `,

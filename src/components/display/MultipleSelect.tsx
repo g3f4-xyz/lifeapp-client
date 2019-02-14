@@ -4,15 +4,13 @@ import {
   InputLabel,
   ListItemText,
   MenuItem,
-  Select, StyledComponentProps,
-  TextField,
+  Select,
+  StyledComponentProps,
   Theme,
   withStyles,
 } from '@material-ui/core';
 import { SelectProps } from '@material-ui/core/Select';
 import React, { ChangeEvent, Fragment } from 'react';
-import ReactInputMask, { InputState } from 'react-input-mask';
-import { CUSTOM_OPTION_VALUE } from '../../../constans';
 
 const styles = (theme: Theme) => ({
   textField: {
@@ -37,27 +35,16 @@ export interface MultipleSelectProps extends StyledComponentProps<keyof ReturnTy
   ids: string[];
   label: string;
   options: Array<{ value: string, text: string }>;
-  customValueOptionMask: string;
-  customValueOptionValue: string;
-  onChange(
-    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-    options: { isCustomOptionValueUpdate: boolean },
-  ): void;
+  onChange(event: ChangeEvent<HTMLSelectElement>): void;
 }
 
 class MultipleSelect extends React.Component<MultipleSelectProps> {
   renderValue = (values: SelectProps['value']): React.ReactNode => {
     if (values && Array.isArray(values)) {
-      const { customValueOptionValue, options } = this.props;
+      const { options } = this.props;
       const filteredOptions = options.filter(({ value }) => values.includes(value));
 
-      return filteredOptions.map(({ text, value }): string => {
-        if (value !== CUSTOM_OPTION_VALUE) {
-          return text;
-        }
-
-        return `${text} (${customValueOptionValue})`;
-      }).join(', ');
+      return filteredOptions.map(({ text }): string => text).join(', ');
     }
   };
 
@@ -68,14 +55,14 @@ class MultipleSelect extends React.Component<MultipleSelectProps> {
       ids,
       label,
       options,
-      customValueOptionMask,
-      customValueOptionValue = '',
       onChange,
     } = this.props;
 
     if (!classes) {
       throw new Error(`error loading styles`);
     }
+
+    console.log(['ids'], ids)
 
     return (
       <Fragment>
@@ -86,27 +73,12 @@ class MultipleSelect extends React.Component<MultipleSelectProps> {
           input={<Input id={fieldId} />}
           renderValue={this.renderValue}
           MenuProps={menuProps}
-          onChange={(e: ChangeEvent<HTMLSelectElement>) => onChange(e, { isCustomOptionValueUpdate: false })}
+          onChange={onChange}
         >
         {options.map(({ text, value }) => (
           <MenuItem key={value} value={value}>
             <ListItemText primary={text} />
-          {value !== CUSTOM_OPTION_VALUE ? (
-            <Checkbox checked={ids && ids.indexOf(value) > -1} />
-            ) : (
-            <Fragment>
-              <ReactInputMask
-                mask={customValueOptionMask}
-                value={customValueOptionValue}
-                onChange={(e: ChangeEvent<HTMLInputElement>) => onChange(e, { isCustomOptionValueUpdate: true })}
-              >
-              {(inputState: InputState) => (
-                <TextField className={classes.textField} {...inputState} />
-              )}
-              </ReactInputMask>
-              <Checkbox checked={ids && ids.indexOf(value) > -1} />
-            </Fragment>
-          )}
+            <Checkbox checked={ids.includes(value)} />
           </MenuItem>
         ))}
         </Select>

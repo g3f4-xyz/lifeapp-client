@@ -20,7 +20,7 @@ class ChoiceField extends React.Component<Props> {
       <Fragment>
         <InputLabel htmlFor={fieldId}>{label}</InputLabel>
         <Select
-          value={id ? id : undefined}
+          value={id}
           onChange={this.handleChange}
           input={<Input name={fieldId} id={fieldId} />}
         >
@@ -52,7 +52,6 @@ export default createFragmentContainer<Props>(
       fieldId
       helperText
       label
-      format
       meta {
         ... on ChoiceMetaType {
           defaultValue

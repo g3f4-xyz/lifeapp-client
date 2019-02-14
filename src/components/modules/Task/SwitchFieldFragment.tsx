@@ -3,25 +3,25 @@ import React, { ChangeEvent } from 'react';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import { createFragmentContainer } from 'react-relay';
-import updateTaskBoolFieldMutation from '../../../mutations/updateTaskBoolFieldMutation';
-import { BoolFieldFragment } from './__generated__/BoolFieldFragment.graphql';
+import updateTaskSwitchFieldMutation from '../../../mutations/updateTaskSwitchFieldMutation';
+import { SwitchFieldFragment } from './__generated__/SwitchFieldFragment.graphql';
 
 interface Props {
-  data: BoolFieldFragment;
+  data: SwitchFieldFragment;
   taskId: string;
 }
 
-class BoolField extends React.Component<Props> {
+class SwitchField extends React.Component<Props> {
   render(): React.ReactNode {
     const { data } = this.props;
-    const { fieldId, label, value: { bool } } = data;
+    const { fieldId, label, value: { enabled } } = data;
 
     return (
       <FormControlLabel
         id={fieldId}
         control={
           <Switch
-            checked={bool as boolean}
+            checked={enabled as boolean}
             value={fieldId}
             onChange={this.handleChange}
           />
@@ -31,31 +31,30 @@ class BoolField extends React.Component<Props> {
     );
   }
 
-  private handleChange = async (event: ChangeEvent<HTMLInputElement>, bool: boolean): Promise<void> => {
+  private handleChange = async (event: ChangeEvent<HTMLInputElement>, enabled: boolean): Promise<void> => {
     const { taskId, data: { id }} = this.props;
 
-    await updateTaskBoolFieldMutation({ fieldId: id, fieldValue: { bool }, taskId });
+    await updateTaskSwitchFieldMutation({ fieldId: id, fieldValue: { enabled }, taskId });
   };
 }
 
 export default createFragmentContainer<Props>(
   // @ts-ignore
-  BoolField,
+  SwitchField,
   graphql`
-    fragment BoolFieldFragment on FieldType {
+    fragment SwitchFieldFragment on FieldType {
       id
       fieldId
       helperText
       label
-      format
       meta {
-        ... on BoolMetaType {
+        ... on SwitchMetaType {
           required
         }
       }
       value {
-        ... on BoolValueType {
-          bool
+        ... on SwitchValueType {
+          enabled
         }
       }
     }

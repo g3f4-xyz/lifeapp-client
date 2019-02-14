@@ -1,4 +1,4 @@
-import { FieldFormatEnum } from './components/modules/Task/__generated__/FieldFragment.graphql';
+import { FieldTypeEnum } from './components/modules/Task/__generated__/FieldFragment.graphql';
 import { TaskTypeEnum } from './components/modules/Task/__generated__/TaskFragment.graphql';
 import { TaskStatusEnum } from './components/modules/TaskList/__generated__/TaskListFragment.graphql';
 
@@ -19,15 +19,10 @@ export const MODULES_IDS: { [key: string]: MODULE } = {
   TASK_TYPE_LIST: 'taskTypeList',
 };
 
-export const FIELD_FORMATS: ExcludeFutureAdded<UnionKeyToValue<FieldFormatEnum>> = {
-  BOOL: 'BOOL',
+export const FIELD_TYPE: ExcludeFutureAdded<UnionKeyToValue<FieldTypeEnum>> = {
   CHOICE: 'CHOICE',
-  MULTIPLE_CHOICE_WITH_PARENT: 'MULTIPLE_CHOICE_WITH_PARENT',
+  SWITCH: 'SWITCH',
   TEXT: 'TEXT',
-};
-
-export type UnionKeyToGenericValue<U extends string, V> = {
-  [K in U]: V
 };
 
 export type DEVICE = 'desktop' | 'mobile' | '';
@@ -61,7 +56,5 @@ export const TASK_STATUSES: ExcludeFutureAdded<UnionKeyToValue<TaskStatusEnum>> 
 export type LOCAL_STORAGE_LAYOUT_KEY = 'layouts';
 
 export const LOCAL_STORAGE_LAYOUTS_KEY = 'layouts';
-
-export const CUSTOM_OPTION_VALUE = 'CUSTOM';
 
 export const API_HOST = process.env.REACT_APP_HOST || '';
