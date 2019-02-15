@@ -42,28 +42,20 @@ class Field extends React.Component<Props> {
       throw new Error(`error loading styles`);
     }
 
-    return (
-      <FormControl className={classes.container}>
-        {this.renderField(data)}
-      </FormControl>
-    );
-  }
-
-  private renderField(field: FieldFragment): React.ReactNode {
-    switch (field.type) {
+    switch (data.type) {
       case FIELD_TYPE.SWITCH: {
         return (
-          <SwitchFieldFragment data={field} taskId={this.props.taskId} />
+          <SwitchFieldFragment data={data} taskId={this.props.taskId} />
         );
       }
       case FIELD_TYPE.CHOICE: {
         return (
-          <ChoiceFieldFragment data={field} taskId={this.props.taskId} />
+          <ChoiceFieldFragment data={data} taskId={this.props.taskId} />
         );
       }
       case FIELD_TYPE.TEXT: {
         return (
-          <TextFieldFragment data={field} taskId={this.props.taskId} />
+          <TextFieldFragment data={data} taskId={this.props.taskId} />
         );
       }
     }

@@ -14,7 +14,7 @@ interface Props {
   taskId: string;
   type: TaskTypeEnum | null;
   editMode: boolean;
-  onSaveDone(taskId: string): void;
+  onDone(taskId: string): void;
 }
 
 export default class Task extends React.Component<Props> {

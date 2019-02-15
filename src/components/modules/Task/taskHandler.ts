@@ -3,7 +3,7 @@ import { MODULES_IDS } from '../../../constans';
 import { AppState, TaskModuleProps } from '../../App';
 
 interface TaskHandlerProps extends TaskModuleProps {
-  onSaveDone(taskId: string): void;
+  onDone(taskId: string): void;
 }
 
 export default (
@@ -12,7 +12,7 @@ export default (
   update: (spec: Spec<AppState>) => void,
 ): TaskHandlerProps => ({
   ...moduleProps,
-  onSaveDone: (taskId: string) => {
+  onDone: (taskId: string) => {
     update({
       $merge: {
         activeModuleId: MODULES_IDS.TASK_LIST,

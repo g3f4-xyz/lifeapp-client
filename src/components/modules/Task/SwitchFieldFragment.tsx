@@ -1,4 +1,4 @@
-import { FormControlLabel, Switch } from '@material-ui/core';
+import { FormControl, FormControlLabel, StyledComponentProps, Switch, Theme, withStyles } from '@material-ui/core';
 import React, { ChangeEvent } from 'react';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
@@ -6,28 +6,46 @@ import { createFragmentContainer } from 'react-relay';
 import updateTaskSwitchFieldMutation from '../../../mutations/updateTaskSwitchFieldMutation';
 import { SwitchFieldFragment } from './__generated__/SwitchFieldFragment.graphql';
 
-interface Props {
+const styles = (theme: Theme) => ({
+  container: {
+    margin: theme.spacing.unit * 2,
+    display: 'flex',
+    flexGrow: 1,
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing.unit * 2,
+    },
+  },
+});
+
+interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
   data: SwitchFieldFragment;
   taskId: string;
 }
 
 class SwitchField extends React.Component<Props> {
   render(): React.ReactNode {
-    const { data } = this.props;
-    const { fieldId, label, value: { enabled } } = data;
+    const { classes, data } = this.props;
+
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
+    const { fieldId, value: { enabled }, meta: { label } } = data;
 
     return (
-      <FormControlLabel
-        id={fieldId}
-        control={
-          <Switch
-            checked={enabled as boolean}
-            value={fieldId}
-            onChange={this.handleChange}
-          />
-        }
-        label={label}
-      />
+      <FormControl className={classes.container}>
+        <FormControlLabel
+          id={fieldId}
+          control={
+            <Switch
+              checked={enabled as boolean}
+              value={fieldId}
+              onChange={this.handleChange}
+            />
+          }
+          label={label}
+        />
+      </FormControl>
     );
   }
 
@@ -40,15 +58,14 @@ class SwitchField extends React.Component<Props> {
 
 export default createFragmentContainer<Props>(
   // @ts-ignore
-  SwitchField,
+  withStyles(styles)(SwitchField),
   graphql`
     fragment SwitchFieldFragment on FieldType {
       id
       fieldId
-      helperText
-      label
       meta {
         ... on SwitchMetaType {
+          label
           required
         }
       }

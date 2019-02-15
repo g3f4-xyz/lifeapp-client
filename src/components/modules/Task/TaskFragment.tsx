@@ -1,4 +1,5 @@
-import { Paper, StyledComponentProps, Theme, withStyles } from '@material-ui/core';
+import { IconButton, Paper, StyledComponentProps, Theme, withStyles } from '@material-ui/core';
+import { Done } from '@material-ui/icons';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
@@ -25,7 +26,7 @@ const styles = (theme: Theme) => ({
       display: 'block',
     },
   },
-  addButton: {
+  doneButton: {
     zIndex: 9,
     position: 'absolute',
     bottom: 20,
@@ -33,7 +34,7 @@ const styles = (theme: Theme) => ({
     height: 72,
     width: 72,
   },
-  addButtonIcon: {
+  doneButtonIcon: {
     color: '#8BC34A',
     fontSize: 72,
   },
@@ -45,70 +46,24 @@ interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
   isNew: boolean;
   taskListId: string;
   relay: RelayProp;
-  onSaveDone(id: string): void;
+  onDone(id: string): void;
 }
 
 class Task extends React.Component<Props, TaskFragmentResponse> {
   state = this.props.data || {};
 
-  // onSave = async () => {
-  //   try {
-  //     const { isNew, taskListId, onSaveDone } = this.props;
-  //     const task = this.state;
-  //     const id = isNew ? '' : task.id;
-  //
-  //     if (task && task.fields) {
-  //       await saveTaskMutation({
-  //         isNew,
-  //         task: {
-  //           id,
-  //           fields: task.fields,
-  //           taskType: task.taskType,
-  //         },
-  //         parentID: taskListId,
-  //       });
-  //       onSaveDone(id);
-  //     }
-  //   } catch (error) {
-  //     throw error;
-  //   }
-  // };
-
-  // TODO fieldId i value nie powinno być unią
-  // updateFieldsValue = (fieldId: string | string[], value: FieldValue | FieldValue[]) => {
-  //   const ids = Array.isArray(fieldId) ? fieldId : [fieldId];
-  //   const values = Array.isArray(value) ? value : [value];
-  //   const fields = this.state.fields ? this.state.fields : [];
-  //   const fieldsUpdates = ids.reduce((acc, id, index) => {
-  //     const fieldIndex = fields.findIndex((field) => field !== null && field.fieldId === id);
-  //
-  //     return {
-  //       ...acc,
-  //       [fieldIndex]: {
-  //         value: {
-  //           $set: values[index],
-  //         },
-  //       },
-  //     };
-  //   }, {});
-  //
-  //   this.setState(update(this.state, {
-  //     fields: {
-  //       ...fieldsUpdates,
-  //     },
-  //   }));
-  // };
+  handleDone = () => {
+    this.props.onDone(this.props.data.id);
+  };
 
   render(): React.ReactNode {
-    const { classes, data } = this.props;
+    const { classes, data, onDone } = this.props;
 
     if (!classes) {
       throw new Error(`error loading styles`);
     }
 
     const { fields, taskType } = data;
-
-    // const { fields, onSave, taskType } = editHandler(this.state, this.updateFieldsValue, { onSave: this.onSave });
 
     const fieldsGroupedByOrder = fields.reduce((acc, field) => {
       const { order } = field;
@@ -132,6 +87,13 @@ class Task extends React.Component<Props, TaskFragmentResponse> {
             ))}
           </Paper>
         ))}
+        <IconButton
+          className={classes.doneButton}
+          color="primary"
+          onClick={this.handleDone}
+        >
+          <Done className={classes.doneButtonIcon} />
+        </IconButton>
       </div>
     );
   }

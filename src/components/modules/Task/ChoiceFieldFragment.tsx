@@ -1,23 +1,49 @@
-import { FormHelperText, Input, InputLabel, MenuItem, Select } from '@material-ui/core';
+import {
+  FormControl,
+  FormHelperText,
+  Input,
+  InputLabel,
+  MenuItem,
+  Select,
+  StyledComponentProps,
+  Theme,
+  withStyles,
+} from '@material-ui/core';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
-import React, { ChangeEvent, Fragment } from 'react';
+import React, { ChangeEvent } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import updateTaskChoiceFieldMutation from '../../../mutations/updateTaskChoiceFieldMutation';
 import { ChoiceFieldFragment } from './__generated__/ChoiceFieldFragment.graphql';
 
-interface Props {
+const styles = (theme: Theme) => ({
+  container: {
+    margin: theme.spacing.unit * 2,
+    display: 'flex',
+    flexGrow: 1,
+    [theme.breakpoints.down('xs')]: {
+      padding: theme.spacing.unit * 2,
+    },
+  },
+});
+
+interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
   data: ChoiceFieldFragment;
   taskId: string;
 }
 
 class ChoiceField extends React.Component<Props> {
   render(): React.ReactNode {
-    const { data } = this.props;
-    const { fieldId, label, helperText, value: { id }, meta: { options } } = data;
+    const { classes, data } = this.props;
+
+    if (!classes) {
+      throw new Error(`error loading styles`);
+    }
+
+    const { fieldId, value: { id }, meta: { options, label, helperText } } = data;
 
     return (
-      <Fragment>
+      <FormControl className={classes.container}>
         <InputLabel htmlFor={fieldId}>{label}</InputLabel>
         <Select
           value={id}
@@ -32,7 +58,7 @@ class ChoiceField extends React.Component<Props> {
           ))}
         </Select>
         <FormHelperText>{helperText}</FormHelperText>
-      </Fragment>
+      </FormControl>
     );
   }
 
@@ -45,15 +71,15 @@ class ChoiceField extends React.Component<Props> {
 
 export default createFragmentContainer<Props>(
   // @ts-ignore
-  ChoiceField,
+  withStyles(styles)(ChoiceField),
   graphql`
     fragment ChoiceFieldFragment on FieldType {
       id
       fieldId
-      helperText
-      label
       meta {
         ... on ChoiceMetaType {
+          helperText
+          label
           defaultValue
           options {
             text
