@@ -4,8 +4,8 @@ import { TaskStatusEnum } from './components/modules/TaskList/__generated__/Task
 
 export type Without<T, K> = Pick<T, Exclude<keyof T, K>>;
 export type ExcludeFutureAdded<T> = Without<T, '%future added value'>;
-export type UnionKeyToValue<U extends string> = {
-  [K in U]: K
+export type UnionKeyToValue<U extends string, V = U> = {
+  [K in U]: V
 };
 
 export type MODULE = 'settings' | 'task' | 'taskList' | 'taskTypeList';
@@ -23,7 +23,10 @@ export const FIELD_TYPE: ExcludeFutureAdded<UnionKeyToValue<FieldTypeEnum>> = {
   CHOICE: 'CHOICE',
   SWITCH: 'SWITCH',
   TEXT: 'TEXT',
+  PARTIAL_CHOICE: 'PARTIAL_CHOICE',
 };
+
+export type FIELD_TYPE_VALUE_MAP<V> = ExcludeFutureAdded<UnionKeyToValue<FieldTypeEnum, V>>;
 
 export type DEVICE = 'desktop' | 'mobile' | '';
 

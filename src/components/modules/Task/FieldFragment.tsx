@@ -6,6 +6,7 @@ import { createFragmentContainer } from 'react-relay';
 import { FIELD_TYPE } from '../../../constans';
 import { FieldFragment } from './__generated__/FieldFragment.graphql';
 import ChoiceFieldFragment from './ChoiceFieldFragment';
+import PartialChoiceFieldFragment from './PartialChoiceFieldFragment';
 import SwitchFieldFragment from './SwitchFieldFragment';
 import TextFieldFragment from './TextFieldFragment';
 
@@ -42,23 +43,20 @@ class Field extends React.Component<Props> {
       throw new Error(`error loading styles`);
     }
 
-    switch (data.type) {
-      case FIELD_TYPE.SWITCH: {
-        return (
-          <SwitchFieldFragment data={data} taskId={this.props.taskId} />
-        );
-      }
-      case FIELD_TYPE.CHOICE: {
-        return (
-          <ChoiceFieldFragment data={data} taskId={this.props.taskId} />
-        );
-      }
-      case FIELD_TYPE.TEXT: {
-        return (
-          <TextFieldFragment data={data} taskId={this.props.taskId} />
-        );
-      }
-    }
+    return {
+      [FIELD_TYPE.CHOICE]: () => (
+        <ChoiceFieldFragment data={data} taskId={this.props.taskId} />
+      ),
+      [FIELD_TYPE.SWITCH]: () => (
+        <SwitchFieldFragment data={data} taskId={this.props.taskId} />
+      ),
+      [FIELD_TYPE.TEXT]: () => (
+        <TextFieldFragment data={data} taskId={this.props.taskId} />
+      ),
+      [FIELD_TYPE.PARTIAL_CHOICE]: () => (
+        <PartialChoiceFieldFragment data={data} taskId={this.props.taskId} />
+      ),
+    }[data.type]();
   }
 }
 
@@ -71,6 +69,7 @@ export default createFragmentContainer<Props>(
       ...SwitchFieldFragment
       ...ChoiceFieldFragment
       ...TextFieldFragment
+      ...PartialChoiceFieldFragment
     }
   `,
 );

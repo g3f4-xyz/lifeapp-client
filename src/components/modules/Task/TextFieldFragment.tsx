@@ -31,7 +31,7 @@ class TextField extends React.Component<Props> {
     }
 
     const { fieldId, value: { text }, meta } = data;
-    const { max, maxLength, min, minLength, required, type, label, helperText } = meta;
+    const { max, maxLength, min, minLength, required, inputType, label, helperText } = meta;
 
     return (
       <FormControl className={classes.container}>
@@ -40,7 +40,7 @@ class TextField extends React.Component<Props> {
           label={label}
           required={required}
           InputLabelProps={{ shrink: true }}
-          inputProps={{ type, max, maxLength, min, minLength }}
+          inputProps={{ type: inputType, max, maxLength, min, minLength }}
           helperText={helperText}
           value={text && text.length > 0 ? text : undefined}
           onChange={this.handleChange}
@@ -68,7 +68,7 @@ export default createFragmentContainer<Props>(
         ... on TextMetaType {
           helperText
           label
-          type
+          inputType
           min
           max
           maxLength

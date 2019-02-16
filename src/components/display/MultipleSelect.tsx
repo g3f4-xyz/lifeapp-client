@@ -62,8 +62,6 @@ class MultipleSelect extends React.Component<MultipleSelectProps> {
       throw new Error(`error loading styles`);
     }
 
-    console.log(['ids'], ids)
-
     return (
       <Fragment>
         <InputLabel htmlFor={fieldId}>{label}</InputLabel>

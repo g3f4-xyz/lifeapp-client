@@ -74,7 +74,7 @@ class TaskType extends React.Component<Props, State> {
 
   render(): React.ReactNode {
     const { classes, data, onSelect } = this.props;
-    const { name, description, typeId } = data;
+    const { label, description, typeId } = data;
 
     if (!classes) {
       throw new Error(`error loading styles`);
@@ -83,7 +83,7 @@ class TaskType extends React.Component<Props, State> {
     return (
       <div className={classes.container}>
         <div className={classes.nameContainer}>
-          <h1>{name}</h1>
+          <h1>{label}</h1>
         </div>
         <div className={classes.descContainer}>
           {this.state.info ? (
@@ -118,7 +118,7 @@ export default createFragmentContainer<Props>(
     fragment TaskTypeFragment on TaskTypeType {
       id
       typeId
-      name
+      label
       description
     }
   `,
