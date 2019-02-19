@@ -10,10 +10,10 @@ import {
 } from './__generated__/updateTaskPartialChoiceFieldMutation.graphql';
 
 const mutation = graphql`
-  mutation updateTaskPartialChoiceFieldMutation(
-    $input: updateTaskPartialChoiceFieldMutationInput!
+  mutation updateTaskTripleChoiceFieldMutation(
+    $input: updateTaskTripleChoiceFieldMutationInput!
   ) {
-    updateTaskPartialChoiceField(input: $input) {
+    updateTaskTripleChoiceFieldMutationInput(input: $input) {
       fieldId
       taskId
       updatedFieldValue {
@@ -34,7 +34,6 @@ export default (
   commitMutation<updateTaskPartialChoiceFieldMutation>(
     environment,
     {
-      // @ts-ignore
       mutation,
       variables,
       onCompleted,

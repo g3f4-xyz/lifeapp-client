@@ -13,7 +13,7 @@ import {
 import graphql from 'babel-plugin-relay/macro';
 import React, { ChangeEvent } from 'react';
 import { createFragmentContainer } from 'react-relay';
-import updateTaskPartialChoiceFieldMutation from '../../../mutations/updateTaskPartialChoiceFieldMutation';
+import updateTaskPartialChoiceFieldMutation from '../../../mutations/updateTaskTripleChoiceFieldMutation';
 import { PartialChoiceFieldFragment } from './__generated__/PartialChoiceFieldFragment.graphql';
 
 const styles = (theme: Theme) => ({
@@ -40,7 +40,7 @@ class PartialChoiceField extends React.Component<Props> {
       throw new Error(`error loading styles`);
     }
 
-    const { fieldId, partial, value: { id }, meta: { options, label, helperText } } = data;
+    const { fieldId, value: { id }, meta: { options, label, helperText } } = data;
 
     return (
       <FormControl className={classes.container}>
@@ -82,11 +82,8 @@ export default createFragmentContainer<Props>(
     ) {
       id
       fieldId
-      partial {
-        ...FieldFragment @include(if: $fetchPartial)
-      }
       meta {
-        ... on PartialChoiceMetaType {
+        ... on TripleChoiceMetaType {
           helperText
           label
           options {
@@ -97,7 +94,7 @@ export default createFragmentContainer<Props>(
         }
       }
       value {
-        ... on PartialChoiceValueType {
+        ... on TripleChoiceValueType {
           id
         }
       }
