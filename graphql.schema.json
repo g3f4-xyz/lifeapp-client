@@ -1099,7 +1099,7 @@
               "deprecationReason": null
             },
             {
-              "name": "type",
+              "name": "fieldType",
               "description": "field type description",
               "args": [],
               "type": {
@@ -1110,18 +1110,6 @@
                   "name": "FieldTypeEnum",
                   "ofType": null
                 }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "partial",
-              "description": "partial field description",
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "FieldType",
-                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1197,7 +1185,7 @@
               "deprecationReason": null
             },
             {
-              "name": "PARTIAL_CHOICE",
+              "name": "NESTED_CHOICE",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -1231,7 +1219,7 @@
             },
             {
               "kind": "OBJECT",
-              "name": "PartialChoiceValueType",
+              "name": "NestedChoiceValueType",
               "ofType": null
             }
           ]
@@ -1319,21 +1307,29 @@
         },
         {
           "kind": "OBJECT",
-          "name": "PartialChoiceValueType",
+          "name": "NestedChoiceValueType",
           "description": "partial choice value type",
           "fields": [
             {
-              "name": "id",
+              "name": "ownValue",
               "description": null,
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "childrenValue",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "NestedChoiceValueType",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1370,7 +1366,7 @@
             },
             {
               "kind": "OBJECT",
-              "name": "PartialChoiceMetaType",
+              "name": "NestedChoiceMetaType",
               "ofType": null
             }
           ]
@@ -1673,19 +1669,19 @@
         },
         {
           "kind": "OBJECT",
-          "name": "PartialChoiceMetaType",
+          "name": "NestedChoiceMetaType",
           "description": "partial choice meta type",
           "fields": [
             {
-              "name": "required",
-              "description": "required",
+              "name": "fieldType",
+              "description": "fieldType description",
               "args": [],
               "type": {
                 "kind": "NON_NULL",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
+                  "kind": "ENUM",
+                  "name": "FieldTypeEnum",
                   "ofType": null
                 }
               },
@@ -1693,53 +1689,88 @@
               "deprecationReason": null
             },
             {
-              "name": "options",
-              "description": "options",
+              "name": "parentValue",
+              "description": "parentValue description",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "OBJECT",
-                    "name": "ChoiceOptionsMetaType",
-                    "ofType": null
-                  }
-                }
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "label",
-              "description": "label field description",
+              "name": "ownMeta",
+              "description": "ownMeta description",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
+                "kind": "UNION",
+                "name": "MetasUnion",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
             },
             {
-              "name": "helperText",
-              "description": "helperText field description",
+              "name": "childrenMeta",
+              "description": "childrenMeta description",
               "args": [],
               "type": {
-                "kind": "NON_NULL",
+                "kind": "LIST",
                 "name": null,
                 "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
+                  "kind": "OBJECT",
+                  "name": "ChildrenMeta",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ChildrenMeta",
+          "description": "",
+          "fields": [
+            {
+              "name": "fieldType",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "parentValue",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "meta",
+              "description": "",
+              "args": [],
+              "type": {
+                "kind": "UNION",
+                "name": "MetasUnion",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -2511,7 +2542,7 @@
               "deprecationReason": null
             },
             {
-              "name": "updateTaskPartialChoiceField",
+              "name": "updateTaskNestedChoiceField",
               "description": null,
               "args": [
                 {
@@ -2522,7 +2553,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "updateTaskPartialChoiceFieldMutationInput",
+                      "name": "updateTaskNestedChoiceFieldMutationInput",
                       "ofType": null
                     }
                   },
@@ -2531,7 +2562,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "updateTaskPartialChoiceFieldMutationPayload",
+                "name": "updateTaskNestedChoiceFieldMutationPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -3769,7 +3800,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "updateTaskPartialChoiceFieldMutationInput",
+          "name": "updateTaskNestedChoiceFieldMutationInput",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -3809,7 +3840,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "PartialChoiceValueInputType",
+                  "name": "NestedChoiceValueInputType",
                   "ofType": null
                 }
               },
@@ -3832,12 +3863,84 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "PartialChoiceValueInputType",
+          "name": "NestedChoiceValueInputType",
           "description": "partial choice value input type",
           "fields": null,
           "inputFields": [
             {
-              "name": "id",
+              "name": "ownValue",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "childrenValue",
+              "description": null,
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "NestedChoiceChildrenValueInputType",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "NestedChoiceChildrenValueInputType",
+          "description": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "ownValue",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "childrenValue",
+              "description": null,
+              "type": {
+                "kind": "INPUT_OBJECT",
+                "name": "NestedChoiceNestedChildrenValueInputType",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "NestedChoiceNestedChildrenValueInputType",
+          "description": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "ownValue",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "childrenValue",
               "description": null,
               "type": {
                 "kind": "SCALAR",
@@ -3853,7 +3956,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "updateTaskPartialChoiceFieldMutationPayload",
+          "name": "updateTaskNestedChoiceFieldMutationPayload",
           "description": null,
           "fields": [
             {
@@ -3897,23 +4000,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "PartialChoiceValueType",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "partial",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "FieldType",
+                  "name": "NestedChoiceValueType",
                   "ofType": null
                 }
               },

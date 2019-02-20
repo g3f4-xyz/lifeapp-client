@@ -6,7 +6,7 @@ import { createFragmentContainer } from 'react-relay';
 import { FIELD_TYPE } from '../../../constans';
 import { FieldFragment } from './__generated__/FieldFragment.graphql';
 import ChoiceFieldFragment from './ChoiceFieldFragment';
-import PartialChoiceFieldFragment from './PartialChoiceFieldFragment';
+import PartialChoiceFieldFragment from './NestedChoiceFieldFragment';
 import SwitchFieldFragment from './SwitchFieldFragment';
 import TextFieldFragment from './TextFieldFragment';
 
@@ -53,10 +53,10 @@ class Field extends React.Component<Props> {
       [FIELD_TYPE.TEXT]: () => (
         <TextFieldFragment data={data} taskId={this.props.taskId} />
       ),
-      [FIELD_TYPE.PARTIAL_CHOICE]: () => (
+      [FIELD_TYPE.NESTED_CHOICE]: () => (
         <PartialChoiceFieldFragment data={data} taskId={this.props.taskId} />
       ),
-    }[data.type]();
+    }[data.fieldType]();
   }
 }
 
@@ -65,11 +65,11 @@ export default createFragmentContainer<Props>(
   withStyles(styles)(Field),
   graphql`
     fragment FieldFragment on FieldType {
-      type
+      fieldType
       ...SwitchFieldFragment
       ...ChoiceFieldFragment
       ...TextFieldFragment
-      ...PartialChoiceFieldFragment
+      ...NestedChoiceFieldFragment
     }
   `,
 );

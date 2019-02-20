@@ -4,34 +4,38 @@ import { commitMutation } from 'react-relay';
 import { RecordSourceSelectorProxy } from 'relay-runtime';
 import environment from '../environment';
 import {
-  updateTaskPartialChoiceFieldMutation,
-  updateTaskPartialChoiceFieldMutationInput,
-  updateTaskPartialChoiceFieldMutationResponse,
-} from './__generated__/updateTaskPartialChoiceFieldMutation.graphql';
+  updateTaskNestedChoiceFieldMutation,
+  updateTaskNestedChoiceFieldMutationInput,
+  updateTaskNestedChoiceFieldMutationResponse,
+} from './__generated__/updateTaskNestedChoiceFieldMutation.graphql';
 
 const mutation = graphql`
-  mutation updateTaskTripleChoiceFieldMutation(
-    $input: updateTaskTripleChoiceFieldMutationInput!
+  mutation updateTaskNestedChoiceFieldMutation(
+    $input: updateTaskNestedChoiceFieldMutationInput!
   ) {
-    updateTaskTripleChoiceFieldMutationInput(input: $input) {
+    updateTaskNestedChoiceField(input: $input) {
+      clientMutationId
       fieldId
       taskId
       updatedFieldValue {
-        id
-      }
-      partial {
-        ...FieldFragment
+        ownValue
+        childrenValue {
+          ownValue
+          childrenValue {
+            ownValue
+          }
+        }
       }
     }
   }
 `;
 
 export default (
-  { fieldId, fieldValue, taskId }: updateTaskPartialChoiceFieldMutationInput,
-): Promise<updateTaskPartialChoiceFieldMutationResponse> => new Promise((onCompleted, onError): void => {
+  { fieldId, fieldValue, taskId }: updateTaskNestedChoiceFieldMutationInput,
+): Promise<updateTaskNestedChoiceFieldMutationResponse> => new Promise((onCompleted, onError): void => {
   const variables = { input: { fieldId, fieldValue, taskId } };
 
-  commitMutation<updateTaskPartialChoiceFieldMutation>(
+  commitMutation<updateTaskNestedChoiceFieldMutation>(
     environment,
     {
       mutation,
@@ -43,11 +47,11 @@ export default (
         const valueRecord = fieldRecord && fieldRecord.getLinkedRecord('value');
 
         if (valueRecord) {
-          valueRecord.setValue(fieldValue.id, 'id');
+          valueRecord.setValue(fieldValue.ownValue, 'ownValue');
         }
       },
       updater: (store: RecordSourceSelectorProxy) => {
-        const mutationRecord = store.getRootField('updateTaskPartialChoiceField');
+        const mutationRecord = store.getRootField('updateTaskNestedChoiceField');
         const updatedFieldValue = mutationRecord && mutationRecord.getLinkedRecord('updatedFieldValue');
         const fieldRecord = store.get(fieldId);
 

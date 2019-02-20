@@ -1,70 +1,42 @@
-import { TextField as Input } from '@material-ui/core';
-// @ts-ignore
-import graphql from 'babel-plugin-relay/macro';
+import { TextField } from '@material-ui/core';
 import React, { ChangeEvent } from 'react';
-import { createFragmentContainer } from 'react-relay';
-import updateTaskTextFieldMutation from '../../../mutations/updateTaskTextFieldMutation';
-import FieldContainer from '../../containers/FieldContainer';
-import { TextFieldFragment } from './__generated__/TextFieldFragment.graphql';
+import FieldContainer from '../containers/FieldContainer';
 
 interface Props {
-  data: TextFieldFragment;
-  taskId: string;
+  value?: string;
+  label?: string;
+  helperText?: string;
+  max?: number;
+  min?: number;
+  minLength?: number;
+  maxLength?: number;
+  required?: boolean;
+  inputType?: string;
+
+  onChange(value: string): void;
 }
 
-class TextField extends React.Component<Props> {
+export default class Text extends React.Component<Props> {
   render(): React.ReactNode {
-    const { data } = this.props;
-
-    const { value: { text }, meta } = data;
-    const { max, maxLength, min, minLength, required, inputType, label, helperText } = meta;
+    const { value, max, maxLength, min, minLength, required, inputType, label, helperText } = this.props;
 
     return (
       <FieldContainer>
-        <Input
+        <TextField
           label={label}
           required={required}
           InputLabelProps={{ shrink: true }}
           inputProps={{ type: inputType, max, maxLength, min, minLength }}
           helperText={helperText}
-          value={text && text.length > 0 ? text : undefined}
+          value={value}
           onChange={this.handleChange}
+          fullWidth
         />
       </FieldContainer>
     );
   }
 
   private handleChange = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
-    const { taskId, data: { id }} = this.props;
-
-    await updateTaskTextFieldMutation({ fieldId: id, fieldValue: { text: event.target.value }, taskId });
+    this.props.onChange(event.target.value);
   };
 }
-
-export default createFragmentContainer<Props>(
-  // @ts-ignore
-  TextField,
-  graphql`
-    fragment TextFieldFragment on FieldType {
-      id
-      fieldId
-      meta {
-        ... on TextMetaType {
-          helperText
-          label
-          inputType
-          min
-          max
-          maxLength
-          minLength
-          required
-        }
-      }
-      value {
-        ... on TextValueType {
-          text
-        }
-      }
-    }
-  `,
-);

@@ -23,7 +23,7 @@ export const FIELD_TYPE: ExcludeFutureAdded<UnionKeyToValue<FieldTypeEnum>> = {
   CHOICE: 'CHOICE',
   SWITCH: 'SWITCH',
   TEXT: 'TEXT',
-  PARTIAL_CHOICE: 'PARTIAL_CHOICE',
+  NESTED_CHOICE: 'NESTED_CHOICE',
 };
 
 export type FIELD_TYPE_VALUE_MAP<V> = ExcludeFutureAdded<UnionKeyToValue<FieldTypeEnum, V>>;
