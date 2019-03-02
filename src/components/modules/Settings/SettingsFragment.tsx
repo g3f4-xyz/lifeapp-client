@@ -20,7 +20,6 @@ import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import cleanApplicationMutation from '../../../mutations/cleanApplicationMutation';
 import deleteSubscriptionMutation from '../../../mutations/deleteSubscriptionMutation';
-import { registerSubscription } from '../../../serviceWorkers/subscriptionServiceWorker';
 import { SettingsFragment as SettingsFragmentResponse } from './__generated__/SettingsFragment.graphql';
 import NotificationsGeneralFragment from './NotificationsGeneralFragment';
 import NotificationsTypesFragment from './NotificationsTypesFragment';
@@ -88,14 +87,6 @@ class SettingsFragment extends React.Component<Props, State> {
     });
   };
 
-  onNotificationsActivate = async (): Promise<void> => {
-    try {
-      await registerSubscription();
-    } catch (e) {
-      throw e;
-    }
-  };
-
   render(): React.ReactNode {
     const { classes } = this.props;
 
@@ -109,11 +100,6 @@ class SettingsFragment extends React.Component<Props, State> {
           <Typography align="center" variant="display1">
             Notifications
           </Typography>
-          <div className={classes.subscriptionButton}>
-            <Button onClick={this.onNotificationsActivate}>
-              Activate notifications for this browser
-            </Button>
-          </div>
           <NotificationsGeneralFragment data={this.props.data.notifications.general}/>
           <NotificationsTypesFragment data={this.props.data.notifications.types}/>
           <ExpansionPanel className={classes.expansionPanel}>

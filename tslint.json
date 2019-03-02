@@ -9,6 +9,7 @@
     "interface-name": [true, "never-prefix"],
     "no-any": true,
     "object-literal-sort-keys": false,
+    "arrow-parens": false,
     "variable-name": [true, "ban-keywords", "check-format", "allow-leading-underscore", "allow-pascal-case"]
   }
 }
