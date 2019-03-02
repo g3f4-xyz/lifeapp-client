@@ -33,9 +33,10 @@
     "relay-compiler": "2.0.0",
     "relay-compiler-language-typescript": "2.0.0",
     "replace": "1.0.1",
+    "sw-precache": "5.2.1",
     "ts-node": "8.0.2",
     "tslint": "5.12.1",
-    "typescript": "^3.3.1"
+    "typescript": "3.3.1"
   },
   "license": "MIT",
   "scripts": {
@@ -44,8 +45,7 @@
     "build:heroku:package": "yarn run build:heroku && tar -zcvf client-package-heroku-$npm_package_version.tar.gz build/",
     "start": "REACT_APP_HOST=http://localhost:30000 react-scripts start",
     "start:remote": "REACT_APP_GRAPHQL_HOST=https://lifeapp-server.herokuapp.com/graphql react-scripts start",
-    "run:local": "ts-node -P server/tsconfig.json server/index",
-    "build": "react-scripts build && cra-append-sw ./public/notifications-worker.js",
+    "build": "NODE_ENV=production react-scripts build && sw-precache --config=sw-precache-config.js && cra-append-sw ./public/notifications-worker.js",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "lint:fix": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --fix",
     "test": "react-scripts test",
