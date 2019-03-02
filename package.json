@@ -45,7 +45,7 @@
     "start": "REACT_APP_HOST=http://localhost:30000 react-scripts start",
     "start:remote": "REACT_APP_GRAPHQL_HOST=https://lifeapp-server.herokuapp.com/graphql react-scripts start",
     "run:local": "ts-node -P server/tsconfig.json server/index",
-    "build": "react-scripts build && cra-append-sw ./notifications-worker.js",
+    "build": "react-scripts build && cra-append-sw ./public/notifications-worker.js",
     "lint": "tslint -c tslint.json 'src/**/*.{ts,tsx}'",
     "lint:fix": "tslint -c tslint.json 'src/**/*.{ts,tsx}' --fix",
     "test": "react-scripts test",
