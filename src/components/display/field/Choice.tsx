@@ -1,7 +1,7 @@
 import { FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core';
 import React, { ChangeEvent } from 'react';
 
-import FieldContainer from '../containers/FieldContainer';
+import FieldContainer from '../../containers/FieldContainer';
 
 interface Props {
   value?: string;

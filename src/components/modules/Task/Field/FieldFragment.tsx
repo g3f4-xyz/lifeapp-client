@@ -1,11 +1,11 @@
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
-import { createFragmentContainer } from 'react-relay';
-import { FIELD_TYPE } from '../../../../constans';
+import { createFragmentContainer, RelayContainer } from 'react-relay';
+import { FIELD_TYPE_VALUE_MAP } from '../../../../constans';
 import { FieldFragment } from './__generated__/FieldFragment.graphql';
 import ChoiceFieldFragment from './ChoiceFieldFragment';
-import PartialChoiceFieldFragment from './NestedChoiceFieldFragment';
+import NestedFieldFragment from './NestedFieldFragment';
 import SwitchFieldFragment from './SwitchFieldFragment';
 import TextFieldFragment from './TextFieldFragment';
 
@@ -14,20 +14,18 @@ interface Props {
   taskId: string;
 }
 
-const Field = (props: Props) => ({
-  [FIELD_TYPE.CHOICE]: (
-    <ChoiceFieldFragment {...props} />
-  ),
-  [FIELD_TYPE.SWITCH]: (
-    <SwitchFieldFragment {...props} />
-  ),
-  [FIELD_TYPE.TEXT]: (
-    <TextFieldFragment {...props} />
-  ),
-  [FIELD_TYPE.NESTED_CHOICE]: (
-    <PartialChoiceFieldFragment {...props} />
-  ),
-}[props.data.fieldType]);
+const FIELD_COMPONENTS_MAP: FIELD_TYPE_VALUE_MAP<RelayContainer<Props>> = {
+  CHOICE: ChoiceFieldFragment,
+  SWITCH: SwitchFieldFragment,
+  TEXT: TextFieldFragment,
+  NESTED: NestedFieldFragment,
+};
+
+const Field = (props: Props): React.ReactNode => {
+  const Component = FIELD_COMPONENTS_MAP[props.data.fieldType];
+
+  return <Component {...props} />;
+};
 
 export default createFragmentContainer<Props>(
   // @ts-ignore
@@ -38,7 +36,7 @@ export default createFragmentContainer<Props>(
       ...SwitchFieldFragment
       ...ChoiceFieldFragment
       ...TextFieldFragment
-      ...NestedChoiceFieldFragment
+      ...NestedFieldFragment
     }
   `,
 );

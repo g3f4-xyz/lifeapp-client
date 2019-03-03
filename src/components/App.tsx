@@ -1,5 +1,4 @@
 import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
-import { StyleRules } from '@material-ui/core/styles';
 import { Cancel } from '@material-ui/icons';
 import immutabilityHelper, { Spec } from 'immutability-helper';
 import React, { Fragment } from 'react';
@@ -224,7 +223,7 @@ class App extends React.Component<Props, AppState> {
     this.setState({ layouts: {} });
   };
 
-  private onLayoutChange = (layout: Layout, layouts: Layouts): void => {
+  private onLayoutChange = (_layout: Layout, layouts: Layouts): void => {
     saveToLS(LOCAL_STORAGE_LAYOUTS_KEY, layouts);
     this.setState({ layouts });
   };

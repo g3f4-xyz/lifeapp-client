@@ -1,6 +1,6 @@
 import { IconButton, Menu, MenuItem } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
-import React, { ChangeEvent, MouseEvent, MouseEventHandler } from 'react';
+import React, { MouseEvent } from 'react';
 
 interface Props {
   options: Array<{ label: string, action: () => void, visible?: boolean }>;

@@ -68,7 +68,7 @@ export default createPaginationContainer<Props>(
         count: totalCount,
       };
     },
-    getVariables(props, { count, cursor }) {
+    getVariables(_props, { count, cursor }) {
       return { count, cursor };
     },
     query: graphql`

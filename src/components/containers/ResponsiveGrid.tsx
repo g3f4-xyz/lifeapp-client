@@ -1,6 +1,6 @@
 import { IconButton, Paper, StyledComponentProps, withStyles } from '@material-ui/core';
 import { Clear, ZoomIn } from '@material-ui/icons';
-import React, { ReactChild, ReactChildren, ReactElement } from 'react';
+import React, { ReactElement } from 'react';
 import { Children } from 'react';
 import { Layout, Layouts, Responsive, WidthProvider } from 'react-grid-layout';
 import { ModuleProps } from '../App';

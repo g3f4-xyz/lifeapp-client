@@ -1,78 +1,64 @@
-import { FormControl, FormControlLabel, StyledComponentProps, Switch, Theme, withStyles } from '@material-ui/core';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import updateTaskSwitchFieldMutation from '../../../../mutations/updateTaskSwitchFieldMutation';
+import Switch from '../../../display/field/Switch';
 import { SwitchFieldFragment } from './__generated__/SwitchFieldFragment.graphql';
 
-const styles = (theme: Theme) => ({
-  container: {
-    margin: theme.spacing.unit * 2,
-    display: 'flex',
-    flexGrow: 1,
-    [theme.breakpoints.down('xs')]: {
-      padding: theme.spacing.unit * 2,
-    },
-  },
-});
-
-interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
+interface Props {
   data: SwitchFieldFragment;
   taskId: string;
 }
 
 class SwitchField extends React.Component<Props> {
   render(): React.ReactNode {
-    const { classes, data } = this.props;
-
-    if (!classes) {
-      throw new Error(`error loading styles`);
-    }
-
-    const { fieldId, value: { enabled }, meta: { label } } = data;
+    const { data } = this.props;
+    const { value: { enabled }, meta: { label } } = data;
 
     return (
-      <FormControl className={classes.container}>
-        <FormControlLabel
-          id={fieldId}
-          control={
-            <Switch
-              checked={enabled as boolean}
-              value={fieldId}
-              onChange={this.handleChange}
-            />
-          }
-          label={label}
-        />
-      </FormControl>
+      <Switch
+        checked={enabled}
+        label={label}
+        onChange={this.handleChange}
+      />
     );
   }
 
-  private handleChange = async (event: ChangeEvent<HTMLInputElement>, enabled: boolean): Promise<void> => {
+  private handleChange = async (enabled: boolean): Promise<void> => {
     const { taskId, data: { id }} = this.props;
 
     await updateTaskSwitchFieldMutation({ fieldId: id, fieldValue: { enabled }, taskId });
   };
 }
 
+// tslint:disable-next-line:no-unused-expression
+graphql`
+  fragment SwitchFieldFragmentMeta on SwitchMetaType {
+    fieldType
+    label
+    required
+  }
+`;
+// tslint:disable-next-line:no-unused-expression
+graphql`
+  fragment SwitchFieldFragmentValue on SwitchValueType {
+    enabled
+  }
+`;
+
 export default createFragmentContainer<Props>(
   // @ts-ignore
-  withStyles(styles)(SwitchField),
+  SwitchField,
   graphql`
     fragment SwitchFieldFragment on FieldType {
       id
       fieldId
       meta {
-        ... on SwitchMetaType {
-          label
-          required
-        }
+        ...SwitchFieldFragmentMeta @relay(mask: false)
       }
       value {
-        ... on SwitchValueType {
-          enabled
-        }
+        ...SwitchFieldFragmentValue @relay(mask: false)
       }
     }
   `,

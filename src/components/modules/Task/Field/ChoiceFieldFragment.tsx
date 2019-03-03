@@ -3,7 +3,7 @@ import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import updateTaskChoiceFieldMutation from '../../../../mutations/updateTaskChoiceFieldMutation';
-import Choice from '../../../display/Choice';
+import Choice from '../../../display/field/Choice';
 import { ChoiceFieldFragment } from './__generated__/ChoiceFieldFragment.graphql';
 
 interface Props {
@@ -34,8 +34,10 @@ class ChoiceField extends React.Component<Props> {
   };
 }
 
-const ChoiceFieldFragmentMeta = graphql`
+// tslint:disable-next-line:no-unused-expression
+graphql`
   fragment ChoiceFieldFragmentMeta on ChoiceMetaType {
+    fieldType
     helperText
     label
     defaultValue
@@ -44,6 +46,12 @@ const ChoiceFieldFragmentMeta = graphql`
       value
     }
     required
+  }
+`;
+// tslint:disable-next-line:no-unused-expression
+graphql`
+  fragment ChoiceFieldFragmentValue on ChoiceValueType {
+    id
   }
 `;
 
@@ -58,9 +66,7 @@ export default createFragmentContainer<Props>(
         ...ChoiceFieldFragmentMeta @relay(mask: false)
       }
       value {
-        ... on ChoiceValueType {
-          id
-        }
+        ...ChoiceFieldFragmentValue @relay(mask: false)
       }
     }
   `,

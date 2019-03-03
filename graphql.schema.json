@@ -1167,12 +1167,6 @@
           "interfaces": null,
           "enumValues": [
             {
-              "name": "TEXT",
-              "description": null,
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "SWITCH",
               "description": null,
               "isDeprecated": false,
@@ -1185,7 +1179,13 @@
               "deprecationReason": null
             },
             {
-              "name": "NESTED_CHOICE",
+              "name": "TEXT",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "NESTED",
               "description": null,
               "isDeprecated": false,
               "deprecationReason": null
@@ -1219,7 +1219,7 @@
             },
             {
               "kind": "OBJECT",
-              "name": "NestedChoiceValueType",
+              "name": "NestedValueType",
               "ofType": null
             }
           ]
@@ -1307,16 +1307,16 @@
         },
         {
           "kind": "OBJECT",
-          "name": "NestedChoiceValueType",
-          "description": "partial choice value type",
+          "name": "NestedValueType",
+          "description": "nested value type",
           "fields": [
             {
               "name": "ownValue",
               "description": null,
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "UNION",
+                "name": "ValuesUnion",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1328,7 +1328,7 @@
               "args": [],
               "type": {
                 "kind": "OBJECT",
-                "name": "NestedChoiceValueType",
+                "name": "NestedValueType",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1366,7 +1366,7 @@
             },
             {
               "kind": "OBJECT",
-              "name": "NestedChoiceMetaType",
+              "name": "NestedMetaType",
               "ofType": null
             }
           ]
@@ -1376,6 +1376,22 @@
           "name": "ChoiceMetaType",
           "description": "choice meta type",
           "fields": [
+            {
+              "name": "fieldType",
+              "description": "fieldType",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "FieldTypeEnum",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
             {
               "name": "required",
               "description": "required",
@@ -1511,6 +1527,22 @@
           "description": "text meta type",
           "fields": [
             {
+              "name": "fieldType",
+              "description": "fieldType",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "FieldTypeEnum",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "required",
               "description": "required",
               "args": [],
@@ -1630,6 +1662,22 @@
           "description": "switch meta type",
           "fields": [
             {
+              "name": "fieldType",
+              "description": "fieldType",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "FieldTypeEnum",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "required",
               "description": "required",
               "args": [],
@@ -1669,8 +1717,8 @@
         },
         {
           "kind": "OBJECT",
-          "name": "NestedChoiceMetaType",
-          "description": "partial choice meta type",
+          "name": "NestedMetaType",
+          "description": "nested meta type",
           "fields": [
             {
               "name": "fieldType",
@@ -1693,8 +1741,8 @@
               "description": "parentValue description",
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "UNION",
+                "name": "ValuesUnion",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1721,7 +1769,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "ChildrenMeta",
+                  "name": "NestedChildrenMeta",
                   "ofType": null
                 }
               },
@@ -1736,7 +1784,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "ChildrenMeta",
+          "name": "NestedChildrenMeta",
           "description": "",
           "fields": [
             {
@@ -1756,8 +1804,8 @@
               "description": "",
               "args": [],
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "UNION",
+                "name": "ValuesUnion",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -2542,7 +2590,7 @@
               "deprecationReason": null
             },
             {
-              "name": "updateTaskNestedChoiceField",
+              "name": "updateTaskNestedField",
               "description": null,
               "args": [
                 {
@@ -2553,7 +2601,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "updateTaskNestedChoiceFieldMutationInput",
+                      "name": "updateTaskNestedFieldMutationInput",
                       "ofType": null
                     }
                   },
@@ -2562,7 +2610,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "updateTaskNestedChoiceFieldMutationPayload",
+                "name": "updateTaskNestedFieldMutationPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -3800,7 +3848,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "updateTaskNestedChoiceFieldMutationInput",
+          "name": "updateTaskNestedFieldMutationInput",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -3840,7 +3888,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "INPUT_OBJECT",
-                  "name": "NestedChoiceValueInputType",
+                  "name": "NestedValueInputType",
                   "ofType": null
                 }
               },
@@ -3863,16 +3911,16 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "NestedChoiceValueInputType",
-          "description": "partial choice value input type",
+          "name": "NestedValueInputType",
+          "description": "nested choice value input type",
           "fields": null,
           "inputFields": [
             {
               "name": "ownValue",
               "description": null,
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "INPUT_OBJECT",
+                "name": "ValueInputType",
                 "ofType": null
               },
               "defaultValue": null
@@ -3882,7 +3930,7 @@
               "description": null,
               "type": {
                 "kind": "INPUT_OBJECT",
-                "name": "NestedChoiceChildrenValueInputType",
+                "name": "NestedChildrenValueInputType",
                 "ofType": null
               },
               "defaultValue": null
@@ -3894,7 +3942,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "NestedChoiceChildrenValueInputType",
+          "name": "NestedChildrenValueInputType",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -3902,8 +3950,8 @@
               "name": "ownValue",
               "description": null,
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "INPUT_OBJECT",
+                "name": "ValueInputType",
                 "ofType": null
               },
               "defaultValue": null
@@ -3913,7 +3961,7 @@
               "description": null,
               "type": {
                 "kind": "INPUT_OBJECT",
-                "name": "NestedChoiceNestedChildrenValueInputType",
+                "name": "NestedNestedChildrenValueInputType",
                 "ofType": null
               },
               "defaultValue": null
@@ -3925,7 +3973,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "NestedChoiceNestedChildrenValueInputType",
+          "name": "NestedNestedChildrenValueInputType",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -3933,8 +3981,8 @@
               "name": "ownValue",
               "description": null,
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "INPUT_OBJECT",
+                "name": "ValueInputType",
                 "ofType": null
               },
               "defaultValue": null
@@ -3943,8 +3991,8 @@
               "name": "childrenValue",
               "description": null,
               "type": {
-                "kind": "SCALAR",
-                "name": "String",
+                "kind": "INPUT_OBJECT",
+                "name": "ValueInputType",
                 "ofType": null
               },
               "defaultValue": null
@@ -3956,7 +4004,7 @@
         },
         {
           "kind": "OBJECT",
-          "name": "updateTaskNestedChoiceFieldMutationPayload",
+          "name": "updateTaskNestedFieldMutationPayload",
           "description": null,
           "fields": [
             {
@@ -4000,7 +4048,7 @@
                 "name": null,
                 "ofType": {
                   "kind": "OBJECT",
-                  "name": "NestedChoiceValueType",
+                  "name": "NestedValueType",
                   "ofType": null
                 }
               },

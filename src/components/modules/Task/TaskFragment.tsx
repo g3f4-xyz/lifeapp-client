@@ -57,7 +57,7 @@ class Task extends React.Component<Props, TaskFragmentResponse> {
   };
 
   render(): React.ReactNode {
-    const { classes, data, onDone } = this.props;
+    const { classes, data } = this.props;
 
     if (!classes) {
       throw new Error(`error loading styles`);

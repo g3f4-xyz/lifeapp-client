@@ -6,14 +6,12 @@ import {
   ListItem,
   ListItemIcon,
   ListItemSecondaryAction,
-  ListItemText, StyledComponentProps, StyleRulesCallback,
+  ListItemText, StyledComponentProps,
   Switch,
   Theme,
   Typography,
   withStyles,
 } from '@material-ui/core';
-import { StyleRules } from '@material-ui/core/styles';
-import { ClassNameMap } from '@material-ui/core/styles/withStyles';
 import { ExpandMore } from '@material-ui/icons';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';

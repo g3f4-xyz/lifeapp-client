@@ -97,7 +97,7 @@ export default createPaginationContainer<Props>(
         count: totalCount,
       };
     },
-    getVariables(props, { cursor, count }) {
+    getVariables(_props, { cursor, count }) {
       return {
         count,
         after: cursor,

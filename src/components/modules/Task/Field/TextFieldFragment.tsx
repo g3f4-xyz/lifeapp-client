@@ -3,7 +3,7 @@ import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import updateTaskTextFieldMutation from '../../../../mutations/updateTaskTextFieldMutation';
-import Text from '../../../display/Text';
+import Text from '../../../display/field/Text';
 import { TextFieldFragment } from './__generated__/TextFieldFragment.graphql';
 
 interface Props {
@@ -41,8 +41,10 @@ class TextField extends React.Component<Props> {
   };
 }
 
-const TextMetaFragment = graphql`
+// tslint:disable-next-line:no-unused-expression
+graphql`
   fragment TextFieldFragmentMeta on TextMetaType {
+    fieldType
     helperText
     label
     inputType
@@ -51,6 +53,12 @@ const TextMetaFragment = graphql`
     maxLength
     minLength
     required
+  }
+`;
+// tslint:disable-next-line:no-unused-expression
+graphql`
+  fragment TextFieldFragmentValue on TextValueType {
+    text
   }
 `;
 
@@ -65,9 +73,7 @@ export default createFragmentContainer<Props>(
         ...TextFieldFragmentMeta @relay(mask: false)
       }
       value {
-        ... on TextValueType {
-          text
-        }
+        ...TextFieldFragmentValue @relay(mask: false)
       }
     }
   `,

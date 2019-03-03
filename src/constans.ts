@@ -1,11 +1,15 @@
 import { TaskTypeEnum } from './components/modules/Task/__generated__/TaskFragment.graphql';
-import { FieldTypeEnum } from './components/modules/Task/Field/__generated__/NestedChoiceFieldFragment.graphql';
+import { FieldTypeEnum } from './components/modules/Task/Field/__generated__/FieldFragment.graphql';
 import { TaskStatusEnum } from './components/modules/TaskList/__generated__/TaskListFragment.graphql';
 
 export type Without<T, K> = Pick<T, Exclude<keyof T, K>>;
 export type ExcludeFutureAdded<T> = Without<T, '%future added value'>;
 export type UnionKeyToValue<U extends string, V = U> = {
   [K in U]: V
+};
+
+type KEYOF_TYPE_VALUE_MAP<T, V> = {
+  [K in keyof T]: V
 };
 
 export type MODULE = 'settings' | 'task' | 'taskList' | 'taskTypeList';
@@ -23,10 +27,10 @@ export const FIELD_TYPE: ExcludeFutureAdded<UnionKeyToValue<FieldTypeEnum>> = {
   CHOICE: 'CHOICE',
   SWITCH: 'SWITCH',
   TEXT: 'TEXT',
-  NESTED_CHOICE: 'NESTED_CHOICE',
+  NESTED: 'NESTED',
 };
 
-export type FIELD_TYPE_VALUE_MAP<V> = ExcludeFutureAdded<UnionKeyToValue<FieldTypeEnum, V>>;
+export type FIELD_TYPE_VALUE_MAP<V> = KEYOF_TYPE_VALUE_MAP<typeof FIELD_TYPE, V>;
 
 export type DEVICE = 'desktop' | 'mobile' | '';
 
