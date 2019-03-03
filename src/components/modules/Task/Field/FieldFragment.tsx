@@ -1,4 +1,3 @@
-import { StyledComponentProps, Theme, withStyles } from '@material-ui/core';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
@@ -10,59 +9,29 @@ import PartialChoiceFieldFragment from './NestedChoiceFieldFragment';
 import SwitchFieldFragment from './SwitchFieldFragment';
 import TextFieldFragment from './TextFieldFragment';
 
-const styles = (theme: Theme) => ({
-  container: {
-    margin: theme.spacing.unit * 2,
-    display: 'flex',
-    flexGrow: 1,
-    [theme.breakpoints.down('xs')]: {
-      padding: theme.spacing.unit * 2,
-    },
-  },
-  row: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    margin: theme.spacing.unit,
-    width: '100%',
-    [theme.breakpoints.down('xs')]: {
-      display: 'block',
-    },
-  },
-});
-
-interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
+interface Props {
   data: FieldFragment;
   taskId: string;
 }
 
-class Field extends React.Component<Props> {
-  render(): React.ReactNode {
-    const { classes, data } = this.props;
-
-    if (!classes) {
-      throw new Error(`error loading styles`);
-    }
-
-    return {
-      [FIELD_TYPE.CHOICE]: () => (
-        <ChoiceFieldFragment data={data} taskId={this.props.taskId} />
-      ),
-      [FIELD_TYPE.SWITCH]: () => (
-        <SwitchFieldFragment data={data} taskId={this.props.taskId} />
-      ),
-      [FIELD_TYPE.TEXT]: () => (
-        <TextFieldFragment data={data} taskId={this.props.taskId} />
-      ),
-      [FIELD_TYPE.NESTED_CHOICE]: () => (
-        <PartialChoiceFieldFragment data={data} taskId={this.props.taskId} />
-      ),
-    }[data.fieldType]();
-  }
-}
+const Field = (props: Props) => ({
+  [FIELD_TYPE.CHOICE]: (
+    <ChoiceFieldFragment {...props} />
+  ),
+  [FIELD_TYPE.SWITCH]: (
+    <SwitchFieldFragment {...props} />
+  ),
+  [FIELD_TYPE.TEXT]: (
+    <TextFieldFragment {...props} />
+  ),
+  [FIELD_TYPE.NESTED_CHOICE]: (
+    <PartialChoiceFieldFragment {...props} />
+  ),
+}[props.data.fieldType]);
 
 export default createFragmentContainer<Props>(
   // @ts-ignore
-  withStyles(styles)(Field),
+  Field,
   graphql`
     fragment FieldFragment on FieldType {
       fieldType
