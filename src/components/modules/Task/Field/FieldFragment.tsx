@@ -1,9 +1,9 @@
-import { FormControl, StyledComponentProps, Theme, withStyles } from '@material-ui/core';
+import { StyledComponentProps, Theme, withStyles } from '@material-ui/core';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
-import { FIELD_TYPE } from '../../../constans';
+import { FIELD_TYPE } from '../../../../constans';
 import { FieldFragment } from './__generated__/FieldFragment.graphql';
 import ChoiceFieldFragment from './ChoiceFieldFragment';
 import PartialChoiceFieldFragment from './NestedChoiceFieldFragment';

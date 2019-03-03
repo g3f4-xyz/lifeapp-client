@@ -1,5 +1,5 @@
-import { FieldTypeEnum } from './components/modules/Task/__generated__/FieldFragment.graphql';
 import { TaskTypeEnum } from './components/modules/Task/__generated__/TaskFragment.graphql';
+import { FieldTypeEnum } from './components/modules/Task/Field/__generated__/NestedChoiceFieldFragment.graphql';
 import { TaskStatusEnum } from './components/modules/TaskList/__generated__/TaskListFragment.graphql';
 
 export type Without<T, K> = Pick<T, Exclude<keyof T, K>>;

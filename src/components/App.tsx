@@ -11,15 +11,15 @@ import { getFromLS, saveToLS } from '../utils/rglLocalStore';
 import ErrorBoundary from './containers/ErrorBoundary';
 import ResponsiveGrid from './containers/ResponsiveGrid';
 import AppMenu from './display/AppMenu';
-import settingsHandler from './modules/Settings/settingsHandler';
+import settingsHandler from './modules/Settings/settingsModuleHandler';
 import SettingsQuery from './modules/Settings/SettingsQuery';
 import { TaskTypeEnum } from './modules/Task/__generated__/TaskFragment.graphql';
 import Task from './modules/Task/Task';
-import taskHandler from './modules/Task/taskHandler';
+import taskHandler from './modules/Task/taskModuleHandler';
 import TaskList from './modules/TaskList/TaskList';
-import taskListHandler from './modules/TaskList/taskListHandler';
+import taskListHandler from './modules/TaskList/taskListModuleHandler';
 import TaskTypeList from './modules/TaskTypeList/TaskTypeList';
-import taskTypeListHandler from './modules/TaskTypeList/taskTypeListHandler';
+import taskTypeListHandler from './modules/TaskTypeList/taskTypeListModuleHandler';
 
 assetsServiceWorker.register({
   async onActivated(registration) {

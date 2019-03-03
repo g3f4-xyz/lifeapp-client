@@ -1,9 +1,9 @@
 import { FormControl, FormControlLabel, StyledComponentProps, Switch, Theme, withStyles } from '@material-ui/core';
-import React, { ChangeEvent } from 'react';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
+import React, { ChangeEvent } from 'react';
 import { createFragmentContainer } from 'react-relay';
-import updateTaskSwitchFieldMutation from '../../../mutations/updateTaskSwitchFieldMutation';
+import updateTaskSwitchFieldMutation from '../../../../mutations/updateTaskSwitchFieldMutation';
 import { SwitchFieldFragment } from './__generated__/SwitchFieldFragment.graphql';
 
 const styles = (theme: Theme) => ({

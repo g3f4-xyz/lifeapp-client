@@ -8,7 +8,7 @@ import TaskTypeIcon from '../../display/TaskTypeIcon';
 import {
   TaskFragment as TaskFragmentResponse,
 } from './__generated__/TaskFragment.graphql';
-import FieldFragment from './FieldFragment';
+import FieldFragment from './Field/FieldFragment';
 
 const styles = (theme: Theme) => ({
   row: {

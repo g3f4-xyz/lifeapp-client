@@ -2,8 +2,8 @@
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
-import updateTaskTextFieldMutation from '../../../mutations/updateTaskTextFieldMutation';
-import Text from '../../display/Text';
+import updateTaskTextFieldMutation from '../../../../mutations/updateTaskTextFieldMutation';
+import Text from '../../../display/Text';
 import { TextFieldFragment } from './__generated__/TextFieldFragment.graphql';
 
 interface Props {

@@ -13,11 +13,12 @@ import graphql from 'babel-plugin-relay/macro';
 import immutabilityHelper from 'immutability-helper';
 import React, { Fragment } from 'react';
 import { createFragmentContainer } from 'react-relay';
-import { FIELD_TYPE } from '../../../constans';
-import updateTaskNestedChoiceFieldMutation from '../../../mutations/updateTaskNestedChoiceFieldMutation';
-import Choice from '../../display/Choice';
-import Text from '../../display/Text';
+import { FIELD_TYPE } from '../../../../constans';
+import updateTaskNestedChoiceFieldMutation from '../../../../mutations/updateTaskNestedChoiceFieldMutation';
+import Choice from '../../../display/Choice';
+import Text from '../../../display/Text';
 import { NestedChoiceFieldFragment } from './__generated__/NestedChoiceFieldFragment.graphql';
+// import { NestedChoiceFieldFragment } from '../__generated__/NestedChoiceFieldFragment.graphql';
 
 interface Props{
   data: NestedChoiceFieldFragment;

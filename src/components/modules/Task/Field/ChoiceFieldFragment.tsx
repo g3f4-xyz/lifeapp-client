@@ -2,8 +2,8 @@
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
-import updateTaskChoiceFieldMutation from '../../../mutations/updateTaskChoiceFieldMutation';
-import Choice from '../../display/Choice';
+import updateTaskChoiceFieldMutation from '../../../../mutations/updateTaskChoiceFieldMutation';
+import Choice from '../../../display/Choice';
 import { ChoiceFieldFragment } from './__generated__/ChoiceFieldFragment.graphql';
 
 interface Props {

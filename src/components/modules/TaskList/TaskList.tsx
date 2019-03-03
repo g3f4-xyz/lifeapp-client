@@ -6,7 +6,7 @@ import { ITEMS_PER_PAGE } from '../../../constans';
 import environment from '../../../environment';
 import Loader from '../../display/Loader';
 import { TaskListQuery } from './__generated__/TaskListQuery.graphql';
-import { TaskListHandlerProps } from './taskListHandler';
+import { TaskListHandlerProps } from './taskListModuleHandler';
 import TaskListPagination from './TaskListPagination';
 
 export default class TaskList extends React.Component<TaskListHandlerProps> {
