@@ -26,6 +26,10 @@ assetsServiceWorker.register({
     console.log(['assetsServiceWorker.onActivated.registration'], registration);
     await registerUserSubscription(registration);
   },
+  async onUpdate(registration) {
+    console.log(['assetsServiceWorker.onUpdate.registration'], registration);
+    await registerUserSubscription(registration);
+  },
 });
 
 const styles = {

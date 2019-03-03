@@ -1,5 +1,3 @@
-import { API_HOST } from '../constans';
-
 const publicVapidKey = 'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo';
 
 export async function registerUserSubscription(register: ServiceWorkerRegistration) {
@@ -9,7 +7,7 @@ export async function registerUserSubscription(register: ServiceWorkerRegistrati
       applicationServerKey: urlBase64ToUint8Array(publicVapidKey),
     });
 
-    await fetch(`${API_HOST}/notifications`, {
+    await fetch(`/notifications`, {
       credentials: 'same-origin',
       method: 'POST',
       headers: {

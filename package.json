@@ -55,6 +55,7 @@
     "relay:watch": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript --watch",
     "add-tag": "git tag -a v$npm_package_version -m \"client version $npm_package_version\""
   },
+  "proxy": "http://localhost:30000",
   "browserslist": [
     ">0.2%",
     "not dead",

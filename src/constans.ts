@@ -59,5 +59,3 @@ export const TASK_STATUSES: ExcludeFutureAdded<UnionKeyToValue<TaskStatusEnum>> 
 export type LOCAL_STORAGE_LAYOUT_KEY = 'layouts';
 
 export const LOCAL_STORAGE_LAYOUTS_KEY = 'layouts';
-
-export const API_HOST = process.env.REACT_APP_HOST || '';
