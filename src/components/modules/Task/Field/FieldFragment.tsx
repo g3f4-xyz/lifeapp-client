@@ -18,6 +18,7 @@ const FIELD_COMPONENTS_MAP: FIELD_TYPE_VALUE_MAP<RelayContainer<Props>> = {
   CHOICE: ChoiceFieldFragment,
   SWITCH: SwitchFieldFragment,
   TEXT: TextFieldFragment,
+  // @ts-ignore
   NESTED: NestedFieldFragment,
 };
 
