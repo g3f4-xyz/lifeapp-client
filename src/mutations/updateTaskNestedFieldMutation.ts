@@ -67,6 +67,19 @@ const mutation = graphql`
               text
             }
           }
+          childrenValue {
+            ownValue {
+              ... on ChoiceValueType {
+                id
+              }
+              ... on SwitchValueType {
+                enabled
+              }
+              ... on TextValueType {
+                text
+              }
+            }
+          }
         }
       }
     }
