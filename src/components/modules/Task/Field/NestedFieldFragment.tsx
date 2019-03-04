@@ -4,6 +4,7 @@ import immutabilityHelper from 'immutability-helper';
 import React, { Fragment, FunctionComponent } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import { FIELD_TYPE } from '../../../../constans';
+import { NestedValueInputType } from '../../../../mutations/__generated__/updateTaskNestedFieldMutation.graphql';
 import updateTaskNestedFieldMutation from '../../../../mutations/updateTaskNestedFieldMutation';
 import Choice from '../../../display/field/Choice';
 import Switch from '../../../display/field/Switch';
@@ -13,6 +14,7 @@ import { NestedFieldFragment } from './__generated__/NestedFieldFragment.graphql
 interface OwnFieldProps {
   ownMeta: NestedFieldFragment['meta']['ownMeta'];
   ownValue: NestedFieldFragment['value']['ownValue'];
+
   onOwnValueChange(updatedValue: NestedFieldFragment['value']['ownValue']): void;
 }
 
@@ -156,10 +158,10 @@ class NestedFieldContainer extends React.Component<Props> {
     );
   }
 
-  private handleChange = async (updatedFieldValue: any): Promise<void> => {
+  private handleChange = async (updatedFieldValue: NestedFieldProps['value']): Promise<void> => {
     const { taskId, data: { id } } = this.props;
 
-    await updateTaskNestedFieldMutation({ fieldId: id, fieldValue: updatedFieldValue, taskId });
+    await updateTaskNestedFieldMutation({ fieldId: id, fieldValue: updatedFieldValue as NestedValueInputType, taskId });
   };
 }
 
