@@ -266,52 +266,21 @@ export default createFragmentContainer<Props>(
       value {
         ... on NestedValueType {
           ownValue {
-            ... on SwitchValueType {
-              enabled
-            }
-            ... on ChoiceValueType {
-              id
-            }
-            ... on TextValueType {
-              text
-            }
+            ...SwitchFieldFragmentValue @relay(mask: false)
+            ...TextFieldFragmentValue @relay(mask: false)
+            ...ChoiceFieldFragmentValue @relay(mask: false)
           }
           childrenValue {
             ownValue {
-              ... on SwitchValueType {
-                enabled
-              }
-              ... on ChoiceValueType {
-                id
-              }
-              ... on TextValueType {
-                text
-              }
+              ...SwitchFieldFragmentValue @relay(mask: false)
+              ...TextFieldFragmentValue @relay(mask: false)
+              ...ChoiceFieldFragmentValue @relay(mask: false)
             }
             childrenValue {
               ownValue {
-                ... on SwitchValueType {
-                  enabled
-                }
-                ... on ChoiceValueType {
-                  id
-                }
-                ... on TextValueType {
-                  text
-                }
-              }
-              childrenValue {
-                ownValue {
-                  ... on SwitchValueType {
-                    enabled
-                  }
-                  ... on ChoiceValueType {
-                    id
-                  }
-                  ... on TextValueType {
-                    text
-                  }
-                }
+                ...SwitchFieldFragmentValue @relay(mask: false)
+                ...TextFieldFragmentValue @relay(mask: false)
+                ...ChoiceFieldFragmentValue @relay(mask: false)
               }
             }
           }
