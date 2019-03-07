@@ -17,7 +17,7 @@ const mutation = graphql`
       fieldId
       taskId
       updatedFieldValue {
-        id
+        ...ChoiceFieldFragmentValue @relay(mask: false)
       }
     }
   }

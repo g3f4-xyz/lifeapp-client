@@ -37,12 +37,13 @@ const OwnField: FunctionComponent<OwnFieldProps> = ({ ownMeta, ownValue, onOwnVa
       );
     }
     if (ownMeta.fieldType === FIELD_TYPE.SWITCH) {
-      const { label, required } = ownMeta;
+      const { disabled, label, required } = ownMeta;
       const { enabled } = ownValue;
 
       return (
         <Switch
           checked={enabled}
+          disabled={disabled}
           label={label}
           required={required}
           onChange={(enabled: boolean) => {

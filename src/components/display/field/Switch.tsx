@@ -4,6 +4,7 @@ import FieldContainer from '../../containers/FieldContainer';
 
 interface Props {
   checked?: boolean;
+  disabled?: boolean | null;
   label?: string;
   required?: boolean;
 
@@ -12,7 +13,7 @@ interface Props {
 
 export default class Switch extends React.Component<Props> {
   render(): React.ReactNode {
-    const { checked, label } = this.props;
+    const { checked, disabled, label } = this.props;
 
     return (
       <FieldContainer>
@@ -20,6 +21,7 @@ export default class Switch extends React.Component<Props> {
           control={
             <MaterialSwitch
               checked={checked}
+              disabled={disabled!}
               value={checked}
               onChange={this.handleChange}
             />

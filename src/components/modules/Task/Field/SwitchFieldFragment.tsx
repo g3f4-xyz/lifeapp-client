@@ -14,10 +14,11 @@ interface Props {
 class SwitchField extends React.Component<Props> {
   render(): React.ReactNode {
     const { data } = this.props;
-    const { value: { enabled }, meta: { label } } = data;
+    const { value: { enabled }, meta: { label, disabled } } = data;
 
     return (
       <Switch
+        disabled={disabled}
         checked={enabled}
         label={label}
         onChange={this.handleChange}
@@ -37,6 +38,7 @@ graphql`
   fragment SwitchFieldFragmentMeta on SwitchMetaType {
     fieldType
     label
+    disabled
     required
   }
 `;

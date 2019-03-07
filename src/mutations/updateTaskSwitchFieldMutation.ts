@@ -17,7 +17,7 @@ const mutation = graphql`
       fieldId
       taskId
       updatedFieldValue {
-        enabled
+        ...SwitchFieldFragmentValue @relay(mask: false)
       }
     }
   }
