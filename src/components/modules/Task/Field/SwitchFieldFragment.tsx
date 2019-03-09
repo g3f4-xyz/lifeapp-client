@@ -27,9 +27,9 @@ class SwitchField extends React.Component<Props> {
   }
 
   private handleChange = async (enabled: boolean): Promise<void> => {
-    const { taskId, data: { id }} = this.props;
+    const { taskId, data: { fieldId, id }} = this.props;
 
-    await updateTaskSwitchFieldMutation({ fieldId: id, fieldValue: { enabled }, taskId });
+    await updateTaskSwitchFieldMutation({ fieldId, fieldValue: { enabled }, taskId }, { id });
   };
 }
 

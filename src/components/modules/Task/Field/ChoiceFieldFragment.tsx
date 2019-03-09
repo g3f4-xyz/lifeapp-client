@@ -27,10 +27,10 @@ class ChoiceField extends React.Component<Props> {
     );
   }
 
-  private handleChange = async (id: string): Promise<void> => {
-    const { taskId, data: { id: fieldId }} = this.props;
+  private handleChange = async (changedId: string): Promise<void> => {
+    const { taskId, data: { fieldId, id }} = this.props;
 
-    await updateTaskChoiceFieldMutation({ fieldId, fieldValue: { id }, taskId });
+    await updateTaskChoiceFieldMutation({ fieldId, fieldValue: { id: changedId }, taskId }, { id });
   };
 }
 

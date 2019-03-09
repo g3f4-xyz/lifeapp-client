@@ -88,6 +88,7 @@ const mutation = graphql`
 
 export default (
   { fieldId, fieldValue, taskId }: updateTaskNestedFieldMutationInput,
+  { id }: { id: string },
 ): Promise<updateTaskNestedFieldMutationResponse> => new Promise((onCompleted, onError): void => {
   const variables = { input: { fieldId, fieldValue, taskId } };
 
@@ -109,7 +110,7 @@ export default (
       updater: (store: RecordSourceSelectorProxy) => {
         const mutationRecord = store.getRootField('updateTaskNestedField');
         const updatedFieldValue = mutationRecord && mutationRecord.getLinkedRecord('updatedFieldValue');
-        const fieldRecord = store.get(fieldId);
+        const fieldRecord = store.get(id);
 
         if (fieldRecord && updatedFieldValue) {
           fieldRecord.setLinkedRecord(updatedFieldValue, 'value');
