@@ -35,9 +35,9 @@ class TextField extends React.Component<Props> {
   }
 
   private handleChange = async (text: string): Promise<void> => {
-    const { taskId, data: { id }} = this.props;
+    const { taskId, data: { fieldId, id }} = this.props;
 
-    await updateTaskTextFieldMutation({ fieldId: id, fieldValue: { text }, taskId });
+    await updateTaskTextFieldMutation({ fieldId, fieldValue: { text }, taskId }, { id });
   };
 }
 

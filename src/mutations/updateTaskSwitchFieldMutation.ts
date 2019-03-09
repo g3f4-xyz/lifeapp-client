@@ -25,6 +25,7 @@ const mutation = graphql`
 
 export default (
   { fieldId, fieldValue, taskId }: updateTaskSwitchFieldMutationInput,
+  { id }: { id: string },
 ): Promise<updateTaskSwitchFieldMutationResponse> => new Promise((onCompleted, onError): void => {
   const variables = { input: { fieldId, fieldValue, taskId } };
 
@@ -37,7 +38,7 @@ export default (
       onCompleted,
       onError,
       optimisticUpdater: (proxyStore: RecordSourceSelectorProxy) => {
-        const fieldRecord = proxyStore.get(fieldId);
+        const fieldRecord = proxyStore.get(id);
         const valueRecord = fieldRecord && fieldRecord.getLinkedRecord('value');
 
         if (valueRecord) {
@@ -47,7 +48,7 @@ export default (
       updater: (store: RecordSourceSelectorProxy) => {
         const mutationRecord = store.getRootField('updateTaskSwitchField');
         const updatedFieldValue = mutationRecord && mutationRecord.getLinkedRecord('updatedFieldValue');
-        const fieldRecord = store.get(fieldId);
+        const fieldRecord = store.get(id);
 
         if (fieldRecord && updatedFieldValue) {
           fieldRecord.setLinkedRecord(updatedFieldValue, 'value');

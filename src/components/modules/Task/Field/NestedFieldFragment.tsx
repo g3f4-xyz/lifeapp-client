@@ -9,7 +9,7 @@ import updateTaskNestedFieldMutation from '../../../../mutations/updateTaskNeste
 import Choice from '../../../display/field/Choice';
 import Switch from '../../../display/field/Switch';
 import Text from '../../../display/field/Text';
-import { NestedFieldFragment } from './__generated__/NestedFieldFragment.graphql';
+import { FieldIdEnum, NestedFieldFragment } from './__generated__/NestedFieldFragment.graphql';
 
 interface OwnFieldProps {
   ownMeta: NestedFieldFragment['meta']['ownMeta'];
@@ -143,6 +143,7 @@ class NestedField extends React.Component<NestedFieldProps> {
 interface Props {
   data: {
     id: string;
+    fieldId: FieldIdEnum;
     meta: NestedFieldProps['meta'];
     value: NestedFieldProps['value'];
   };
@@ -160,9 +161,9 @@ class NestedFieldContainer extends React.Component<Props> {
   }
 
   private handleChange = async (updatedFieldValue: NestedFieldProps['value']): Promise<void> => {
-    const { taskId, data: { id } } = this.props;
+    const { taskId, data: { fieldId, id } } = this.props;
 
-    await updateTaskNestedFieldMutation({ fieldId: id, fieldValue: updatedFieldValue as NestedValueInputType, taskId });
+    await updateTaskNestedFieldMutation({ fieldId, fieldValue: updatedFieldValue as NestedValueInputType, taskId }, { id });
   };
 }
 
