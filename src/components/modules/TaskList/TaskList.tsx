@@ -26,6 +26,14 @@ export default class TaskList extends React.Component<TaskListHandlerProps> {
               taskList {
                 ...TaskListPagination
               }
+              settings {
+                id
+                taskList {
+                  filters {
+                    title
+                  }
+                }
+              }
             }
           }
         `}
@@ -36,7 +44,12 @@ export default class TaskList extends React.Component<TaskListHandlerProps> {
             );
           } else if (props) {
             return (
-              <TaskListPagination data={props.app.taskList} {...this.props} />
+              <TaskListPagination
+                {...this.props}
+                data={props.app.taskList}
+                settings={props.app.settings.taskList}
+                settingsId={props.app.settings.id}
+              />
             );
           }
           return (

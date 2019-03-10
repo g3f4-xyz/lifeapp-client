@@ -2,11 +2,14 @@ import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core'
 import { AddCircle, More } from '@material-ui/icons';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
-import React, { Fragment } from 'react';
+import React, { ChangeEvent, Fragment } from 'react';
 import { ConnectionData, createPaginationContainer, RelayPaginationProp } from 'react-relay';
 import deleteTaskMutation from '../../../mutations/deleteTaskMutation';
+import updateTaskListTitleFilterSettingMutation from '../../../mutations/updateTaskListTitleFilterSettingMutation';
 import Loader from '../../display/Loader';
+import TaskListBar from '../../display/TaskListBar';
 import { TaskListPagination as TaskListPaginationResponse } from './__generated__/TaskListPagination.graphql';
+import { TaskListQueryResponse } from './__generated__/TaskListQuery.graphql';
 import TaskListFragment from './TaskListFragment';
 
 const PAGE_SIZE = 5;
@@ -38,13 +41,16 @@ const styles = {
 
 interface Props extends StyledComponentProps<keyof typeof styles> {
   data: TaskListPaginationResponse;
+  settings: TaskListQueryResponse['app']['settings']['taskList'];
+  settingsId: string;
   relay: RelayPaginationProp;
+
   onAdd(): void;
   onEdit(taskId: string): void;
 }
 
 class TaskListPagination extends React.Component<Props> {
-  onMore = () => {
+  handleMore = () => {
     if (!this.props.relay.isLoading()) {
       // TODO when data comes, relay.isLoading is returning true, so we need to render page one more time
       this.forceUpdate();
@@ -54,12 +60,23 @@ class TaskListPagination extends React.Component<Props> {
     }
   };
 
-  onDelete = async (id: string): Promise<void> => {
+  handleDelete = async (id: string): Promise<void> => {
     await deleteTaskMutation({ id, parentID: this.props.data.id });
   };
 
+  handleFilterByTitle = async (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(['handleFilterByTitle'], event);
+
+    await updateTaskListTitleFilterSettingMutation({ title: event.target.value }, { parentID: this.props.settingsId });
+    this.props.relay.refetchConnection(5, (e) => {
+      if (e) {
+        throw new Error(`error refetching task list after title filter mutation | ${e}`);
+      }
+    });
+  };
+
   render(): React.ReactNode {
-    const { classes, data, onAdd, onEdit } = this.props;
+    const { classes, data, onAdd, onEdit, settings } = this.props;
 
     if (!classes) {
       throw new Error(`error loading styles`);
@@ -75,11 +92,12 @@ class TaskListPagination extends React.Component<Props> {
 
     return (
       <Fragment>
+        <TaskListBar onFilterByTitle={this.handleFilterByTitle} settings={settings} />
         {edges.map((edge) => edge && edge.node && (
           <TaskListFragment
             key={edge.cursor}
             data={edge.node}
-            onDelete={this.onDelete}
+            onDelete={this.handleDelete}
             onEdit={onEdit}
           />
         ))}
@@ -94,7 +112,7 @@ class TaskListPagination extends React.Component<Props> {
           <IconButton
             className={classes.moreButton}
             color="primary"
-            onClick={this.onMore}
+            onClick={this.handleMore}
           >
             {this.props.relay.isLoading() ? (
               <Loader />
@@ -117,6 +135,7 @@ export default createPaginationContainer<Props>(
       list(
         first: $count,
         after: $after,
+        
       ) @connection(key: "TaskList_list") {
         edges {
           cursor

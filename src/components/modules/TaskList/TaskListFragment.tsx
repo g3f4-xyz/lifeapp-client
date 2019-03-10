@@ -57,6 +57,7 @@ const styles = (theme: Theme) => ({
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
   data: TaskListFragmentResponse;
+
   onDelete(id: string): void;
   onEdit(id: string): void;
 }
