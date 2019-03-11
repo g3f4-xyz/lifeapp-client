@@ -1,12 +1,15 @@
+import { FormControlLabel } from '@material-ui/core';
+import Checkbox from '@material-ui/core/Checkbox';
 import React, { ChangeEvent } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
+// import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
-import MenuIcon from '@material-ui/icons/Menu';
+// import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import SearchIcon from '@material-ui/icons/Search';
+import { TASK_TYPES } from '../../constans';
 import { TaskListQueryResponse } from '../modules/TaskList/__generated__/TaskListQuery.graphql';
 
 const styles = (theme: Theme) =>
@@ -17,13 +20,9 @@ const styles = (theme: Theme) =>
     grow: {
       flexGrow: 1,
     },
-    menuButton: {
-      marginLeft: -12,
-      marginRight: 20,
-    },
     title: {
       display: 'none',
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up('md')]: {
         display: 'block',
       },
     },
@@ -36,7 +35,7 @@ const styles = (theme: Theme) =>
       },
       marginLeft: 0,
       width: '100%',
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up('md')]: {
         marginLeft: theme.spacing.unit,
         width: 'auto',
       },
@@ -61,11 +60,17 @@ const styles = (theme: Theme) =>
       paddingLeft: theme.spacing.unit * 10,
       transition: theme.transitions.create('width'),
       width: '100%',
-      [theme.breakpoints.up('sm')]: {
+      [theme.breakpoints.up('md')]: {
         width: 120,
         '&:focus': {
           width: 200,
         },
+      },
+    },
+    wrapper: {
+      flexDirection: 'column',
+      [theme.breakpoints.up('md')]: {
+        flexDirection: 'row-reverse',
       },
     },
   });
@@ -74,19 +79,17 @@ export interface Props extends WithStyles<typeof styles> {
   settings: TaskListQueryResponse['app']['settings']['taskList'];
 
   onFilterByTitle(event: ChangeEvent): void;
+  onFilterByType(val: any): void;
 }
 
 function TaskListBar(props: Props) {
-  const { classes, settings, onFilterByTitle } = props;
-  const { filters: { title } } = settings;
+  const { classes, settings, onFilterByTitle, onFilterByType } = props;
+  const { filters: { title, taskType } } = settings;
 
   return (
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="static" className={classes.wrapper}>
         <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Open drawer">
-            <MenuIcon />
-          </IconButton>
           <div className={classes.grow} />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -100,6 +103,55 @@ function TaskListBar(props: Props) {
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
+            />
+          </div>
+        </Toolbar>
+        <div className={classes.grow} />
+        <Toolbar>
+          <div>
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="default"
+                  checked={taskType.includes(TASK_TYPES.TODO)}
+                  onChange={onFilterByType}
+                  value={TASK_TYPES.TODO}
+                />
+              }
+              label="Todos"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="default"
+                  checked={taskType.includes(TASK_TYPES.ROUTINE)}
+                  onChange={onFilterByType}
+                  value={TASK_TYPES.ROUTINE}
+                />
+              }
+              label="Routines"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="default"
+                  checked={taskType.includes(TASK_TYPES.EVENT)}
+                  onChange={onFilterByType}
+                  value={TASK_TYPES.EVENT}
+                />
+              }
+              label="Events"
+            />
+            <FormControlLabel
+              control={
+                <Checkbox
+                  color="default"
+                  checked={taskType.includes(TASK_TYPES.MEETING)}
+                  onChange={onFilterByType}
+                  value={TASK_TYPES.MEETING}
+                />
+              }
+              label="Meetings"
             />
           </div>
         </Toolbar>
