@@ -5,9 +5,12 @@ import graphql from 'babel-plugin-relay/macro';
 import React, { ChangeEvent, Fragment } from 'react';
 import { ConnectionData, createPaginationContainer, RelayPaginationProp } from 'react-relay';
 import deleteTaskMutation from '../../../mutations/deleteTaskMutation';
+import updateTaskListTaskTypeFilterSettingMutation
+  from '../../../mutations/updateTaskListTaskTypeFilterSettingMutation';
 import updateTaskListTitleFilterSettingMutation from '../../../mutations/updateTaskListTitleFilterSettingMutation';
 import Loader from '../../display/Loader';
 import TaskListBar from '../../display/TaskListBar';
+import { TaskTypeEnum } from '../Task/__generated__/TaskFragment.graphql';
 import { TaskListPagination as TaskListPaginationResponse } from './__generated__/TaskListPagination.graphql';
 import { TaskListQueryResponse } from './__generated__/TaskListQuery.graphql';
 import TaskListFragment from './TaskListFragment';
@@ -50,6 +53,16 @@ interface Props extends StyledComponentProps<keyof typeof styles> {
 }
 
 class TaskListPagination extends React.Component<Props> {
+  updateTaskTypeFilter = (checked: boolean, filter: TaskTypeEnum): TaskTypeEnum[] => {
+    const { settings: { filters: { taskType }} } = this.props;
+
+    if (checked) {
+      return [...taskType, filter];
+    }
+
+    return taskType.filter(activeFilter => activeFilter !== filter);
+  };
+
   handleMore = () => {
     if (!this.props.relay.isLoading()) {
       // TODO when data comes, relay.isLoading is returning true, so we need to render page one more time
@@ -75,6 +88,22 @@ class TaskListPagination extends React.Component<Props> {
     });
   };
 
+  handleFilterByTaskType = async (event: ChangeEvent<HTMLInputElement>) => {
+    const { settings: { filters: { taskType }} } = this.props;
+    const { checked, value } = event.target;
+    const updatedTaskTypeFilter = this.updateTaskTypeFilter(checked, value as TaskTypeEnum);
+    console.log(['handleFilterByTaskType'], taskType, updateTaskListTaskTypeFilterSettingMutation);
+    console.log(['handleFilterByTaskType'], { checked, value });
+    console.log(['handleFilterByTaskType.updatedTaskTypeFilter'], updatedTaskTypeFilter);
+
+    await updateTaskListTaskTypeFilterSettingMutation({ taskType: updatedTaskTypeFilter }, { parentID: this.props.settingsId });
+    this.props.relay.refetchConnection(5, (e) => {
+      if (e) {
+        throw new Error(`error refetching task list after title filter mutation | ${e}`);
+      }
+    });
+  };
+
   render(): React.ReactNode {
     const { classes, data, onAdd, onEdit, settings } = this.props;
 
@@ -88,11 +117,17 @@ class TaskListPagination extends React.Component<Props> {
       );
     }
 
+    console.log(['settings'], settings)
+
     const { list: { edges } } = data;
 
     return (
       <Fragment>
-        <TaskListBar onFilterByTitle={this.handleFilterByTitle} settings={settings} />
+        <TaskListBar
+          onFilterByTitle={this.handleFilterByTitle}
+          onFilterByType={this.handleFilterByTaskType}
+          settings={settings}
+        />
         {edges.map((edge) => edge && edge.node && (
           <TaskListFragment
             key={edge.cursor}

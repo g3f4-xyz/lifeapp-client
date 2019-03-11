@@ -31,6 +31,7 @@ export default class TaskList extends React.Component<TaskListHandlerProps> {
                 taskList {
                   filters {
                     title
+                    taskType
                   }
                 }
               }

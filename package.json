@@ -1,6 +1,6 @@
 {
   "name": "lifeapp-client",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "dependencies": {
     "@material-ui/core": "3.9.1",
     "@material-ui/icons": "3.0.2",
@@ -51,8 +51,8 @@
     "test": "react-scripts test",
     "get:local:schema": "fetch-graphql-schema http://localhost:30000/graphql -o graphql.schema.json",
     "get:remote:schema": "fetch-graphql-schema https://lifeapp-server.herokuapp.com/graphql -o graphql.schema.json",
-    "relay": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript",
-    "relay:watch": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript --watch",
+    "relay": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript --noFutureProofEnums",
+    "relay:watch": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript --watch --noFutureProofEnums",
     "add-tag": "git tag -a v$npm_package_version -m \"client version $npm_package_version\""
   },
   "proxy": "http://localhost:30000",
