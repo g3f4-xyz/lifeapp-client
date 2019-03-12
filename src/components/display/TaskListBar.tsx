@@ -1,15 +1,14 @@
-import { FormControlLabel } from '@material-ui/core';
+import { FormControlLabel, InputLabel, FormControl, NativeSelect } from '@material-ui/core';
 import Checkbox from '@material-ui/core/Checkbox';
+import Input from '@material-ui/core/Input';
 import React, { ChangeEvent } from 'react';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-// import IconButton from '@material-ui/core/IconButton';
 import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
-// import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import SearchIcon from '@material-ui/icons/Search';
-import { TASK_TYPES } from '../../constans';
+import { TASK_STATUSES, TASK_TYPES } from '../../constans';
 import { TaskListQueryResponse } from '../modules/TaskList/__generated__/TaskListQuery.graphql';
 
 const styles = (theme: Theme) =>
@@ -19,6 +18,11 @@ const styles = (theme: Theme) =>
     },
     grow: {
       flexGrow: 1,
+    },
+    statusFilter: {
+      marginBottom: theme.spacing.unit * 3,
+      marginRight: theme.spacing.unit * 2,
+      minWidth: theme.spacing.unit * 10,
     },
     title: {
       display: 'none',
@@ -78,13 +82,14 @@ const styles = (theme: Theme) =>
 export interface Props extends WithStyles<typeof styles> {
   settings: TaskListQueryResponse['app']['settings']['taskList'];
 
-  onFilterByTitle(event: ChangeEvent): void;
-  onFilterByType(val: any): void;
+  onFilterByTitle(event: ChangeEvent<HTMLInputElement>): void;
+  onFilterByType(event: ChangeEvent<HTMLInputElement>): void;
+  onFilterByStatus(event: ChangeEvent<HTMLSelectElement>): void;
 }
 
 function TaskListBar(props: Props) {
-  const { classes, settings, onFilterByTitle, onFilterByType } = props;
-  const { filters: { title, taskType } } = settings;
+  const { classes, settings, onFilterByTitle, onFilterByType, onFilterByStatus } = props;
+  const { filters: { title, taskType, status } } = settings;
 
   return (
     <div className={classes.root}>
@@ -108,52 +113,63 @@ function TaskListBar(props: Props) {
         </Toolbar>
         <div className={classes.grow} />
         <Toolbar>
-          <div>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  color="default"
-                  checked={taskType.includes(TASK_TYPES.TODO)}
-                  onChange={onFilterByType}
-                  value={TASK_TYPES.TODO}
-                />
-              }
-              label="Todos"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  color="default"
-                  checked={taskType.includes(TASK_TYPES.ROUTINE)}
-                  onChange={onFilterByType}
-                  value={TASK_TYPES.ROUTINE}
-                />
-              }
-              label="Routines"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  color="default"
-                  checked={taskType.includes(TASK_TYPES.EVENT)}
-                  onChange={onFilterByType}
-                  value={TASK_TYPES.EVENT}
-                />
-              }
-              label="Events"
-            />
-            <FormControlLabel
-              control={
-                <Checkbox
-                  color="default"
-                  checked={taskType.includes(TASK_TYPES.MEETING)}
-                  onChange={onFilterByType}
-                  value={TASK_TYPES.MEETING}
-                />
-              }
-              label="Meetings"
-            />
-          </div>
+          <FormControl className={classes.statusFilter}>
+            <InputLabel htmlFor="status-filter">Status</InputLabel>
+            <NativeSelect
+              value={status || ''}
+              onChange={onFilterByStatus}
+              input={<Input id="status-filter" />}
+            >
+              <option value="" />
+              {Object.keys(TASK_STATUSES).map(value => (
+                <option key={value} value={value}>{value}</option>
+              ))}
+            </NativeSelect>
+          </FormControl>
+          <FormControlLabel
+            control={
+              <Checkbox
+                color="default"
+                checked={taskType.includes(TASK_TYPES.TODO)}
+                onChange={onFilterByType}
+                value={TASK_TYPES.TODO}
+              />
+            }
+            label="Todos"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                color="default"
+                checked={taskType.includes(TASK_TYPES.ROUTINE)}
+                onChange={onFilterByType}
+                value={TASK_TYPES.ROUTINE}
+              />
+            }
+            label="Routines"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                color="default"
+                checked={taskType.includes(TASK_TYPES.EVENT)}
+                onChange={onFilterByType}
+                value={TASK_TYPES.EVENT}
+              />
+            }
+            label="Events"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                color="default"
+                checked={taskType.includes(TASK_TYPES.MEETING)}
+                onChange={onFilterByType}
+                value={TASK_TYPES.MEETING}
+              />
+            }
+            label="Meetings"
+          />
         </Toolbar>
       </AppBar>
     </div>
