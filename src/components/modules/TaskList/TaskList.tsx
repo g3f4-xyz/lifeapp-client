@@ -32,6 +32,7 @@ export default class TaskList extends React.Component<TaskListHandlerProps> {
                   filters {
                     title
                     taskType
+                    status
                   }
                 }
               }

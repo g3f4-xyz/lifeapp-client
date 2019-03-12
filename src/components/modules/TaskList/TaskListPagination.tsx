@@ -4,7 +4,9 @@ import { AddCircle, More } from '@material-ui/icons';
 import graphql from 'babel-plugin-relay/macro';
 import React, { ChangeEvent, Fragment } from 'react';
 import { ConnectionData, createPaginationContainer, RelayPaginationProp } from 'react-relay';
+import { TaskStatusEnum } from '../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 import deleteTaskMutation from '../../../mutations/deleteTaskMutation';
+import updateTaskListStatusFilterSettingMutation from '../../../mutations/updateTaskListStatusFilterSettingMutation';
 import updateTaskListTaskTypeFilterSettingMutation
   from '../../../mutations/updateTaskListTaskTypeFilterSettingMutation';
 import updateTaskListTitleFilterSettingMutation from '../../../mutations/updateTaskListTitleFilterSettingMutation';
@@ -88,6 +90,20 @@ class TaskListPagination extends React.Component<Props> {
     });
   };
 
+  handleFilterByStatus = async (event: ChangeEvent<HTMLSelectElement>) => {
+    console.log(['handleFilterByStatus'], event.target.value);
+
+    await updateTaskListStatusFilterSettingMutation(
+      { status: event.target.value.length > 0 ? event.target.value as TaskStatusEnum : null },
+      { parentID: this.props.settingsId },
+    );
+    this.props.relay.refetchConnection(5, (e) => {
+      if (e) {
+        throw new Error(`error refetching task list after status filter mutation | ${e}`);
+      }
+    });
+  };
+
   handleFilterByTaskType = async (event: ChangeEvent<HTMLInputElement>) => {
     const { settings: { filters: { taskType }} } = this.props;
     const { checked, value } = event.target;
@@ -126,6 +142,7 @@ class TaskListPagination extends React.Component<Props> {
         <TaskListBar
           onFilterByTitle={this.handleFilterByTitle}
           onFilterByType={this.handleFilterByTaskType}
+          onFilterByStatus={this.handleFilterByStatus}
           settings={settings}
         />
         {edges.map((edge) => edge && edge.node && (
