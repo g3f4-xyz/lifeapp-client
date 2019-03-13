@@ -8,7 +8,6 @@
 
 # production
 /build
-__generated__/
 
 # misc
 .idea
