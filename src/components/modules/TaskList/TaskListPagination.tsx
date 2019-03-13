@@ -1,5 +1,6 @@
 import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
-import { AddCircle, More } from '@material-ui/icons';
+import { More } from '@material-ui/icons';
+import AddBoxIcon from '@material-ui/icons/AddBox';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React, { ChangeEvent, Fragment } from 'react';
@@ -93,16 +94,22 @@ class TaskListPagination extends React.Component<Props, State> {
   handleFilterByTitle = async (event: ChangeEvent<HTMLInputElement>) => {
     console.log(['handleFilterByTitle'], event);
 
+    this.setState({ loading: true });
+
     await updateTaskListTitleFilterSettingMutation({ title: event.target.value }, { parentID: this.props.settingsId });
     this.props.relay.refetchConnection(5, (e) => {
       if (e) {
         throw new Error(`error refetching task list after title filter mutation | ${e}`);
       }
+
+      this.setState({ loading: false });
     });
   };
 
   handleFilterByStatus = async (event: ChangeEvent<HTMLSelectElement>) => {
     console.log(['handleFilterByStatus'], event.target.value);
+
+    this.setState({ loading: true });
 
     await updateTaskListStatusFilterSettingMutation(
       { status: event.target.value.length > 0 ? event.target.value as TaskStatusEnum : null },
@@ -112,16 +119,15 @@ class TaskListPagination extends React.Component<Props, State> {
       if (e) {
         throw new Error(`error refetching task list after status filter mutation | ${e}`);
       }
+
+      this.setState({ loading: false });
     });
   };
 
   handleFilterByTaskType = async (event: ChangeEvent<HTMLInputElement>) => {
-    const { settings: { filters: { taskType }} } = this.props;
     const { checked, value } = event.target;
     const updatedTaskTypeFilter = this.updateTaskTypeFilter(checked, value as TaskTypeEnum);
-    console.log(['handleFilterByTaskType'], taskType, updateTaskListTaskTypeFilterSettingMutation);
-    console.log(['handleFilterByTaskType'], { checked, value });
-    console.log(['handleFilterByTaskType.updatedTaskTypeFilter'], updatedTaskTypeFilter);
+
     this.setState({ loading: true });
 
     await updateTaskListTaskTypeFilterSettingMutation({ taskType: updatedTaskTypeFilter }, { parentID: this.props.settingsId });
@@ -147,8 +153,6 @@ class TaskListPagination extends React.Component<Props, State> {
         <Loader />
       );
     }
-
-    console.log(['loading'], loading)
 
     const { list: { edges } } = data;
 
@@ -179,7 +183,7 @@ class TaskListPagination extends React.Component<Props, State> {
           color="primary"
           onClick={onAdd}
         >
-          <AddCircle className={classes.addButtonIcon} />
+          <AddBoxIcon className={classes.addButtonIcon} />
         </IconButton>
         {this.props.relay.hasMore() && (
           <IconButton
