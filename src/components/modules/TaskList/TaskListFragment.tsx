@@ -29,6 +29,8 @@ const styles = (theme: Theme) => ({
     display: 'block',
   },
   heading: {
+    maxHeight: '1.8em',
+    overflow: 'scroll',
     flex: 1,
     textAlign: 'center',
     fontSize: theme.typography.pxToRem(20),
