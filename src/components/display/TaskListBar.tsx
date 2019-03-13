@@ -77,6 +77,9 @@ const styles = (theme: Theme) =>
         flexDirection: 'row-reverse',
       },
     },
+    toolbar: {
+      overflow: 'scroll',
+    },
   });
 
 export interface Props extends WithStyles<typeof styles> {
@@ -112,7 +115,7 @@ function TaskListBar(props: Props) {
           </div>
         </Toolbar>
         <div className={classes.grow} />
-        <Toolbar>
+        <Toolbar className={classes.toolbar}>
           <FormControl className={classes.statusFilter}>
             <InputLabel htmlFor="status-filter">Status</InputLabel>
             <NativeSelect
