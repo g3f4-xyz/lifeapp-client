@@ -42,6 +42,9 @@ const styles = {
   moreButtonIcon: {
     fontSize: 72,
   },
+  listLoader: {
+    marginTop: 20,
+  },
 };
 
 interface Props extends StyledComponentProps<keyof typeof styles> {
@@ -54,7 +57,15 @@ interface Props extends StyledComponentProps<keyof typeof styles> {
   onEdit(taskId: string): void;
 }
 
-class TaskListPagination extends React.Component<Props> {
+interface State {
+  loading: boolean;
+}
+
+class TaskListPagination extends React.Component<Props, State> {
+  state = {
+    loading: false,
+  };
+
   updateTaskTypeFilter = (checked: boolean, filter: TaskTypeEnum): TaskTypeEnum[] => {
     const { settings: { filters: { taskType }} } = this.props;
 
@@ -111,17 +122,21 @@ class TaskListPagination extends React.Component<Props> {
     console.log(['handleFilterByTaskType'], taskType, updateTaskListTaskTypeFilterSettingMutation);
     console.log(['handleFilterByTaskType'], { checked, value });
     console.log(['handleFilterByTaskType.updatedTaskTypeFilter'], updatedTaskTypeFilter);
+    this.setState({ loading: true });
 
     await updateTaskListTaskTypeFilterSettingMutation({ taskType: updatedTaskTypeFilter }, { parentID: this.props.settingsId });
     this.props.relay.refetchConnection(5, (e) => {
       if (e) {
         throw new Error(`error refetching task list after title filter mutation | ${e}`);
       }
+
+      this.setState({ loading: false });
     });
   };
 
   render(): React.ReactNode {
     const { classes, data, onAdd, onEdit, settings } = this.props;
+    const { loading } = this.state;
 
     if (!classes) {
       throw new Error(`error loading styles`);
@@ -133,7 +148,7 @@ class TaskListPagination extends React.Component<Props> {
       );
     }
 
-    console.log(['settings'], settings)
+    console.log(['loading'], loading)
 
     const { list: { edges } } = data;
 
@@ -145,14 +160,20 @@ class TaskListPagination extends React.Component<Props> {
           onFilterByStatus={this.handleFilterByStatus}
           settings={settings}
         />
-        {edges.map((edge) => edge && edge.node && (
-          <TaskListFragment
-            key={edge.cursor}
-            data={edge.node}
-            onDelete={this.handleDelete}
-            onEdit={onEdit}
-          />
-        ))}
+        {loading ? (
+          <Loader className={classes.listLoader} />
+        ) : (
+          <Fragment>
+            {edges.map((edge) => edge && edge.node && (
+              <TaskListFragment
+                key={edge.cursor}
+                data={edge.node}
+                onDelete={this.handleDelete}
+                onEdit={onEdit}
+              />
+            ))}
+          </Fragment>
+        )}
         <IconButton
           className={classes.addButton}
           color="primary"
