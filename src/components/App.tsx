@@ -4,8 +4,7 @@ import immutabilityHelper, { Spec } from 'immutability-helper';
 import React, { Fragment } from 'react';
 import { Layout, Layouts } from 'react-grid-layout';
 import { LOCAL_STORAGE_LAYOUTS_KEY, MODULE, MODULES_IDS } from '../constans';
-import assetsServiceWorker from '../serviceWorkers/assetsServiceWorker';
-import { registerUserSubscription } from '../serviceWorkers/notificationsServiceWorker';
+import assetsServiceWorker from '../serviceWorker/serviceWorkerManager';
 import { getFromLS, saveToLS } from '../utils/rglLocalStore';
 import ErrorBoundary from './containers/ErrorBoundary';
 import ResponsiveGrid from './containers/ResponsiveGrid';
@@ -20,16 +19,7 @@ import taskListHandler from './modules/TaskList/taskListModuleHandler';
 import TaskTypeList from './modules/TaskTypeList/TaskTypeList';
 import taskTypeListHandler from './modules/TaskTypeList/taskTypeListModuleHandler';
 
-assetsServiceWorker.register({
-  async onActivated(registration) {
-    console.log(['assetsServiceWorker.onActivated.registration'], registration);
-    await registerUserSubscription(registration);
-  },
-  async onUpdate(registration) {
-    console.log(['assetsServiceWorker.onUpdate.registration'], registration);
-    await registerUserSubscription(registration);
-  },
-});
+assetsServiceWorker.register();
 
 const styles = {
   backButton: {

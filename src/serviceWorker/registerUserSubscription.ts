@@ -1,6 +1,6 @@
 const publicVapidKey = 'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo';
 
-export async function registerUserSubscription(register: ServiceWorkerRegistration) {
+export default async function registerUserSubscription(register: ServiceWorkerRegistration) {
   try {
     const newSubscription = await register.pushManager.subscribe({
       userVisibleOnly: true,

@@ -1,6 +1,6 @@
-import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
-import { More } from '@material-ui/icons';
+import { Button, IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import MoreIcon from '@material-ui/icons/MoreHoriz';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React, { ChangeEvent, Fragment } from 'react';
@@ -178,13 +178,12 @@ class TaskListPagination extends React.Component<Props, State> {
             ))}
           </Fragment>
         )}
-        <IconButton
+        <Button
           className={classes.addButton}
-          color="primary"
           onClick={onAdd}
         >
           <AddBoxIcon className={classes.addButtonIcon} />
-        </IconButton>
+        </Button>
         {this.props.relay.hasMore() && (
           <IconButton
             className={classes.moreButton}
@@ -194,7 +193,7 @@ class TaskListPagination extends React.Component<Props, State> {
             {this.props.relay.isLoading() ? (
               <Loader />
             ) : (
-              <More className={classes.moreButtonIcon} />
+              <MoreIcon className={classes.moreButtonIcon} />
             )}
           </IconButton>
         )}

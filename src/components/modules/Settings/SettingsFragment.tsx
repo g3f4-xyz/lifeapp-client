@@ -20,6 +20,7 @@ import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import cleanApplicationMutation from '../../../mutations/cleanApplicationMutation';
 import deleteSubscriptionMutation from '../../../mutations/deleteSubscriptionMutation';
+import registerUserSubscription from '../../../serviceWorker/registerUserSubscription';
 import { SettingsFragment as SettingsFragmentResponse } from './__generated__/SettingsFragment.graphql';
 import NotificationsGeneralFragment from './NotificationsGeneralFragment';
 import NotificationsTypesFragment from './NotificationsTypesFragment';
@@ -49,6 +50,13 @@ const styles = (theme: Theme) => ({
   subscriptionsPaginationExpansionPanel: {
     paddingRight: theme.spacing.unit,
   },
+  notificationsInfoWrapper: {
+    textAlign: 'right',
+    paddingRight: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing.unit * 2,
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+  },
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
@@ -57,11 +65,13 @@ interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
 
 interface State {
   cleanApplicationDialogOpen: boolean;
+  notificationPermission: NotificationPermission;
 }
 
 class SettingsFragment extends React.Component<Props, State> {
   state = {
     cleanApplicationDialogOpen: false,
+    notificationPermission: Notification.permission,
   };
 
   handleCleanApplicationDialogClose = () => {
@@ -80,6 +90,20 @@ class SettingsFragment extends React.Component<Props, State> {
     window.location.href = cleanApplication && cleanApplication.navigationUrl ? cleanApplication.navigationUrl : '';
   };
 
+  handleActivateNotifications = async () => {
+    try {
+      const registration = await navigator.serviceWorker.ready;
+
+      await registerUserSubscription(registration);
+
+      this.forceUpdate();
+    }
+    catch (e) {
+      console.error(['handleActivateNotifications.error'], e);
+      this.forceUpdate();
+    }
+  };
+
   onDeleteSubscription = async (subscriptionId: string) => {
     await deleteSubscriptionMutation({
       subscriptionId,
@@ -89,6 +113,8 @@ class SettingsFragment extends React.Component<Props, State> {
 
   render(): React.ReactNode {
     const { classes } = this.props;
+
+    console.log(['SettingsFragment'], this.state)
 
     if (!classes) {
       throw new Error(`error loading styles`);
@@ -114,6 +140,29 @@ class SettingsFragment extends React.Component<Props, State> {
               />
             </ExpansionPanelDetails>
           </ExpansionPanel>
+          {Notification.permission === 'granted' && (
+            <div className={classes.notificationsInfoWrapper}>
+              <Typography color="textSecondary" gutterBottom>
+                  Notifications are active.
+              </Typography>
+            </div>
+          )}
+          {Notification.permission === 'default' && (
+            <div className={classes.notificationsInfoWrapper}>
+              <Button onClick={this.handleActivateNotifications}>
+                Activate notifications
+              </Button>
+            </div>
+          )}
+          {Notification.permission === 'denied' && (
+            <div className={classes.notificationsInfoWrapper}>
+              <Typography color="textSecondary" gutterBottom>
+                You have denied notifications permission.
+                <br />
+                You can change it in your browser notifications options.
+              </Typography>
+            </div>
+          )}
         </Paper>
         <Paper className={classes.section}>
           <Typography align="center" variant="display1">
