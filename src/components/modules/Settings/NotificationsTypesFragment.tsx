@@ -25,7 +25,6 @@ import { NotificationsTypesFragment } from './__generated__/NotificationsTypesFr
 const styles = (theme: Theme) => ({
   expansionPanel: {
     margin: theme.spacing.unit,
-    padding: theme.spacing.unit,
   },
   list: {
     width: '100%',

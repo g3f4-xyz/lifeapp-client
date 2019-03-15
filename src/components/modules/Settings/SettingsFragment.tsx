@@ -33,13 +33,13 @@ const styles = (theme: Theme) => ({
   },
   expansionPanel: {
     margin: theme.spacing.unit,
-    padding: theme.spacing.unit,
   },
   list: {
     width: '100%',
   },
   section: {
-    margin: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
   },
   subscriptionButton: {
