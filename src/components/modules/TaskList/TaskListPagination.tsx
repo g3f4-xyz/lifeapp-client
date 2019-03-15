@@ -13,7 +13,7 @@ import updateTaskListTaskTypeFilterSettingMutation
 import updateTaskListTitleFilterSettingMutation from '../../../mutations/updateTaskListTitleFilterSettingMutation';
 import Loader from '../../display/Loader';
 import TaskListBar from '../../display/TaskListBar';
-import { TaskTypeEnum } from '../Task/__generated__/TaskFragment.graphql';
+import { TaskTypeEnum } from './__generated__/TaskListFragment.graphql';
 import { TaskListPagination as TaskListPaginationResponse } from './__generated__/TaskListPagination.graphql';
 import { TaskListQueryResponse } from './__generated__/TaskListQuery.graphql';
 import TaskListFragment from './TaskListFragment';
@@ -23,22 +23,18 @@ const PAGE_SIZE = 5;
 const styles = {
   addButton: {
     zIndex: 9,
-    position: 'absolute',
+    position: 'fixed',
     bottom: 20,
     left: 20,
-    height: 72,
-    width: 72,
   },
   addButtonIcon: {
     fontSize: 72,
   },
   moreButton: {
     zIndex: 9,
-    position: 'absolute',
+    position: 'fixed',
     bottom: 20,
     right: 20,
-    height: 72,
-    width: 72,
   },
   moreButtonIcon: {
     fontSize: 72,
@@ -168,6 +164,25 @@ class TaskListPagination extends React.Component<Props, State> {
           <Loader className={classes.listLoader} />
         ) : (
           <Fragment>
+            <Button
+              className={classes.addButton}
+              onClick={onAdd}
+            >
+              <AddBoxIcon className={classes.addButtonIcon} />
+            </Button>
+            {this.props.relay.hasMore() && (
+              <IconButton
+                className={classes.moreButton}
+                color="primary"
+                onClick={this.handleMore}
+              >
+                {this.props.relay.isLoading() ? (
+                  <Loader />
+                ) : (
+                  <MoreIcon className={classes.moreButtonIcon} />
+                )}
+              </IconButton>
+            )}
             {edges.map((edge) => edge && edge.node && (
               <TaskListFragment
                 key={edge.cursor}
@@ -177,25 +192,6 @@ class TaskListPagination extends React.Component<Props, State> {
               />
             ))}
           </Fragment>
-        )}
-        <Button
-          className={classes.addButton}
-          onClick={onAdd}
-        >
-          <AddBoxIcon className={classes.addButtonIcon} />
-        </Button>
-        {this.props.relay.hasMore() && (
-          <IconButton
-            className={classes.moreButton}
-            color="primary"
-            onClick={this.handleMore}
-          >
-            {this.props.relay.isLoading() ? (
-              <Loader />
-            ) : (
-              <MoreIcon className={classes.moreButtonIcon} />
-            )}
-          </IconButton>
         )}
       </Fragment>
     );

@@ -1,6 +1,6 @@
 import { Spec } from 'immutability-helper';
 import { AppState, ModuleProps } from '../../App';
-import { TaskTypeEnum } from '../Task/__generated__/TaskFragment.graphql';
+import { TaskTypeEnum } from '../TaskList/__generated__/TaskListQuery.graphql';
 
 interface TaskTypeListHandlerProps extends ModuleProps {
   onSelect(type: TaskTypeEnum): void;

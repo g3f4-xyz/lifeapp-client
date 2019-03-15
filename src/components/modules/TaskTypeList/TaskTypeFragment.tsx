@@ -5,8 +5,8 @@ import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import TaskTypeIcon from '../../display/TaskTypeIcon';
-import { TaskTypeEnum } from '../Task/__generated__/TaskFragment.graphql';
 import { TaskTypeFragment } from './__generated__/TaskTypeFragment.graphql';
+import { TaskTypeEnum } from '../TaskList/__generated__/TaskListFragment.graphql';
 
 const styles = {
   actionsContainer: {
@@ -39,13 +39,13 @@ const styles = {
   },
   infoButton: {
     color: '#505ae8',
-    height: 72,
-    width: 72,
+    height: 96,
+    width: 96,
   },
   addButton: {
     color: '#8BC34A',
-    height: 72,
-    width: 72,
+    height: 96,
+    width: 96,
   },
   fontSize72: {
     fontSize: 72,

@@ -5,7 +5,7 @@ import { QueryRenderer } from 'react-relay';
 import environment from '../../../environment';
 import ErrorBoundary from '../../containers/ErrorBoundary';
 import Loader from '../../display/Loader';
-import { TaskTypeEnum } from './__generated__/TaskFragment.graphql';
+import { TaskTypeEnum } from '../TaskList/__generated__/TaskListFragment.graphql';
 import { TaskQuery } from './__generated__/TaskQuery.graphql';
 import TaskFragment from './TaskFragment';
 

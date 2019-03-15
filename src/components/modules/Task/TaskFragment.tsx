@@ -4,7 +4,6 @@ import { Done } from '@material-ui/icons';
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer, RelayProp } from 'react-relay';
-import TaskTypeIcon from '../../display/TaskTypeIcon';
 import {
   TaskFragment as TaskFragmentResponse,
 } from './__generated__/TaskFragment.graphql';
@@ -28,11 +27,9 @@ const styles = (theme: Theme) => ({
   },
   doneButton: {
     zIndex: 9,
-    position: 'absolute',
+    position: 'fixed',
     bottom: 20,
     right: 20,
-    height: 72,
-    width: 72,
   },
   doneButtonIcon: {
     color: '#8BC34A',
@@ -63,7 +60,7 @@ class Task extends React.Component<Props, TaskFragmentResponse> {
       throw new Error(`error loading styles`);
     }
 
-    const { fields, taskType } = data;
+    const { fields } = data;
 
     const fieldsGroupedByOrder = fields.reduce((acc, field) => {
       const { order } = field;
@@ -79,7 +76,6 @@ class Task extends React.Component<Props, TaskFragmentResponse> {
 
     return (
       <div>
-        <TaskTypeIcon type={taskType} />
         {fieldsGroupedByOrder.map((fieldsInRow, key) => (
           <Paper className={classes.row} key={key}>
             {fieldsInRow.map((field) => (
@@ -105,7 +101,6 @@ export default createFragmentContainer<Props>(
   graphql`
     fragment TaskFragment on TaskType {
       id
-      taskType
       fields {
         fieldId
         order

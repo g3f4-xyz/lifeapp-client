@@ -5,7 +5,7 @@ import { QueryRenderer } from 'react-relay';
 import { ITEMS_PER_PAGE } from '../../../constans';
 import environment from '../../../environment';
 import Loader from '../../display/Loader';
-import { TaskTypeEnum } from '../Task/__generated__/TaskFragment.graphql';
+import { TaskTypeEnum } from './__generated__/TaskTypeFragment.graphql';
 import { TaskTypeListQuery } from './__generated__/TaskTypeListQuery.graphql';
 import TaskTypeListPagination from './TaskTypeListPagination';
 

@@ -1,5 +1,5 @@
 import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
-import { Cancel } from '@material-ui/icons';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import immutabilityHelper, { Spec } from 'immutability-helper';
 import React, { Fragment } from 'react';
 import { Layout, Layouts } from 'react-grid-layout';
@@ -11,9 +11,9 @@ import ResponsiveGrid from './containers/ResponsiveGrid';
 import AppMenu from './display/AppMenu';
 import settingsHandler from './modules/Settings/settingsModuleHandler';
 import SettingsQuery from './modules/Settings/SettingsQuery';
-import { TaskTypeEnum } from './modules/Task/__generated__/TaskFragment.graphql';
 import Task from './modules/Task/Task';
 import taskHandler from './modules/Task/taskModuleHandler';
+import { TaskTypeEnum } from './modules/TaskList/__generated__/TaskListFragment.graphql';
 import TaskList from './modules/TaskList/TaskList';
 import taskListHandler from './modules/TaskList/taskListModuleHandler';
 import TaskTypeList from './modules/TaskTypeList/TaskTypeList';
@@ -24,11 +24,9 @@ assetsServiceWorker.register();
 const styles = {
   backButton: {
     zIndex: 9,
-    position: 'absolute',
+    position: 'fixed',
     bottom: 20,
     left: 20,
-    height: 72,
-    width: 72,
   },
   backButtonIcon: {
     fontSize: 72,
@@ -106,10 +104,9 @@ class App extends React.Component<Props, AppState> {
         {!(isTaskListModuleActive || gridView) && (
           <IconButton
             className={classes.backButton}
-            color="secondary"
             onClick={this.onActiveModuleBack}
           >
-            <Cancel className={classes.backButtonIcon}/>
+            <NavigateBeforeIcon className={classes.backButtonIcon} />
           </IconButton>
         )}
       </Fragment>

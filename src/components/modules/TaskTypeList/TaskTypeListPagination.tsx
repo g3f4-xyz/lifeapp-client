@@ -4,7 +4,7 @@ import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { ConnectionData, createPaginationContainer } from 'react-relay';
 import Loader from '../../display/Loader';
-import { TaskTypeEnum } from '../Task/__generated__/TaskFragment.graphql';
+import { TaskTypeEnum } from '../TaskList/__generated__/TaskListQuery.graphql';
 import { TaskTypeListPagination } from './__generated__/TaskTypeListPagination.graphql';
 import TaskTypeFragment from './TaskTypeFragment';
 
