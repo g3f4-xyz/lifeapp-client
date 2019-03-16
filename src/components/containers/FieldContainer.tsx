@@ -9,11 +9,9 @@ import React from 'react';
 const styles = (theme: Theme) => ({
   container: {
     margin: theme.spacing.unit * 2,
+    minWidth: theme.spacing.unit * 20,
     display: 'flex',
     flexGrow: 1,
-    [theme.breakpoints.down('xs')]: {
-      padding: theme.spacing.unit * 2,
-    },
   },
 });
 

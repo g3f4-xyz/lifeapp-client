@@ -1,4 +1,5 @@
 import { Button, IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import MoreIcon from '@material-ui/icons/MoreHoriz';
 // @ts-ignore
@@ -164,14 +165,18 @@ class TaskListPagination extends React.Component<Props, State> {
           <Loader />
         ) : (
           <Fragment>
-            {edges.map((edge) => edge && edge.node && (
-              <TaskListFragment
-                key={edge.cursor}
-                data={edge.node}
-                onDelete={this.handleDelete}
-                onEdit={onEdit}
-              />
-            ))}
+            <Grid container spacing={8}>
+              {edges.map((edge) => edge && edge.node && (
+                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                  <TaskListFragment
+                    key={edge.cursor}
+                    data={edge.node}
+                    onDelete={this.handleDelete}
+                    onEdit={onEdit}
+                  />
+                </Grid>
+              ))}
+            </Grid>
             <Button
               color="primary"
               className={classes.addButton}

@@ -11,6 +11,7 @@ import {
   Paper, StyledComponentProps,
   Theme,
   Typography,
+  Grid,
   withStyles,
 } from '@material-ui/core';
 import { DeleteForever, ExpandMore } from '@material-ui/icons';
@@ -31,8 +32,9 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     justifyContent: 'center',
   },
-  expansionPanel: {
-    margin: theme.spacing.unit,
+  subscriptionsWrapper: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
   },
   list: {
     width: '100%',
@@ -114,8 +116,6 @@ class SettingsFragment extends React.Component<Props, State> {
   render(): React.ReactNode {
     const { classes } = this.props;
 
-    console.log(['SettingsFragment'], this.state)
-
     if (!classes) {
       throw new Error(`error loading styles`);
     }
@@ -126,20 +126,28 @@ class SettingsFragment extends React.Component<Props, State> {
           <Typography align="center" variant="display1">
             Notifications
           </Typography>
-          <NotificationsGeneralFragment data={this.props.data.notifications.general}/>
-          <NotificationsTypesFragment data={this.props.data.notifications.types}/>
-          <ExpansionPanel className={classes.expansionPanel}>
-            <ExpansionPanelSummary expandIcon={<ExpandMore/>}>
-              <Typography>Subscriptions</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.subscriptionsPaginationExpansionPanel}>
-              <SubscriptionsPagination
-                className={classes.list}
-                data={this.props.data.notifications}
-                onDelete={this.onDeleteSubscription}
-              />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+          <Grid container spacing={8}>
+              <Grid item xs={12} md={6} lg={4}>
+                <NotificationsGeneralFragment data={this.props.data.notifications.general}/>
+              </Grid>
+              <Grid item xs={12} md={6} lg={4}>
+                <NotificationsTypesFragment data={this.props.data.notifications.types}/>
+              </Grid>
+              <Grid item xs={12} md={6} lg={4}>
+                <ExpansionPanel className={classes.subscriptionsWrapper}>
+                  <ExpansionPanelSummary expandIcon={<ExpandMore/>}>
+                    <Typography>Subscriptions</Typography>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails className={classes.subscriptionsPaginationExpansionPanel}>
+                    <SubscriptionsPagination
+                      className={classes.list}
+                      data={this.props.data.notifications}
+                      onDelete={this.onDeleteSubscription}
+                    />
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+              </Grid>
+          </Grid>
           {Notification.permission === 'granted' && (
             <div className={classes.notificationsInfoWrapper}>
               <Typography color="textSecondary" gutterBottom>

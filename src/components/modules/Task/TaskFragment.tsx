@@ -18,6 +18,7 @@ const styles = (theme: Theme) => ({
   },
   row: {
     display: 'flex',
+    flexWrap: 'wrap',
     justifyContent: 'space-between',
     marginBottom: theme.spacing.unit,
   },
