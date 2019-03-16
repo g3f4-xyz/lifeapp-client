@@ -11,47 +11,50 @@ import { TaskTypeEnum } from '../TaskList/__generated__/TaskListFragment.graphql
 
 const styles = (theme: Theme) => ({
   actionsContainer: {
-    height: '25%',
-    width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
   },
   container: {
-    width: 150,
-    height: 150,
-    margin: theme.spacing.unit,
-    marginBottom: theme.spacing.unit * 3,
+    display: 'flex',
+    flexDirection: 'column',
+    width: theme.spacing.unit * 2 * 8,
     [theme.breakpoints.up('sm')]: {
-      width: 200,
-      height: 200,
-      margin: theme.spacing.unit * 2,
+      width: theme.spacing.unit * 2 * 12,
     },
     [theme.breakpoints.up('md')]: {
-      width: 250,
-      height: 250,
-      margin: theme.spacing.unit * 3,
+      width: theme.spacing.unit * 2 * 16,
     },
   },
   nameContainer: {
-    fontSize: 16,
-    height: '15%',
-    width: '100%',
+    fontSize: theme.spacing.unit * 3,
     textAlign: 'center',
-    marginBottom: theme.spacing.unit,
     [theme.breakpoints.up('sm')]: {
-      fontSize: 20,
+      fontSize: theme.spacing.unit * 4,
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: 28,
+      fontSize: theme.spacing.unit * 5,
     },
   },
   descContainer: {
-    height: '65%',
-    width: '100%',
+    flexGrow: 1,
+    fontSize: theme.spacing.unit * 3,
+    [theme.breakpoints.up('sm')]: {
+      fontSize: theme.spacing.unit * 4,
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: theme.spacing.unit * 5,
+    },
   },
   descText: {
     padding: 0,
     margin: 0,
+    fontSize: theme.spacing.unit * 1.5,
+    [theme.breakpoints.up('sm')]: {
+      fontSize: theme.spacing.unit * 2,
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: theme.spacing.unit * 3,
+    },
   },
   icon: {
     height: '100%',
@@ -62,8 +65,8 @@ const styles = (theme: Theme) => ({
     height: 64,
     width: 64,
     [theme.breakpoints.up('sm')]: {
-      height: 72,
-      width: 72,
+      height: 80,
+      width: 80,
     },
     [theme.breakpoints.up('md')]: {
       height: 96,
@@ -75,8 +78,8 @@ const styles = (theme: Theme) => ({
     height: 64,
     width: 64,
     [theme.breakpoints.up('sm')]: {
-      height: 72,
-      width: 72,
+      height: 80,
+      width: 80,
     },
     [theme.breakpoints.up('md')]: {
       height: 96,

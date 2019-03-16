@@ -1,6 +1,6 @@
 {
   "name": "lifeapp-client",
-  "version": "2.2.8",
+  "version": "2.2.9",
   "dependencies": {
     "@material-ui/core": "3.9.1",
     "@material-ui/icons": "3.0.2",
