@@ -8,6 +8,7 @@ body {
 
 #root {
   margin: 8px;
+  margin-bottom: 100px;
 }
 
 ::-webkit-scrollbar {

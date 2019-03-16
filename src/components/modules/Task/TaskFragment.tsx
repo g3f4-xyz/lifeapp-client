@@ -14,7 +14,22 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     justifyContent: 'center',
     flexDirection: 'column',
-    maxWidth: theme.breakpoints.width('lg') - theme.spacing.unit * 2,
+    [theme.breakpoints.up('sm')]: {
+      marginLeft: theme.spacing.unit * 2,
+      marginRight: theme.spacing.unit * 2,
+    },
+    [theme.breakpoints.up('md')]: {
+      marginLeft: theme.spacing.unit * 3,
+      marginRight: theme.spacing.unit * 3,
+    },
+    [theme.breakpoints.up('lg')]: {
+      marginLeft: theme.spacing.unit * 4,
+      marginRight: theme.spacing.unit * 4,
+    },
+    [theme.breakpoints.up('xl')]: {
+      marginLeft: theme.spacing.unit * 5,
+      marginRight: theme.spacing.unit * 5,
+    },
   },
   row: {
     display: 'flex',
