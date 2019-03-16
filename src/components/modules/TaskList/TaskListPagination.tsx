@@ -167,9 +167,8 @@ class TaskListPagination extends React.Component<Props, State> {
           <Fragment>
             <Grid container spacing={8}>
               {edges.map((edge) => edge && edge.node && (
-                <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+                <Grid key={edge.cursor} item xs={12} sm={12} md={6} lg={4} xl={3}>
                   <TaskListFragment
-                    key={edge.cursor}
                     data={edge.node}
                     onDelete={this.handleDelete}
                     onEdit={onEdit}
