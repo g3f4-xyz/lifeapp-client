@@ -10,11 +10,16 @@ import {
 import FieldFragment from './Field/FieldFragment';
 
 const styles = (theme: Theme) => ({
+  wrapper: {
+    display: 'flex',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    maxWidth: theme.breakpoints.width('lg') - theme.spacing.unit * 2,
+  },
   row: {
     display: 'flex',
     justifyContent: 'space-between',
-    margin: 10,
-    minHeight: 50,
+    marginBottom: theme.spacing.unit,
   },
   rowField: {
     display: 'flex',
@@ -75,7 +80,7 @@ class Task extends React.Component<Props, TaskFragmentResponse> {
     }, new Array<typeof fields>());
 
     return (
-      <div>
+      <div className={classes.wrapper}>
         {fieldsGroupedByOrder.map((fieldsInRow, key) => (
           <Paper className={classes.row} key={key}>
             {fieldsInRow.map((field) => (

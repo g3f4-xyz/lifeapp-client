@@ -161,28 +161,9 @@ class TaskListPagination extends React.Component<Props, State> {
           settings={settings}
         />
         {loading ? (
-          <Loader className={classes.listLoader} />
+          <Loader />
         ) : (
           <Fragment>
-            <Button
-              className={classes.addButton}
-              onClick={onAdd}
-            >
-              <AddBoxIcon className={classes.addButtonIcon} />
-            </Button>
-            {this.props.relay.hasMore() && (
-              <IconButton
-                className={classes.moreButton}
-                color="primary"
-                onClick={this.handleMore}
-              >
-                {this.props.relay.isLoading() ? (
-                  <Loader />
-                ) : (
-                  <MoreIcon className={classes.moreButtonIcon} />
-                )}
-              </IconButton>
-            )}
             {edges.map((edge) => edge && edge.node && (
               <TaskListFragment
                 key={edge.cursor}
@@ -191,6 +172,25 @@ class TaskListPagination extends React.Component<Props, State> {
                 onEdit={onEdit}
               />
             ))}
+            <Button
+              color="primary"
+              className={classes.addButton}
+              onClick={onAdd}
+            >
+              <AddBoxIcon className={classes.addButtonIcon} />
+            </Button>
+            {this.props.relay.isLoading() && (
+              <Loader />
+            )}
+            {!this.props.relay.isLoading() && this.props.relay.hasMore() && (
+              <IconButton
+                className={classes.moreButton}
+                color="primary"
+                onClick={this.handleMore}
+              >
+                <MoreIcon className={classes.moreButtonIcon} />
+              </IconButton>
+            )}
           </Fragment>
         )}
       </Fragment>
