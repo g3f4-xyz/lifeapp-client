@@ -1,4 +1,5 @@
-import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
+import { IconButton, StyledComponentProps, Theme, withStyles } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import { AddCircle, InfoOutlined } from '@material-ui/icons';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
@@ -8,7 +9,7 @@ import TaskTypeIcon from '../../display/TaskTypeIcon';
 import { TaskTypeFragment } from './__generated__/TaskTypeFragment.graphql';
 import { TaskTypeEnum } from '../TaskList/__generated__/TaskListFragment.graphql';
 
-const styles = {
+const styles = (theme: Theme) => ({
   actionsContainer: {
     height: '25%',
     width: '100%',
@@ -16,14 +17,33 @@ const styles = {
     justifyContent: 'space-between',
   },
   container: {
-    width: 250,
-    height: 250,
-    margin: 20,
+    width: 150,
+    height: 150,
+    margin: theme.spacing.unit,
+    marginBottom: theme.spacing.unit * 3,
+    [theme.breakpoints.up('sm')]: {
+      width: 200,
+      height: 200,
+      margin: theme.spacing.unit * 2,
+    },
+    [theme.breakpoints.up('md')]: {
+      width: 250,
+      height: 250,
+      margin: theme.spacing.unit * 3,
+    },
   },
   nameContainer: {
+    fontSize: 16,
     height: '15%',
     width: '100%',
     textAlign: 'center',
+    marginBottom: theme.spacing.unit,
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 20,
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: 28,
+    },
   },
   descContainer: {
     height: '65%',
@@ -39,20 +59,42 @@ const styles = {
   },
   infoButton: {
     color: '#505ae8',
-    height: 96,
-    width: 96,
+    height: 64,
+    width: 64,
+    [theme.breakpoints.up('sm')]: {
+      height: 72,
+      width: 72,
+    },
+    [theme.breakpoints.up('md')]: {
+      height: 96,
+      width: 96,
+    },
   },
   addButton: {
     color: '#8BC34A',
-    height: 96,
-    width: 96,
+    height: 64,
+    width: 64,
+    [theme.breakpoints.up('sm')]: {
+      height: 72,
+      width: 72,
+    },
+    [theme.breakpoints.up('md')]: {
+      height: 96,
+      width: 96,
+    },
   },
   fontSize72: {
-    fontSize: 72,
+    fontSize: 40,
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 54,
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: 72,
+    },
   },
-};
+});
 
-interface Props extends StyledComponentProps<keyof typeof styles> {
+interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
   data: TaskTypeFragment;
   onSelect(taskType: TaskTypeEnum): void;
 }
@@ -81,10 +123,8 @@ class TaskType extends React.Component<Props, State> {
     }
 
     return (
-      <div className={classes.container}>
-        <div className={classes.nameContainer}>
-          <h1>{label}</h1>
-        </div>
+      <Grid className={classes.container} item>
+        <h1 className={classes.nameContainer}>{label}</h1>
         <div className={classes.descContainer}>
           {this.state.info ? (
             <h3 className={classes.descText}>{description}</h3>
@@ -106,7 +146,7 @@ class TaskType extends React.Component<Props, State> {
             <AddCircle className={classes.fontSize72} />
           </IconButton>
         </div>
-      </div>
+      </Grid>
     );
   }
 }

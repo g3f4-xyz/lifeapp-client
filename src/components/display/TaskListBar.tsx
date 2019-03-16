@@ -15,6 +15,7 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
+      marginRight: theme.spacing.unit * 2,
     },
     grow: {
       flexGrow: 1,
@@ -22,7 +23,7 @@ const styles = (theme: Theme) =>
     statusFilter: {
       marginBottom: theme.spacing.unit * 3,
       marginRight: theme.spacing.unit * 2,
-      minWidth: theme.spacing.unit * 10,
+      minWidth: theme.spacing.unit * 20,
     },
     title: {
       display: 'none',
@@ -79,6 +80,8 @@ const styles = (theme: Theme) =>
     },
     toolbar: {
       overflow: 'scroll',
+      marginLeft: theme.spacing.unit,
+      marginRight: theme.spacing.unit,
     },
   });
 
