@@ -3,7 +3,7 @@ import { DateRange, Group, LocalOffer, Settings, Update } from '@material-ui/ico
 import classNames from 'classnames';
 import React from 'react';
 import { TASK_TYPES } from '../../constans';
-import { TaskTypeEnum } from '../modules/Task/__generated__/TaskFragment.graphql';
+import { TaskTypeEnum } from '../modules/TaskList/__generated__/TaskListFragment.graphql';
 
 const styles = (theme: Theme) => ({
   icon: {

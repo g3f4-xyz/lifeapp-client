@@ -1,6 +1,6 @@
-import { TaskTypeEnum } from './components/modules/Task/__generated__/TaskFragment.graphql';
 import { FieldTypeEnum } from './components/modules/Task/Field/__generated__/FieldFragment.graphql';
 import { TaskStatusEnum } from './components/modules/TaskList/__generated__/TaskListFragment.graphql';
+import { TaskTypeEnum } from './components/modules/TaskTypeList/__generated__/TaskTypeFragment.graphql';
 
 export type Without<T, K> = Pick<T, Exclude<keyof T, K>>;
 export type ExcludeFutureAdded<T> = Without<T, '%future added value'>;
@@ -40,10 +40,11 @@ export const DEVICES: { [key: string]: DEVICE } = {
   OTHER: '',
 };
 
-export type STATUS = '201' | '410';
+export type STATUS = '201' | '408' | '410';
 
 export const STATUSES: { [key: string]: STATUS } = {
   OK: '201',
+  REQUEST_TIMEOUT: '408',
   NOT_REGISTERED: '410',
 };
 

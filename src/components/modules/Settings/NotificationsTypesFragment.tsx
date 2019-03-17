@@ -23,9 +23,9 @@ import TaskTypeIcon from '../../display/TaskTypeIcon';
 import { NotificationsTypesFragment } from './__generated__/NotificationsTypesFragment.graphql';
 
 const styles = (theme: Theme) => ({
-  expansionPanel: {
-    margin: theme.spacing.unit,
-    padding: theme.spacing.unit,
+  wrapper: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
   },
   list: {
     width: '100%',
@@ -81,7 +81,7 @@ class NotificationsTypes extends React.Component<Props> {
     }
 
     return (
-      <ExpansionPanel className={classes.expansionPanel}>
+      <ExpansionPanel className={classes.wrapper}>
         <ExpansionPanelSummary expandIcon={<ExpandMore />}>
           <Typography>Types</Typography>
         </ExpansionPanelSummary>

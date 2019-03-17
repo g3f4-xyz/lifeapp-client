@@ -11,6 +11,7 @@ import {
   Paper, StyledComponentProps,
   Theme,
   Typography,
+  Grid,
   withStyles,
 } from '@material-ui/core';
 import { DeleteForever, ExpandMore } from '@material-ui/icons';
@@ -20,6 +21,7 @@ import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import cleanApplicationMutation from '../../../mutations/cleanApplicationMutation';
 import deleteSubscriptionMutation from '../../../mutations/deleteSubscriptionMutation';
+import registerUserSubscription from '../../../serviceWorker/registerUserSubscription';
 import { SettingsFragment as SettingsFragmentResponse } from './__generated__/SettingsFragment.graphql';
 import NotificationsGeneralFragment from './NotificationsGeneralFragment';
 import NotificationsTypesFragment from './NotificationsTypesFragment';
@@ -30,15 +32,16 @@ const styles = (theme: Theme) => ({
     display: 'flex',
     justifyContent: 'center',
   },
-  expansionPanel: {
-    margin: theme.spacing.unit,
-    padding: theme.spacing.unit,
+  subscriptionsWrapper: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
   },
   list: {
     width: '100%',
   },
   section: {
-    margin: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2,
+    paddingTop: theme.spacing.unit,
     paddingBottom: theme.spacing.unit,
   },
   subscriptionButton: {
@@ -49,6 +52,13 @@ const styles = (theme: Theme) => ({
   subscriptionsPaginationExpansionPanel: {
     paddingRight: theme.spacing.unit,
   },
+  notificationsInfoWrapper: {
+    textAlign: 'right',
+    paddingRight: theme.spacing.unit * 2,
+    paddingLeft: theme.spacing.unit * 2,
+    paddingTop: theme.spacing.unit,
+    paddingBottom: theme.spacing.unit,
+  },
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
@@ -57,11 +67,13 @@ interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
 
 interface State {
   cleanApplicationDialogOpen: boolean;
+  notificationPermission: NotificationPermission;
 }
 
 class SettingsFragment extends React.Component<Props, State> {
   state = {
     cleanApplicationDialogOpen: false,
+    notificationPermission: Notification.permission,
   };
 
   handleCleanApplicationDialogClose = () => {
@@ -78,6 +90,20 @@ class SettingsFragment extends React.Component<Props, State> {
     });
 
     window.location.href = cleanApplication && cleanApplication.navigationUrl ? cleanApplication.navigationUrl : '';
+  };
+
+  handleActivateNotifications = async () => {
+    try {
+      const registration = await navigator.serviceWorker.ready;
+
+      await registerUserSubscription(registration);
+
+      this.forceUpdate();
+    }
+    catch (e) {
+      console.error(['handleActivateNotifications.error'], e);
+      this.forceUpdate();
+    }
   };
 
   onDeleteSubscription = async (subscriptionId: string) => {
@@ -100,20 +126,51 @@ class SettingsFragment extends React.Component<Props, State> {
           <Typography align="center" variant="display1">
             Notifications
           </Typography>
-          <NotificationsGeneralFragment data={this.props.data.notifications.general}/>
-          <NotificationsTypesFragment data={this.props.data.notifications.types}/>
-          <ExpansionPanel className={classes.expansionPanel}>
-            <ExpansionPanelSummary expandIcon={<ExpandMore/>}>
-              <Typography>Subscriptions</Typography>
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails className={classes.subscriptionsPaginationExpansionPanel}>
-              <SubscriptionsPagination
-                className={classes.list}
-                data={this.props.data.notifications}
-                onDelete={this.onDeleteSubscription}
-              />
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+          <Grid container spacing={8}>
+              <Grid item xs={12} md={6} lg={4}>
+                <NotificationsGeneralFragment data={this.props.data.notifications.general}/>
+              </Grid>
+              <Grid item xs={12} md={6} lg={4}>
+                <NotificationsTypesFragment data={this.props.data.notifications.types}/>
+              </Grid>
+              <Grid item xs={12} md={6} lg={4}>
+                <ExpansionPanel className={classes.subscriptionsWrapper}>
+                  <ExpansionPanelSummary expandIcon={<ExpandMore/>}>
+                    <Typography>Subscriptions</Typography>
+                  </ExpansionPanelSummary>
+                  <ExpansionPanelDetails className={classes.subscriptionsPaginationExpansionPanel}>
+                    <SubscriptionsPagination
+                      className={classes.list}
+                      data={this.props.data.notifications}
+                      onDelete={this.onDeleteSubscription}
+                    />
+                  </ExpansionPanelDetails>
+                </ExpansionPanel>
+              </Grid>
+          </Grid>
+          {Notification.permission === 'granted' && (
+            <div className={classes.notificationsInfoWrapper}>
+              <Typography color="textSecondary" gutterBottom>
+                  Notifications are active.
+              </Typography>
+            </div>
+          )}
+          {Notification.permission === 'default' && (
+            <div className={classes.notificationsInfoWrapper}>
+              <Button onClick={this.handleActivateNotifications}>
+                Activate notifications
+              </Button>
+            </div>
+          )}
+          {Notification.permission === 'denied' && (
+            <div className={classes.notificationsInfoWrapper}>
+              <Typography color="textSecondary" gutterBottom>
+                You have denied notifications permission.
+                <br />
+                You can change it in your browser notifications options.
+              </Typography>
+            </div>
+          )}
         </Paper>
         <Paper className={classes.section}>
           <Typography align="center" variant="display1">

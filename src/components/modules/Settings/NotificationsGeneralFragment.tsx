@@ -21,9 +21,9 @@ import saveNotificationsGeneralSettingMutation from '../../../mutations/saveNoti
 import { NotificationsGeneralFragment } from './__generated__/NotificationsGeneralFragment.graphql';
 
 const styles = (theme: Theme) => ({
-  expansionPanel: {
-    margin: theme.spacing.unit,
-    padding: theme.spacing.unit,
+  wrapper: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
   },
   list: {
     width: '100%',
@@ -61,7 +61,7 @@ class NotificationsGeneral extends React.Component<Props> {
     }
 
     return (
-      <ExpansionPanel className={classes.expansionPanel}>
+      <ExpansionPanel className={classes.wrapper}>
         <ExpansionPanelSummary expandIcon={<ExpandMore />}>
           <Typography>General</Typography>
         </ExpansionPanelSummary>

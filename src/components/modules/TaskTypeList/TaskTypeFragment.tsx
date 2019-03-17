@@ -1,37 +1,60 @@
-import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
+import { IconButton, StyledComponentProps, Theme, withStyles } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import { AddCircle, InfoOutlined } from '@material-ui/icons';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import TaskTypeIcon from '../../display/TaskTypeIcon';
-import { TaskTypeEnum } from '../Task/__generated__/TaskFragment.graphql';
 import { TaskTypeFragment } from './__generated__/TaskTypeFragment.graphql';
+import { TaskTypeEnum } from '../TaskList/__generated__/TaskListFragment.graphql';
 
-const styles = {
+const styles = (theme: Theme) => ({
   actionsContainer: {
-    height: '25%',
-    width: '100%',
     display: 'flex',
     justifyContent: 'space-between',
   },
   container: {
-    width: 250,
-    height: 250,
-    margin: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    width: theme.spacing.unit * 2 * 8,
+    [theme.breakpoints.up('sm')]: {
+      width: theme.spacing.unit * 2 * 12,
+    },
+    [theme.breakpoints.up('md')]: {
+      width: theme.spacing.unit * 2 * 16,
+    },
   },
   nameContainer: {
-    height: '15%',
-    width: '100%',
+    fontSize: theme.spacing.unit * 3,
     textAlign: 'center',
+    [theme.breakpoints.up('sm')]: {
+      fontSize: theme.spacing.unit * 4,
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: theme.spacing.unit * 5,
+    },
   },
   descContainer: {
-    height: '65%',
-    width: '100%',
+    flexGrow: 1,
+    fontSize: theme.spacing.unit * 3,
+    [theme.breakpoints.up('sm')]: {
+      fontSize: theme.spacing.unit * 4,
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: theme.spacing.unit * 5,
+    },
   },
   descText: {
     padding: 0,
     margin: 0,
+    fontSize: theme.spacing.unit * 1.5,
+    [theme.breakpoints.up('sm')]: {
+      fontSize: theme.spacing.unit * 2,
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: theme.spacing.unit * 3,
+    },
   },
   icon: {
     height: '100%',
@@ -39,20 +62,42 @@ const styles = {
   },
   infoButton: {
     color: '#505ae8',
-    height: 72,
-    width: 72,
+    height: 64,
+    width: 64,
+    [theme.breakpoints.up('sm')]: {
+      height: 80,
+      width: 80,
+    },
+    [theme.breakpoints.up('md')]: {
+      height: 96,
+      width: 96,
+    },
   },
   addButton: {
     color: '#8BC34A',
-    height: 72,
-    width: 72,
+    height: 64,
+    width: 64,
+    [theme.breakpoints.up('sm')]: {
+      height: 80,
+      width: 80,
+    },
+    [theme.breakpoints.up('md')]: {
+      height: 96,
+      width: 96,
+    },
   },
   fontSize72: {
-    fontSize: 72,
+    fontSize: 40,
+    [theme.breakpoints.up('sm')]: {
+      fontSize: 54,
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: 72,
+    },
   },
-};
+});
 
-interface Props extends StyledComponentProps<keyof typeof styles> {
+interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
   data: TaskTypeFragment;
   onSelect(taskType: TaskTypeEnum): void;
 }
@@ -81,10 +126,8 @@ class TaskType extends React.Component<Props, State> {
     }
 
     return (
-      <div className={classes.container}>
-        <div className={classes.nameContainer}>
-          <h1>{label}</h1>
-        </div>
+      <Grid className={classes.container} item>
+        <h1 className={classes.nameContainer}>{label}</h1>
         <div className={classes.descContainer}>
           {this.state.info ? (
             <h3 className={classes.descText}>{description}</h3>
@@ -106,7 +149,7 @@ class TaskType extends React.Component<Props, State> {
             <AddCircle className={classes.fontSize72} />
           </IconButton>
         </div>
-      </div>
+      </Grid>
     );
   }
 }

@@ -1,6 +1,7 @@
-import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
-import { More } from '@material-ui/icons';
+import { Button, IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 import AddBoxIcon from '@material-ui/icons/AddBox';
+import MoreIcon from '@material-ui/icons/MoreHoriz';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React, { ChangeEvent, Fragment } from 'react';
@@ -13,7 +14,7 @@ import updateTaskListTaskTypeFilterSettingMutation
 import updateTaskListTitleFilterSettingMutation from '../../../mutations/updateTaskListTitleFilterSettingMutation';
 import Loader from '../../display/Loader';
 import TaskListBar from '../../display/TaskListBar';
-import { TaskTypeEnum } from '../Task/__generated__/TaskFragment.graphql';
+import { TaskTypeEnum } from './__generated__/TaskListFragment.graphql';
 import { TaskListPagination as TaskListPaginationResponse } from './__generated__/TaskListPagination.graphql';
 import { TaskListQueryResponse } from './__generated__/TaskListQuery.graphql';
 import TaskListFragment from './TaskListFragment';
@@ -23,22 +24,18 @@ const PAGE_SIZE = 5;
 const styles = {
   addButton: {
     zIndex: 9,
-    position: 'absolute',
+    position: 'fixed',
     bottom: 20,
     left: 20,
-    height: 72,
-    width: 72,
   },
   addButtonIcon: {
     fontSize: 72,
   },
   moreButton: {
     zIndex: 9,
-    position: 'absolute',
+    position: 'fixed',
     bottom: 20,
     right: 20,
-    height: 72,
-    width: 72,
   },
   moreButtonIcon: {
     fontSize: 72,
@@ -165,38 +162,40 @@ class TaskListPagination extends React.Component<Props, State> {
           settings={settings}
         />
         {loading ? (
-          <Loader className={classes.listLoader} />
+          <Loader />
         ) : (
           <Fragment>
-            {edges.map((edge) => edge && edge.node && (
-              <TaskListFragment
-                key={edge.cursor}
-                data={edge.node}
-                onDelete={this.handleDelete}
-                onEdit={onEdit}
-              />
-            ))}
-          </Fragment>
-        )}
-        <IconButton
-          className={classes.addButton}
-          color="primary"
-          onClick={onAdd}
-        >
-          <AddBoxIcon className={classes.addButtonIcon} />
-        </IconButton>
-        {this.props.relay.hasMore() && (
-          <IconButton
-            className={classes.moreButton}
-            color="primary"
-            onClick={this.handleMore}
-          >
-            {this.props.relay.isLoading() ? (
+            <Grid container spacing={8}>
+              {edges.map((edge) => edge && edge.node && (
+                <Grid key={edge.cursor} item xs={12} sm={12} md={6} lg={4} xl={3}>
+                  <TaskListFragment
+                    data={edge.node}
+                    onDelete={this.handleDelete}
+                    onEdit={onEdit}
+                  />
+                </Grid>
+              ))}
+            </Grid>
+            <Button
+              color="primary"
+              className={classes.addButton}
+              onClick={onAdd}
+            >
+              <AddBoxIcon className={classes.addButtonIcon} />
+            </Button>
+            {this.props.relay.isLoading() && (
               <Loader />
-            ) : (
-              <More className={classes.moreButtonIcon} />
             )}
-          </IconButton>
+            {!this.props.relay.isLoading() && this.props.relay.hasMore() && (
+              <IconButton
+                className={classes.moreButton}
+                color="primary"
+                onClick={this.handleMore}
+              >
+                <MoreIcon className={classes.moreButtonIcon} />
+              </IconButton>
+            )}
+          </Fragment>
         )}
       </Fragment>
     );

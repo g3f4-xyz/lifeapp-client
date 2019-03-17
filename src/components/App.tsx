@@ -1,44 +1,43 @@
 import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
-import { Cancel } from '@material-ui/icons';
+import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import immutabilityHelper, { Spec } from 'immutability-helper';
 import React, { Fragment } from 'react';
 import { Layout, Layouts } from 'react-grid-layout';
 import { LOCAL_STORAGE_LAYOUTS_KEY, MODULE, MODULES_IDS } from '../constans';
-import assetsServiceWorker from '../serviceWorkers/assetsServiceWorker';
-import { registerUserSubscription } from '../serviceWorkers/notificationsServiceWorker';
+import registerUserSubscription from '../serviceWorker/registerUserSubscription';
+import assetsServiceWorker from '../serviceWorker/serviceWorkerManager';
 import { getFromLS, saveToLS } from '../utils/rglLocalStore';
 import ErrorBoundary from './containers/ErrorBoundary';
 import ResponsiveGrid from './containers/ResponsiveGrid';
 import AppMenu from './display/AppMenu';
 import settingsHandler from './modules/Settings/settingsModuleHandler';
 import SettingsQuery from './modules/Settings/SettingsQuery';
-import { TaskTypeEnum } from './modules/Task/__generated__/TaskFragment.graphql';
 import Task from './modules/Task/Task';
 import taskHandler from './modules/Task/taskModuleHandler';
+import { TaskTypeEnum } from './modules/TaskList/__generated__/TaskListFragment.graphql';
 import TaskList from './modules/TaskList/TaskList';
 import taskListHandler from './modules/TaskList/taskListModuleHandler';
 import TaskTypeList from './modules/TaskTypeList/TaskTypeList';
 import taskTypeListHandler from './modules/TaskTypeList/taskTypeListModuleHandler';
 
 assetsServiceWorker.register({
-  async onActivated(registration) {
-    console.log(['assetsServiceWorker.onActivated.registration'], registration);
-    await registerUserSubscription(registration);
+  onUpdate(registration) {
+    console.log(['assetsServiceWorker.register.onUpdate'], registration)
   },
-  async onUpdate(registration) {
-    console.log(['assetsServiceWorker.onUpdate.registration'], registration);
-    await registerUserSubscription(registration);
+  onActivated(registration) {
+    console.log(['assetsServiceWorker.register.onActivated'], registration)
+  },
+  onSuccess(registration) {
+    console.log(['assetsServiceWorker.register.onSuccess'], registration)
   },
 });
 
 const styles = {
   backButton: {
     zIndex: 9,
-    position: 'absolute',
+    position: 'fixed',
     bottom: 20,
     left: 20,
-    height: 72,
-    width: 72,
   },
   backButtonIcon: {
     fontSize: 72,
@@ -91,6 +90,20 @@ class App extends React.Component<Props, AppState> {
     gridViewLocked: false,
   };
 
+  componentDidMount(): void {
+    try {
+      if (Notification.permission === 'granted') {
+        setTimeout(async () => {
+          const registration = await navigator.serviceWorker.ready;
+          console.log(['navigator.serviceWorker.ready'], registration);
+          await registerUserSubscription(registration, { silent: true });
+        }, 3000);
+      }
+    } catch (e) {
+      console.error(`error trying to send user subscription | ${e}`);
+    }
+  }
+
   render(): React.ReactNode {
     return (
       <ErrorBoundary>
@@ -116,10 +129,9 @@ class App extends React.Component<Props, AppState> {
         {!(isTaskListModuleActive || gridView) && (
           <IconButton
             className={classes.backButton}
-            color="secondary"
             onClick={this.onActiveModuleBack}
           >
-            <Cancel className={classes.backButtonIcon}/>
+            <NavigateBeforeIcon className={classes.backButtonIcon} />
           </IconButton>
         )}
       </Fragment>

@@ -1,10 +1,11 @@
 import { StyledComponentProps, withStyles } from '@material-ui/core';
+import Grid from '@material-ui/core/Grid';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { ConnectionData, createPaginationContainer } from 'react-relay';
 import Loader from '../../display/Loader';
-import { TaskTypeEnum } from '../Task/__generated__/TaskFragment.graphql';
+import { TaskTypeEnum } from '../TaskList/__generated__/TaskListQuery.graphql';
 import { TaskTypeListPagination } from './__generated__/TaskTypeListPagination.graphql';
 import TaskTypeFragment from './TaskTypeFragment';
 
@@ -38,14 +39,14 @@ class TaskTypeList extends React.Component<Props> {
     }
 
     return (
-      <div className={classes.container}>
+      <Grid className={classes.container} container>
         {[...edges]
           .map((edge) => edge && edge.node)
           .sort((nodeA, nodeB) => nodeA && nodeB ? nodeA.order - nodeB.order : 0)
           .map((data): React.ReactNode => data && (
             <TaskTypeFragment key={data ? data.id : ''} data={data} onSelect={onSelect} />
           ))}
-      </div>
+      </Grid>
     );
   }
 }
