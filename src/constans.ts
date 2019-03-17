@@ -40,10 +40,11 @@ export const DEVICES: { [key: string]: DEVICE } = {
   OTHER: '',
 };
 
-export type STATUS = '201' | '410';
+export type STATUS = '201' | '408' | '410';
 
 export const STATUSES: { [key: string]: STATUS } = {
   OK: '201',
+  REQUEST_TIMEOUT: '408',
   NOT_REGISTERED: '410',
 };
 

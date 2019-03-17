@@ -4,6 +4,7 @@ import immutabilityHelper, { Spec } from 'immutability-helper';
 import React, { Fragment } from 'react';
 import { Layout, Layouts } from 'react-grid-layout';
 import { LOCAL_STORAGE_LAYOUTS_KEY, MODULE, MODULES_IDS } from '../constans';
+import registerUserSubscription from '../serviceWorker/registerUserSubscription';
 import assetsServiceWorker from '../serviceWorker/serviceWorkerManager';
 import { getFromLS, saveToLS } from '../utils/rglLocalStore';
 import ErrorBoundary from './containers/ErrorBoundary';
@@ -19,7 +20,17 @@ import taskListHandler from './modules/TaskList/taskListModuleHandler';
 import TaskTypeList from './modules/TaskTypeList/TaskTypeList';
 import taskTypeListHandler from './modules/TaskTypeList/taskTypeListModuleHandler';
 
-assetsServiceWorker.register();
+assetsServiceWorker.register({
+  onUpdate(registration) {
+    console.log(['assetsServiceWorker.register.onUpdate'], registration)
+  },
+  onActivated(registration) {
+    console.log(['assetsServiceWorker.register.onActivated'], registration)
+  },
+  onSuccess(registration) {
+    console.log(['assetsServiceWorker.register.onSuccess'], registration)
+  },
+});
 
 const styles = {
   backButton: {
@@ -78,6 +89,20 @@ class App extends React.Component<Props, AppState> {
     gridView: false,
     gridViewLocked: false,
   };
+
+  componentDidMount(): void {
+    try {
+      if (Notification.permission === 'granted') {
+        setTimeout(async () => {
+          const registration = await navigator.serviceWorker.ready;
+          console.log(['navigator.serviceWorker.ready'], registration);
+          await registerUserSubscription(registration, { silent: true });
+        }, 3000);
+      }
+    } catch (e) {
+      console.error(`error trying to send user subscription | ${e}`);
+    }
+  }
 
   render(): React.ReactNode {
     return (

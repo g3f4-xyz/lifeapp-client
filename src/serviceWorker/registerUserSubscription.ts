@@ -1,8 +1,11 @@
 const publicVapidKey = 'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo';
 
-export default async function registerUserSubscription(register: ServiceWorkerRegistration) {
+export default async function registerUserSubscription(
+  register: ServiceWorkerRegistration,
+  options?: { silent: boolean },
+) {
   try {
-    const newSubscription = await register.pushManager.subscribe({
+    const subscriptionData = await register.pushManager.subscribe({
       userVisibleOnly: true,
       applicationServerKey: urlBase64ToUint8Array(publicVapidKey),
     });
@@ -14,7 +17,10 @@ export default async function registerUserSubscription(register: ServiceWorkerRe
         'Accept': 'application/json',
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newSubscription),
+      body: JSON.stringify({
+        subscriptionData,
+        options,
+      }),
     });
   } catch (e) {
     throw new Error(`cannot register subscription | ${e}`);

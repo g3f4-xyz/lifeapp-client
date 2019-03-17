@@ -3,9 +3,11 @@ import {
   ListItem,
   ListItemIcon,
   ListItemSecondaryAction,
-  ListItemText, StyledComponentProps,
+  ListItemText,
+  StyledComponentProps,
   withStyles,
 } from '@material-ui/core';
+import CloudOffIcon from '@material-ui/icons/CloudOff';
 import { green, red } from '@material-ui/core/colors';
 import { CheckCircle, Computer, Delete, DevicesOther, HelpOutline, HighlightOff, Smartphone } from '@material-ui/icons';
 // @ts-ignore
@@ -95,6 +97,9 @@ class Subscription extends React.Component<Props, State> {
             )}
             {statusCode === STATUSES.NOT_REGISTERED && (
               <HighlightOff className={classes.red} />
+            )}
+            {statusCode === STATUSES.REQUEST_TIMEOUT && (
+              <CloudOffIcon />
             )}
           </IconButton>
         </ListItemSecondaryAction>
