@@ -7,9 +7,10 @@ export type saveNotificationsTypesSettingMutationInput = {
     readonly clientMutationId?: string | null;
 };
 export type SettingsNotificationsTypesInputType = {
-    readonly events: boolean;
-    readonly meetings: boolean;
+    readonly goals: boolean;
     readonly todos: boolean;
+    readonly meetings: boolean;
+    readonly events: boolean;
     readonly routines: boolean;
 };
 export type saveNotificationsTypesSettingMutationVariables = {
@@ -43,6 +44,7 @@ mutation saveNotificationsTypesSettingMutation(
 
 fragment NotificationsTypesFragment on NotificationsTypesSettingType {
   events
+  goals
   meetings
   routines
   todos
@@ -136,6 +138,13 @@ const node: ConcreteRequest = (function () {
                                 {
                                     "kind": "ScalarField",
                                     "alias": null,
+                                    "name": "goals",
+                                    "args": null,
+                                    "storageKey": null
+                                },
+                                {
+                                    "kind": "ScalarField",
+                                    "alias": null,
                                     "name": "meetings",
                                     "args": null,
                                     "storageKey": null
@@ -171,7 +180,7 @@ const node: ConcreteRequest = (function () {
             "operationKind": "mutation",
             "name": "saveNotificationsTypesSettingMutation",
             "id": null,
-            "text": "mutation saveNotificationsTypesSettingMutation(\n  $input: saveNotificationsTypesSettingMutationInput!\n) {\n  saveNotificationsTypesSetting(input: $input) {\n    savedTypes {\n      ...NotificationsTypesFragment\n      id\n    }\n  }\n}\n\nfragment NotificationsTypesFragment on NotificationsTypesSettingType {\n  events\n  meetings\n  routines\n  todos\n}\n",
+            "text": "mutation saveNotificationsTypesSettingMutation(\n  $input: saveNotificationsTypesSettingMutationInput!\n) {\n  saveNotificationsTypesSetting(input: $input) {\n    savedTypes {\n      ...NotificationsTypesFragment\n      id\n    }\n  }\n}\n\nfragment NotificationsTypesFragment on NotificationsTypesSettingType {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n",
             "metadata": {}
         }
     } as any;

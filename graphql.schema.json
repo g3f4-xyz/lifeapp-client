@@ -475,7 +475,7 @@
         {
           "kind": "OBJECT",
           "name": "NotificationsTypesSettingType",
-          "description": "notifications types setting type",
+          "description": "notifications schema setting type",
           "fields": [
             {
               "name": "id",
@@ -494,7 +494,23 @@
               "deprecationReason": null
             },
             {
-              "name": "events",
+              "name": "goals",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "todos",
               "description": null,
               "args": [],
               "type": {
@@ -526,7 +542,7 @@
               "deprecationReason": null
             },
             {
-              "name": "todos",
+              "name": "events",
               "description": null,
               "args": [],
               "type": {
@@ -983,6 +999,12 @@
           "interfaces": null,
           "enumValues": [
             {
+              "name": "GOAL",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "TODO",
               "description": null,
               "isDeprecated": false,
@@ -1305,6 +1327,12 @@
               "deprecationReason": null
             },
             {
+              "name": "PROGRESS",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "ACTIVE",
               "description": null,
               "isDeprecated": false,
@@ -1382,6 +1410,12 @@
           "interfaces": null,
           "enumValues": [
             {
+              "name": "SLIDER",
+              "description": null,
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
               "name": "SWITCH",
               "description": null,
               "isDeprecated": false,
@@ -1419,6 +1453,11 @@
           "possibleTypes": [
             {
               "kind": "OBJECT",
+              "name": "SliderValueType",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
               "name": "SwitchValueType",
               "ofType": null
             },
@@ -1438,6 +1477,43 @@
               "ofType": null
             }
           ]
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SliderValueType",
+          "description": "slider value type",
+          "fields": [
+            {
+              "name": "progress",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Float",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "SCALAR",
+          "name": "Float",
+          "description": "The `Float` scalar type represents signed double-precision fractional values as specified by [IEEE 754](https://en.wikipedia.org/wiki/IEEE_floating_point). ",
+          "fields": null,
+          "inputFields": null,
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
         },
         {
           "kind": "OBJECT",
@@ -1572,6 +1648,11 @@
             {
               "kind": "OBJECT",
               "name": "TextMetaType",
+              "ofType": null
+            },
+            {
+              "kind": "OBJECT",
+              "name": "SliderMetaType",
               "ofType": null
             },
             {
@@ -1861,6 +1942,113 @@
                   "name": "String",
                   "ofType": null
                 }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "SliderMetaType",
+          "description": "slider meta type",
+          "fields": [
+            {
+              "name": "fieldType",
+              "description": "fieldType field meta description",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "FieldTypeEnum",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "disabled",
+              "description": "disabled field meta description",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Boolean",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "required",
+              "description": "required field meta description",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "label",
+              "description": "label field meta description",
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "min",
+              "description": "min field meta description",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "max",
+              "description": "max field meta description",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "step",
+              "description": "step field meta description",
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -2459,7 +2647,7 @@
               "deprecationReason": null
             },
             {
-              "name": "fields",
+              "name": "fieldsIds",
               "description": null,
               "args": [],
               "type": {
@@ -2635,33 +2823,6 @@
               "deprecationReason": null
             },
             {
-              "name": "saveTask",
-              "description": null,
-              "args": [
-                {
-                  "name": "input",
-                  "description": null,
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "saveTaskMutationInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "saveTaskMutationPayload",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "testSubscription",
               "description": null,
               "args": [
@@ -2683,6 +2844,33 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "testSubscriptionMutationPayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "updateTaskSliderField",
+              "description": null,
+              "args": [
+                {
+                  "name": "input",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "updateTaskSliderFieldMutationInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "updateTaskSliderFieldMutationPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -3240,11 +3428,25 @@
         {
           "kind": "INPUT_OBJECT",
           "name": "SettingsNotificationsTypesInputType",
-          "description": "settings notifications types input type",
+          "description": "settings notifications schema input type",
           "fields": null,
           "inputFields": [
             {
-              "name": "events",
+              "name": "goals",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "todos",
               "description": null,
               "type": {
                 "kind": "NON_NULL",
@@ -3272,7 +3474,7 @@
               "defaultValue": null
             },
             {
-              "name": "todos",
+              "name": "events",
               "description": null,
               "type": {
                 "kind": "NON_NULL",
@@ -3345,231 +3547,6 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "saveTaskMutationInput",
-          "description": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "isNew",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "task",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "TaskInputType",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "clientMutationId",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "TaskInputType",
-          "description": "task input type",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "id",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "ID",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "taskType",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "fields",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "LIST",
-                  "name": null,
-                  "ofType": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "FieldsInputType",
-                      "ofType": null
-                    }
-                  }
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "FieldsInputType",
-          "description": "fields input type",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "order",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Int",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "value",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "ValueInputType",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "ValueInputType",
-          "description": "value input type",
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "enabled",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "Boolean",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "id",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "text",
-              "description": null,
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "saveTaskMutationPayload",
-          "description": null,
-          "fields": [
-            {
-              "name": "newTaskEdge",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "TaskTypeEdge",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "clientMutationId",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "SCALAR",
-                "name": "String",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
           "name": "testSubscriptionMutationInput",
           "description": null,
           "fields": null,
@@ -3614,6 +3591,165 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "clientMutationId",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "updateTaskSliderFieldMutationInput",
+          "description": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "taskId",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "fieldId",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "FieldIdEnum",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "fieldValue",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "INPUT_OBJECT",
+                  "name": "SliderValueInputType",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "clientMutationId",
+              "description": null,
+              "type": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "SliderValueInputType",
+          "description": "slider value input type",
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "progress",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Float",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "updateTaskSliderFieldMutationPayload",
+          "description": null,
+          "fields": [
+            {
+              "name": "taskId",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "fieldId",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "ENUM",
+                  "name": "FieldIdEnum",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "updatedFieldValue",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "SliderValueType",
                   "ofType": null
                 }
               },
@@ -4181,7 +4317,7 @@
               "description": null,
               "type": {
                 "kind": "INPUT_OBJECT",
-                "name": "ValueInputType",
+                "name": "LeafFieldValueInputType",
                 "ofType": null
               },
               "defaultValue": null
@@ -4191,7 +4327,7 @@
               "description": null,
               "type": {
                 "kind": "INPUT_OBJECT",
-                "name": "NestedChildrenValueInputType",
+                "name": "NestedValueInputType",
                 "ofType": null
               },
               "defaultValue": null
@@ -4203,57 +4339,36 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "NestedChildrenValueInputType",
-          "description": null,
+          "name": "LeafFieldValueInputType",
+          "description": "value input type",
           "fields": null,
           "inputFields": [
             {
-              "name": "ownValue",
+              "name": "enabled",
               "description": null,
               "type": {
-                "kind": "INPUT_OBJECT",
-                "name": "ValueInputType",
+                "kind": "SCALAR",
+                "name": "Boolean",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
-              "name": "childrenValue",
+              "name": "id",
               "description": null,
               "type": {
-                "kind": "INPUT_OBJECT",
-                "name": "NestedNestedChildrenValueInputType",
-                "ofType": null
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
-          "name": "NestedNestedChildrenValueInputType",
-          "description": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "ownValue",
-              "description": null,
-              "type": {
-                "kind": "INPUT_OBJECT",
-                "name": "ValueInputType",
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null
             },
             {
-              "name": "childrenValue",
+              "name": "text",
               "description": null,
               "type": {
-                "kind": "INPUT_OBJECT",
-                "name": "ValueInputType",
+                "kind": "SCALAR",
+                "name": "String",
                 "ofType": null
               },
               "defaultValue": null

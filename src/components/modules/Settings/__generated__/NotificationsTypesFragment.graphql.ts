@@ -4,6 +4,7 @@ import { ReaderFragment } from "relay-runtime";
 export type NotificationsTypesFragment$ref = any;
 export type NotificationsTypesFragment = {
     readonly events: boolean;
+    readonly goals: boolean;
     readonly meetings: boolean;
     readonly routines: boolean;
     readonly todos: boolean;
@@ -23,6 +24,13 @@ const node: ReaderFragment = ({
             "kind": "ScalarField",
             "alias": null,
             "name": "events",
+            "args": null,
+            "storageKey": null
+        },
+        {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "goals",
             "args": null,
             "storageKey": null
         },
@@ -49,5 +57,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'e534f4004b729d5479fedd9c3606455a';
+(node as any).hash = '0dd643789fd3d9cf4ef5e7342c1df7ec';
 export default node;

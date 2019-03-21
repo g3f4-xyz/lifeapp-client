@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type TaskTypeEnum = "EVENT" | "MEETING" | "ROUTINE" | "TODO";
+export type TaskTypeEnum = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
 export type TaskTypeFragment$ref = any;
 export type TaskTypeFragment = {
     readonly id: string;

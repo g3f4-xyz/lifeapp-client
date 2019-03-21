@@ -17,9 +17,10 @@ import { ExpandMore } from '@material-ui/icons';
 import graphql from 'babel-plugin-relay/macro';
 import React, { ChangeEvent } from 'react';
 import { createFragmentContainer } from 'react-relay';
-import { TASK_TYPES } from '../../../constans';
+import { TASK_TYPE } from '../../../constans';
 import saveNotificationsTypesSettingMutation from '../../../mutations/saveNotificationsTypesSettingMutation';
 import TaskTypeIcon from '../../display/TaskTypeIcon';
+import { TaskTypeEnum } from '../TaskList/__generated__/TaskListQuery.graphql';
 import { NotificationsTypesFragment } from './__generated__/NotificationsTypesFragment.graphql';
 
 const styles = (theme: Theme) => ({
@@ -42,6 +43,15 @@ class NotificationsTypes extends React.Component<Props> {
       types: {
         ...this.props.data,
         events,
+      },
+    });
+  };
+
+  handleGoalsChange = async (_: ChangeEvent<HTMLInputElement>, goals: boolean): Promise<void> => {
+    await saveNotificationsTypesSettingMutation({
+      types: {
+        ...this.props.data,
+        goals,
       },
     });
   };
@@ -73,8 +83,19 @@ class NotificationsTypes extends React.Component<Props> {
     });
   };
 
+  getChangeHandler = (key: string) => async (_: ChangeEvent<HTMLInputElement>, checked: boolean): Promise<void> => {
+    await saveNotificationsTypesSettingMutation({
+      types: {
+        ...this.props.data,
+        ...{
+          [key]: checked,
+        },
+      },
+    });
+  };
+
   render(): React.ReactNode {
-    const { classes, data: { events, meetings, routines, todos } } = this.props;
+    const { classes, data } = this.props;
 
     if (!classes) {
       throw new Error(`error loading styles`);
@@ -87,42 +108,19 @@ class NotificationsTypes extends React.Component<Props> {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           <List className={classes.list}>
-            <ListItem>
-              <ListItemIcon>
-                <TaskTypeIcon type={TASK_TYPES.EVENT} />
-              </ListItemIcon>
-              <ListItemText primary="Events" />
-              <ListItemSecondaryAction>
-                <Switch onChange={this.handleEventsChange} checked={events} />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <TaskTypeIcon type={TASK_TYPES.MEETING} />
-              </ListItemIcon>
-              <ListItemText primary="Meetings" />
-              <ListItemSecondaryAction>
-                <Switch onChange={this.handleMeetingsChange} checked={meetings} />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <TaskTypeIcon type={TASK_TYPES.ROUTINE} />
-              </ListItemIcon>
-              <ListItemText primary="Routines" />
-              <ListItemSecondaryAction>
-                <Switch onChange={this.handleRoutinesChange} checked={routines} />
-              </ListItemSecondaryAction>
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <TaskTypeIcon type={TASK_TYPES.TODO} />
-              </ListItemIcon>
-              <ListItemText primary="Todos" />
-              <ListItemSecondaryAction>
-                <Switch onChange={this.handleTodosChange} checked={todos} />
-              </ListItemSecondaryAction>
-            </ListItem>
+            {Object.keys(TASK_TYPE).map(key => (
+              <ListItem>
+                <ListItemIcon>
+                  <TaskTypeIcon type={key as TaskTypeEnum} />
+                </ListItemIcon>
+                <ListItemText primary={key.toLowerCase()} />
+                <ListItemSecondaryAction>
+                  <Switch
+                    onChange={this.getChangeHandler(`${key.toLowerCase()}s`)} checked={data[`${key.toLowerCase()}s`]}
+                  />
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))}
           </List>
         </ExpansionPanelDetails>
       </ExpansionPanel>
@@ -135,6 +133,7 @@ export default createFragmentContainer(
   graphql`
     fragment NotificationsTypesFragment on NotificationsTypesSettingType {
       events
+      goals
       meetings
       routines
       todos

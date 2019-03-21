@@ -2,7 +2,7 @@
 
 import { ReaderFragment } from "relay-runtime";
 type FieldFragment$ref = any;
-export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "STATUS" | "TITLE";
+export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
 export type TaskFragment$ref = any;
 export type TaskFragment = {
     readonly id: string;
