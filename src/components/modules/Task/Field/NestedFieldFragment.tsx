@@ -4,8 +4,8 @@ import immutabilityHelper from 'immutability-helper';
 import React, { Fragment, FunctionComponent } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import { FIELD_TYPE } from '../../../../constans';
-import { NestedValueInputType } from '../../../../mutations/__generated__/updateTaskNestedFieldMutation.graphql';
-import updateTaskNestedFieldMutation from '../../../../mutations/updateTaskNestedFieldMutation';
+import { NestedValueInputType } from '../../../../mutations/__generated__/updateTaskFieldMutation.graphql';
+import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Choice from '../../../display/field/Choice';
 import Switch from '../../../display/field/Switch';
 import Text from '../../../display/field/Text';
@@ -163,20 +163,36 @@ class NestedFieldContainer extends React.Component<Props> {
   private handleChange = async (updatedFieldValue: NestedFieldProps['value']): Promise<void> => {
     const { taskId, data: { fieldId, id } } = this.props;
 
-    await updateTaskNestedFieldMutation({ fieldId, fieldValue: updatedFieldValue as NestedValueInputType, taskId }, { id });
+    await updateTaskFieldMutation({ fieldId, value: updatedFieldValue as NestedValueInputType, taskId }, { id });
   };
 }
 
-export default createFragmentContainer<Props>(
-  // @ts-ignore
-  NestedFieldContainer,
-  graphql`
-    fragment NestedFieldFragment on FieldType {
-      id
-      fieldId
-      meta {
+// tslint:disable-next-line:no-unused-expression
+graphql`
+  fragment NestedFieldFragmentMeta on NestedMetaType {
+    fieldType
+    parentValue {
+      ...SwitchFieldFragmentValue @relay(mask: false)
+      ...TextFieldFragmentValue @relay(mask: false)
+      ...ChoiceFieldFragmentValue @relay(mask: false)
+    }
+    ownMeta {
+      ...ChoiceFieldFragmentMeta @relay(mask: false)
+      ...TextFieldFragmentMeta @relay(mask: false)
+      ...SwitchFieldFragmentMeta @relay(mask: false)
+    }
+    childrenMeta {
+      fieldType
+      parentValue {
+        ...SwitchFieldFragmentValue @relay(mask: false)
+        ...TextFieldFragmentValue @relay(mask: false)
+        ...ChoiceFieldFragmentValue @relay(mask: false)
+      }
+      ownMeta {
+        ...ChoiceFieldFragmentMeta @relay(mask: false)
+        ...TextFieldFragmentMeta @relay(mask: false)
+        ...SwitchFieldFragmentMeta @relay(mask: false)
         ... on NestedMetaType {
-          fieldType
           parentValue {
             ...SwitchFieldFragmentValue @relay(mask: false)
             ...TextFieldFragmentValue @relay(mask: false)
@@ -198,31 +214,31 @@ export default createFragmentContainer<Props>(
               ...ChoiceFieldFragmentMeta @relay(mask: false)
               ...TextFieldFragmentMeta @relay(mask: false)
               ...SwitchFieldFragmentMeta @relay(mask: false)
-              ... on NestedMetaType {
-                parentValue {
-                  ...SwitchFieldFragmentValue @relay(mask: false)
-                  ...TextFieldFragmentValue @relay(mask: false)
-                  ...ChoiceFieldFragmentValue @relay(mask: false)
-                }
-                ownMeta {
-                  ...ChoiceFieldFragmentMeta @relay(mask: false)
-                  ...TextFieldFragmentMeta @relay(mask: false)
-                  ...SwitchFieldFragmentMeta @relay(mask: false)
-                }
-                childrenMeta {
-                  fieldType
-                  parentValue {
-                    ...SwitchFieldFragmentValue @relay(mask: false)
-                    ...TextFieldFragmentValue @relay(mask: false)
-                    ...ChoiceFieldFragmentValue @relay(mask: false)
-                  }
-                  ownMeta {
-                    ...ChoiceFieldFragmentMeta @relay(mask: false)
-                    ...TextFieldFragmentMeta @relay(mask: false)
-                    ...SwitchFieldFragmentMeta @relay(mask: false)
-                  }
-                }
-              }
+            }
+          }
+        }
+      }
+      childrenMeta {
+        fieldType
+        parentValue {
+          ...SwitchFieldFragmentValue @relay(mask: false)
+          ...TextFieldFragmentValue @relay(mask: false)
+          ...ChoiceFieldFragmentValue @relay(mask: false)
+        }
+        ownMeta {
+          ...ChoiceFieldFragmentMeta @relay(mask: false)
+          ...TextFieldFragmentMeta @relay(mask: false)
+          ...SwitchFieldFragmentMeta @relay(mask: false)
+          ... on NestedMetaType {
+            parentValue {
+              ...SwitchFieldFragmentValue @relay(mask: false)
+              ...TextFieldFragmentValue @relay(mask: false)
+              ...ChoiceFieldFragmentValue @relay(mask: false)
+            }
+            ownMeta {
+              ...ChoiceFieldFragmentMeta @relay(mask: false)
+              ...TextFieldFragmentMeta @relay(mask: false)
+              ...SwitchFieldFragmentMeta @relay(mask: false)
             }
             childrenMeta {
               fieldType
@@ -235,58 +251,51 @@ export default createFragmentContainer<Props>(
                 ...ChoiceFieldFragmentMeta @relay(mask: false)
                 ...TextFieldFragmentMeta @relay(mask: false)
                 ...SwitchFieldFragmentMeta @relay(mask: false)
-                ... on NestedMetaType {
-                  parentValue {
-                    ...SwitchFieldFragmentValue @relay(mask: false)
-                    ...TextFieldFragmentValue @relay(mask: false)
-                    ...ChoiceFieldFragmentValue @relay(mask: false)
-                  }
-                  ownMeta {
-                    ...ChoiceFieldFragmentMeta @relay(mask: false)
-                    ...TextFieldFragmentMeta @relay(mask: false)
-                    ...SwitchFieldFragmentMeta @relay(mask: false)
-                  }
-                  childrenMeta {
-                    fieldType
-                    parentValue {
-                      ...SwitchFieldFragmentValue @relay(mask: false)
-                      ...TextFieldFragmentValue @relay(mask: false)
-                      ...ChoiceFieldFragmentValue @relay(mask: false)
-                    }
-                    ownMeta {
-                      ...ChoiceFieldFragmentMeta @relay(mask: false)
-                      ...TextFieldFragmentMeta @relay(mask: false)
-                      ...SwitchFieldFragmentMeta @relay(mask: false)
-                    }
-                  }
-                }
               }
             }
           }
         }
       }
-      value {
-        ... on NestedValueType {
-          ownValue {
-            ...SwitchFieldFragmentValue @relay(mask: false)
-            ...TextFieldFragmentValue @relay(mask: false)
-            ...ChoiceFieldFragmentValue @relay(mask: false)
-          }
-          childrenValue {
-            ownValue {
-              ...SwitchFieldFragmentValue @relay(mask: false)
-              ...TextFieldFragmentValue @relay(mask: false)
-              ...ChoiceFieldFragmentValue @relay(mask: false)
-            }
-            childrenValue {
-              ownValue {
-                ...SwitchFieldFragmentValue @relay(mask: false)
-                ...TextFieldFragmentValue @relay(mask: false)
-                ...ChoiceFieldFragmentValue @relay(mask: false)
-              }
-            }
-          }
+    }
+  }
+`;
+// tslint:disable-next-line:no-unused-expression
+graphql`
+  fragment NestedFieldFragmentValue on NestedValueType {
+    ownValue {
+      ...SwitchFieldFragmentValue @relay(mask: false)
+      ...TextFieldFragmentValue @relay(mask: false)
+      ...ChoiceFieldFragmentValue @relay(mask: false)
+    }
+    childrenValue {
+      ownValue {
+        ...SwitchFieldFragmentValue @relay(mask: false)
+        ...TextFieldFragmentValue @relay(mask: false)
+        ...ChoiceFieldFragmentValue @relay(mask: false)
+      }
+      childrenValue {
+        ownValue {
+          ...SwitchFieldFragmentValue @relay(mask: false)
+          ...TextFieldFragmentValue @relay(mask: false)
+          ...ChoiceFieldFragmentValue @relay(mask: false)
         }
+      }
+    }
+  }
+`;
+
+export default createFragmentContainer<Props>(
+  // @ts-ignore
+  NestedFieldContainer,
+  graphql`
+    fragment NestedFieldFragment on FieldType {
+      id
+      fieldId
+      meta {
+        ...NestedFieldFragmentMeta @relay(mask: false)
+      }
+      value {
+        ...NestedFieldFragmentValue @relay(mask: false)
       }
     }
   `,

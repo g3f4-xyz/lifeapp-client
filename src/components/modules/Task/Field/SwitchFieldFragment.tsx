@@ -2,7 +2,7 @@
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
-import updateTaskSwitchFieldMutation from '../../../../mutations/updateTaskSwitchFieldMutation';
+import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Switch from '../../../display/field/Switch';
 import { SwitchFieldFragment } from './__generated__/SwitchFieldFragment.graphql';
 
@@ -29,7 +29,7 @@ class SwitchField extends React.Component<Props> {
   private handleChange = async (enabled: boolean): Promise<void> => {
     const { taskId, data: { fieldId, id }} = this.props;
 
-    await updateTaskSwitchFieldMutation({ fieldId, fieldValue: { enabled }, taskId }, { id });
+    await updateTaskFieldMutation({ fieldId, value: { enabled }, taskId }, { id });
   };
 }
 

@@ -2,7 +2,7 @@
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
-import updateTaskChoiceFieldMutation from '../../../../mutations/updateTaskChoiceFieldMutation';
+import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Choice from '../../../display/field/Choice';
 import { ChoiceFieldFragment } from './__generated__/ChoiceFieldFragment.graphql';
 
@@ -30,7 +30,7 @@ class ChoiceField extends React.Component<Props> {
   private handleChange = async (changedId: string): Promise<void> => {
     const { taskId, data: { fieldId, id }} = this.props;
 
-    await updateTaskChoiceFieldMutation({ fieldId, fieldValue: { id: changedId }, taskId }, { id });
+    await updateTaskFieldMutation({ fieldId, value: { id: changedId }, taskId }, { id });
   };
 }
 
