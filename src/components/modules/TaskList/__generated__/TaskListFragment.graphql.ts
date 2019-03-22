@@ -2,7 +2,7 @@
 
 import { ReaderFragment } from "relay-runtime";
 export type TaskStatusEnum = "DONE" | "IN_PROGRESS" | "TODO";
-export type TaskTypeEnum = "EVENT" | "MEETING" | "ROUTINE" | "TODO";
+export type TaskTypeEnum = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
 export type TaskListFragment$ref = any;
 export type TaskListFragment = {
     readonly id: string;

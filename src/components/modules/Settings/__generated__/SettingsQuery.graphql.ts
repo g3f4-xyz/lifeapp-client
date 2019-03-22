@@ -59,6 +59,7 @@ fragment NotificationsGeneralFragment on NotificationsGeneralSettingType {
 
 fragment NotificationsTypesFragment on NotificationsTypesSettingType {
   events
+  goals
   meetings
   routines
   todos
@@ -248,6 +249,13 @@ const node: ConcreteRequest = (function () {
                                                 {
                                                     "kind": "ScalarField",
                                                     "alias": null,
+                                                    "name": "goals",
+                                                    "args": null,
+                                                    "storageKey": null
+                                                },
+                                                {
+                                                    "kind": "ScalarField",
+                                                    "alias": null,
                                                     "name": "meetings",
                                                     "args": null,
                                                     "storageKey": null
@@ -378,7 +386,7 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "SettingsQuery",
             "id": null,
-            "text": "query SettingsQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    settings {\n      id\n      ...SettingsFragment\n    }\n    id\n  }\n}\n\nfragment SettingsFragment on SettingsType {\n  id\n  ownerId\n  notifications {\n    id\n    general {\n      ...NotificationsGeneralFragment\n      id\n    }\n    types {\n      ...NotificationsTypesFragment\n      id\n    }\n    ...SubscriptionsPagination\n  }\n}\n\nfragment NotificationsGeneralFragment on NotificationsGeneralSettingType {\n  show\n  vibrate\n}\n\nfragment NotificationsTypesFragment on NotificationsTypesSettingType {\n  events\n  meetings\n  routines\n  todos\n}\n\nfragment SubscriptionsPagination on NotificationsType {\n  id\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...SubscriptionFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SubscriptionFragment on SubscriptionType {\n  id\n  userAgent\n  userDeviceType\n}\n",
+            "text": "query SettingsQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    settings {\n      id\n      ...SettingsFragment\n    }\n    id\n  }\n}\n\nfragment SettingsFragment on SettingsType {\n  id\n  ownerId\n  notifications {\n    id\n    general {\n      ...NotificationsGeneralFragment\n      id\n    }\n    types {\n      ...NotificationsTypesFragment\n      id\n    }\n    ...SubscriptionsPagination\n  }\n}\n\nfragment NotificationsGeneralFragment on NotificationsGeneralSettingType {\n  show\n  vibrate\n}\n\nfragment NotificationsTypesFragment on NotificationsTypesSettingType {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n\nfragment SubscriptionsPagination on NotificationsType {\n  id\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...SubscriptionFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SubscriptionFragment on SubscriptionType {\n  id\n  userAgent\n  userDeviceType\n}\n",
             "metadata": {}
         }
     } as any;

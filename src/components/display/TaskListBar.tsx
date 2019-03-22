@@ -8,8 +8,8 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
-import { TASK_STATUSES, TASK_TYPES } from '../../constans';
-import { TaskListQueryResponse } from '../modules/TaskList/__generated__/TaskListQuery.graphql';
+import { TASK_STATUSES, TASK_TYPE } from '../../constans';
+import { TaskListQueryResponse, TaskTypeEnum } from '../modules/TaskList/__generated__/TaskListQuery.graphql';
 
 const styles = (theme: Theme) =>
   createStyles({
@@ -132,50 +132,20 @@ function TaskListBar(props: Props) {
               ))}
             </NativeSelect>
           </FormControl>
-          <FormControlLabel
-            control={
-              <Checkbox
-                color="default"
-                checked={taskType.includes(TASK_TYPES.TODO)}
-                onChange={onFilterByType}
-                value={TASK_TYPES.TODO}
-              />
-            }
-            label="Todos"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                color="default"
-                checked={taskType.includes(TASK_TYPES.ROUTINE)}
-                onChange={onFilterByType}
-                value={TASK_TYPES.ROUTINE}
-              />
-            }
-            label="Routines"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                color="default"
-                checked={taskType.includes(TASK_TYPES.EVENT)}
-                onChange={onFilterByType}
-                value={TASK_TYPES.EVENT}
-              />
-            }
-            label="Events"
-          />
-          <FormControlLabel
-            control={
-              <Checkbox
-                color="default"
-                checked={taskType.includes(TASK_TYPES.MEETING)}
-                onChange={onFilterByType}
-                value={TASK_TYPES.MEETING}
-              />
-            }
-            label="Meetings"
-          />
+          {Object.keys(TASK_TYPE).map(key => (
+            <FormControlLabel
+              key={key}
+              control={
+                <Checkbox
+                  color="default"
+                  checked={taskType.includes(key as TaskTypeEnum)}
+                  onChange={onFilterByType}
+                  value={key}
+                />
+              }
+              label={key}
+            />
+          ))}
         </Toolbar>
       </AppBar>
     </div>

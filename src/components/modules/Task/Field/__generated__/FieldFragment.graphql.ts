@@ -3,13 +3,14 @@
 import { ReaderFragment } from "relay-runtime";
 type ChoiceFieldFragment$ref = any;
 type NestedFieldFragment$ref = any;
+type SliderFieldFragment$ref = any;
 type SwitchFieldFragment$ref = any;
 type TextFieldFragment$ref = any;
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SWITCH" | "TEXT";
+export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
 export type FieldFragment$ref = any;
 export type FieldFragment = {
     readonly fieldType: FieldTypeEnum;
-    readonly " $fragmentRefs": SwitchFieldFragment$ref & ChoiceFieldFragment$ref & TextFieldFragment$ref & NestedFieldFragment$ref;
+    readonly " $fragmentRefs": SliderFieldFragment$ref & SwitchFieldFragment$ref & ChoiceFieldFragment$ref & TextFieldFragment$ref & NestedFieldFragment$ref;
     readonly " $refType": FieldFragment$ref;
 };
 
@@ -28,6 +29,11 @@ const node: ReaderFragment = ({
             "name": "fieldType",
             "args": null,
             "storageKey": null
+        },
+        {
+            "kind": "FragmentSpread",
+            "name": "SliderFieldFragment",
+            "args": null
         },
         {
             "kind": "FragmentSpread",
@@ -51,5 +57,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '55003f4e6ce5e3d01e55293d4a308bb4';
+(node as any).hash = '5f9dbe7ef3d8267e27ead2ae93e391aa';
 export default node;

@@ -2,43 +2,43 @@
 
 import { ConcreteRequest } from "relay-runtime";
 export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
-export type updateTaskChoiceFieldMutationInput = {
+export type updateTaskSliderFieldMutationInput = {
     readonly taskId: string;
     readonly fieldId: FieldIdEnum;
-    readonly fieldValue: ChoiceValueInputType;
+    readonly fieldValue: SliderValueInputType;
     readonly clientMutationId?: string | null;
 };
-export type ChoiceValueInputType = {
-    readonly id?: string | null;
+export type SliderValueInputType = {
+    readonly progress: number;
 };
-export type updateTaskChoiceFieldMutationVariables = {
-    readonly input: updateTaskChoiceFieldMutationInput;
+export type updateTaskSliderFieldMutationVariables = {
+    readonly input: updateTaskSliderFieldMutationInput;
 };
-export type updateTaskChoiceFieldMutationResponse = {
-    readonly updateTaskChoiceField: ({
+export type updateTaskSliderFieldMutationResponse = {
+    readonly updateTaskSliderField: ({
         readonly fieldId: FieldIdEnum;
         readonly taskId: string;
         readonly updatedFieldValue: {
-            readonly id: string;
+            readonly progress: number;
         };
     }) | null;
 };
-export type updateTaskChoiceFieldMutation = {
-    readonly response: updateTaskChoiceFieldMutationResponse;
-    readonly variables: updateTaskChoiceFieldMutationVariables;
+export type updateTaskSliderFieldMutation = {
+    readonly response: updateTaskSliderFieldMutationResponse;
+    readonly variables: updateTaskSliderFieldMutationVariables;
 };
 
 
 
 /*
-mutation updateTaskChoiceFieldMutation(
-  $input: updateTaskChoiceFieldMutationInput!
+mutation updateTaskSliderFieldMutation(
+  $input: updateTaskSliderFieldMutationInput!
 ) {
-  updateTaskChoiceField(input: $input) {
+  updateTaskSliderField(input: $input) {
     fieldId
     taskId
     updatedFieldValue {
-      id
+      progress
     }
   }
 }
@@ -49,24 +49,24 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "LocalArgument",
             "name": "input",
-            "type": "updateTaskChoiceFieldMutationInput!",
+            "type": "updateTaskSliderFieldMutationInput!",
             "defaultValue": null
         } as any)
     ], v1 = [
         ({
             "kind": "LinkedField",
             "alias": null,
-            "name": "updateTaskChoiceField",
+            "name": "updateTaskSliderField",
             "storageKey": null,
             "args": [
                 {
                     "kind": "Variable",
                     "name": "input",
                     "variableName": "input",
-                    "type": "updateTaskChoiceFieldMutationInput!"
+                    "type": "updateTaskSliderFieldMutationInput!"
                 }
             ],
-            "concreteType": "updateTaskChoiceFieldMutationPayload",
+            "concreteType": "updateTaskSliderFieldMutationPayload",
             "plural": false,
             "selections": [
                 {
@@ -89,13 +89,13 @@ const node: ConcreteRequest = (function () {
                     "name": "updatedFieldValue",
                     "storageKey": null,
                     "args": null,
-                    "concreteType": "ChoiceValueType",
+                    "concreteType": "SliderValueType",
                     "plural": false,
                     "selections": [
                         {
                             "kind": "ScalarField",
                             "alias": null,
-                            "name": "id",
+                            "name": "progress",
                             "args": null,
                             "storageKey": null
                         }
@@ -108,7 +108,7 @@ const node: ConcreteRequest = (function () {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "updateTaskChoiceFieldMutation",
+            "name": "updateTaskSliderFieldMutation",
             "type": "MutationType",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
@@ -116,18 +116,18 @@ const node: ConcreteRequest = (function () {
         },
         "operation": {
             "kind": "Operation",
-            "name": "updateTaskChoiceFieldMutation",
+            "name": "updateTaskSliderFieldMutation",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
         },
         "params": {
             "operationKind": "mutation",
-            "name": "updateTaskChoiceFieldMutation",
+            "name": "updateTaskSliderFieldMutation",
             "id": null,
-            "text": "mutation updateTaskChoiceFieldMutation(\n  $input: updateTaskChoiceFieldMutationInput!\n) {\n  updateTaskChoiceField(input: $input) {\n    fieldId\n    taskId\n    updatedFieldValue {\n      id\n    }\n  }\n}\n",
+            "text": "mutation updateTaskSliderFieldMutation(\n  $input: updateTaskSliderFieldMutationInput!\n) {\n  updateTaskSliderField(input: $input) {\n    fieldId\n    taskId\n    updatedFieldValue {\n      progress\n    }\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '975ec80f5e83aec1951e78b4cbb6faad';
+(node as any).hash = 'd1bca8c78ca9c33c205c663ab0ab9ac6';
 export default node;

@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SWITCH" | "TEXT";
+export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
 export type TextFieldFragmentMeta$ref = any;
 export type TextFieldFragmentMeta = {
     readonly fieldType: FieldTypeEnum;

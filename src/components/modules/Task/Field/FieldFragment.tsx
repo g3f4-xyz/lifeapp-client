@@ -6,6 +6,7 @@ import { FIELD_TYPE_VALUE_MAP } from '../../../../constans';
 import { FieldFragment } from './__generated__/FieldFragment.graphql';
 import ChoiceFieldFragment from './ChoiceFieldFragment';
 import NestedFieldFragment from './NestedFieldFragment';
+import SliderFieldFragment from './SliderFieldFragment';
 import SwitchFieldFragment from './SwitchFieldFragment';
 import TextFieldFragment from './TextFieldFragment';
 
@@ -14,11 +15,11 @@ interface Props {
   taskId: string;
 }
 
-const FIELD_COMPONENTS_MAP: FIELD_TYPE_VALUE_MAP<RelayContainer<Props>> = {
+const FIELD_COMPONENTS_MAP: FIELD_TYPE_VALUE_MAP<RelayContainer<Props & any>> = {
   CHOICE: ChoiceFieldFragment,
   SWITCH: SwitchFieldFragment,
+  SLIDER: SliderFieldFragment,
   TEXT: TextFieldFragment,
-  // @ts-ignore
   NESTED: NestedFieldFragment,
 };
 
@@ -34,6 +35,7 @@ export default createFragmentContainer<Props>(
   graphql`
     fragment FieldFragment on FieldType {
       fieldType
+      ...SliderFieldFragment
       ...SwitchFieldFragment
       ...ChoiceFieldFragment
       ...TextFieldFragment

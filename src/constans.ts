@@ -25,6 +25,7 @@ export const MODULES_IDS: { [key: string]: MODULE } = {
 
 export const FIELD_TYPE: ExcludeFutureAdded<UnionKeyToValue<FieldTypeEnum>> = {
   CHOICE: 'CHOICE',
+  SLIDER: 'SLIDER',
   SWITCH: 'SWITCH',
   TEXT: 'TEXT',
   NESTED: 'NESTED',
@@ -48,12 +49,15 @@ export const STATUSES: { [key: string]: STATUS } = {
   NOT_REGISTERED: '410',
 };
 
-export const TASK_TYPES: ExcludeFutureAdded<UnionKeyToValue<TaskTypeEnum>> = {
+export const TASK_TYPE: ExcludeFutureAdded<UnionKeyToValue<TaskTypeEnum>> = {
   EVENT: 'EVENT',
+  GOAL: 'GOAL',
   MEETING: 'MEETING',
   ROUTINE: 'ROUTINE',
   TODO: 'TODO',
 };
+
+export type TASK_TYPE_VALUE_MAP<V> = KEYOF_TYPE_VALUE_MAP<typeof TASK_TYPE, V>;
 
 export const TASK_STATUSES: ExcludeFutureAdded<UnionKeyToValue<TaskStatusEnum>> = {
   TODO: 'TODO',

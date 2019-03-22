@@ -8,21 +8,13 @@ export type updateTaskNestedFieldMutationInput = {
     readonly clientMutationId?: string | null;
 };
 export type NestedValueInputType = {
-    readonly ownValue?: ValueInputType | null;
-    readonly childrenValue?: NestedChildrenValueInputType | null;
+    readonly ownValue?: LeafFieldValueInputType | null;
+    readonly childrenValue?: NestedValueInputType | null;
 };
-export type ValueInputType = {
+export type LeafFieldValueInputType = {
     readonly enabled?: boolean | null;
     readonly id?: string | null;
     readonly text?: string | null;
-};
-export type NestedChildrenValueInputType = {
-    readonly ownValue?: ValueInputType | null;
-    readonly childrenValue?: NestedNestedChildrenValueInputType | null;
-};
-export type NestedNestedChildrenValueInputType = {
-    readonly ownValue?: ValueInputType | null;
-    readonly childrenValue?: ValueInputType | null;
 };
 export type updateTaskNestedFieldMutationVariables = {
     readonly input: updateTaskNestedFieldMutationInput;
