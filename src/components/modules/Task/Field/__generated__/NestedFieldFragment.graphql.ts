@@ -536,5 +536,5 @@ const node: ReaderFragment = (function () {
         ]
     } as any;
 })();
-(node as any).hash = '176409e9c00f21c42e964b2fdc4d0b3b';
+(node as any).hash = '96cec5dc180a63a242bd2a8739ef488e';
 export default node;

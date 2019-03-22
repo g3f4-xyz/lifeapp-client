@@ -2,7 +2,7 @@
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
-import updateTaskSliderFieldMutation from '../../../../mutations/updateTaskSliderFieldMutation';
+import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Slider from '../../../display/field/Slider';
 import { SliderFieldFragment } from './__generated__/SliderFieldFragment.graphql';
 
@@ -32,7 +32,7 @@ class SliderField extends React.Component<Props> {
   private handleChange = async (progress: number): Promise<void> => {
     const { taskId, data: { fieldId, id }} = this.props;
 
-    await updateTaskSliderFieldMutation({ fieldId, fieldValue: { progress }, taskId }, { id });
+    await updateTaskFieldMutation({ fieldId, value: { progress }, taskId }, { id });
   };
 }
 

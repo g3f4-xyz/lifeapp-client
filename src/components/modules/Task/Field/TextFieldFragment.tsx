@@ -2,7 +2,7 @@
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
-import updateTaskTextFieldMutation from '../../../../mutations/updateTaskTextFieldMutation';
+import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Text from '../../../display/field/Text';
 import { TextFieldFragment } from './__generated__/TextFieldFragment.graphql';
 
@@ -37,7 +37,7 @@ class TextField extends React.Component<Props> {
   private handleChange = async (text: string): Promise<void> => {
     const { taskId, data: { fieldId, id }} = this.props;
 
-    await updateTaskTextFieldMutation({ fieldId, fieldValue: { text }, taskId }, { id });
+    await updateTaskFieldMutation({ fieldId, value: { text }, taskId }, { id });
   };
 }
 
