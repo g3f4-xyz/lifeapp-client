@@ -53,7 +53,7 @@ export default createFragmentContainer<Props>(
   // @ts-ignore
   SwitchField,
   graphql`
-    fragment SwitchFieldFragment on FieldType {
+    fragment SwitchFieldFragment on SwitchFieldType {
       id
       fieldId
       meta {

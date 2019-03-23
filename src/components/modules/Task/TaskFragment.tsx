@@ -3,11 +3,24 @@ import { Done } from '@material-ui/icons';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
-import { createFragmentContainer, RelayProp } from 'react-relay';
+import { createFragmentContainer, RelayContainer, RelayProp } from 'react-relay';
+import { FIELD_TYPE_VALUE_MAP } from '../../../constans';
 import {
   TaskFragment as TaskFragmentResponse,
 } from './__generated__/TaskFragment.graphql';
-import FieldFragment from './Field/FieldFragment';
+import ChoiceFieldFragment from './fields/ChoiceFieldFragment';
+import NestedFieldFragment from './fields/NestedFieldFragment';
+import SliderFieldFragment from './fields/SliderFieldFragment';
+import SwitchFieldFragment from './fields/SwitchFieldFragment';
+import TextFieldFragment from './fields/TextFieldFragment';
+
+const FIELD_COMPONENTS_MAP: FIELD_TYPE_VALUE_MAP<RelayContainer<Props & any>> = {
+  CHOICE: ChoiceFieldFragment,
+  SWITCH: SwitchFieldFragment,
+  SLIDER: SliderFieldFragment,
+  TEXT: TextFieldFragment,
+  NESTED: NestedFieldFragment,
+};
 
 const styles = (theme: Theme) => ({
   wrapper: {
@@ -99,9 +112,12 @@ class Task extends React.Component<Props, TaskFragmentResponse> {
       <div className={classes.wrapper}>
         {fieldsGroupedByOrder.map((fieldsInRow, key) => (
           <Paper className={classes.row} key={key}>
-            {fieldsInRow.map((field) => (
-              <FieldFragment key={field.fieldId} data={field} taskId={data.id} />
-            ))}
+            {fieldsInRow.map((field, key) => {
+              // @ts-ignore
+              const Component = FIELD_COMPONENTS_MAP[field.fieldType];
+
+              return <Component key={key} data={field} taskId={data.id} />;
+            })}
           </Paper>
         ))}
         <IconButton
@@ -123,9 +139,32 @@ export default createFragmentContainer<Props>(
     fragment TaskFragment on TaskType {
       id
       fields {
-        fieldId
-        order
-        ...FieldFragment
+        __typename
+        ... on ChoiceFieldType {
+          fieldType
+          order
+        }
+        ... on SwitchFieldType {
+          fieldType
+          order
+        }
+        ... on SliderFieldType {
+          fieldType
+          order
+        }
+        ... on NestedFieldType {
+          fieldType
+          order
+        }
+        ... on TextFieldType {
+          fieldType
+          order
+        }
+        ...SliderFieldFragment
+        ...SwitchFieldFragment
+        ...ChoiceFieldFragment
+        ...TextFieldFragment
+        ...NestedFieldFragment
       }
     }
   `,

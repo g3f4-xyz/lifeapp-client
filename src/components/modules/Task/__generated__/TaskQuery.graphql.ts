@@ -44,121 +44,156 @@ query TaskQuery(
 fragment TaskFragment on TaskType {
   id
   fields {
-    fieldId
-    order
-    ...FieldFragment
-    id
-  }
-}
-
-fragment FieldFragment on FieldType {
-  fieldType
-  ...SliderFieldFragment
-  ...SwitchFieldFragment
-  ...ChoiceFieldFragment
-  ...TextFieldFragment
-  ...NestedFieldFragment
-}
-
-fragment SliderFieldFragment on FieldType {
-  id
-  fieldId
-  meta {
     __typename
-    ... on SliderMetaType {
+    ... on ChoiceFieldType {
       fieldType
-      label
-      disabled
-      required
-      max
-      min
-      step
+      order
     }
-  }
-  value {
-    __typename
-    ... on SliderValueType {
-      progress
-    }
-  }
-}
-
-fragment SwitchFieldFragment on FieldType {
-  id
-  fieldId
-  meta {
-    __typename
-    ... on SwitchMetaType {
+    ... on SwitchFieldType {
       fieldType
-      label
-      disabled
-      required
+      order
     }
-  }
-  value {
-    __typename
-    ... on SwitchValueType {
-      enabled
-    }
-  }
-}
-
-fragment ChoiceFieldFragment on FieldType {
-  id
-  fieldId
-  meta {
-    __typename
-    ... on ChoiceMetaType {
+    ... on SliderFieldType {
       fieldType
-      helperText
-      label
-      defaultValue
-      options {
-        text
-        value
-      }
-      required
+      order
     }
-  }
-  value {
-    __typename
-    ... on ChoiceValueType {
+    ... on NestedFieldType {
+      fieldType
+      order
+    }
+    ... on TextFieldType {
+      fieldType
+      order
+    }
+    ...SliderFieldFragment
+    ...SwitchFieldFragment
+    ...ChoiceFieldFragment
+    ...TextFieldFragment
+    ...NestedFieldFragment
+    ... on Node {
       id
     }
   }
 }
 
-fragment TextFieldFragment on FieldType {
+fragment SliderFieldFragment on SliderFieldType {
   id
   fieldId
   meta {
-    __typename
-    ... on TextMetaType {
-      fieldType
-      helperText
-      label
-      inputType
-      min
-      max
-      maxLength
-      minLength
-      required
-    }
+    fieldType
+    label
+    disabled
+    required
+    max
+    min
+    step
   }
   value {
-    __typename
-    ... on TextValueType {
-      text
-    }
+    progress
   }
 }
 
-fragment NestedFieldFragment on FieldType {
+fragment SwitchFieldFragment on SwitchFieldType {
   id
   fieldId
   meta {
-    __typename
-    ... on NestedMetaType {
+    fieldType
+    label
+    disabled
+    required
+  }
+  value {
+    enabled
+  }
+}
+
+fragment ChoiceFieldFragment on ChoiceFieldType {
+  id
+  fieldId
+  meta {
+    fieldType
+    helperText
+    label
+    defaultValue
+    options {
+      text
+      value
+    }
+    required
+  }
+  value {
+    id
+  }
+}
+
+fragment TextFieldFragment on TextFieldType {
+  id
+  fieldId
+  meta {
+    fieldType
+    helperText
+    label
+    inputType
+    min
+    max
+    maxLength
+    minLength
+    required
+  }
+  value {
+    text
+  }
+}
+
+fragment NestedFieldFragment on NestedFieldType {
+  id
+  fieldId
+  meta {
+    fieldType
+    parentValue {
+      __typename
+      ... on SwitchValueType {
+        enabled
+      }
+      ... on TextValueType {
+        text
+      }
+      ... on ChoiceValueType {
+        id
+      }
+    }
+    ownMeta {
+      __typename
+      ... on ChoiceMetaType {
+        fieldType
+        helperText
+        label
+        defaultValue
+        options {
+          text
+          value
+        }
+        required
+      }
+      ... on TextMetaType {
+        fieldType
+        helperText
+        label
+        inputType
+        min
+        max
+        maxLength
+        minLength
+        required
+      }
+      ... on SwitchMetaType {
+        fieldType
+        label
+        disabled
+        required
+      }
+    }
+    childrenMeta {
       fieldType
       parentValue {
         __typename
@@ -201,6 +236,97 @@ fragment NestedFieldFragment on FieldType {
           label
           disabled
           required
+        }
+        ... on NestedMetaType {
+          parentValue {
+            __typename
+            ... on SwitchValueType {
+              enabled
+            }
+            ... on TextValueType {
+              text
+            }
+            ... on ChoiceValueType {
+              id
+            }
+          }
+          ownMeta {
+            __typename
+            ... on ChoiceMetaType {
+              fieldType
+              helperText
+              label
+              defaultValue
+              options {
+                text
+                value
+              }
+              required
+            }
+            ... on TextMetaType {
+              fieldType
+              helperText
+              label
+              inputType
+              min
+              max
+              maxLength
+              minLength
+              required
+            }
+            ... on SwitchMetaType {
+              fieldType
+              label
+              disabled
+              required
+            }
+          }
+          childrenMeta {
+            fieldType
+            parentValue {
+              __typename
+              ... on SwitchValueType {
+                enabled
+              }
+              ... on TextValueType {
+                text
+              }
+              ... on ChoiceValueType {
+                id
+              }
+            }
+            ownMeta {
+              __typename
+              ... on ChoiceMetaType {
+                fieldType
+                helperText
+                label
+                defaultValue
+                options {
+                  text
+                  value
+                }
+                required
+              }
+              ... on TextMetaType {
+                fieldType
+                helperText
+                label
+                inputType
+                min
+                max
+                maxLength
+                minLength
+                required
+              }
+              ... on SwitchMetaType {
+                fieldType
+                label
+                disabled
+                required
+              }
+            }
+          }
         }
       }
       childrenMeta {
@@ -339,149 +465,23 @@ fragment NestedFieldFragment on FieldType {
             }
           }
         }
-        childrenMeta {
-          fieldType
-          parentValue {
-            __typename
-            ... on SwitchValueType {
-              enabled
-            }
-            ... on TextValueType {
-              text
-            }
-            ... on ChoiceValueType {
-              id
-            }
-          }
-          ownMeta {
-            __typename
-            ... on ChoiceMetaType {
-              fieldType
-              helperText
-              label
-              defaultValue
-              options {
-                text
-                value
-              }
-              required
-            }
-            ... on TextMetaType {
-              fieldType
-              helperText
-              label
-              inputType
-              min
-              max
-              maxLength
-              minLength
-              required
-            }
-            ... on SwitchMetaType {
-              fieldType
-              label
-              disabled
-              required
-            }
-            ... on NestedMetaType {
-              parentValue {
-                __typename
-                ... on SwitchValueType {
-                  enabled
-                }
-                ... on TextValueType {
-                  text
-                }
-                ... on ChoiceValueType {
-                  id
-                }
-              }
-              ownMeta {
-                __typename
-                ... on ChoiceMetaType {
-                  fieldType
-                  helperText
-                  label
-                  defaultValue
-                  options {
-                    text
-                    value
-                  }
-                  required
-                }
-                ... on TextMetaType {
-                  fieldType
-                  helperText
-                  label
-                  inputType
-                  min
-                  max
-                  maxLength
-                  minLength
-                  required
-                }
-                ... on SwitchMetaType {
-                  fieldType
-                  label
-                  disabled
-                  required
-                }
-              }
-              childrenMeta {
-                fieldType
-                parentValue {
-                  __typename
-                  ... on SwitchValueType {
-                    enabled
-                  }
-                  ... on TextValueType {
-                    text
-                  }
-                  ... on ChoiceValueType {
-                    id
-                  }
-                }
-                ownMeta {
-                  __typename
-                  ... on ChoiceMetaType {
-                    fieldType
-                    helperText
-                    label
-                    defaultValue
-                    options {
-                      text
-                      value
-                    }
-                    required
-                  }
-                  ... on TextMetaType {
-                    fieldType
-                    helperText
-                    label
-                    inputType
-                    min
-                    max
-                    maxLength
-                    minLength
-                    required
-                  }
-                  ... on SwitchMetaType {
-                    fieldType
-                    label
-                    disabled
-                    required
-                  }
-                }
-              }
-            }
-          }
-        }
       }
     }
   }
   value {
-    __typename
-    ... on NestedValueType {
+    ownValue {
+      __typename
+      ... on SwitchValueType {
+        enabled
+      }
+      ... on TextValueType {
+        text
+      }
+      ... on ChoiceValueType {
+        id
+      }
+    }
+    childrenValue {
       ownValue {
         __typename
         ... on SwitchValueType {
@@ -505,20 +505,6 @@ fragment NestedFieldFragment on FieldType {
           }
           ... on ChoiceValueType {
             id
-          }
-        }
-        childrenValue {
-          ownValue {
-            __typename
-            ... on SwitchValueType {
-              enabled
-            }
-            ... on TextValueType {
-              text
-            }
-            ... on ChoiceValueType {
-              id
-            }
           }
         }
       }
@@ -574,160 +560,132 @@ const node: ConcreteRequest = (function () {
     } as any), v5 = ({
         "kind": "ScalarField",
         "alias": null,
-        "name": "fieldType",
+        "name": "__typename",
         "args": null,
         "storageKey": null
     } as any), v6 = ({
         "kind": "ScalarField",
         "alias": null,
-        "name": "__typename",
+        "name": "fieldType",
         "args": null,
         "storageKey": null
     } as any), v7 = ({
         "kind": "ScalarField",
         "alias": null,
-        "name": "label",
+        "name": "order",
         "args": null,
         "storageKey": null
     } as any), v8 = ({
         "kind": "ScalarField",
         "alias": null,
-        "name": "disabled",
+        "name": "fieldId",
         "args": null,
         "storageKey": null
     } as any), v9 = ({
         "kind": "ScalarField",
         "alias": null,
-        "name": "required",
+        "name": "helperText",
         "args": null,
         "storageKey": null
     } as any), v10 = ({
         "kind": "ScalarField",
         "alias": null,
-        "name": "max",
+        "name": "label",
         "args": null,
         "storageKey": null
     } as any), v11 = ({
         "kind": "ScalarField",
         "alias": null,
-        "name": "min",
-        "args": null,
-        "storageKey": null
-    } as any), v12 = ({
-        "kind": "InlineFragment",
-        "type": "SwitchMetaType",
-        "selections": [
-            (v5 /*: any*/),
-            (v7 /*: any*/),
-            (v8 /*: any*/),
-            (v9 /*: any*/)
-        ]
-    } as any), v13 = ({
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "helperText",
-        "args": null,
-        "storageKey": null
-    } as any), v14 = ({
-        "kind": "ScalarField",
-        "alias": null,
         "name": "text",
         "args": null,
         "storageKey": null
-    } as any), v15 = ({
-        "kind": "InlineFragment",
-        "type": "ChoiceMetaType",
-        "selections": [
-            (v5 /*: any*/),
-            (v13 /*: any*/),
-            (v7 /*: any*/),
-            {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "defaultValue",
-                "args": null,
-                "storageKey": null
-            },
-            {
-                "kind": "LinkedField",
-                "alias": null,
-                "name": "options",
-                "storageKey": null,
-                "args": null,
-                "concreteType": "ChoiceOptionsMetaType",
-                "plural": true,
-                "selections": [
-                    (v14 /*: any*/),
-                    {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "value",
-                        "args": null,
-                        "storageKey": null
-                    }
-                ]
-            },
-            (v9 /*: any*/)
-        ]
-    } as any), v16 = ({
-        "kind": "InlineFragment",
-        "type": "TextMetaType",
-        "selections": [
-            (v5 /*: any*/),
-            (v13 /*: any*/),
-            (v7 /*: any*/),
-            {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "inputType",
-                "args": null,
-                "storageKey": null
-            },
-            (v11 /*: any*/),
-            (v10 /*: any*/),
-            {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "maxLength",
-                "args": null,
-                "storageKey": null
-            },
-            {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "minLength",
-                "args": null,
-                "storageKey": null
-            },
-            (v9 /*: any*/)
-        ]
-    } as any), v17 = ({
-        "kind": "InlineFragment",
-        "type": "SwitchValueType",
-        "selections": [
-            {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "enabled",
-                "args": null,
-                "storageKey": null
-            }
-        ]
-    } as any), v18 = ({
-        "kind": "InlineFragment",
-        "type": "TextValueType",
-        "selections": [
-            (v14 /*: any*/)
-        ]
-    } as any), v19 = ({
-        "kind": "InlineFragment",
-        "type": "ChoiceValueType",
-        "selections": (v3 /*: any*/)
-    } as any), v20 = [
+    } as any), v12 = ({
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "required",
+        "args": null,
+        "storageKey": null
+    } as any), v13 = [
         (v6 /*: any*/),
-        (v17 /*: any*/),
-        (v18 /*: any*/),
-        (v19 /*: any*/)
+        (v9 /*: any*/),
+        (v10 /*: any*/),
+        ({
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "defaultValue",
+            "args": null,
+            "storageKey": null
+        } as any),
+        ({
+            "kind": "LinkedField",
+            "alias": null,
+            "name": "options",
+            "storageKey": null,
+            "args": null,
+            "concreteType": "ChoiceOptionsMetaType",
+            "plural": true,
+            "selections": [
+                (v11 /*: any*/),
+                {
+                    "kind": "ScalarField",
+                    "alias": null,
+                    "name": "value",
+                    "args": null,
+                    "storageKey": null
+                }
+            ]
+        } as any),
+        (v12 /*: any*/)
+    ], v14 = ({
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "disabled",
+        "args": null,
+        "storageKey": null
+    } as any), v15 = [
+        (v6 /*: any*/),
+        (v10 /*: any*/),
+        (v14 /*: any*/),
+        (v12 /*: any*/)
+    ], v16 = [
+        ({
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "enabled",
+            "args": null,
+            "storageKey": null
+        } as any)
+    ], v17 = ({
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "max",
+        "args": null,
+        "storageKey": null
+    } as any), v18 = ({
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "min",
+        "args": null,
+        "storageKey": null
+    } as any), v19 = [
+        (v11 /*: any*/)
+    ], v20 = [
+        (v5 /*: any*/),
+        ({
+            "kind": "InlineFragment",
+            "type": "SwitchValueType",
+            "selections": (v16 /*: any*/)
+        } as any),
+        ({
+            "kind": "InlineFragment",
+            "type": "TextValueType",
+            "selections": (v19 /*: any*/)
+        } as any),
+        ({
+            "kind": "InlineFragment",
+            "type": "ChoiceValueType",
+            "selections": (v3 /*: any*/)
+        } as any)
     ], v21 = ({
         "kind": "LinkedField",
         "alias": null,
@@ -738,6 +696,46 @@ const node: ConcreteRequest = (function () {
         "plural": false,
         "selections": (v20 /*: any*/)
     } as any), v22 = ({
+        "kind": "InlineFragment",
+        "type": "ChoiceMetaType",
+        "selections": (v13 /*: any*/)
+    } as any), v23 = [
+        (v6 /*: any*/),
+        (v9 /*: any*/),
+        (v10 /*: any*/),
+        ({
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "inputType",
+            "args": null,
+            "storageKey": null
+        } as any),
+        (v18 /*: any*/),
+        (v17 /*: any*/),
+        ({
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "maxLength",
+            "args": null,
+            "storageKey": null
+        } as any),
+        ({
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "minLength",
+            "args": null,
+            "storageKey": null
+        } as any),
+        (v12 /*: any*/)
+    ], v24 = ({
+        "kind": "InlineFragment",
+        "type": "TextMetaType",
+        "selections": (v23 /*: any*/)
+    } as any), v25 = ({
+        "kind": "InlineFragment",
+        "type": "SwitchMetaType",
+        "selections": (v15 /*: any*/)
+    } as any), v26 = ({
         "kind": "LinkedField",
         "alias": null,
         "name": "ownMeta",
@@ -746,12 +744,12 @@ const node: ConcreteRequest = (function () {
         "concreteType": null,
         "plural": false,
         "selections": [
-            (v6 /*: any*/),
-            (v15 /*: any*/),
-            (v16 /*: any*/),
-            (v12 /*: any*/)
+            (v5 /*: any*/),
+            (v22 /*: any*/),
+            (v24 /*: any*/),
+            (v25 /*: any*/)
         ]
-    } as any), v23 = ({
+    } as any), v27 = ({
         "kind": "LinkedField",
         "alias": null,
         "name": "ownMeta",
@@ -760,16 +758,16 @@ const node: ConcreteRequest = (function () {
         "concreteType": null,
         "plural": false,
         "selections": [
-            (v6 /*: any*/),
-            (v15 /*: any*/),
-            (v16 /*: any*/),
-            (v12 /*: any*/),
+            (v5 /*: any*/),
+            (v22 /*: any*/),
+            (v24 /*: any*/),
+            (v25 /*: any*/),
             {
                 "kind": "InlineFragment",
                 "type": "NestedMetaType",
                 "selections": [
                     (v21 /*: any*/),
-                    (v22 /*: any*/),
+                    (v26 /*: any*/),
                     {
                         "kind": "LinkedField",
                         "alias": null,
@@ -779,15 +777,15 @@ const node: ConcreteRequest = (function () {
                         "concreteType": "NestedMetaType",
                         "plural": true,
                         "selections": [
-                            (v5 /*: any*/),
+                            (v6 /*: any*/),
                             (v21 /*: any*/),
-                            (v22 /*: any*/)
+                            (v26 /*: any*/)
                         ]
                     }
                 ]
             }
         ]
-    } as any), v24 = ({
+    } as any), v28 = ({
         "kind": "LinkedField",
         "alias": null,
         "name": "ownValue",
@@ -867,45 +865,91 @@ const node: ConcreteRequest = (function () {
                                     "name": "fields",
                                     "storageKey": null,
                                     "args": null,
-                                    "concreteType": "FieldType",
+                                    "concreteType": null,
                                     "plural": true,
                                     "selections": [
-                                        {
-                                            "kind": "ScalarField",
-                                            "alias": null,
-                                            "name": "fieldId",
-                                            "args": null,
-                                            "storageKey": null
-                                        },
-                                        {
-                                            "kind": "ScalarField",
-                                            "alias": null,
-                                            "name": "order",
-                                            "args": null,
-                                            "storageKey": null
-                                        },
                                         (v5 /*: any*/),
                                         (v2 /*: any*/),
                                         {
-                                            "kind": "LinkedField",
-                                            "alias": null,
-                                            "name": "meta",
-                                            "storageKey": null,
-                                            "args": null,
-                                            "concreteType": null,
-                                            "plural": false,
+                                            "kind": "InlineFragment",
+                                            "type": "ChoiceFieldType",
                                             "selections": [
                                                 (v6 /*: any*/),
+                                                (v7 /*: any*/),
+                                                (v8 /*: any*/),
                                                 {
-                                                    "kind": "InlineFragment",
-                                                    "type": "SliderMetaType",
+                                                    "kind": "LinkedField",
+                                                    "alias": null,
+                                                    "name": "meta",
+                                                    "storageKey": null,
+                                                    "args": null,
+                                                    "concreteType": "ChoiceMetaType",
+                                                    "plural": false,
+                                                    "selections": (v13 /*: any*/)
+                                                },
+                                                {
+                                                    "kind": "LinkedField",
+                                                    "alias": null,
+                                                    "name": "value",
+                                                    "storageKey": null,
+                                                    "args": null,
+                                                    "concreteType": "ChoiceValueType",
+                                                    "plural": false,
+                                                    "selections": (v3 /*: any*/)
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "kind": "InlineFragment",
+                                            "type": "SwitchFieldType",
+                                            "selections": [
+                                                (v6 /*: any*/),
+                                                (v7 /*: any*/),
+                                                (v8 /*: any*/),
+                                                {
+                                                    "kind": "LinkedField",
+                                                    "alias": null,
+                                                    "name": "meta",
+                                                    "storageKey": null,
+                                                    "args": null,
+                                                    "concreteType": "SwitchMetaType",
+                                                    "plural": false,
+                                                    "selections": (v15 /*: any*/)
+                                                },
+                                                {
+                                                    "kind": "LinkedField",
+                                                    "alias": null,
+                                                    "name": "value",
+                                                    "storageKey": null,
+                                                    "args": null,
+                                                    "concreteType": "SwitchValueType",
+                                                    "plural": false,
+                                                    "selections": (v16 /*: any*/)
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "kind": "InlineFragment",
+                                            "type": "SliderFieldType",
+                                            "selections": [
+                                                (v6 /*: any*/),
+                                                (v7 /*: any*/),
+                                                (v8 /*: any*/),
+                                                {
+                                                    "kind": "LinkedField",
+                                                    "alias": null,
+                                                    "name": "meta",
+                                                    "storageKey": null,
+                                                    "args": null,
+                                                    "concreteType": "SliderMetaType",
+                                                    "plural": false,
                                                     "selections": [
-                                                        (v5 /*: any*/),
-                                                        (v7 /*: any*/),
-                                                        (v8 /*: any*/),
-                                                        (v9 /*: any*/),
+                                                        (v6 /*: any*/),
                                                         (v10 /*: any*/),
-                                                        (v11 /*: any*/),
+                                                        (v14 /*: any*/),
+                                                        (v12 /*: any*/),
+                                                        (v17 /*: any*/),
+                                                        (v18 /*: any*/),
                                                         {
                                                             "kind": "ScalarField",
                                                             "alias": null,
@@ -915,61 +959,14 @@ const node: ConcreteRequest = (function () {
                                                         }
                                                     ]
                                                 },
-                                                (v12 /*: any*/),
-                                                (v15 /*: any*/),
-                                                (v16 /*: any*/),
                                                 {
-                                                    "kind": "InlineFragment",
-                                                    "type": "NestedMetaType",
-                                                    "selections": [
-                                                        (v5 /*: any*/),
-                                                        (v21 /*: any*/),
-                                                        (v22 /*: any*/),
-                                                        {
-                                                            "kind": "LinkedField",
-                                                            "alias": null,
-                                                            "name": "childrenMeta",
-                                                            "storageKey": null,
-                                                            "args": null,
-                                                            "concreteType": "NestedMetaType",
-                                                            "plural": true,
-                                                            "selections": [
-                                                                (v5 /*: any*/),
-                                                                (v21 /*: any*/),
-                                                                (v23 /*: any*/),
-                                                                {
-                                                                    "kind": "LinkedField",
-                                                                    "alias": null,
-                                                                    "name": "childrenMeta",
-                                                                    "storageKey": null,
-                                                                    "args": null,
-                                                                    "concreteType": "NestedMetaType",
-                                                                    "plural": true,
-                                                                    "selections": [
-                                                                        (v5 /*: any*/),
-                                                                        (v21 /*: any*/),
-                                                                        (v23 /*: any*/)
-                                                                    ]
-                                                                }
-                                                            ]
-                                                        }
-                                                    ]
-                                                }
-                                            ]
-                                        },
-                                        {
-                                            "kind": "LinkedField",
-                                            "alias": null,
-                                            "name": "value",
-                                            "storageKey": null,
-                                            "args": null,
-                                            "concreteType": null,
-                                            "plural": false,
-                                            "selections": [
-                                                (v6 /*: any*/),
-                                                {
-                                                    "kind": "InlineFragment",
-                                                    "type": "SliderValueType",
+                                                    "kind": "LinkedField",
+                                                    "alias": null,
+                                                    "name": "value",
+                                                    "storageKey": null,
+                                                    "args": null,
+                                                    "concreteType": "SliderValueType",
+                                                    "plural": false,
                                                     "selections": [
                                                         {
                                                             "kind": "ScalarField",
@@ -979,15 +976,68 @@ const node: ConcreteRequest = (function () {
                                                             "storageKey": null
                                                         }
                                                     ]
-                                                },
-                                                (v17 /*: any*/),
-                                                (v19 /*: any*/),
-                                                (v18 /*: any*/),
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "kind": "InlineFragment",
+                                            "type": "NestedFieldType",
+                                            "selections": [
+                                                (v6 /*: any*/),
+                                                (v7 /*: any*/),
+                                                (v8 /*: any*/),
                                                 {
-                                                    "kind": "InlineFragment",
-                                                    "type": "NestedValueType",
+                                                    "kind": "LinkedField",
+                                                    "alias": null,
+                                                    "name": "meta",
+                                                    "storageKey": null,
+                                                    "args": null,
+                                                    "concreteType": "NestedMetaType",
+                                                    "plural": false,
                                                     "selections": [
-                                                        (v24 /*: any*/),
+                                                        (v6 /*: any*/),
+                                                        (v21 /*: any*/),
+                                                        (v26 /*: any*/),
+                                                        {
+                                                            "kind": "LinkedField",
+                                                            "alias": null,
+                                                            "name": "childrenMeta",
+                                                            "storageKey": null,
+                                                            "args": null,
+                                                            "concreteType": "NestedMetaType",
+                                                            "plural": true,
+                                                            "selections": [
+                                                                (v6 /*: any*/),
+                                                                (v21 /*: any*/),
+                                                                (v27 /*: any*/),
+                                                                {
+                                                                    "kind": "LinkedField",
+                                                                    "alias": null,
+                                                                    "name": "childrenMeta",
+                                                                    "storageKey": null,
+                                                                    "args": null,
+                                                                    "concreteType": "NestedMetaType",
+                                                                    "plural": true,
+                                                                    "selections": [
+                                                                        (v6 /*: any*/),
+                                                                        (v21 /*: any*/),
+                                                                        (v27 /*: any*/)
+                                                                    ]
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "kind": "LinkedField",
+                                                    "alias": null,
+                                                    "name": "value",
+                                                    "storageKey": null,
+                                                    "args": null,
+                                                    "concreteType": "NestedValueType",
+                                                    "plural": false,
+                                                    "selections": [
+                                                        (v28 /*: any*/),
                                                         {
                                                             "kind": "LinkedField",
                                                             "alias": null,
@@ -997,7 +1047,7 @@ const node: ConcreteRequest = (function () {
                                                             "concreteType": "NestedValueType",
                                                             "plural": false,
                                                             "selections": [
-                                                                (v24 /*: any*/),
+                                                                (v28 /*: any*/),
                                                                 {
                                                                     "kind": "LinkedField",
                                                                     "alias": null,
@@ -1007,12 +1057,41 @@ const node: ConcreteRequest = (function () {
                                                                     "concreteType": "NestedValueType",
                                                                     "plural": false,
                                                                     "selections": [
-                                                                        (v24 /*: any*/)
+                                                                        (v28 /*: any*/)
                                                                     ]
                                                                 }
                                                             ]
                                                         }
                                                     ]
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            "kind": "InlineFragment",
+                                            "type": "TextFieldType",
+                                            "selections": [
+                                                (v6 /*: any*/),
+                                                (v7 /*: any*/),
+                                                (v8 /*: any*/),
+                                                {
+                                                    "kind": "LinkedField",
+                                                    "alias": null,
+                                                    "name": "meta",
+                                                    "storageKey": null,
+                                                    "args": null,
+                                                    "concreteType": "TextMetaType",
+                                                    "plural": false,
+                                                    "selections": (v23 /*: any*/)
+                                                },
+                                                {
+                                                    "kind": "LinkedField",
+                                                    "alias": null,
+                                                    "name": "value",
+                                                    "storageKey": null,
+                                                    "args": null,
+                                                    "concreteType": "TextValueType",
+                                                    "plural": false,
+                                                    "selections": (v19 /*: any*/)
                                                 }
                                             ]
                                         }
@@ -1030,7 +1109,7 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "TaskQuery",
             "id": null,
-            "text": "query TaskQuery(\n  $id: ID\n  $type: String\n) {\n  app {\n    task(id: $id, type: $type) {\n      id\n      ...TaskFragment\n    }\n    taskList {\n      id\n    }\n    id\n  }\n}\n\nfragment TaskFragment on TaskType {\n  id\n  fields {\n    fieldId\n    order\n    ...FieldFragment\n    id\n  }\n}\n\nfragment FieldFragment on FieldType {\n  fieldType\n  ...SliderFieldFragment\n  ...SwitchFieldFragment\n  ...ChoiceFieldFragment\n  ...TextFieldFragment\n  ...NestedFieldFragment\n}\n\nfragment SliderFieldFragment on FieldType {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on SliderMetaType {\n      fieldType\n      label\n      disabled\n      required\n      max\n      min\n      step\n    }\n  }\n  value {\n    __typename\n    ... on SliderValueType {\n      progress\n    }\n  }\n}\n\nfragment SwitchFieldFragment on FieldType {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on SwitchMetaType {\n      fieldType\n      label\n      disabled\n      required\n    }\n  }\n  value {\n    __typename\n    ... on SwitchValueType {\n      enabled\n    }\n  }\n}\n\nfragment ChoiceFieldFragment on FieldType {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on ChoiceMetaType {\n      fieldType\n      helperText\n      label\n      defaultValue\n      options {\n        text\n        value\n      }\n      required\n    }\n  }\n  value {\n    __typename\n    ... on ChoiceValueType {\n      id\n    }\n  }\n}\n\nfragment TextFieldFragment on FieldType {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on TextMetaType {\n      fieldType\n      helperText\n      label\n      inputType\n      min\n      max\n      maxLength\n      minLength\n      required\n    }\n  }\n  value {\n    __typename\n    ... on TextValueType {\n      text\n    }\n  }\n}\n\nfragment NestedFieldFragment on FieldType {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on NestedMetaType {\n      fieldType\n      parentValue {\n        __typename\n        ... on SwitchValueType {\n          enabled\n        }\n        ... on TextValueType {\n          text\n        }\n        ... on ChoiceValueType {\n          id\n        }\n      }\n      ownMeta {\n        __typename\n        ... on ChoiceMetaType {\n          fieldType\n          helperText\n          label\n          defaultValue\n          options {\n            text\n            value\n          }\n          required\n        }\n        ... on TextMetaType {\n          fieldType\n          helperText\n          label\n          inputType\n          min\n          max\n          maxLength\n          minLength\n          required\n        }\n        ... on SwitchMetaType {\n          fieldType\n          label\n          disabled\n          required\n        }\n      }\n      childrenMeta {\n        fieldType\n        parentValue {\n          __typename\n          ... on SwitchValueType {\n            enabled\n          }\n          ... on TextValueType {\n            text\n          }\n          ... on ChoiceValueType {\n            id\n          }\n        }\n        ownMeta {\n          __typename\n          ... on ChoiceMetaType {\n            fieldType\n            helperText\n            label\n            defaultValue\n            options {\n              text\n              value\n            }\n            required\n          }\n          ... on TextMetaType {\n            fieldType\n            helperText\n            label\n            inputType\n            min\n            max\n            maxLength\n            minLength\n            required\n          }\n          ... on SwitchMetaType {\n            fieldType\n            label\n            disabled\n            required\n          }\n          ... on NestedMetaType {\n            parentValue {\n              __typename\n              ... on SwitchValueType {\n                enabled\n              }\n              ... on TextValueType {\n                text\n              }\n              ... on ChoiceValueType {\n                id\n              }\n            }\n            ownMeta {\n              __typename\n              ... on ChoiceMetaType {\n                fieldType\n                helperText\n                label\n                defaultValue\n                options {\n                  text\n                  value\n                }\n                required\n              }\n              ... on TextMetaType {\n                fieldType\n                helperText\n                label\n                inputType\n                min\n                max\n                maxLength\n                minLength\n                required\n              }\n              ... on SwitchMetaType {\n                fieldType\n                label\n                disabled\n                required\n              }\n            }\n            childrenMeta {\n              fieldType\n              parentValue {\n                __typename\n                ... on SwitchValueType {\n                  enabled\n                }\n                ... on TextValueType {\n                  text\n                }\n                ... on ChoiceValueType {\n                  id\n                }\n              }\n              ownMeta {\n                __typename\n                ... on ChoiceMetaType {\n                  fieldType\n                  helperText\n                  label\n                  defaultValue\n                  options {\n                    text\n                    value\n                  }\n                  required\n                }\n                ... on TextMetaType {\n                  fieldType\n                  helperText\n                  label\n                  inputType\n                  min\n                  max\n                  maxLength\n                  minLength\n                  required\n                }\n                ... on SwitchMetaType {\n                  fieldType\n                  label\n                  disabled\n                  required\n                }\n              }\n            }\n          }\n        }\n        childrenMeta {\n          fieldType\n          parentValue {\n            __typename\n            ... on SwitchValueType {\n              enabled\n            }\n            ... on TextValueType {\n              text\n            }\n            ... on ChoiceValueType {\n              id\n            }\n          }\n          ownMeta {\n            __typename\n            ... on ChoiceMetaType {\n              fieldType\n              helperText\n              label\n              defaultValue\n              options {\n                text\n                value\n              }\n              required\n            }\n            ... on TextMetaType {\n              fieldType\n              helperText\n              label\n              inputType\n              min\n              max\n              maxLength\n              minLength\n              required\n            }\n            ... on SwitchMetaType {\n              fieldType\n              label\n              disabled\n              required\n            }\n            ... on NestedMetaType {\n              parentValue {\n                __typename\n                ... on SwitchValueType {\n                  enabled\n                }\n                ... on TextValueType {\n                  text\n                }\n                ... on ChoiceValueType {\n                  id\n                }\n              }\n              ownMeta {\n                __typename\n                ... on ChoiceMetaType {\n                  fieldType\n                  helperText\n                  label\n                  defaultValue\n                  options {\n                    text\n                    value\n                  }\n                  required\n                }\n                ... on TextMetaType {\n                  fieldType\n                  helperText\n                  label\n                  inputType\n                  min\n                  max\n                  maxLength\n                  minLength\n                  required\n                }\n                ... on SwitchMetaType {\n                  fieldType\n                  label\n                  disabled\n                  required\n                }\n              }\n              childrenMeta {\n                fieldType\n                parentValue {\n                  __typename\n                  ... on SwitchValueType {\n                    enabled\n                  }\n                  ... on TextValueType {\n                    text\n                  }\n                  ... on ChoiceValueType {\n                    id\n                  }\n                }\n                ownMeta {\n                  __typename\n                  ... on ChoiceMetaType {\n                    fieldType\n                    helperText\n                    label\n                    defaultValue\n                    options {\n                      text\n                      value\n                    }\n                    required\n                  }\n                  ... on TextMetaType {\n                    fieldType\n                    helperText\n                    label\n                    inputType\n                    min\n                    max\n                    maxLength\n                    minLength\n                    required\n                  }\n                  ... on SwitchMetaType {\n                    fieldType\n                    label\n                    disabled\n                    required\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n  value {\n    __typename\n    ... on NestedValueType {\n      ownValue {\n        __typename\n        ... on SwitchValueType {\n          enabled\n        }\n        ... on TextValueType {\n          text\n        }\n        ... on ChoiceValueType {\n          id\n        }\n      }\n      childrenValue {\n        ownValue {\n          __typename\n          ... on SwitchValueType {\n            enabled\n          }\n          ... on TextValueType {\n            text\n          }\n          ... on ChoiceValueType {\n            id\n          }\n        }\n        childrenValue {\n          ownValue {\n            __typename\n            ... on SwitchValueType {\n              enabled\n            }\n            ... on TextValueType {\n              text\n            }\n            ... on ChoiceValueType {\n              id\n            }\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "text": "query TaskQuery(\n  $id: ID\n  $type: String\n) {\n  app {\n    task(id: $id, type: $type) {\n      id\n      ...TaskFragment\n    }\n    taskList {\n      id\n    }\n    id\n  }\n}\n\nfragment TaskFragment on TaskType {\n  id\n  fields {\n    __typename\n    ... on ChoiceFieldType {\n      fieldType\n      order\n    }\n    ... on SwitchFieldType {\n      fieldType\n      order\n    }\n    ... on SliderFieldType {\n      fieldType\n      order\n    }\n    ... on NestedFieldType {\n      fieldType\n      order\n    }\n    ... on TextFieldType {\n      fieldType\n      order\n    }\n    ...SliderFieldFragment\n    ...SwitchFieldFragment\n    ...ChoiceFieldFragment\n    ...TextFieldFragment\n    ...NestedFieldFragment\n    ... on Node {\n      id\n    }\n  }\n}\n\nfragment SliderFieldFragment on SliderFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    label\n    disabled\n    required\n    max\n    min\n    step\n  }\n  value {\n    progress\n  }\n}\n\nfragment SwitchFieldFragment on SwitchFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    label\n    disabled\n    required\n  }\n  value {\n    enabled\n  }\n}\n\nfragment ChoiceFieldFragment on ChoiceFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    helperText\n    label\n    defaultValue\n    options {\n      text\n      value\n    }\n    required\n  }\n  value {\n    id\n  }\n}\n\nfragment TextFieldFragment on TextFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    helperText\n    label\n    inputType\n    min\n    max\n    maxLength\n    minLength\n    required\n  }\n  value {\n    text\n  }\n}\n\nfragment NestedFieldFragment on NestedFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    parentValue {\n      __typename\n      ... on SwitchValueType {\n        enabled\n      }\n      ... on TextValueType {\n        text\n      }\n      ... on ChoiceValueType {\n        id\n      }\n    }\n    ownMeta {\n      __typename\n      ... on ChoiceMetaType {\n        fieldType\n        helperText\n        label\n        defaultValue\n        options {\n          text\n          value\n        }\n        required\n      }\n      ... on TextMetaType {\n        fieldType\n        helperText\n        label\n        inputType\n        min\n        max\n        maxLength\n        minLength\n        required\n      }\n      ... on SwitchMetaType {\n        fieldType\n        label\n        disabled\n        required\n      }\n    }\n    childrenMeta {\n      fieldType\n      parentValue {\n        __typename\n        ... on SwitchValueType {\n          enabled\n        }\n        ... on TextValueType {\n          text\n        }\n        ... on ChoiceValueType {\n          id\n        }\n      }\n      ownMeta {\n        __typename\n        ... on ChoiceMetaType {\n          fieldType\n          helperText\n          label\n          defaultValue\n          options {\n            text\n            value\n          }\n          required\n        }\n        ... on TextMetaType {\n          fieldType\n          helperText\n          label\n          inputType\n          min\n          max\n          maxLength\n          minLength\n          required\n        }\n        ... on SwitchMetaType {\n          fieldType\n          label\n          disabled\n          required\n        }\n        ... on NestedMetaType {\n          parentValue {\n            __typename\n            ... on SwitchValueType {\n              enabled\n            }\n            ... on TextValueType {\n              text\n            }\n            ... on ChoiceValueType {\n              id\n            }\n          }\n          ownMeta {\n            __typename\n            ... on ChoiceMetaType {\n              fieldType\n              helperText\n              label\n              defaultValue\n              options {\n                text\n                value\n              }\n              required\n            }\n            ... on TextMetaType {\n              fieldType\n              helperText\n              label\n              inputType\n              min\n              max\n              maxLength\n              minLength\n              required\n            }\n            ... on SwitchMetaType {\n              fieldType\n              label\n              disabled\n              required\n            }\n          }\n          childrenMeta {\n            fieldType\n            parentValue {\n              __typename\n              ... on SwitchValueType {\n                enabled\n              }\n              ... on TextValueType {\n                text\n              }\n              ... on ChoiceValueType {\n                id\n              }\n            }\n            ownMeta {\n              __typename\n              ... on ChoiceMetaType {\n                fieldType\n                helperText\n                label\n                defaultValue\n                options {\n                  text\n                  value\n                }\n                required\n              }\n              ... on TextMetaType {\n                fieldType\n                helperText\n                label\n                inputType\n                min\n                max\n                maxLength\n                minLength\n                required\n              }\n              ... on SwitchMetaType {\n                fieldType\n                label\n                disabled\n                required\n              }\n            }\n          }\n        }\n      }\n      childrenMeta {\n        fieldType\n        parentValue {\n          __typename\n          ... on SwitchValueType {\n            enabled\n          }\n          ... on TextValueType {\n            text\n          }\n          ... on ChoiceValueType {\n            id\n          }\n        }\n        ownMeta {\n          __typename\n          ... on ChoiceMetaType {\n            fieldType\n            helperText\n            label\n            defaultValue\n            options {\n              text\n              value\n            }\n            required\n          }\n          ... on TextMetaType {\n            fieldType\n            helperText\n            label\n            inputType\n            min\n            max\n            maxLength\n            minLength\n            required\n          }\n          ... on SwitchMetaType {\n            fieldType\n            label\n            disabled\n            required\n          }\n          ... on NestedMetaType {\n            parentValue {\n              __typename\n              ... on SwitchValueType {\n                enabled\n              }\n              ... on TextValueType {\n                text\n              }\n              ... on ChoiceValueType {\n                id\n              }\n            }\n            ownMeta {\n              __typename\n              ... on ChoiceMetaType {\n                fieldType\n                helperText\n                label\n                defaultValue\n                options {\n                  text\n                  value\n                }\n                required\n              }\n              ... on TextMetaType {\n                fieldType\n                helperText\n                label\n                inputType\n                min\n                max\n                maxLength\n                minLength\n                required\n              }\n              ... on SwitchMetaType {\n                fieldType\n                label\n                disabled\n                required\n              }\n            }\n            childrenMeta {\n              fieldType\n              parentValue {\n                __typename\n                ... on SwitchValueType {\n                  enabled\n                }\n                ... on TextValueType {\n                  text\n                }\n                ... on ChoiceValueType {\n                  id\n                }\n              }\n              ownMeta {\n                __typename\n                ... on ChoiceMetaType {\n                  fieldType\n                  helperText\n                  label\n                  defaultValue\n                  options {\n                    text\n                    value\n                  }\n                  required\n                }\n                ... on TextMetaType {\n                  fieldType\n                  helperText\n                  label\n                  inputType\n                  min\n                  max\n                  maxLength\n                  minLength\n                  required\n                }\n                ... on SwitchMetaType {\n                  fieldType\n                  label\n                  disabled\n                  required\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n  value {\n    ownValue {\n      __typename\n      ... on SwitchValueType {\n        enabled\n      }\n      ... on TextValueType {\n        text\n      }\n      ... on ChoiceValueType {\n        id\n      }\n    }\n    childrenValue {\n      ownValue {\n        __typename\n        ... on SwitchValueType {\n          enabled\n        }\n        ... on TextValueType {\n          text\n        }\n        ... on ChoiceValueType {\n          id\n        }\n      }\n      childrenValue {\n        ownValue {\n          __typename\n          ... on SwitchValueType {\n            enabled\n          }\n          ... on TextValueType {\n            text\n          }\n          ... on ChoiceValueType {\n            id\n          }\n        }\n      }\n    }\n  }\n}\n",
             "metadata": {}
         }
     } as any;

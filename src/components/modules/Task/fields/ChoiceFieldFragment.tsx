@@ -59,7 +59,7 @@ export default createFragmentContainer<Props>(
   // @ts-ignore
   ChoiceField,
   graphql`
-    fragment ChoiceFieldFragment on FieldType {
+    fragment ChoiceFieldFragment on ChoiceFieldType {
       id
       fieldId
       meta {

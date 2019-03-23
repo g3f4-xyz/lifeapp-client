@@ -1,4 +1,4 @@
-import { FieldTypeEnum } from './components/modules/Task/Field/__generated__/FieldFragment.graphql';
+import { FieldTypeEnum } from './components/modules/Task/fields/__generated__/ChoiceFieldFragmentMeta.graphql';
 import { TaskStatusEnum } from './components/modules/TaskList/__generated__/TaskListFragment.graphql';
 import { TaskTypeEnum } from './components/modules/TaskTypeList/__generated__/TaskTypeFragment.graphql';
 
