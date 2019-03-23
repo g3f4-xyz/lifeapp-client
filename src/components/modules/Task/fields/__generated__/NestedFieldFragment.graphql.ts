@@ -8,13 +8,13 @@ export type NestedFieldFragment = {
     readonly id: string;
     readonly fieldId: FieldIdEnum;
     readonly meta: {
-        readonly fieldType?: FieldTypeEnum;
-        readonly parentValue?: ({
+        readonly fieldType: FieldTypeEnum;
+        readonly parentValue: ({
             readonly enabled?: boolean;
             readonly text?: string;
             readonly id?: string;
         }) | null;
-        readonly ownMeta?: ({
+        readonly ownMeta: ({
             readonly fieldType?: FieldTypeEnum;
             readonly helperText?: string;
             readonly label?: string;
@@ -31,7 +31,7 @@ export type NestedFieldFragment = {
             readonly minLength?: number | null;
             readonly disabled?: boolean | null;
         }) | null;
-        readonly childrenMeta?: ReadonlyArray<({
+        readonly childrenMeta: ReadonlyArray<({
             readonly fieldType: FieldTypeEnum;
             readonly parentValue: ({
                 readonly enabled?: boolean;
@@ -177,12 +177,12 @@ export type NestedFieldFragment = {
         }) | null> | null;
     };
     readonly value: {
-        readonly ownValue?: ({
+        readonly ownValue: ({
             readonly enabled?: boolean;
             readonly text?: string;
             readonly id?: string;
         }) | null;
-        readonly childrenValue?: ({
+        readonly childrenValue: ({
             readonly ownValue: ({
                 readonly enabled?: boolean;
                 readonly text?: string;
@@ -431,7 +431,7 @@ const node: ReaderFragment = (function () {
     return {
         "kind": "Fragment",
         "name": "NestedFieldFragment",
-        "type": "FieldType",
+        "type": "NestedFieldType",
         "metadata": null,
         "argumentDefinitions": [],
         "selections": [
@@ -449,16 +449,24 @@ const node: ReaderFragment = (function () {
                 "name": "meta",
                 "storageKey": null,
                 "args": null,
-                "concreteType": null,
+                "concreteType": "NestedMetaType",
                 "plural": false,
                 "selections": [
+                    (v1 /*: any*/),
+                    (v4 /*: any*/),
+                    (v11 /*: any*/),
                     {
-                        "kind": "InlineFragment",
-                        "type": "NestedMetaType",
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "name": "childrenMeta",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "NestedMetaType",
+                        "plural": true,
                         "selections": [
                             (v1 /*: any*/),
                             (v4 /*: any*/),
-                            (v11 /*: any*/),
+                            (v12 /*: any*/),
                             {
                                 "kind": "LinkedField",
                                 "alias": null,
@@ -470,21 +478,7 @@ const node: ReaderFragment = (function () {
                                 "selections": [
                                     (v1 /*: any*/),
                                     (v4 /*: any*/),
-                                    (v12 /*: any*/),
-                                    {
-                                        "kind": "LinkedField",
-                                        "alias": null,
-                                        "name": "childrenMeta",
-                                        "storageKey": null,
-                                        "args": null,
-                                        "concreteType": "NestedMetaType",
-                                        "plural": true,
-                                        "selections": [
-                                            (v1 /*: any*/),
-                                            (v4 /*: any*/),
-                                            (v12 /*: any*/)
-                                        ]
-                                    }
+                                    (v12 /*: any*/)
                                 ]
                             }
                         ]
@@ -497,12 +491,18 @@ const node: ReaderFragment = (function () {
                 "name": "value",
                 "storageKey": null,
                 "args": null,
-                "concreteType": null,
+                "concreteType": "NestedValueType",
                 "plural": false,
                 "selections": [
+                    (v13 /*: any*/),
                     {
-                        "kind": "InlineFragment",
-                        "type": "NestedValueType",
+                        "kind": "LinkedField",
+                        "alias": null,
+                        "name": "childrenValue",
+                        "storageKey": null,
+                        "args": null,
+                        "concreteType": "NestedValueType",
+                        "plural": false,
                         "selections": [
                             (v13 /*: any*/),
                             {
@@ -514,19 +514,7 @@ const node: ReaderFragment = (function () {
                                 "concreteType": "NestedValueType",
                                 "plural": false,
                                 "selections": [
-                                    (v13 /*: any*/),
-                                    {
-                                        "kind": "LinkedField",
-                                        "alias": null,
-                                        "name": "childrenValue",
-                                        "storageKey": null,
-                                        "args": null,
-                                        "concreteType": "NestedValueType",
-                                        "plural": false,
-                                        "selections": [
-                                            (v13 /*: any*/)
-                                        ]
-                                    }
+                                    (v13 /*: any*/)
                                 ]
                             }
                         ]
@@ -536,5 +524,5 @@ const node: ReaderFragment = (function () {
         ]
     } as any;
 })();
-(node as any).hash = '96cec5dc180a63a242bd2a8739ef488e';
+(node as any).hash = '97fd1fe6407473277c4ffb812c934a1b';
 export default node;

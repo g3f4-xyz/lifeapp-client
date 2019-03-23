@@ -66,7 +66,7 @@ export default createFragmentContainer<Props>(
   // @ts-ignore
   TextField,
   graphql`
-    fragment TextFieldFragment on FieldType {
+    fragment TextFieldFragment on TextFieldType {
       id
       fieldId
       meta {

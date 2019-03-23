@@ -288,7 +288,7 @@ export default createFragmentContainer<Props>(
   // @ts-ignore
   NestedFieldContainer,
   graphql`
-    fragment NestedFieldFragment on FieldType {
+    fragment NestedFieldFragment on NestedFieldType {
       id
       fieldId
       meta {

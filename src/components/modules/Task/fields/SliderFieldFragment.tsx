@@ -59,7 +59,7 @@ export default createFragmentContainer<Props>(
   // @ts-ignore
   SliderField,
   graphql`
-    fragment SliderFieldFragment on FieldType {
+    fragment SliderFieldFragment on SliderFieldType {
       id
       fieldId
       meta {
