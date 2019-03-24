@@ -15,9 +15,10 @@ import graphql from 'babel-plugin-relay/macro';
 import classNames from 'classnames';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
-import { TASK_STATUSES } from '../../../constans';
+import { FIELD_ID, TASK_STATUSES } from '../../../constans';
+import { TaskStatusEnum } from '../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 import TaskTypeIcon from '../../display/TaskTypeIcon';
-import { TaskListFragment as TaskListFragmentResponse, TaskStatusEnum } from './__generated__/TaskListFragment.graphql';
+import { TaskListFragment as TaskListFragmentResponse } from './__generated__/TaskListFragment.graphql';
 
 const styles = (theme: Theme) => ({
   actions: {
@@ -67,7 +68,11 @@ interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
 class TaskListFragment extends React.PureComponent<Props> {
   render(): React.ReactNode {
     const { classes, data, onDelete, onEdit } = this.props;
-    const { id, taskType, title, note, priority, status } = data;
+    const { id, taskType, fields,  } = data;
+    const titleField = fields.find(field => field.fieldId === FIELD_ID.TITLE);
+    const noteField = fields.find(field => field.fieldId === FIELD_ID.NOTE);
+    const priorityField = fields.find(field => field.fieldId === FIELD_ID.PRIORITY);
+    const statusField = fields.find(field => field.fieldId === FIELD_ID.STATUS);
 
     if (!classes) {
       throw new Error(`error loading styles`);
@@ -77,19 +82,19 @@ class TaskListFragment extends React.PureComponent<Props> {
       <ExpansionPanel>
         <ExpansionPanelSummary expandIcon={<ExpandMore />}>
           <div>
-            {this.renderStatusTooltip(status)}
-            {priority && (
+            {statusField && statusField.value && this.renderStatusTooltip(statusField.value.id as TaskStatusEnum)}
+            {priorityField && priorityField.value && priorityField.value.enabled && (
               <Tooltip title="Important!">
                 <PriorityHigh className={classNames(classes.red, classes.icon)} />
               </Tooltip>
             )}
           </div>
-          <Typography className={classes.heading}>{title}</Typography>
+          <Typography className={classes.heading}>{titleField && titleField.value && titleField.value.text}</Typography>
           <TaskTypeIcon type={taskType} className={classes.taskTypeIcon} />
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.content}>
           <div>
-            {note}
+            {noteField && noteField.value && noteField.value.text}
           </div>
           <div className={classes.actions}>
             <Button onClick={() => onEdit(id)}>Edit</Button>
@@ -147,10 +152,13 @@ export default createFragmentContainer<Props>(
     fragment TaskListFragment on TaskType {
       id
       taskType
-      note
-      title
-      priority
-      status
+      fields {
+        ...SliderFieldFragment @relay(mask: false)
+        ...SwitchFieldFragment @relay(mask: false)
+        ...ChoiceFieldFragment @relay(mask: false)
+        ...TextFieldFragment @relay(mask: false)
+        ...NestedFieldFragment @relay(mask: false)
+      }
     }
   `,
 );

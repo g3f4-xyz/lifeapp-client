@@ -1,6 +1,7 @@
 import { FieldTypeEnum } from './components/modules/Task/fields/__generated__/ChoiceFieldFragmentMeta.graphql';
-import { TaskStatusEnum } from './components/modules/TaskList/__generated__/TaskListFragment.graphql';
+import { FieldIdEnum } from './components/modules/Task/fields/__generated__/SwitchFieldFragment.graphql';
 import { TaskTypeEnum } from './components/modules/TaskTypeList/__generated__/TaskTypeFragment.graphql';
+import { TaskStatusEnum } from './mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 
 export type Without<T, K> = Pick<T, Exclude<keyof T, K>>;
 export type ExcludeFutureAdded<T> = Without<T, '%future added value'>;
@@ -21,6 +22,23 @@ export const MODULES_IDS: { [key: string]: MODULE } = {
   TASK: 'task',
   TASK_LIST: 'taskList',
   TASK_TYPE_LIST: 'taskTypeList',
+};
+
+export const FIELD_ID: ExcludeFutureAdded<UnionKeyToValue<FieldIdEnum>> = {
+  TITLE: 'TITLE',
+  PRIORITY: 'PRIORITY',
+  PROGRESS: 'PROGRESS',
+  ACTIVE: 'ACTIVE',
+  STATUS: 'STATUS',
+  DATE: 'DATE',
+  DATE_TIME: 'DATE_TIME',
+  DURATION: 'DURATION',
+  LOCATION: 'LOCATION',
+  PERSON: 'PERSON',
+  NOTE: 'NOTE',
+  ACTION: 'ACTION',
+  CYCLE: 'CYCLE',
+  NOTIFICATIONS: 'NOTIFICATIONS',
 };
 
 export const FIELD_TYPE: ExcludeFutureAdded<UnionKeyToValue<FieldTypeEnum>> = {
