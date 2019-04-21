@@ -108,6 +108,8 @@ class Task extends React.Component<Props, TaskFragmentResponse> {
       return acc;
     }, new Array<typeof fields>());
 
+    console.log(['fields'], fields)
+
     return (
       <div className={classes.wrapper}>
         {fieldsGroupedByOrder.map((fieldsInRow, key) => (
