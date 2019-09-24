@@ -30,8 +30,8 @@ const OwnField: FunctionComponent<OwnFieldProps> = ({ ownMeta, ownValue, onOwnVa
           value={id || ''}
           helperText={helperText}
           options={options}
-          onChange={(id: string) => {
-            onOwnValueChange({ id });
+          onChange={(value: string) => {
+            onOwnValueChange({ id: value });
           }}
         />
       );
@@ -46,8 +46,8 @@ const OwnField: FunctionComponent<OwnFieldProps> = ({ ownMeta, ownValue, onOwnVa
           disabled={disabled}
           label={label}
           required={required}
-          onChange={(enabled: boolean) => {
-            onOwnValueChange({ enabled });
+          onChange={(value: boolean) => {
+            onOwnValueChange({ enabled: value });
           }}
         />
       );
@@ -61,8 +61,8 @@ const OwnField: FunctionComponent<OwnFieldProps> = ({ ownMeta, ownValue, onOwnVa
           value={text || ''}
           label={label}
           required={required}
-          onChange={(text: string) => {
-            onOwnValueChange({ text });
+          onChange={(value: string) => {
+            onOwnValueChange({ text: value });
           }}
         />
       );
@@ -87,57 +87,55 @@ interface NestedFieldProps {
   onChange(value: NestedFieldProps['value']): void;
 }
 
-class NestedField extends React.Component<NestedFieldProps> {
-  render(): React.ReactNode {
-    const { meta, value, onChange } = this.props;
+function NestedField(props: NestedFieldProps): JSX.Element | null {
+  const { meta, value, onChange } = props;
 
-    if (meta && meta.ownMeta && value) {
-      const activeChildrenMeta = value.ownValue && meta.childrenMeta && meta.childrenMeta.find((childrenMeta) => {
-        if (!meta || !meta.ownMeta || !childrenMeta || !childrenMeta.parentValue || !value || !value.ownValue) {
-          return false;
-        }
-
-        if (meta.ownMeta.fieldType === FIELD_TYPE.CHOICE) {
-          return childrenMeta.parentValue.id === value.ownValue.id;
-        } else if (meta.ownMeta.fieldType === FIELD_TYPE.TEXT) {
-          return childrenMeta.parentValue.text === value.ownValue.text;
-        } else if (meta.ownMeta.fieldType === FIELD_TYPE.SWITCH) {
-          return childrenMeta.parentValue.enabled === value.ownValue.enabled;
-        }
-
+  if (meta && meta.ownMeta && value) {
+    const activeChildrenMeta = value.ownValue && meta.childrenMeta && meta.childrenMeta.find((childrenMeta) => {
+      if (!meta || !meta.ownMeta || !childrenMeta || !childrenMeta.parentValue || !value || !value.ownValue) {
         return false;
+      }
+
+      if (meta.ownMeta.fieldType === FIELD_TYPE.CHOICE) {
+        return childrenMeta.parentValue.id === value.ownValue.id;
+      } else if (meta.ownMeta.fieldType === FIELD_TYPE.TEXT) {
+        return childrenMeta.parentValue.text === value.ownValue.text;
+      } else if (meta.ownMeta.fieldType === FIELD_TYPE.SWITCH) {
+        return childrenMeta.parentValue.enabled === value.ownValue.enabled;
+      }
+
+      return false;
+    });
+    const updateOwnValue = (ownValue: NestedFieldFragment['value']['ownValue']) => {
+      const updatedValue = immutabilityHelper(value, {
+        ownValue: {
+          $set: ownValue,
+        },
       });
-      const updateOwnValue = (ownValue: NestedFieldFragment['value']['ownValue']) => {
-        const updatedValue = immutabilityHelper(value, {
-          ownValue: {
-            $set: ownValue,
-          },
-        });
 
-        onChange(updatedValue);
-      };
-      const updateChildrenValue = (childrenValue: NestedFieldProps['value']) => {
-        const updatedValue = immutabilityHelper(value, {
-          childrenValue: {
-            $set: childrenValue,
-          },
-        });
+      onChange(updatedValue);
+    };
+    const updateChildrenValue = (childrenValue: NestedFieldProps['value']) => {
+      const updatedValue = immutabilityHelper(value, {
+        childrenValue: {
+          $set: childrenValue,
+        },
+      });
 
-        onChange(updatedValue);
-      };
+      onChange(updatedValue);
+    };
 
-      return (
-        <Fragment>
-          <OwnField ownMeta={meta.ownMeta} ownValue={value.ownValue || {}} onOwnValueChange={updateOwnValue} />
-          {activeChildrenMeta && (
-            <NestedField value={value.childrenValue || {}} meta={activeChildrenMeta} onChange={updateChildrenValue} />
-          )}
-        </Fragment>
-      );
-    }
-
-    return null;
+    return (
+      <Fragment>
+        <OwnField ownMeta={meta.ownMeta} ownValue={value.ownValue || {}} onOwnValueChange={updateOwnValue} />
+        {activeChildrenMeta && (
+          <NestedField value={value.childrenValue || {}} meta={activeChildrenMeta} onChange={updateChildrenValue} />
+        )}
+      </Fragment>
+    );
   }
+
+  return null;
 }
 
 interface Props {

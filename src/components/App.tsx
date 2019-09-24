@@ -22,13 +22,13 @@ import taskTypeListHandler from './modules/TaskTypeList/taskTypeListModuleHandle
 
 assetsServiceWorker.register({
   onUpdate(registration) {
-    console.log(['assetsServiceWorker.register.onUpdate'], registration)
+    console.info(['assetsServiceWorker.register.onUpdate'], registration);
   },
   onActivated(registration) {
-    console.log(['assetsServiceWorker.register.onActivated'], registration)
+    console.info(['assetsServiceWorker.register.onActivated'], registration);
   },
   onSuccess(registration) {
-    console.log(['assetsServiceWorker.register.onSuccess'], registration)
+    console.info(['assetsServiceWorker.register.onSuccess'], registration);
   },
 });
 
@@ -95,7 +95,7 @@ class App extends React.Component<Props, AppState> {
       if (Notification.permission === 'granted') {
         setTimeout(async () => {
           const registration = await navigator.serviceWorker.ready;
-          console.log(['navigator.serviceWorker.ready'], registration);
+          console.info(['navigator.serviceWorker.ready'], registration);
           await registerUserSubscription(registration, { silent: true });
         }, 3000);
       }

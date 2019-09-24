@@ -9,8 +9,7 @@ import { ConnectionData, createPaginationContainer, RelayPaginationProp } from '
 import { TaskStatusEnum } from '../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 import deleteTaskMutation from '../../../mutations/deleteTaskMutation';
 import updateTaskListStatusFilterSettingMutation from '../../../mutations/updateTaskListStatusFilterSettingMutation';
-import updateTaskListTaskTypeFilterSettingMutation
-  from '../../../mutations/updateTaskListTaskTypeFilterSettingMutation';
+import updateTaskListTaskTypeFilterSettingMutation from '../../../mutations/updateTaskListTaskTypeFilterSettingMutation';
 import updateTaskListTitleFilterSettingMutation from '../../../mutations/updateTaskListTitleFilterSettingMutation';
 import Loader from '../../display/Loader';
 import TaskListBar from '../../display/TaskListBar';
@@ -89,11 +88,10 @@ class TaskListPagination extends React.Component<Props, State> {
   };
 
   handleFilterByTitle = async (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(['handleFilterByTitle'], event);
-
     this.setState({ loading: true });
 
     await updateTaskListTitleFilterSettingMutation({ title: event.target.value }, { parentID: this.props.settingsId });
+
     this.props.relay.refetchConnection(5, (e) => {
       if (e) {
         throw new Error(`error refetching task list after title filter mutation | ${e}`);
@@ -104,14 +102,13 @@ class TaskListPagination extends React.Component<Props, State> {
   };
 
   handleFilterByStatus = async (event: ChangeEvent<HTMLSelectElement>) => {
-    console.log(['handleFilterByStatus'], event.target.value);
-
     this.setState({ loading: true });
 
     await updateTaskListStatusFilterSettingMutation(
       { status: event.target.value.length > 0 ? event.target.value as TaskStatusEnum : null },
       { parentID: this.props.settingsId },
     );
+
     this.props.relay.refetchConnection(5, (e) => {
       if (e) {
         throw new Error(`error refetching task list after status filter mutation | ${e}`);
@@ -127,7 +124,11 @@ class TaskListPagination extends React.Component<Props, State> {
 
     this.setState({ loading: true });
 
-    await updateTaskListTaskTypeFilterSettingMutation({ taskType: updatedTaskTypeFilter }, { parentID: this.props.settingsId });
+    await updateTaskListTaskTypeFilterSettingMutation(
+      { taskType: updatedTaskTypeFilter },
+      { parentID: this.props.settingsId },
+    );
+
     this.props.relay.refetchConnection(5, (e) => {
       if (e) {
         throw new Error(`error refetching task list after title filter mutation | ${e}`);
@@ -211,7 +212,7 @@ export default createPaginationContainer<Props>(
       list(
         first: $count,
         after: $after,
-        
+
       ) @connection(key: "TaskList_list") {
         edges {
           cursor

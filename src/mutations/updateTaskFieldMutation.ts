@@ -6,7 +6,7 @@ import environment from '../environment';
 import {
   updateTaskFieldMutation,
   updateTaskFieldMutationInput,
-  updateTaskFieldMutationResponse
+  updateTaskFieldMutationResponse,
 } from './__generated__/updateTaskFieldMutation.graphql';
 
 const mutation = graphql`

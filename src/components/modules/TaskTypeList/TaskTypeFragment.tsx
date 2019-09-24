@@ -6,8 +6,8 @@ import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import TaskTypeIcon from '../../display/TaskTypeIcon';
-import { TaskTypeFragment } from './__generated__/TaskTypeFragment.graphql';
 import { TaskTypeEnum } from '../TaskList/__generated__/TaskListFragment.graphql';
+import { TaskTypeFragment } from './__generated__/TaskTypeFragment.graphql';
 
 const styles = (theme: Theme) => ({
   actionsContainer: {
