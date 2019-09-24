@@ -7,9 +7,9 @@ import {
   StyledComponentProps,
   withStyles,
 } from '@material-ui/core';
-import CloudOffIcon from '@material-ui/icons/CloudOff';
 import { green, red } from '@material-ui/core/colors';
 import { CheckCircle, Computer, Delete, DevicesOther, HelpOutline, HighlightOff, Smartphone } from '@material-ui/icons';
+import CloudOffIcon from '@material-ui/icons/CloudOff';
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';

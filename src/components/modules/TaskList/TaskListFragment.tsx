@@ -68,7 +68,7 @@ interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
 class TaskListFragment extends React.PureComponent<Props> {
   render(): React.ReactNode {
     const { classes, data, onDelete, onEdit } = this.props;
-    const { id, taskType, fields,  } = data;
+    const { id, taskType, fields  } = data;
     const titleField = fields.find(field => field.fieldId === FIELD_ID.TITLE);
     const noteField = fields.find(field => field.fieldId === FIELD_ID.NOTE);
     const priorityField = fields.find(field => field.fieldId === FIELD_ID.PRIORITY);

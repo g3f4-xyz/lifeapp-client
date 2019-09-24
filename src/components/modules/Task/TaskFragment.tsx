@@ -108,17 +108,15 @@ class Task extends React.Component<Props, TaskFragmentResponse> {
       return acc;
     }, new Array<typeof fields>());
 
-    console.log(['fields'], fields)
-
     return (
       <div className={classes.wrapper}>
         {fieldsGroupedByOrder.map((fieldsInRow, key) => (
           <Paper className={classes.row} key={key}>
-            {fieldsInRow.map((field, key) => {
+            {fieldsInRow.map(field => {
               // @ts-ignore
               const Component = FIELD_COMPONENTS_MAP[field.fieldType];
 
-              return <Component key={key} data={field} taskId={data.id} />;
+              return <Component key={field.fieldId} data={field} taskId={data.id} />;
             })}
           </Paper>
         ))}
@@ -143,22 +141,27 @@ export default createFragmentContainer<Props>(
       fields {
         __typename
         ... on ChoiceFieldType {
+          fieldId
           fieldType
           order
         }
         ... on SwitchFieldType {
+          fieldId
           fieldType
           order
         }
         ... on SliderFieldType {
+          fieldId
           fieldType
           order
         }
         ... on NestedFieldType {
+          fieldId
           fieldType
           order
         }
         ... on TextFieldType {
+          fieldId
           fieldType
           order
         }

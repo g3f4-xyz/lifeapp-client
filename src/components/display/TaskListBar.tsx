@@ -1,13 +1,13 @@
-import { FormControlLabel, InputLabel, FormControl, NativeSelect } from '@material-ui/core';
+import { FormControl, FormControlLabel, InputLabel, NativeSelect } from '@material-ui/core';
+import AppBar from '@material-ui/core/AppBar';
 import Checkbox from '@material-ui/core/Checkbox';
 import Input from '@material-ui/core/Input';
-import React, { ChangeEvent } from 'react';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
 import InputBase from '@material-ui/core/InputBase';
-import { fade } from '@material-ui/core/styles/colorManipulator';
 import { createStyles, Theme, withStyles, WithStyles } from '@material-ui/core/styles';
+import { fade } from '@material-ui/core/styles/colorManipulator';
+import Toolbar from '@material-ui/core/Toolbar';
 import SearchIcon from '@material-ui/icons/Search';
+import React, { ChangeEvent } from 'react';
 import { TASK_STATUSES, TASK_TYPE } from '../../constans';
 import { TaskListQueryResponse, TaskTypeEnum } from '../modules/TaskList/__generated__/TaskListQuery.graphql';
 
@@ -32,14 +32,14 @@ const styles = (theme: Theme) =>
       },
     },
     search: {
-      position: 'relative',
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
+      'position': 'relative',
+      'borderRadius': theme.shape.borderRadius,
+      'backgroundColor': fade(theme.palette.common.white, 0.15),
       '&:hover': {
         backgroundColor: fade(theme.palette.common.white, 0.25),
       },
-      marginLeft: 0,
-      width: '100%',
+      'marginLeft': 0,
+      'width': '100%',
       [theme.breakpoints.up('md')]: {
         marginLeft: theme.spacing.unit,
         width: 'auto',
@@ -66,7 +66,7 @@ const styles = (theme: Theme) =>
       transition: theme.transitions.create('width'),
       width: '100%',
       [theme.breakpoints.up('md')]: {
-        width: 120,
+        'width': 120,
         '&:focus': {
           width: 200,
         },

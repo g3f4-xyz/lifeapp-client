@@ -18,8 +18,6 @@ class TextField extends React.Component<Props> {
     const { value: { text }, meta } = data;
     const { max, maxLength, min, minLength, required, inputType, label, helperText } = meta;
 
-    console.log(['TextField.data'], data)
-
     return (
       <Text
         value={text}

@@ -76,7 +76,7 @@ function registerValidSW(swUrl: string, config?: Config) {
           return;
         }
         installingWorker.onstatechange = () => {
-          console.log(['installingWorker.onstatechange'], installingWorker.state);
+          console.info(['installingWorker.onstatechange'], installingWorker.state);
           if (installingWorker.state === 'activated') {
             // Execute callback
             if (config && config.onActivated) {

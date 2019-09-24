@@ -6,12 +6,14 @@ type NestedFieldFragment$ref = any;
 type SliderFieldFragment$ref = any;
 type SwitchFieldFragment$ref = any;
 type TextFieldFragment$ref = any;
+export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
 export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
 export type TaskFragment$ref = any;
 export type TaskFragment = {
     readonly id: string;
     readonly fields: ReadonlyArray<{
         readonly __typename: string;
+        readonly fieldId?: FieldIdEnum;
         readonly fieldType?: FieldTypeEnum;
         readonly order?: number;
         readonly " $fragmentRefs": SliderFieldFragment$ref & SwitchFieldFragment$ref & ChoiceFieldFragment$ref & TextFieldFragment$ref & NestedFieldFragment$ref;
@@ -23,6 +25,13 @@ export type TaskFragment = {
 
 const node: ReaderFragment = (function () {
     var v0 = [
+        ({
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "fieldId",
+            "args": null,
+            "storageKey": null
+        } as any),
         ({
             "kind": "ScalarField",
             "alias": null,
@@ -123,5 +132,5 @@ const node: ReaderFragment = (function () {
         ]
     } as any;
 })();
-(node as any).hash = '121c128b1dc6d50c1b79c4d6d5d47f99';
+(node as any).hash = '911e6b66443293f5487fa76cea0713fa';
 export default node;

@@ -46,22 +46,27 @@ fragment TaskFragment on TaskType {
   fields {
     __typename
     ... on ChoiceFieldType {
+      fieldId
       fieldType
       order
     }
     ... on SwitchFieldType {
+      fieldId
       fieldType
       order
     }
     ... on SliderFieldType {
+      fieldId
       fieldType
       order
     }
     ... on NestedFieldType {
+      fieldId
       fieldType
       order
     }
     ... on TextFieldType {
+      fieldId
       fieldType
       order
     }
@@ -566,19 +571,19 @@ const node: ConcreteRequest = (function () {
     } as any), v6 = ({
         "kind": "ScalarField",
         "alias": null,
-        "name": "fieldType",
+        "name": "fieldId",
         "args": null,
         "storageKey": null
     } as any), v7 = ({
         "kind": "ScalarField",
         "alias": null,
-        "name": "order",
+        "name": "fieldType",
         "args": null,
         "storageKey": null
     } as any), v8 = ({
         "kind": "ScalarField",
         "alias": null,
-        "name": "fieldId",
+        "name": "order",
         "args": null,
         "storageKey": null
     } as any), v9 = ({
@@ -606,7 +611,7 @@ const node: ConcreteRequest = (function () {
         "args": null,
         "storageKey": null
     } as any), v13 = [
-        (v6 /*: any*/),
+        (v7 /*: any*/),
         (v9 /*: any*/),
         (v10 /*: any*/),
         ({
@@ -643,7 +648,7 @@ const node: ConcreteRequest = (function () {
         "args": null,
         "storageKey": null
     } as any), v15 = [
-        (v6 /*: any*/),
+        (v7 /*: any*/),
         (v10 /*: any*/),
         (v14 /*: any*/),
         (v12 /*: any*/)
@@ -700,7 +705,7 @@ const node: ConcreteRequest = (function () {
         "type": "ChoiceMetaType",
         "selections": (v13 /*: any*/)
     } as any), v23 = [
-        (v6 /*: any*/),
+        (v7 /*: any*/),
         (v9 /*: any*/),
         (v10 /*: any*/),
         ({
@@ -777,7 +782,7 @@ const node: ConcreteRequest = (function () {
                         "concreteType": "NestedMetaType",
                         "plural": true,
                         "selections": [
-                            (v6 /*: any*/),
+                            (v7 /*: any*/),
                             (v21 /*: any*/),
                             (v26 /*: any*/)
                         ]
@@ -944,7 +949,7 @@ const node: ConcreteRequest = (function () {
                                                     "concreteType": "SliderMetaType",
                                                     "plural": false,
                                                     "selections": [
-                                                        (v6 /*: any*/),
+                                                        (v7 /*: any*/),
                                                         (v10 /*: any*/),
                                                         (v14 /*: any*/),
                                                         (v12 /*: any*/),
@@ -995,7 +1000,7 @@ const node: ConcreteRequest = (function () {
                                                     "concreteType": "NestedMetaType",
                                                     "plural": false,
                                                     "selections": [
-                                                        (v6 /*: any*/),
+                                                        (v7 /*: any*/),
                                                         (v21 /*: any*/),
                                                         (v26 /*: any*/),
                                                         {
@@ -1007,7 +1012,7 @@ const node: ConcreteRequest = (function () {
                                                             "concreteType": "NestedMetaType",
                                                             "plural": true,
                                                             "selections": [
-                                                                (v6 /*: any*/),
+                                                                (v7 /*: any*/),
                                                                 (v21 /*: any*/),
                                                                 (v27 /*: any*/),
                                                                 {
@@ -1019,7 +1024,7 @@ const node: ConcreteRequest = (function () {
                                                                     "concreteType": "NestedMetaType",
                                                                     "plural": true,
                                                                     "selections": [
-                                                                        (v6 /*: any*/),
+                                                                        (v7 /*: any*/),
                                                                         (v21 /*: any*/),
                                                                         (v27 /*: any*/)
                                                                     ]
@@ -1109,7 +1114,7 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "TaskQuery",
             "id": null,
-            "text": "query TaskQuery(\n  $id: ID\n  $type: String\n) {\n  app {\n    task(id: $id, type: $type) {\n      id\n      ...TaskFragment\n    }\n    taskList {\n      id\n    }\n    id\n  }\n}\n\nfragment TaskFragment on TaskType {\n  id\n  fields {\n    __typename\n    ... on ChoiceFieldType {\n      fieldType\n      order\n    }\n    ... on SwitchFieldType {\n      fieldType\n      order\n    }\n    ... on SliderFieldType {\n      fieldType\n      order\n    }\n    ... on NestedFieldType {\n      fieldType\n      order\n    }\n    ... on TextFieldType {\n      fieldType\n      order\n    }\n    ...SliderFieldFragment\n    ...SwitchFieldFragment\n    ...ChoiceFieldFragment\n    ...TextFieldFragment\n    ...NestedFieldFragment\n    ... on Node {\n      id\n    }\n  }\n}\n\nfragment SliderFieldFragment on SliderFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    label\n    disabled\n    required\n    max\n    min\n    step\n  }\n  value {\n    progress\n  }\n}\n\nfragment SwitchFieldFragment on SwitchFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    label\n    disabled\n    required\n  }\n  value {\n    enabled\n  }\n}\n\nfragment ChoiceFieldFragment on ChoiceFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    helperText\n    label\n    defaultValue\n    options {\n      text\n      value\n    }\n    required\n  }\n  value {\n    id\n  }\n}\n\nfragment TextFieldFragment on TextFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    helperText\n    label\n    inputType\n    min\n    max\n    maxLength\n    minLength\n    required\n  }\n  value {\n    text\n  }\n}\n\nfragment NestedFieldFragment on NestedFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    parentValue {\n      __typename\n      ... on SwitchValueType {\n        enabled\n      }\n      ... on TextValueType {\n        text\n      }\n      ... on ChoiceValueType {\n        id\n      }\n    }\n    ownMeta {\n      __typename\n      ... on ChoiceMetaType {\n        fieldType\n        helperText\n        label\n        defaultValue\n        options {\n          text\n          value\n        }\n        required\n      }\n      ... on TextMetaType {\n        fieldType\n        helperText\n        label\n        inputType\n        min\n        max\n        maxLength\n        minLength\n        required\n      }\n      ... on SwitchMetaType {\n        fieldType\n        label\n        disabled\n        required\n      }\n    }\n    childrenMeta {\n      fieldType\n      parentValue {\n        __typename\n        ... on SwitchValueType {\n          enabled\n        }\n        ... on TextValueType {\n          text\n        }\n        ... on ChoiceValueType {\n          id\n        }\n      }\n      ownMeta {\n        __typename\n        ... on ChoiceMetaType {\n          fieldType\n          helperText\n          label\n          defaultValue\n          options {\n            text\n            value\n          }\n          required\n        }\n        ... on TextMetaType {\n          fieldType\n          helperText\n          label\n          inputType\n          min\n          max\n          maxLength\n          minLength\n          required\n        }\n        ... on SwitchMetaType {\n          fieldType\n          label\n          disabled\n          required\n        }\n        ... on NestedMetaType {\n          parentValue {\n            __typename\n            ... on SwitchValueType {\n              enabled\n            }\n            ... on TextValueType {\n              text\n            }\n            ... on ChoiceValueType {\n              id\n            }\n          }\n          ownMeta {\n            __typename\n            ... on ChoiceMetaType {\n              fieldType\n              helperText\n              label\n              defaultValue\n              options {\n                text\n                value\n              }\n              required\n            }\n            ... on TextMetaType {\n              fieldType\n              helperText\n              label\n              inputType\n              min\n              max\n              maxLength\n              minLength\n              required\n            }\n            ... on SwitchMetaType {\n              fieldType\n              label\n              disabled\n              required\n            }\n          }\n          childrenMeta {\n            fieldType\n            parentValue {\n              __typename\n              ... on SwitchValueType {\n                enabled\n              }\n              ... on TextValueType {\n                text\n              }\n              ... on ChoiceValueType {\n                id\n              }\n            }\n            ownMeta {\n              __typename\n              ... on ChoiceMetaType {\n                fieldType\n                helperText\n                label\n                defaultValue\n                options {\n                  text\n                  value\n                }\n                required\n              }\n              ... on TextMetaType {\n                fieldType\n                helperText\n                label\n                inputType\n                min\n                max\n                maxLength\n                minLength\n                required\n              }\n              ... on SwitchMetaType {\n                fieldType\n                label\n                disabled\n                required\n              }\n            }\n          }\n        }\n      }\n      childrenMeta {\n        fieldType\n        parentValue {\n          __typename\n          ... on SwitchValueType {\n            enabled\n          }\n          ... on TextValueType {\n            text\n          }\n          ... on ChoiceValueType {\n            id\n          }\n        }\n        ownMeta {\n          __typename\n          ... on ChoiceMetaType {\n            fieldType\n            helperText\n            label\n            defaultValue\n            options {\n              text\n              value\n            }\n            required\n          }\n          ... on TextMetaType {\n            fieldType\n            helperText\n            label\n            inputType\n            min\n            max\n            maxLength\n            minLength\n            required\n          }\n          ... on SwitchMetaType {\n            fieldType\n            label\n            disabled\n            required\n          }\n          ... on NestedMetaType {\n            parentValue {\n              __typename\n              ... on SwitchValueType {\n                enabled\n              }\n              ... on TextValueType {\n                text\n              }\n              ... on ChoiceValueType {\n                id\n              }\n            }\n            ownMeta {\n              __typename\n              ... on ChoiceMetaType {\n                fieldType\n                helperText\n                label\n                defaultValue\n                options {\n                  text\n                  value\n                }\n                required\n              }\n              ... on TextMetaType {\n                fieldType\n                helperText\n                label\n                inputType\n                min\n                max\n                maxLength\n                minLength\n                required\n              }\n              ... on SwitchMetaType {\n                fieldType\n                label\n                disabled\n                required\n              }\n            }\n            childrenMeta {\n              fieldType\n              parentValue {\n                __typename\n                ... on SwitchValueType {\n                  enabled\n                }\n                ... on TextValueType {\n                  text\n                }\n                ... on ChoiceValueType {\n                  id\n                }\n              }\n              ownMeta {\n                __typename\n                ... on ChoiceMetaType {\n                  fieldType\n                  helperText\n                  label\n                  defaultValue\n                  options {\n                    text\n                    value\n                  }\n                  required\n                }\n                ... on TextMetaType {\n                  fieldType\n                  helperText\n                  label\n                  inputType\n                  min\n                  max\n                  maxLength\n                  minLength\n                  required\n                }\n                ... on SwitchMetaType {\n                  fieldType\n                  label\n                  disabled\n                  required\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n  value {\n    ownValue {\n      __typename\n      ... on SwitchValueType {\n        enabled\n      }\n      ... on TextValueType {\n        text\n      }\n      ... on ChoiceValueType {\n        id\n      }\n    }\n    childrenValue {\n      ownValue {\n        __typename\n        ... on SwitchValueType {\n          enabled\n        }\n        ... on TextValueType {\n          text\n        }\n        ... on ChoiceValueType {\n          id\n        }\n      }\n      childrenValue {\n        ownValue {\n          __typename\n          ... on SwitchValueType {\n            enabled\n          }\n          ... on TextValueType {\n            text\n          }\n          ... on ChoiceValueType {\n            id\n          }\n        }\n      }\n    }\n  }\n}\n",
+            "text": "query TaskQuery(\n  $id: ID\n  $type: String\n) {\n  app {\n    task(id: $id, type: $type) {\n      id\n      ...TaskFragment\n    }\n    taskList {\n      id\n    }\n    id\n  }\n}\n\nfragment TaskFragment on TaskType {\n  id\n  fields {\n    __typename\n    ... on ChoiceFieldType {\n      fieldId\n      fieldType\n      order\n    }\n    ... on SwitchFieldType {\n      fieldId\n      fieldType\n      order\n    }\n    ... on SliderFieldType {\n      fieldId\n      fieldType\n      order\n    }\n    ... on NestedFieldType {\n      fieldId\n      fieldType\n      order\n    }\n    ... on TextFieldType {\n      fieldId\n      fieldType\n      order\n    }\n    ...SliderFieldFragment\n    ...SwitchFieldFragment\n    ...ChoiceFieldFragment\n    ...TextFieldFragment\n    ...NestedFieldFragment\n    ... on Node {\n      id\n    }\n  }\n}\n\nfragment SliderFieldFragment on SliderFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    label\n    disabled\n    required\n    max\n    min\n    step\n  }\n  value {\n    progress\n  }\n}\n\nfragment SwitchFieldFragment on SwitchFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    label\n    disabled\n    required\n  }\n  value {\n    enabled\n  }\n}\n\nfragment ChoiceFieldFragment on ChoiceFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    helperText\n    label\n    defaultValue\n    options {\n      text\n      value\n    }\n    required\n  }\n  value {\n    id\n  }\n}\n\nfragment TextFieldFragment on TextFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    helperText\n    label\n    inputType\n    min\n    max\n    maxLength\n    minLength\n    required\n  }\n  value {\n    text\n  }\n}\n\nfragment NestedFieldFragment on NestedFieldType {\n  id\n  fieldId\n  meta {\n    fieldType\n    parentValue {\n      __typename\n      ... on SwitchValueType {\n        enabled\n      }\n      ... on TextValueType {\n        text\n      }\n      ... on ChoiceValueType {\n        id\n      }\n    }\n    ownMeta {\n      __typename\n      ... on ChoiceMetaType {\n        fieldType\n        helperText\n        label\n        defaultValue\n        options {\n          text\n          value\n        }\n        required\n      }\n      ... on TextMetaType {\n        fieldType\n        helperText\n        label\n        inputType\n        min\n        max\n        maxLength\n        minLength\n        required\n      }\n      ... on SwitchMetaType {\n        fieldType\n        label\n        disabled\n        required\n      }\n    }\n    childrenMeta {\n      fieldType\n      parentValue {\n        __typename\n        ... on SwitchValueType {\n          enabled\n        }\n        ... on TextValueType {\n          text\n        }\n        ... on ChoiceValueType {\n          id\n        }\n      }\n      ownMeta {\n        __typename\n        ... on ChoiceMetaType {\n          fieldType\n          helperText\n          label\n          defaultValue\n          options {\n            text\n            value\n          }\n          required\n        }\n        ... on TextMetaType {\n          fieldType\n          helperText\n          label\n          inputType\n          min\n          max\n          maxLength\n          minLength\n          required\n        }\n        ... on SwitchMetaType {\n          fieldType\n          label\n          disabled\n          required\n        }\n        ... on NestedMetaType {\n          parentValue {\n            __typename\n            ... on SwitchValueType {\n              enabled\n            }\n            ... on TextValueType {\n              text\n            }\n            ... on ChoiceValueType {\n              id\n            }\n          }\n          ownMeta {\n            __typename\n            ... on ChoiceMetaType {\n              fieldType\n              helperText\n              label\n              defaultValue\n              options {\n                text\n                value\n              }\n              required\n            }\n            ... on TextMetaType {\n              fieldType\n              helperText\n              label\n              inputType\n              min\n              max\n              maxLength\n              minLength\n              required\n            }\n            ... on SwitchMetaType {\n              fieldType\n              label\n              disabled\n              required\n            }\n          }\n          childrenMeta {\n            fieldType\n            parentValue {\n              __typename\n              ... on SwitchValueType {\n                enabled\n              }\n              ... on TextValueType {\n                text\n              }\n              ... on ChoiceValueType {\n                id\n              }\n            }\n            ownMeta {\n              __typename\n              ... on ChoiceMetaType {\n                fieldType\n                helperText\n                label\n                defaultValue\n                options {\n                  text\n                  value\n                }\n                required\n              }\n              ... on TextMetaType {\n                fieldType\n                helperText\n                label\n                inputType\n                min\n                max\n                maxLength\n                minLength\n                required\n              }\n              ... on SwitchMetaType {\n                fieldType\n                label\n                disabled\n                required\n              }\n            }\n          }\n        }\n      }\n      childrenMeta {\n        fieldType\n        parentValue {\n          __typename\n          ... on SwitchValueType {\n            enabled\n          }\n          ... on TextValueType {\n            text\n          }\n          ... on ChoiceValueType {\n            id\n          }\n        }\n        ownMeta {\n          __typename\n          ... on ChoiceMetaType {\n            fieldType\n            helperText\n            label\n            defaultValue\n            options {\n              text\n              value\n            }\n            required\n          }\n          ... on TextMetaType {\n            fieldType\n            helperText\n            label\n            inputType\n            min\n            max\n            maxLength\n            minLength\n            required\n          }\n          ... on SwitchMetaType {\n            fieldType\n            label\n            disabled\n            required\n          }\n          ... on NestedMetaType {\n            parentValue {\n              __typename\n              ... on SwitchValueType {\n                enabled\n              }\n              ... on TextValueType {\n                text\n              }\n              ... on ChoiceValueType {\n                id\n              }\n            }\n            ownMeta {\n              __typename\n              ... on ChoiceMetaType {\n                fieldType\n                helperText\n                label\n                defaultValue\n                options {\n                  text\n                  value\n                }\n                required\n              }\n              ... on TextMetaType {\n                fieldType\n                helperText\n                label\n                inputType\n                min\n                max\n                maxLength\n                minLength\n                required\n              }\n              ... on SwitchMetaType {\n                fieldType\n                label\n                disabled\n                required\n              }\n            }\n            childrenMeta {\n              fieldType\n              parentValue {\n                __typename\n                ... on SwitchValueType {\n                  enabled\n                }\n                ... on TextValueType {\n                  text\n                }\n                ... on ChoiceValueType {\n                  id\n                }\n              }\n              ownMeta {\n                __typename\n                ... on ChoiceMetaType {\n                  fieldType\n                  helperText\n                  label\n                  defaultValue\n                  options {\n                    text\n                    value\n                  }\n                  required\n                }\n                ... on TextMetaType {\n                  fieldType\n                  helperText\n                  label\n                  inputType\n                  min\n                  max\n                  maxLength\n                  minLength\n                  required\n                }\n                ... on SwitchMetaType {\n                  fieldType\n                  label\n                  disabled\n                  required\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  }\n  value {\n    ownValue {\n      __typename\n      ... on SwitchValueType {\n        enabled\n      }\n      ... on TextValueType {\n        text\n      }\n      ... on ChoiceValueType {\n        id\n      }\n    }\n    childrenValue {\n      ownValue {\n        __typename\n        ... on SwitchValueType {\n          enabled\n        }\n        ... on TextValueType {\n          text\n        }\n        ... on ChoiceValueType {\n          id\n        }\n      }\n      childrenValue {\n        ownValue {\n          __typename\n          ... on SwitchValueType {\n            enabled\n          }\n          ... on TextValueType {\n            text\n          }\n          ... on ChoiceValueType {\n            id\n          }\n        }\n      }\n    }\n  }\n}\n",
             "metadata": {}
         }
     } as any;

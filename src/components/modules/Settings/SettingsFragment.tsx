@@ -8,10 +8,10 @@ import {
   ExpansionPanel,
   ExpansionPanelDetails,
   ExpansionPanelSummary,
-  Paper, StyledComponentProps,
+  Grid, Paper,
+  StyledComponentProps,
   Theme,
   Typography,
-  Grid,
   withStyles,
 } from '@material-ui/core';
 import { DeleteForever, ExpandMore } from '@material-ui/icons';
@@ -99,8 +99,7 @@ class SettingsFragment extends React.Component<Props, State> {
       await registerUserSubscription(registration);
 
       this.forceUpdate();
-    }
-    catch (e) {
+    } catch (e) {
       console.error(['handleActivateNotifications.error'], e);
       this.forceUpdate();
     }
