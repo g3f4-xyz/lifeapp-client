@@ -1,33 +1,33 @@
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Switch from '../../../display/field/Switch';
-import { SwitchFieldFragment } from './__generated__/SwitchFieldFragment.graphql';
+// eslint-disable-next-line @typescript-eslint/camelcase
+import { SwitchFieldFragment_data } from './__generated__/SwitchFieldFragment_data.graphql';
 
 interface Props {
-  data: SwitchFieldFragment;
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  data: SwitchFieldFragment_data;
   taskId: string;
 }
 
 class SwitchField extends React.Component<Props> {
   render(): React.ReactNode {
     const { data } = this.props;
-    const { value: { enabled }, meta: { label, disabled } } = data;
+    const {
+      value: { enabled },
+      meta: { label, disabled }
+    } = data;
 
-    return (
-      <Switch
-        disabled={disabled}
-        checked={enabled}
-        label={label}
-        onChange={this.handleChange}
-      />
-    );
+    return <Switch disabled={disabled} checked={enabled} label={label} onChange={this.handleChange} />;
   }
 
   private handleChange = async (enabled: boolean): Promise<void> => {
-    const { taskId, data: { fieldId, id }} = this.props;
+    const {
+      taskId,
+      data: { fieldId, id }
+    } = this.props;
 
     await updateTaskFieldMutation({ fieldId, value: { enabled }, taskId }, { id });
   };
@@ -49,11 +49,9 @@ graphql`
   }
 `;
 
-export default createFragmentContainer<Props>(
-  // @ts-ignore
-  SwitchField,
-  graphql`
-    fragment SwitchFieldFragment on SwitchFieldType {
+export default createFragmentContainer<Props>(SwitchField, {
+  data: graphql`
+    fragment SwitchFieldFragment_data on SwitchFieldType {
       id
       fieldId
       meta {
@@ -63,5 +61,5 @@ export default createFragmentContainer<Props>(
         ...SwitchFieldFragmentValue @relay(mask: false)
       }
     }
-  `,
-);
+  `
+});

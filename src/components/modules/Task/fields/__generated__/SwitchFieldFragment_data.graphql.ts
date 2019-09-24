@@ -1,10 +1,10 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
-export type SwitchFieldFragment$ref = any;
-export type SwitchFieldFragment = {
+export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
+export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
+export type SwitchFieldFragment_data$ref = any;
+export type SwitchFieldFragment_data = {
     readonly id: string;
     readonly fieldId: FieldIdEnum;
     readonly meta: {
@@ -16,14 +16,14 @@ export type SwitchFieldFragment = {
     readonly value: {
         readonly enabled: boolean;
     };
-    readonly " $refType": SwitchFieldFragment$ref;
+    readonly " $refType": SwitchFieldFragment_data$ref;
 };
 
 
 
 const node: ReaderFragment = ({
     "kind": "Fragment",
-    "name": "SwitchFieldFragment",
+    "name": "SwitchFieldFragment_data",
     "type": "SwitchFieldType",
     "metadata": null,
     "argumentDefinitions": [],
@@ -101,5 +101,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '1792da16c9cbdb2767f359f3e381fff1';
+(node as any).hash = 'ece959f676ef97be1b514ae8aa9625f6';
 export default node;

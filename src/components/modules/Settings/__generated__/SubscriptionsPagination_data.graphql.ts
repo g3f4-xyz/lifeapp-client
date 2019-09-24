@@ -1,19 +1,19 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-type SubscriptionFragment$ref = any;
-export type SubscriptionsPagination$ref = any;
-export type SubscriptionsPagination = {
+type SubscriptionFragment_data$ref = any;
+export type SubscriptionsPagination_data$ref = any;
+export type SubscriptionsPagination_data = {
     readonly id: string;
     readonly subscriptions: {
-        readonly edges: ReadonlyArray<({
-            readonly node: ({
+        readonly edges: ReadonlyArray<{
+            readonly node: {
                 readonly id: string;
-                readonly " $fragmentRefs": SubscriptionFragment$ref;
-            }) | null;
-        }) | null> | null;
+                readonly " $fragmentRefs": SubscriptionFragment_data$ref;
+            } | null;
+        } | null> | null;
     };
-    readonly " $refType": SubscriptionsPagination$ref;
+    readonly " $refType": SubscriptionsPagination_data$ref;
 };
 
 
@@ -28,7 +28,7 @@ const node: ReaderFragment = (function () {
     } as any);
     return {
         "kind": "Fragment",
-        "name": "SubscriptionsPagination",
+        "name": "SubscriptionsPagination_data",
         "type": "NotificationsType",
         "metadata": {
             "connection": [
@@ -85,16 +85,16 @@ const node: ReaderFragment = (function () {
                                 "selections": [
                                     (v0 /*: any*/),
                                     {
-                                        "kind": "FragmentSpread",
-                                        "name": "SubscriptionFragment",
-                                        "args": null
-                                    },
-                                    {
                                         "kind": "ScalarField",
                                         "alias": null,
                                         "name": "__typename",
                                         "args": null,
                                         "storageKey": null
+                                    },
+                                    {
+                                        "kind": "FragmentSpread",
+                                        "name": "SubscriptionFragment_data",
+                                        "args": null
                                     }
                                 ]
                             },
@@ -137,5 +137,5 @@ const node: ReaderFragment = (function () {
         ]
     } as any;
 })();
-(node as any).hash = '540d2ac5e160a06280dc9af037c931eb';
+(node as any).hash = '9631b7815899cbdb75381830ed1b2701';
 export default node;

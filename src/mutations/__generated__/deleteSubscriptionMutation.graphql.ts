@@ -9,10 +9,10 @@ export type deleteSubscriptionMutationVariables = {
     readonly input: deleteSubscriptionMutationInput;
 };
 export type deleteSubscriptionMutationResponse = {
-    readonly deleteSubscription: ({
+    readonly deleteSubscription: {
         readonly clientMutationId: string | null;
         readonly subscriptionId: string;
-    }) | null;
+    } | null;
 };
 export type deleteSubscriptionMutation = {
     readonly response: deleteSubscriptionMutationResponse;
@@ -50,8 +50,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "kind": "Variable",
                     "name": "input",
-                    "variableName": "input",
-                    "type": "deleteSubscriptionMutationInput!"
+                    "variableName": "input"
                 }
             ],
             "concreteType": "deleteSubscriptionMutationPayload",

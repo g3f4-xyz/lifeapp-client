@@ -9,10 +9,10 @@ export type cleanApplicationMutationVariables = {
     readonly input: cleanApplicationMutationInput;
 };
 export type cleanApplicationMutationResponse = {
-    readonly cleanApplication: ({
+    readonly cleanApplication: {
         readonly clientMutationId: string | null;
         readonly navigationUrl: string;
-    }) | null;
+    } | null;
 };
 export type cleanApplicationMutation = {
     readonly response: cleanApplicationMutationResponse;
@@ -50,8 +50,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "kind": "Variable",
                     "name": "input",
-                    "variableName": "input",
-                    "type": "cleanApplicationMutationInput!"
+                    "variableName": "input"
                 }
             ],
             "concreteType": "cleanApplicationMutationPayload",

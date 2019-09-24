@@ -1,11 +1,11 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
-export type TaskTypeEnum = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
-export type TaskListFragment$ref = any;
-export type TaskListFragment = {
+export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
+export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
+export type TaskTypeEnum = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO" | "%future added value";
+export type TaskListFragment_data$ref = any;
+export type TaskListFragment_data = {
     readonly id: string;
     readonly taskType: TaskTypeEnum;
     readonly fields: ReadonlyArray<{
@@ -21,27 +21,27 @@ export type TaskListFragment = {
             readonly step: number | null;
             readonly helperText: string;
             readonly defaultValue?: string | null;
-            readonly options?: ReadonlyArray<({
+            readonly options?: ReadonlyArray<{
                 readonly text: string;
                 readonly value: string;
-            }) | null>;
+            } | null>;
             readonly inputType?: string | null;
             readonly maxLength?: number | null;
             readonly minLength?: number | null;
-            readonly parentValue?: ({
+            readonly parentValue?: {
                 readonly enabled?: boolean;
                 readonly text?: string;
                 readonly id?: string;
-            }) | null;
-            readonly ownMeta?: ({
+            } | null;
+            readonly ownMeta?: {
                 readonly fieldType?: FieldTypeEnum;
                 readonly helperText?: string;
                 readonly label?: string;
                 readonly defaultValue?: string | null;
-                readonly options?: ReadonlyArray<({
+                readonly options?: ReadonlyArray<{
                     readonly text: string;
                     readonly value: string;
-                }) | null>;
+                } | null>;
                 readonly required?: boolean;
                 readonly inputType?: string | null;
                 readonly min?: number | null;
@@ -49,23 +49,23 @@ export type TaskListFragment = {
                 readonly maxLength?: number | null;
                 readonly minLength?: number | null;
                 readonly disabled?: boolean | null;
-            }) | null;
-            readonly childrenMeta?: ReadonlyArray<({
+            } | null;
+            readonly childrenMeta?: ReadonlyArray<{
                 readonly fieldType: FieldTypeEnum;
-                readonly parentValue: ({
+                readonly parentValue: {
                     readonly enabled?: boolean;
                     readonly text?: string;
                     readonly id?: string;
-                }) | null;
-                readonly ownMeta: ({
+                } | null;
+                readonly ownMeta: {
                     readonly fieldType?: FieldTypeEnum;
                     readonly helperText?: string;
                     readonly label?: string;
                     readonly defaultValue?: string | null;
-                    readonly options?: ReadonlyArray<({
+                    readonly options?: ReadonlyArray<{
                         readonly text: string;
                         readonly value: string;
-                    }) | null>;
+                    } | null>;
                     readonly required?: boolean;
                     readonly inputType?: string | null;
                     readonly min?: number | null;
@@ -73,20 +73,20 @@ export type TaskListFragment = {
                     readonly maxLength?: number | null;
                     readonly minLength?: number | null;
                     readonly disabled?: boolean | null;
-                    readonly parentValue?: ({
+                    readonly parentValue?: {
                         readonly enabled?: boolean;
                         readonly text?: string;
                         readonly id?: string;
-                    }) | null;
-                    readonly ownMeta?: ({
+                    } | null;
+                    readonly ownMeta?: {
                         readonly fieldType?: FieldTypeEnum;
                         readonly helperText?: string;
                         readonly label?: string;
                         readonly defaultValue?: string | null;
-                        readonly options?: ReadonlyArray<({
+                        readonly options?: ReadonlyArray<{
                             readonly text: string;
                             readonly value: string;
-                        }) | null>;
+                        } | null>;
                         readonly required?: boolean;
                         readonly inputType?: string | null;
                         readonly min?: number | null;
@@ -94,23 +94,23 @@ export type TaskListFragment = {
                         readonly maxLength?: number | null;
                         readonly minLength?: number | null;
                         readonly disabled?: boolean | null;
-                    }) | null;
-                    readonly childrenMeta?: ReadonlyArray<({
+                    } | null;
+                    readonly childrenMeta?: ReadonlyArray<{
                         readonly fieldType: FieldTypeEnum;
-                        readonly parentValue: ({
+                        readonly parentValue: {
                             readonly enabled?: boolean;
                             readonly text?: string;
                             readonly id?: string;
-                        }) | null;
-                        readonly ownMeta: ({
+                        } | null;
+                        readonly ownMeta: {
                             readonly fieldType?: FieldTypeEnum;
                             readonly helperText?: string;
                             readonly label?: string;
                             readonly defaultValue?: string | null;
-                            readonly options?: ReadonlyArray<({
+                            readonly options?: ReadonlyArray<{
                                 readonly text: string;
                                 readonly value: string;
-                            }) | null>;
+                            } | null>;
                             readonly required?: boolean;
                             readonly inputType?: string | null;
                             readonly min?: number | null;
@@ -118,25 +118,25 @@ export type TaskListFragment = {
                             readonly maxLength?: number | null;
                             readonly minLength?: number | null;
                             readonly disabled?: boolean | null;
-                        }) | null;
-                    }) | null> | null;
-                }) | null;
-                readonly childrenMeta: ReadonlyArray<({
+                        } | null;
+                    } | null> | null;
+                } | null;
+                readonly childrenMeta: ReadonlyArray<{
                     readonly fieldType: FieldTypeEnum;
-                    readonly parentValue: ({
+                    readonly parentValue: {
                         readonly enabled?: boolean;
                         readonly text?: string;
                         readonly id?: string;
-                    }) | null;
-                    readonly ownMeta: ({
+                    } | null;
+                    readonly ownMeta: {
                         readonly fieldType?: FieldTypeEnum;
                         readonly helperText?: string;
                         readonly label?: string;
                         readonly defaultValue?: string | null;
-                        readonly options?: ReadonlyArray<({
+                        readonly options?: ReadonlyArray<{
                             readonly text: string;
                             readonly value: string;
-                        }) | null>;
+                        } | null>;
                         readonly required?: boolean;
                         readonly inputType?: string | null;
                         readonly min?: number | null;
@@ -144,20 +144,20 @@ export type TaskListFragment = {
                         readonly maxLength?: number | null;
                         readonly minLength?: number | null;
                         readonly disabled?: boolean | null;
-                        readonly parentValue?: ({
+                        readonly parentValue?: {
                             readonly enabled?: boolean;
                             readonly text?: string;
                             readonly id?: string;
-                        }) | null;
-                        readonly ownMeta?: ({
+                        } | null;
+                        readonly ownMeta?: {
                             readonly fieldType?: FieldTypeEnum;
                             readonly helperText?: string;
                             readonly label?: string;
                             readonly defaultValue?: string | null;
-                            readonly options?: ReadonlyArray<({
+                            readonly options?: ReadonlyArray<{
                                 readonly text: string;
                                 readonly value: string;
-                            }) | null>;
+                            } | null>;
                             readonly required?: boolean;
                             readonly inputType?: string | null;
                             readonly min?: number | null;
@@ -165,23 +165,23 @@ export type TaskListFragment = {
                             readonly maxLength?: number | null;
                             readonly minLength?: number | null;
                             readonly disabled?: boolean | null;
-                        }) | null;
-                        readonly childrenMeta?: ReadonlyArray<({
+                        } | null;
+                        readonly childrenMeta?: ReadonlyArray<{
                             readonly fieldType: FieldTypeEnum;
-                            readonly parentValue: ({
+                            readonly parentValue: {
                                 readonly enabled?: boolean;
                                 readonly text?: string;
                                 readonly id?: string;
-                            }) | null;
-                            readonly ownMeta: ({
+                            } | null;
+                            readonly ownMeta: {
                                 readonly fieldType?: FieldTypeEnum;
                                 readonly helperText?: string;
                                 readonly label?: string;
                                 readonly defaultValue?: string | null;
-                                readonly options?: ReadonlyArray<({
+                                readonly options?: ReadonlyArray<{
                                     readonly text: string;
                                     readonly value: string;
-                                }) | null>;
+                                } | null>;
                                 readonly required?: boolean;
                                 readonly inputType?: string | null;
                                 readonly min?: number | null;
@@ -189,39 +189,39 @@ export type TaskListFragment = {
                                 readonly maxLength?: number | null;
                                 readonly minLength?: number | null;
                                 readonly disabled?: boolean | null;
-                            }) | null;
-                        }) | null> | null;
-                    }) | null;
-                }) | null> | null;
-            }) | null> | null;
+                            } | null;
+                        } | null> | null;
+                    } | null;
+                } | null> | null;
+            } | null> | null;
         };
         readonly value?: {
             readonly progress: number;
             readonly enabled?: boolean;
             readonly id?: string;
             readonly text?: string;
-            readonly ownValue?: ({
+            readonly ownValue?: {
                 readonly enabled?: boolean;
                 readonly text?: string;
                 readonly id?: string;
-            }) | null;
-            readonly childrenValue?: ({
-                readonly ownValue: ({
+            } | null;
+            readonly childrenValue?: {
+                readonly ownValue: {
                     readonly enabled?: boolean;
                     readonly text?: string;
                     readonly id?: string;
-                }) | null;
-                readonly childrenValue: ({
-                    readonly ownValue: ({
+                } | null;
+                readonly childrenValue: {
+                    readonly ownValue: {
                         readonly enabled?: boolean;
                         readonly text?: string;
                         readonly id?: string;
-                    }) | null;
-                }) | null;
-            }) | null;
+                    } | null;
+                } | null;
+            } | null;
         };
     }>;
-    readonly " $refType": TaskListFragment$ref;
+    readonly " $refType": TaskListFragment_data$ref;
 };
 
 
@@ -460,7 +460,7 @@ const node: ReaderFragment = (function () {
     } as any);
     return {
         "kind": "Fragment",
-        "name": "TaskListFragment",
+        "name": "TaskListFragment_data",
         "type": "TaskType",
         "metadata": null,
         "argumentDefinitions": [],
@@ -707,5 +707,5 @@ const node: ReaderFragment = (function () {
         ]
     } as any;
 })();
-(node as any).hash = 'ccc58b5d6991f51816c855d23c7bc5ed';
+(node as any).hash = '3d8a9381a27c1782d1d6412c2ac6aff6';
 export default node;

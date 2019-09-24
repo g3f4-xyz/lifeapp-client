@@ -1,26 +1,19 @@
-import {
-  FormControl,
-  StyledComponentProps,
-  Theme,
-  withStyles,
-} from '@material-ui/core';
+import { FormControl, StyledComponentProps, Theme, withStyles } from '@material-ui/core';
 import React from 'react';
 
 const styles = (theme: Theme) => ({
   container: {
-    margin: theme.spacing.unit * 2,
-    minWidth: theme.spacing.unit * 20,
+    margin: theme.spacing(2),
+    minWidth: theme.spacing(20),
     display: 'flex',
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
   children: React.ReactNode;
 }
 
-// @ts-ignore
-@withStyles(styles)
 class FieldContainer extends React.Component<Props> {
   render(): React.ReactNode {
     const { classes } = this.props;
@@ -29,12 +22,8 @@ class FieldContainer extends React.Component<Props> {
       throw new Error(`error loading styles`);
     }
 
-    return (
-      <FormControl className={classes.container}>
-        {this.props.children}
-      </FormControl>
-    );
+    return <FormControl className={classes.container}>{this.props.children}</FormControl>;
   }
 }
 
-export default FieldContainer;
+export default withStyles(styles)(FieldContainer);

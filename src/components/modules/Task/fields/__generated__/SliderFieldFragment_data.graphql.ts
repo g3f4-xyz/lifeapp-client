@@ -1,10 +1,10 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
-export type SliderFieldFragment$ref = any;
-export type SliderFieldFragment = {
+export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
+export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
+export type SliderFieldFragment_data$ref = any;
+export type SliderFieldFragment_data = {
     readonly id: string;
     readonly fieldId: FieldIdEnum;
     readonly meta: {
@@ -19,14 +19,14 @@ export type SliderFieldFragment = {
     readonly value: {
         readonly progress: number;
     };
-    readonly " $refType": SliderFieldFragment$ref;
+    readonly " $refType": SliderFieldFragment_data$ref;
 };
 
 
 
 const node: ReaderFragment = ({
     "kind": "Fragment",
-    "name": "SliderFieldFragment",
+    "name": "SliderFieldFragment_data",
     "type": "SliderFieldType",
     "metadata": null,
     "argumentDefinitions": [],
@@ -125,5 +125,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'f38e2f0c9c5ec7a9f7efe02693023b1d';
+(node as any).hash = 'd89fb29867df7e3d986515cd4da9dd62';
 export default node;

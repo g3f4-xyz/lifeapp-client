@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type TaskStatusEnum = "DONE" | "IN_PROGRESS" | "TODO";
+export type TaskStatusEnum = "DONE" | "IN_PROGRESS" | "TODO" | "%future added value";
 export type updateTaskListStatusFilterSettingMutationInput = {
     readonly status?: TaskStatusEnum | null;
     readonly clientMutationId?: string | null;
@@ -10,10 +10,10 @@ export type updateTaskListStatusFilterSettingMutationVariables = {
     readonly input: updateTaskListStatusFilterSettingMutationInput;
 };
 export type updateTaskListStatusFilterSettingMutationResponse = {
-    readonly updateTaskListStatusFilterSetting: ({
+    readonly updateTaskListStatusFilterSetting: {
         readonly clientMutationId: string | null;
         readonly status: TaskStatusEnum | null;
-    }) | null;
+    } | null;
 };
 export type updateTaskListStatusFilterSettingMutation = {
     readonly response: updateTaskListStatusFilterSettingMutationResponse;
@@ -51,8 +51,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "kind": "Variable",
                     "name": "input",
-                    "variableName": "input",
-                    "type": "updateTaskListStatusFilterSettingMutationInput!"
+                    "variableName": "input"
                 }
             ],
             "concreteType": "updateTaskListStatusFilterSettingMutationPayload",

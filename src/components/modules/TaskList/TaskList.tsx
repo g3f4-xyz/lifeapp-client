@@ -1,4 +1,3 @@
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { QueryRenderer } from 'react-relay';
@@ -15,16 +14,13 @@ export default class TaskList extends React.Component<TaskListHandlerProps> {
       <QueryRenderer<TaskListQuery>
         environment={environment}
         variables={{
-          count: ITEMS_PER_PAGE,
+          count: ITEMS_PER_PAGE
         }}
         query={graphql`
-          query TaskListQuery(
-            $count: Int!,
-            $after: String
-          ) {
+          query TaskListQuery($count: Int!, $after: String) {
             app {
               taskList {
-                ...TaskListPagination
+                ...TaskListPagination_data
               }
               settings {
                 id
@@ -41,22 +37,11 @@ export default class TaskList extends React.Component<TaskListHandlerProps> {
         `}
         render={({ error, props }) => {
           if (error) {
-            return (
-              <div>{JSON.stringify(error)}</div>
-            );
+            return <div>{JSON.stringify(error)}</div>;
           } else if (props) {
-            return (
-              <TaskListPagination
-                {...this.props}
-                data={props.app.taskList}
-                settings={props.app.settings.taskList}
-                settingsId={props.app.settings.id}
-              />
-            );
+            return <TaskListPagination {...this.props} data={props.app.taskList} settings={props.app.settings.taskList} settingsId={props.app.settings.id} />;
           }
-          return (
-            <Loader/>
-          );
+          return <Loader />;
         }}
       />
     );

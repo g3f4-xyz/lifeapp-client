@@ -6,32 +6,32 @@ import {
   ListItem,
   ListItemIcon,
   ListItemSecondaryAction,
-  ListItemText, StyledComponentProps,
+  ListItemText,
+  StyledComponentProps,
   Switch,
   Theme,
   Typography,
-  withStyles,
+  withStyles
 } from '@material-ui/core';
 import { ExpandMore, Slideshow, Vibration } from '@material-ui/icons';
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React, { ChangeEvent } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import saveNotificationsGeneralSettingMutation from '../../../mutations/saveNotificationsGeneralSettingMutation';
-import { NotificationsGeneralFragment } from './__generated__/NotificationsGeneralFragment.graphql';
+import { NotificationsGeneralFragment_data } from './__generated__/NotificationsGeneralFragment_data.graphql';
 
 const styles = (theme: Theme) => ({
   wrapper: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
   },
   list: {
-    width: '100%',
-  },
+    width: '100%'
+  }
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
-  data: NotificationsGeneralFragment;
+  data: NotificationsGeneralFragment_data;
 }
 
 class NotificationsGeneral extends React.Component<Props> {
@@ -39,8 +39,8 @@ class NotificationsGeneral extends React.Component<Props> {
     await saveNotificationsGeneralSettingMutation({
       general: {
         ...this.props.data,
-        show,
-      },
+        show
+      }
     });
   };
 
@@ -48,13 +48,16 @@ class NotificationsGeneral extends React.Component<Props> {
     await saveNotificationsGeneralSettingMutation({
       general: {
         ...this.props.data,
-        vibrate,
-      },
+        vibrate
+      }
     });
   };
 
   render(): React.ReactNode {
-    const { classes, data: { show, vibrate } } = this.props;
+    const {
+      classes,
+      data: { show, vibrate }
+    } = this.props;
 
     if (!classes) {
       throw new Error(`error loading styles`);
@@ -69,7 +72,7 @@ class NotificationsGeneral extends React.Component<Props> {
           <List className={classes.list}>
             <ListItem>
               <ListItemIcon>
-                <Slideshow/>
+                <Slideshow />
               </ListItemIcon>
               <ListItemText primary="Show" />
               <ListItemSecondaryAction>
@@ -78,7 +81,7 @@ class NotificationsGeneral extends React.Component<Props> {
             </ListItem>
             <ListItem>
               <ListItemIcon>
-                <Vibration/>
+                <Vibration />
               </ListItemIcon>
               <ListItemText primary="Vibrate" />
               <ListItemSecondaryAction>
@@ -92,13 +95,11 @@ class NotificationsGeneral extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(
-  // @ts-ignore
-  withStyles(styles)(NotificationsGeneral),
-  graphql`
-    fragment NotificationsGeneralFragment on NotificationsGeneralSettingType {
+export default createFragmentContainer(withStyles(styles)(NotificationsGeneral), {
+  data: graphql`
+    fragment NotificationsGeneralFragment_data on NotificationsGeneralSettingType {
       show
       vibrate
     }
-  `,
-);
+  `
+});

@@ -6,14 +6,14 @@ import {
   ListItem,
   ListItemIcon,
   ListItemSecondaryAction,
-  ListItemText, StyledComponentProps,
+  ListItemText,
+  StyledComponentProps,
   Switch,
   Theme,
   Typography,
-  withStyles,
+  withStyles
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React, { ChangeEvent } from 'react';
 import { createFragmentContainer } from 'react-relay';
@@ -21,20 +21,22 @@ import { TASK_TYPE } from '../../../constans';
 import saveNotificationsTypesSettingMutation from '../../../mutations/saveNotificationsTypesSettingMutation';
 import TaskTypeIcon from '../../display/TaskTypeIcon';
 import { TaskTypeEnum } from '../TaskList/__generated__/TaskListQuery.graphql';
-import { NotificationsTypesFragment } from './__generated__/NotificationsTypesFragment.graphql';
+// eslint-disable-next-line @typescript-eslint/camelcase
+import { NotificationsTypesFragment_data } from './__generated__/NotificationsTypesFragment_data.graphql';
 
 const styles = (theme: Theme) => ({
   wrapper: {
-    marginLeft: theme.spacing.unit,
-    marginRight: theme.spacing.unit,
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1)
   },
   list: {
-    width: '100%',
-  },
+    width: '100%'
+  }
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
-  data: NotificationsTypesFragment;
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  data: NotificationsTypesFragment_data;
 }
 
 class NotificationsTypes extends React.Component<Props> {
@@ -42,8 +44,8 @@ class NotificationsTypes extends React.Component<Props> {
     await saveNotificationsTypesSettingMutation({
       types: {
         ...this.props.data,
-        events,
-      },
+        events
+      }
     });
   };
 
@@ -51,8 +53,8 @@ class NotificationsTypes extends React.Component<Props> {
     await saveNotificationsTypesSettingMutation({
       types: {
         ...this.props.data,
-        goals,
-      },
+        goals
+      }
     });
   };
 
@@ -60,8 +62,8 @@ class NotificationsTypes extends React.Component<Props> {
     await saveNotificationsTypesSettingMutation({
       types: {
         ...this.props.data,
-        meetings,
-      },
+        meetings
+      }
     });
   };
 
@@ -69,8 +71,8 @@ class NotificationsTypes extends React.Component<Props> {
     await saveNotificationsTypesSettingMutation({
       types: {
         ...this.props.data,
-        routines,
-      },
+        routines
+      }
     });
   };
 
@@ -78,8 +80,8 @@ class NotificationsTypes extends React.Component<Props> {
     await saveNotificationsTypesSettingMutation({
       types: {
         ...this.props.data,
-        todos,
-      },
+        todos
+      }
     });
   };
 
@@ -88,9 +90,9 @@ class NotificationsTypes extends React.Component<Props> {
       types: {
         ...this.props.data,
         ...{
-          [key]: checked,
-        },
-      },
+          [key]: checked
+        }
+      }
     });
   };
 
@@ -109,15 +111,13 @@ class NotificationsTypes extends React.Component<Props> {
         <ExpansionPanelDetails>
           <List className={classes.list}>
             {Object.keys(TASK_TYPE).map(key => (
-              <ListItem>
+              <ListItem key={key}>
                 <ListItemIcon>
                   <TaskTypeIcon type={key as TaskTypeEnum} />
                 </ListItemIcon>
                 <ListItemText primary={key.toLowerCase()} />
                 <ListItemSecondaryAction>
-                  <Switch
-                    onChange={this.getChangeHandler(`${key.toLowerCase()}s`)} checked={data[`${key.toLowerCase()}s`]}
-                  />
+                  <Switch onChange={this.getChangeHandler(`${key.toLowerCase()}s`)} checked={data[`${key.toLowerCase()}s`]} />
                 </ListItemSecondaryAction>
               </ListItem>
             ))}
@@ -128,15 +128,14 @@ class NotificationsTypes extends React.Component<Props> {
   }
 }
 
-export default createFragmentContainer(
-  withStyles(styles)(NotificationsTypes),
-  graphql`
-    fragment NotificationsTypesFragment on NotificationsTypesSettingType {
+export default createFragmentContainer(withStyles(styles)(NotificationsTypes), {
+  data: graphql`
+    fragment NotificationsTypesFragment_data on NotificationsTypesSettingType {
       events
       goals
       meetings
       routines
       todos
     }
-  `,
-);
+  `
+});

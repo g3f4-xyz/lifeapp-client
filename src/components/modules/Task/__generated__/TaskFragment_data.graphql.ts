@@ -1,24 +1,24 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-type ChoiceFieldFragment$ref = any;
-type NestedFieldFragment$ref = any;
-type SliderFieldFragment$ref = any;
-type SwitchFieldFragment$ref = any;
-type TextFieldFragment$ref = any;
-export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
-export type TaskFragment$ref = any;
-export type TaskFragment = {
+type ChoiceFieldFragment_data$ref = any;
+type NestedFieldFragment_data$ref = any;
+type SliderFieldFragment_data$ref = any;
+type SwitchFieldFragment_data$ref = any;
+type TextFieldFragment_data$ref = any;
+export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
+export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
+export type TaskFragment_data$ref = any;
+export type TaskFragment_data = {
     readonly id: string;
     readonly fields: ReadonlyArray<{
         readonly __typename: string;
         readonly fieldId?: FieldIdEnum;
         readonly fieldType?: FieldTypeEnum;
         readonly order?: number;
-        readonly " $fragmentRefs": SliderFieldFragment$ref & SwitchFieldFragment$ref & ChoiceFieldFragment$ref & TextFieldFragment$ref & NestedFieldFragment$ref;
+        readonly " $fragmentRefs": SliderFieldFragment_data$ref & SwitchFieldFragment_data$ref & ChoiceFieldFragment_data$ref & TextFieldFragment_data$ref & NestedFieldFragment_data$ref;
     }>;
-    readonly " $refType": TaskFragment$ref;
+    readonly " $refType": TaskFragment_data$ref;
 };
 
 
@@ -49,7 +49,7 @@ const node: ReaderFragment = (function () {
     ];
     return {
         "kind": "Fragment",
-        "name": "TaskFragment",
+        "name": "TaskFragment_data",
         "type": "TaskType",
         "metadata": null,
         "argumentDefinitions": [],
@@ -78,31 +78,6 @@ const node: ReaderFragment = (function () {
                         "storageKey": null
                     },
                     {
-                        "kind": "FragmentSpread",
-                        "name": "SliderFieldFragment",
-                        "args": null
-                    },
-                    {
-                        "kind": "FragmentSpread",
-                        "name": "SwitchFieldFragment",
-                        "args": null
-                    },
-                    {
-                        "kind": "FragmentSpread",
-                        "name": "ChoiceFieldFragment",
-                        "args": null
-                    },
-                    {
-                        "kind": "FragmentSpread",
-                        "name": "TextFieldFragment",
-                        "args": null
-                    },
-                    {
-                        "kind": "FragmentSpread",
-                        "name": "NestedFieldFragment",
-                        "args": null
-                    },
-                    {
                         "kind": "InlineFragment",
                         "type": "ChoiceFieldType",
                         "selections": (v0 /*: any*/)
@@ -126,11 +101,36 @@ const node: ReaderFragment = (function () {
                         "kind": "InlineFragment",
                         "type": "TextFieldType",
                         "selections": (v0 /*: any*/)
+                    },
+                    {
+                        "kind": "FragmentSpread",
+                        "name": "SliderFieldFragment_data",
+                        "args": null
+                    },
+                    {
+                        "kind": "FragmentSpread",
+                        "name": "SwitchFieldFragment_data",
+                        "args": null
+                    },
+                    {
+                        "kind": "FragmentSpread",
+                        "name": "ChoiceFieldFragment_data",
+                        "args": null
+                    },
+                    {
+                        "kind": "FragmentSpread",
+                        "name": "TextFieldFragment_data",
+                        "args": null
+                    },
+                    {
+                        "kind": "FragmentSpread",
+                        "name": "NestedFieldFragment_data",
+                        "args": null
                     }
                 ]
             }
         ]
     } as any;
 })();
-(node as any).hash = '911e6b66443293f5487fa76cea0713fa';
+(node as any).hash = 'a641b606dec5605581add165c91f0da7';
 export default node;

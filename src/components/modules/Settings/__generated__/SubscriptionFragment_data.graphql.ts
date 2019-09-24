@@ -1,22 +1,20 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type TaskTypeEnum = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
-export type TaskTypeFragment$ref = any;
-export type TaskTypeFragment = {
+export type SubscriptionFragment_data$ref = any;
+export type SubscriptionFragment_data = {
     readonly id: string;
-    readonly typeId: TaskTypeEnum;
-    readonly label: string;
-    readonly description: string;
-    readonly " $refType": TaskTypeFragment$ref;
+    readonly userAgent: string;
+    readonly userDeviceType: string;
+    readonly " $refType": SubscriptionFragment_data$ref;
 };
 
 
 
 const node: ReaderFragment = ({
     "kind": "Fragment",
-    "name": "TaskTypeFragment",
-    "type": "TaskTypeType",
+    "name": "SubscriptionFragment_data",
+    "type": "SubscriptionType",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -30,25 +28,18 @@ const node: ReaderFragment = ({
         {
             "kind": "ScalarField",
             "alias": null,
-            "name": "typeId",
+            "name": "userAgent",
             "args": null,
             "storageKey": null
         },
         {
             "kind": "ScalarField",
             "alias": null,
-            "name": "label",
-            "args": null,
-            "storageKey": null
-        },
-        {
-            "kind": "ScalarField",
-            "alias": null,
-            "name": "description",
+            "name": "userDeviceType",
             "args": null,
             "storageKey": null
         }
     ]
 } as any);
-(node as any).hash = 'da8505ee3d65b8fb59e6e51f61ee2a68';
+(node as any).hash = 'c072dc47b197d39aeeb70300eb7869c0';
 export default node;

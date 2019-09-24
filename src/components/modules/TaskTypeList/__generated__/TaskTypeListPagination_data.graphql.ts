@@ -1,24 +1,24 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-type TaskTypeFragment$ref = any;
-export type TaskTypeListPagination$ref = any;
-export type TaskTypeListPagination = {
+type TaskTypeFragment_data$ref = any;
+export type TaskTypeListPagination_data$ref = any;
+export type TaskTypeListPagination_data = {
     readonly id: string;
     readonly list: {
-        readonly edges: ReadonlyArray<({
-            readonly node: ({
+        readonly edges: ReadonlyArray<{
+            readonly node: {
                 readonly id: string;
                 readonly order: number;
-                readonly " $fragmentRefs": TaskTypeFragment$ref;
-            }) | null;
-        }) | null> | null;
+                readonly " $fragmentRefs": TaskTypeFragment_data$ref;
+            } | null;
+        } | null> | null;
         readonly pageInfo: {
             readonly hasNextPage: boolean;
             readonly endCursor: string | null;
         };
     };
-    readonly " $refType": TaskTypeListPagination$ref;
+    readonly " $refType": TaskTypeListPagination_data$ref;
 };
 
 
@@ -33,7 +33,7 @@ const node: ReaderFragment = (function () {
     } as any);
     return {
         "kind": "Fragment",
-        "name": "TaskTypeListPagination",
+        "name": "TaskTypeListPagination_data",
         "type": "TaskTypeListType",
         "metadata": {
             "connection": [
@@ -97,16 +97,16 @@ const node: ReaderFragment = (function () {
                                         "storageKey": null
                                     },
                                     {
-                                        "kind": "FragmentSpread",
-                                        "name": "TaskTypeFragment",
-                                        "args": null
-                                    },
-                                    {
                                         "kind": "ScalarField",
                                         "alias": null,
                                         "name": "__typename",
                                         "args": null,
                                         "storageKey": null
+                                    },
+                                    {
+                                        "kind": "FragmentSpread",
+                                        "name": "TaskTypeFragment_data",
+                                        "args": null
                                     }
                                 ]
                             },
@@ -149,5 +149,5 @@ const node: ReaderFragment = (function () {
         ]
     } as any;
 })();
-(node as any).hash = '8c9c329d3880572f27db5416d4a0e0ee';
+(node as any).hash = '220ae70705652fc7c48b18d1ee3a3bf1';
 export default node;

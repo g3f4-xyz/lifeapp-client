@@ -1,5 +1,5 @@
 import { FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core';
-import React, { ChangeEvent } from 'react';
+import React from 'react';
 import FieldContainer from '../../containers/FieldContainer';
 
 interface Props {
@@ -7,7 +7,7 @@ interface Props {
   label?: string;
   helperText?: string;
   required?: boolean;
-  options: ReadonlyArray<{ readonly text: string; readonly value: string; } | null> | undefined;
+  options: ReadonlyArray<{ readonly text: string; readonly value: string } | null> | undefined;
 
   onChange(value: string): void;
 }
@@ -22,25 +22,23 @@ export default class Choice extends React.Component<Props> {
 
     return (
       <FieldContainer>
-        {label && (
-          <InputLabel>{label}</InputLabel>
-        )}
+        {label && <InputLabel>{label}</InputLabel>}
         <Select value={value} onChange={this.handleChange}>
-          {options.map((option) => option && (
-            <MenuItem
-              key={option.value}
-              value={option.value}
-            >{option.text}</MenuItem>
-          ))}
+          {options.map(
+            option =>
+              option && (
+                <MenuItem key={option.value} value={option.value}>
+                  {option.text}
+                </MenuItem>
+              )
+          )}
         </Select>
-        {helperText && (
-          <FormHelperText>{helperText}</FormHelperText>
-        )}
+        {helperText && <FormHelperText>{helperText}</FormHelperText>}
       </FieldContainer>
     );
   }
 
-  handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
-    this.props.onChange(event.target.value);
+  handleChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
+    this.props.onChange(event.target.value as string);
   };
 }

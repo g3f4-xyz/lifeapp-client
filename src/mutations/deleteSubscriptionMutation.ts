@@ -1,10 +1,10 @@
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
-import { commitMutation } from 'react-relay';
+import { commitMutation, DeclarativeMutationConfig } from 'react-relay';
 import environment from '../environment';
 import {
   deleteSubscriptionMutation,
-  deleteSubscriptionMutationInput, deleteSubscriptionMutationResponse,
+  deleteSubscriptionMutationInput,
+  deleteSubscriptionMutationResponse
 } from './__generated__/deleteSubscriptionMutation.graphql';
 
 const mutation = graphql`
@@ -16,29 +16,28 @@ const mutation = graphql`
   }
 `;
 
-export default (
-  { parentID, subscriptionId }: deleteSubscriptionMutationInput & { parentID: string },
-): Promise<deleteSubscriptionMutationResponse> => new Promise((onCompleted, onError): void => {
-  const variables = { input: { subscriptionId } };
-  const configs = [{
-    type: 'RANGE_DELETE',
-    parentID,
-    connectionKeys: [{
-      key: 'Notifications_subscriptions',
-    }],
-    pathToConnection: ['notifications', 'subscriptions'],
-    deletedIDFieldName: 'subscriptionId',
-  }];
+export default ({ parentID, subscriptionId }: deleteSubscriptionMutationInput & { parentID: string }): Promise<deleteSubscriptionMutationResponse> =>
+  new Promise((onCompleted, onError): void => {
+    const variables = { input: { subscriptionId } };
+    const configs: DeclarativeMutationConfig[] = [
+      {
+        type: 'RANGE_DELETE',
+        parentID,
+        connectionKeys: [
+          {
+            key: 'Notifications_subscriptions'
+          }
+        ],
+        pathToConnection: ['notifications', 'subscriptions'],
+        deletedIDFieldName: 'subscriptionId'
+      }
+    ];
 
-  commitMutation<deleteSubscriptionMutation>(
-    environment,
-    {
-      // @ts-ignore
+    commitMutation<deleteSubscriptionMutation>(environment, {
       configs,
       mutation,
       variables,
       onCompleted,
-      onError,
-    },
-  );
-});
+      onError
+    });
+  });

@@ -1,18 +1,18 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type NotificationsGeneralFragment$ref = any;
-export type NotificationsGeneralFragment = {
+export type NotificationsGeneralFragment_data$ref = any;
+export type NotificationsGeneralFragment_data = {
     readonly show: boolean;
     readonly vibrate: boolean;
-    readonly " $refType": NotificationsGeneralFragment$ref;
+    readonly " $refType": NotificationsGeneralFragment_data$ref;
 };
 
 
 
 const node: ReaderFragment = ({
     "kind": "Fragment",
-    "name": "NotificationsGeneralFragment",
+    "name": "NotificationsGeneralFragment_data",
     "type": "NotificationsGeneralSettingType",
     "metadata": null,
     "argumentDefinitions": [],
@@ -33,5 +33,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '7949b416ae87cbeff7e571c6def1a4de';
+(node as any).hash = '0fa7a2f02479f370881769eb72be5e84';
 export default node;

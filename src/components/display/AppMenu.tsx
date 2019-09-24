@@ -3,7 +3,7 @@ import { MoreVert } from '@material-ui/icons';
 import React, { MouseEvent } from 'react';
 
 interface Props {
-  options: Array<{ label: string, action: () => void, visible?: boolean }>;
+  options: Array<{ label: string; action: () => void; visible?: boolean }>;
 }
 
 interface State {
@@ -12,7 +12,7 @@ interface State {
 
 class AppMenu extends React.Component<Props, State> {
   state = {
-    anchorEl: null,
+    anchorEl: null
   };
 
   render(): React.ReactNode {
@@ -21,24 +21,17 @@ class AppMenu extends React.Component<Props, State> {
 
     return (
       <div>
-        <IconButton
-          aria-label="More"
-          aria-owns={anchorEl ? 'long-menu' : undefined}
-          aria-haspopup="true"
-          onClick={this.handleClick}
-        >
+        <IconButton aria-label="More" aria-owns={anchorEl ? 'long-menu' : undefined} aria-haspopup="true" onClick={this.handleClick}>
           <MoreVert />
         </IconButton>
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={this.handleClose}
-        >
-          {options.filter(({ visible = true }) => visible).map(({ label, action }) => (
-            <MenuItem key={label} onClick={action}>
-              {label}
-            </MenuItem>
-          ))}
+        <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={this.handleClose}>
+          {options
+            .filter(({ visible = true }) => visible)
+            .map(({ label, action }) => (
+              <MenuItem key={label} onClick={action}>
+                {label}
+              </MenuItem>
+            ))}
         </Menu>
       </div>
     );

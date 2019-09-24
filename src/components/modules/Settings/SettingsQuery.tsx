@@ -1,4 +1,3 @@
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React, { Component } from 'react';
 import { QueryRenderer } from 'react-relay';
@@ -15,18 +14,15 @@ class SettingsQuery extends Component {
       <ErrorBoundary>
         <QueryRenderer<ISettingsQuery>
           variables={{
-            count: ITEMS_PER_PAGE * 10,
+            count: ITEMS_PER_PAGE * 10
           }}
           environment={environment}
           query={graphql`
-            query SettingsQuery(
-              $count: Int!,
-              $after: String
-            ) {
+            query SettingsQuery($count: Int!, $after: String) {
               app {
                 settings {
                   id
-                  ...SettingsFragment
+                  ...SettingsFragment_data
                 }
               }
             }
@@ -35,14 +31,10 @@ class SettingsQuery extends Component {
             if (error) {
               return <div>{JSON.stringify(error)}</div>;
             } else if (props && props.app.settings) {
-              return (
-                <SettingsFragment data={props.app.settings} {...this.props} />
-              );
+              return <SettingsFragment data={props.app.settings} {...this.props} />;
             }
 
-            return (
-              <Loader/>
-            );
+            return <Loader />;
           }}
         />
       </ErrorBoundary>

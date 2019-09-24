@@ -7,11 +7,7 @@ export interface TaskListHandlerProps extends ModuleProps {
   onEdit(taskId: string): void;
 }
 
-export default (
-  moduleProps: ModuleProps,
-  state: AppState,
-  update: (spec: Spec<AppState>,
-) => void): TaskListHandlerProps => ({
+export default (moduleProps: ModuleProps, state: AppState, update: (spec: Spec<AppState>) => void): TaskListHandlerProps => ({
   moduleId: moduleProps.moduleId,
   onAdd: () => {
     update({
@@ -20,8 +16,8 @@ export default (
           ? state.appOpenedModuleIds
           : [...state.appOpenedModuleIds, MODULES_IDS.TASK_TYPE_LIST],
         activeModuleId: MODULES_IDS.TASK_TYPE_LIST,
-        activeModulesHistory: [...state.activeModulesHistory, MODULES_IDS.TASK_TYPE_LIST],
-      },
+        activeModulesHistory: [...state.activeModulesHistory, MODULES_IDS.TASK_TYPE_LIST]
+      }
     });
   },
   onEdit: (taskId: string) => {
@@ -33,14 +29,17 @@ export default (
         activeModuleId: moduleId,
         activeModulesHistory: [...state.activeModulesHistory, moduleId],
         gridView: gridView ? gridView : gridViewLocked,
-        openedTasksModulesProps: [...openedTasksModulesProps, {
-          editMode: true,
-          isNew: false,
-          moduleId,
-          taskId,
-          type: null,
-        }],
-      },
+        openedTasksModulesProps: [
+          ...openedTasksModulesProps,
+          {
+            editMode: true,
+            isNew: false,
+            moduleId,
+            taskId,
+            type: null
+          }
+        ]
+      }
     });
-  },
+  }
 });

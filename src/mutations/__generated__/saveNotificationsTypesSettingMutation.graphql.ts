@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-type NotificationsTypesFragment$ref = any;
+type NotificationsTypesFragment_data$ref = any;
 export type saveNotificationsTypesSettingMutationInput = {
     readonly types?: SettingsNotificationsTypesInputType | null;
     readonly clientMutationId?: string | null;
@@ -17,11 +17,11 @@ export type saveNotificationsTypesSettingMutationVariables = {
     readonly input: saveNotificationsTypesSettingMutationInput;
 };
 export type saveNotificationsTypesSettingMutationResponse = {
-    readonly saveNotificationsTypesSetting: ({
+    readonly saveNotificationsTypesSetting: {
         readonly savedTypes: {
-            readonly " $fragmentRefs": NotificationsTypesFragment$ref;
+            readonly " $fragmentRefs": NotificationsTypesFragment_data$ref;
         };
-    }) | null;
+    } | null;
 };
 export type saveNotificationsTypesSettingMutation = {
     readonly response: saveNotificationsTypesSettingMutationResponse;
@@ -36,13 +36,13 @@ mutation saveNotificationsTypesSettingMutation(
 ) {
   saveNotificationsTypesSetting(input: $input) {
     savedTypes {
-      ...NotificationsTypesFragment
+      ...NotificationsTypesFragment_data
       id
     }
   }
 }
 
-fragment NotificationsTypesFragment on NotificationsTypesSettingType {
+fragment NotificationsTypesFragment_data on NotificationsTypesSettingType {
   events
   goals
   meetings
@@ -63,8 +63,7 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "Variable",
             "name": "input",
-            "variableName": "input",
-            "type": "saveNotificationsTypesSettingMutationInput!"
+            "variableName": "input"
         } as any)
     ];
     return {
@@ -96,7 +95,7 @@ const node: ConcreteRequest = (function () {
                             "selections": [
                                 {
                                     "kind": "FragmentSpread",
-                                    "name": "NotificationsTypesFragment",
+                                    "name": "NotificationsTypesFragment_data",
                                     "args": null
                                 }
                             ]
@@ -180,10 +179,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "mutation",
             "name": "saveNotificationsTypesSettingMutation",
             "id": null,
-            "text": "mutation saveNotificationsTypesSettingMutation(\n  $input: saveNotificationsTypesSettingMutationInput!\n) {\n  saveNotificationsTypesSetting(input: $input) {\n    savedTypes {\n      ...NotificationsTypesFragment\n      id\n    }\n  }\n}\n\nfragment NotificationsTypesFragment on NotificationsTypesSettingType {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n",
+            "text": "mutation saveNotificationsTypesSettingMutation(\n  $input: saveNotificationsTypesSettingMutationInput!\n) {\n  saveNotificationsTypesSetting(input: $input) {\n    savedTypes {\n      ...NotificationsTypesFragment_data\n      id\n    }\n  }\n}\n\nfragment NotificationsTypesFragment_data on NotificationsTypesSettingType {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '7f8fdeb140990405a2205883c726f631';
+(node as any).hash = '49e02275185f8767ab093e40e115879a';
 export default node;

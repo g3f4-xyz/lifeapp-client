@@ -18,14 +18,7 @@ export default class Switch extends React.Component<Props> {
     return (
       <FieldContainer>
         <FormControlLabel
-          control={
-            <MaterialSwitch
-              checked={checked}
-              disabled={disabled!}
-              value={checked}
-              onChange={this.handleChange}
-            />
-          }
+          control={<MaterialSwitch checked={checked} disabled={disabled as (boolean | undefined)} value={checked} onChange={this.handleChange} />}
           label={label}
         />
       </FieldContainer>

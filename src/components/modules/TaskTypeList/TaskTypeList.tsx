@@ -1,11 +1,10 @@
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { QueryRenderer } from 'react-relay';
 import { ITEMS_PER_PAGE } from '../../../constans';
 import environment from '../../../environment';
 import Loader from '../../display/Loader';
-import { TaskTypeEnum } from './__generated__/TaskTypeFragment.graphql';
+import { TaskTypeEnum } from './__generated__/TaskTypeFragment_data.graphql';
 import { TaskTypeListQuery } from './__generated__/TaskTypeListQuery.graphql';
 import TaskTypeListPagination from './TaskTypeListPagination';
 
@@ -19,16 +18,13 @@ export default class TaskTypeList extends React.Component<Props> {
       <QueryRenderer<TaskTypeListQuery>
         environment={environment}
         variables={{
-          count: ITEMS_PER_PAGE,
+          count: ITEMS_PER_PAGE
         }}
         query={graphql`
-          query TaskTypeListQuery(
-            $count: Int!,
-            $after: String
-          ) {
+          query TaskTypeListQuery($count: Int!, $after: String) {
             app {
               taskTypeList {
-                ...TaskTypeListPagination
+                ...TaskTypeListPagination_data
               }
             }
           }
@@ -37,13 +33,9 @@ export default class TaskTypeList extends React.Component<Props> {
           if (error) {
             return <div>{JSON.stringify(error)}</div>;
           } else if (props) {
-            return (
-              <TaskTypeListPagination data={props.app.taskTypeList} {...this.props} />
-            );
+            return <TaskTypeListPagination data={props.app.taskTypeList} {...this.props} />;
           }
-          return (
-            <Loader/>
-          );
+          return <Loader />;
         }}
       />
     );

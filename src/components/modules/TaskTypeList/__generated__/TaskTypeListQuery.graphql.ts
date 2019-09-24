@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-type TaskTypeListPagination$ref = any;
+type TaskTypeListPagination_data$ref = any;
 export type TaskTypeListQueryVariables = {
     readonly count: number;
     readonly after?: string | null;
@@ -9,7 +9,7 @@ export type TaskTypeListQueryVariables = {
 export type TaskTypeListQueryResponse = {
     readonly app: {
         readonly taskTypeList: {
-            readonly " $fragmentRefs": TaskTypeListPagination$ref;
+            readonly " $fragmentRefs": TaskTypeListPagination_data$ref;
         };
     };
 };
@@ -27,21 +27,21 @@ query TaskTypeListQuery(
 ) {
   app {
     taskTypeList {
-      ...TaskTypeListPagination
+      ...TaskTypeListPagination_data
       id
     }
     id
   }
 }
 
-fragment TaskTypeListPagination on TaskTypeListType {
+fragment TaskTypeListPagination_data on TaskTypeListType {
   id
   list(first: $count, after: $after) {
     edges {
       node {
         id
         order
-        ...TaskTypeFragment
+        ...TaskTypeFragment_data
         __typename
       }
       cursor
@@ -53,7 +53,7 @@ fragment TaskTypeListPagination on TaskTypeListType {
   }
 }
 
-fragment TaskTypeFragment on TaskTypeType {
+fragment TaskTypeFragment_data on TaskTypeType {
   id
   typeId
   label
@@ -85,14 +85,12 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "Variable",
             "name": "after",
-            "variableName": "after",
-            "type": "String"
+            "variableName": "after"
         } as any),
         ({
             "kind": "Variable",
             "name": "first",
-            "variableName": "count",
-            "type": "Int"
+            "variableName": "count"
         } as any)
     ];
     return {
@@ -124,7 +122,7 @@ const node: ConcreteRequest = (function () {
                             "selections": [
                                 {
                                     "kind": "FragmentSpread",
-                                    "name": "TaskTypeListPagination",
+                                    "name": "TaskTypeListPagination_data",
                                     "args": null
                                 }
                             ]
@@ -278,10 +276,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "TaskTypeListQuery",
             "id": null,
-            "text": "query TaskTypeListQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    taskTypeList {\n      ...TaskTypeListPagination\n      id\n    }\n    id\n  }\n}\n\nfragment TaskTypeListPagination on TaskTypeListType {\n  id\n  list(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        order\n        ...TaskTypeFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment TaskTypeFragment on TaskTypeType {\n  id\n  typeId\n  label\n  description\n}\n",
+            "text": "query TaskTypeListQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    taskTypeList {\n      ...TaskTypeListPagination_data\n      id\n    }\n    id\n  }\n}\n\nfragment TaskTypeListPagination_data on TaskTypeListType {\n  id\n  list(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        order\n        ...TaskTypeFragment_data\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment TaskTypeFragment_data on TaskTypeType {\n  id\n  typeId\n  label\n  description\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '3d2d3af9a741b5516941c759f0bde5c2';
+(node as any).hash = 'a5359964ccbe171f21379af5b27f2b5f';
 export default node;

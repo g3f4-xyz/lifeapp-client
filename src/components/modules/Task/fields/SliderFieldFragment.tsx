@@ -1,20 +1,24 @@
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Slider from '../../../display/field/Slider';
-import { SliderFieldFragment } from './__generated__/SliderFieldFragment.graphql';
+// eslint-disable-next-line @typescript-eslint/camelcase
+import { SliderFieldFragment_data } from './__generated__/SliderFieldFragment_data.graphql';
 
 interface Props {
-  data: SliderFieldFragment;
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  data: SliderFieldFragment_data;
   taskId: string;
 }
 
 class SliderField extends React.Component<Props> {
   render(): React.ReactNode {
     const { data } = this.props;
-    const { value: { progress }, meta: { label, disabled, max, min, step } } = data;
+    const {
+      value: { progress },
+      meta: { label, disabled, max, min, step }
+    } = data;
 
     return (
       <Slider
@@ -30,7 +34,10 @@ class SliderField extends React.Component<Props> {
   }
 
   private handleChange = async (progress: number): Promise<void> => {
-    const { taskId, data: { fieldId, id }} = this.props;
+    const {
+      taskId,
+      data: { fieldId, id }
+    } = this.props;
 
     await updateTaskFieldMutation({ fieldId, value: { progress }, taskId }, { id });
   };
@@ -55,11 +62,9 @@ graphql`
   }
 `;
 
-export default createFragmentContainer<Props>(
-  // @ts-ignore
-  SliderField,
-  graphql`
-    fragment SliderFieldFragment on SliderFieldType {
+export default createFragmentContainer<Props>(SliderField, {
+  data: graphql`
+    fragment SliderFieldFragment_data on SliderFieldType {
       id
       fieldId
       meta {
@@ -69,5 +74,5 @@ export default createFragmentContainer<Props>(
         ...SliderFieldFragmentValue @relay(mask: false)
       }
     }
-  `,
-);
+  `
+});

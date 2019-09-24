@@ -8,36 +8,33 @@ import React from 'react';
 
 const styles = (theme: Theme) => ({
   button: {
-    margin: theme.spacing.unit,
+    margin: theme.spacing(1)
   },
   root: {
-    flexGrow: 1,
+    flexGrow: 1
   },
   paper: {
-    padding: theme.spacing.unit * 2,
+    padding: theme.spacing(2),
     textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
+    color: theme.palette.text.secondary
+  }
 });
 
-interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
-}
-
-function Login(props: Props) {
+function Login(props: StyledComponentProps<keyof ReturnType<typeof styles>>) {
   const { classes } = props;
 
   if (!classes) {
-      throw new Error(`error loading styles`);
-    }
+    throw new Error(`error loading styles`);
+  }
 
   return (
     <div className={classes.root}>
       <div>
         <div className={classes.root}>
-          <Grid container spacing={24}>
+          <Grid container spacing={3}>
             <Grid item xs={12}>
               <Paper className={classes.paper}>
-                <Typography variant="display2" gutterBottom>
+                <Typography variant="h3" gutterBottom>
                   WELCOME TO LIFEAPP
                 </Typography>
               </Paper>
@@ -63,5 +60,6 @@ function Login(props: Props) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 export default withStyles(styles)(Login);

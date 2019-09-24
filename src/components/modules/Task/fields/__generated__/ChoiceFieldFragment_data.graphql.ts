@@ -1,10 +1,10 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
-export type ChoiceFieldFragment$ref = any;
-export type ChoiceFieldFragment = {
+export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
+export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
+export type ChoiceFieldFragment_data$ref = any;
+export type ChoiceFieldFragment_data = {
     readonly id: string;
     readonly fieldId: FieldIdEnum;
     readonly meta: {
@@ -12,16 +12,16 @@ export type ChoiceFieldFragment = {
         readonly helperText: string;
         readonly label: string;
         readonly defaultValue: string | null;
-        readonly options: ReadonlyArray<({
+        readonly options: ReadonlyArray<{
             readonly text: string;
             readonly value: string;
-        }) | null>;
+        } | null>;
         readonly required: boolean;
     };
     readonly value: {
         readonly id: string;
     };
-    readonly " $refType": ChoiceFieldFragment$ref;
+    readonly " $refType": ChoiceFieldFragment_data$ref;
 };
 
 
@@ -36,7 +36,7 @@ const node: ReaderFragment = (function () {
     } as any);
     return {
         "kind": "Fragment",
-        "name": "ChoiceFieldFragment",
+        "name": "ChoiceFieldFragment_data",
         "type": "ChoiceFieldType",
         "metadata": null,
         "argumentDefinitions": [],
@@ -135,5 +135,5 @@ const node: ReaderFragment = (function () {
         ]
     } as any;
 })();
-(node as any).hash = '181dd086b023d16f38e8784ce16729d6';
+(node as any).hash = 'bbb82ec78dbedbac965f0d7a91b74151';
 export default node;

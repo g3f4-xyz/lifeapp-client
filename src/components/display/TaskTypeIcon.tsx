@@ -4,20 +4,20 @@ import { DateRange, Group, LocalOffer, Settings, Update } from '@material-ui/ico
 import classNames from 'classnames';
 import React from 'react';
 import { TASK_TYPE_VALUE_MAP } from '../../constans';
-import { TaskTypeEnum } from '../modules/TaskList/__generated__/TaskListFragment.graphql';
+import { TaskTypeEnum } from '../modules/TaskList/__generated__/TaskListQuery.graphql';
 
 const ICONS: TASK_TYPE_VALUE_MAP<React.ComponentType<SvgIconProps>> = {
   GOAL: Settings,
   TODO: LocalOffer,
   ROUTINE: Update,
   MEETING: Group,
-  EVENT: DateRange,
+  EVENT: DateRange
 };
 
 const styles = (theme: Theme) => ({
   icon: {
-    fontSize: theme.spacing.unit * 3,
-  },
+    fontSize: theme.spacing(3)
+  }
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
@@ -35,9 +35,7 @@ class TaskTypeIcon extends React.Component<Props> {
 
     const Icon = ICONS[type];
 
-    return (
-      <Icon className={classNames(classes.icon, className)} />
-    );
+    return <Icon className={classNames(classes.icon, className)} />;
   }
 }
 

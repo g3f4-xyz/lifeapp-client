@@ -1,13 +1,14 @@
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Text from '../../../display/field/Text';
-import { TextFieldFragment } from './__generated__/TextFieldFragment.graphql';
+// eslint-disable-next-line @typescript-eslint/camelcase
+import { TextFieldFragment_data } from './__generated__/TextFieldFragment_data.graphql';
 
 interface Props {
-  data: TextFieldFragment;
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  data: TextFieldFragment_data;
   taskId: string;
 }
 
@@ -15,7 +16,10 @@ class TextField extends React.Component<Props> {
   render(): React.ReactNode {
     const { data } = this.props;
 
-    const { value: { text }, meta } = data;
+    const {
+      value: { text },
+      meta
+    } = data;
     const { max, maxLength, min, minLength, required, inputType, label, helperText } = meta;
 
     return (
@@ -35,7 +39,10 @@ class TextField extends React.Component<Props> {
   }
 
   private handleChange = async (text: string): Promise<void> => {
-    const { taskId, data: { fieldId, id }} = this.props;
+    const {
+      taskId,
+      data: { fieldId, id }
+    } = this.props;
 
     await updateTaskFieldMutation({ fieldId, value: { text }, taskId }, { id });
   };
@@ -62,11 +69,9 @@ graphql`
   }
 `;
 
-export default createFragmentContainer<Props>(
-  // @ts-ignore
-  TextField,
-  graphql`
-    fragment TextFieldFragment on TextFieldType {
+export default createFragmentContainer<Props>(TextField, {
+  data: graphql`
+    fragment TextFieldFragment_data on TextFieldType {
       id
       fieldId
       meta {
@@ -76,5 +81,5 @@ export default createFragmentContainer<Props>(
         ...TextFieldFragmentValue @relay(mask: false)
       }
     }
-  `,
-);
+  `
+});

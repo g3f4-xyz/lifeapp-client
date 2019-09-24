@@ -15,74 +15,74 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      marginRight: theme.spacing.unit * 2,
+      marginRight: theme.spacing(2)
     },
     grow: {
-      flexGrow: 1,
+      flexGrow: 1
     },
     statusFilter: {
-      marginBottom: theme.spacing.unit * 3,
-      marginRight: theme.spacing.unit * 2,
-      minWidth: theme.spacing.unit * 20,
+      marginBottom: theme.spacing(3),
+      marginRight: theme.spacing(2),
+      minWidth: theme.spacing(20)
     },
     title: {
       display: 'none',
       [theme.breakpoints.up('md')]: {
-        display: 'block',
-      },
+        display: 'block'
+      }
     },
     search: {
-      'position': 'relative',
-      'borderRadius': theme.shape.borderRadius,
-      'backgroundColor': fade(theme.palette.common.white, 0.15),
+      position: 'relative',
+      borderRadius: theme.shape.borderRadius,
+      backgroundColor: fade(theme.palette.common.white, 0.15),
       '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
+        backgroundColor: fade(theme.palette.common.white, 0.25)
       },
-      'marginLeft': 0,
-      'width': '100%',
+      marginLeft: 0,
+      width: '100%',
       [theme.breakpoints.up('md')]: {
-        marginLeft: theme.spacing.unit,
-        width: 'auto',
-      },
+        marginLeft: theme.spacing(1),
+        width: 'auto'
+      }
     },
     searchIcon: {
-      width: theme.spacing.unit * 9,
+      width: theme.spacing(9),
       height: '100%',
       position: 'absolute',
       pointerEvents: 'none',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center',
+      justifyContent: 'center'
     },
     inputRoot: {
       color: 'inherit',
-      width: '100%',
+      width: '100%'
     },
     inputInput: {
-      paddingTop: theme.spacing.unit,
-      paddingRight: theme.spacing.unit,
-      paddingBottom: theme.spacing.unit,
-      paddingLeft: theme.spacing.unit * 10,
+      paddingTop: theme.spacing(1),
+      paddingRight: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
+      paddingLeft: theme.spacing(10),
       transition: theme.transitions.create('width'),
       width: '100%',
       [theme.breakpoints.up('md')]: {
-        'width': 120,
+        width: 120,
         '&:focus': {
-          width: 200,
-        },
-      },
+          width: 200
+        }
+      }
     },
     wrapper: {
       flexDirection: 'column',
       [theme.breakpoints.up('md')]: {
-        flexDirection: 'row-reverse',
-      },
+        flexDirection: 'row-reverse'
+      }
     },
     toolbar: {
       overflow: 'scroll',
-      marginLeft: theme.spacing.unit,
-      marginRight: theme.spacing.unit,
-    },
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1)
+    }
   });
 
 export interface Props extends WithStyles<typeof styles> {
@@ -95,7 +95,9 @@ export interface Props extends WithStyles<typeof styles> {
 
 function TaskListBar(props: Props) {
   const { classes, settings, onFilterByTitle, onFilterByType, onFilterByStatus } = props;
-  const { filters: { title, taskType, status } } = settings;
+  const {
+    filters: { title, taskType, status }
+  } = settings;
 
   return (
     <div className={classes.root}>
@@ -112,7 +114,7 @@ function TaskListBar(props: Props) {
               placeholder="Filter by title..."
               classes={{
                 root: classes.inputRoot,
-                input: classes.inputInput,
+                input: classes.inputInput
               }}
             />
           </div>
@@ -121,28 +123,19 @@ function TaskListBar(props: Props) {
         <Toolbar className={classes.toolbar}>
           <FormControl className={classes.statusFilter}>
             <InputLabel htmlFor="status-filter">Status</InputLabel>
-            <NativeSelect
-              value={status || ''}
-              onChange={onFilterByStatus}
-              input={<Input id="status-filter" />}
-            >
+            <NativeSelect value={status || ''} onChange={onFilterByStatus} input={<Input id="status-filter" />}>
               <option value="" />
               {Object.keys(TASK_STATUSES).map(value => (
-                <option key={value} value={value}>{value}</option>
+                <option key={value} value={value}>
+                  {value}
+                </option>
               ))}
             </NativeSelect>
           </FormControl>
           {Object.keys(TASK_TYPE).map(key => (
             <FormControlLabel
               key={key}
-              control={
-                <Checkbox
-                  color="default"
-                  checked={taskType.includes(key as TaskTypeEnum)}
-                  onChange={onFilterByType}
-                  value={key}
-                />
-              }
+              control={<Checkbox color="default" checked={taskType.includes(key as TaskTypeEnum)} onChange={onFilterByType} value={key} />}
               label={key}
             />
           ))}

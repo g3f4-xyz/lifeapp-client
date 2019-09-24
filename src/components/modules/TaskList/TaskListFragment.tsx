@@ -2,32 +2,33 @@ import {
   Button,
   ExpansionPanel,
   ExpansionPanelDetails,
-  ExpansionPanelSummary, StyledComponentProps,
+  ExpansionPanelSummary,
+  StyledComponentProps,
   Theme,
   Tooltip,
-  Typography, withStyles,
+  Typography,
+  withStyles,
 } from '@material-ui/core';
 import { green, grey, red, yellow } from '@material-ui/core/colors';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { CheckBox, CheckBoxOutlineBlank, ExpandMore, PriorityHigh, Slideshow } from '@material-ui/icons';
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import classNames from 'classnames';
 import React from 'react';
 import { createFragmentContainer } from 'react-relay';
-import { FIELD_ID, TASK_STATUSES } from '../../../constans';
 import { TaskStatusEnum } from '../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
+import { TaskListFragment_data as TaskListFragmentResponse } from './__generated__/TaskListFragment_data.graphql';
+import { FIELD_ID, TASK_STATUSES } from '../../../constans';
 import TaskTypeIcon from '../../display/TaskTypeIcon';
-import { TaskListFragment as TaskListFragmentResponse } from './__generated__/TaskListFragment.graphql';
 
 const styles = (theme: Theme) => ({
   actions: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   content: {
-    display: 'block',
+    display: 'block'
   },
   heading: {
     maxHeight: '1.8em',
@@ -36,26 +37,26 @@ const styles = (theme: Theme) => ({
     textAlign: 'center',
     fontSize: theme.typography.pxToRem(20),
     fontWeight: theme.typography.fontWeightRegular,
-    marginTop: theme.spacing.unit,
+    marginTop: theme.spacing(1)
   },
   icon: {
-    fontSize: theme.spacing.unit * 5,
+    fontSize: theme.spacing(5)
   },
   green: {
-    color: green[700],
+    color: green[700]
   },
   grey: {
-    color: grey[700],
+    color: grey[700]
   },
   red: {
-    color: red[700],
+    color: red[700]
   },
   taskTypeIcon: {
-    marginTop: theme.spacing.unit * 1.5,
+    marginTop: theme.spacing(1) * 1.5
   },
   yellow: {
-    color: yellow[700],
-  },
+    color: yellow[700]
+  }
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
@@ -68,7 +69,7 @@ interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
 class TaskListFragment extends React.PureComponent<Props> {
   render(): React.ReactNode {
     const { classes, data, onDelete, onEdit } = this.props;
-    const { id, taskType, fields  } = data;
+    const { id, taskType, fields } = data;
     const titleField = fields.find(field => field.fieldId === FIELD_ID.TITLE);
     const noteField = fields.find(field => field.fieldId === FIELD_ID.NOTE);
     const priorityField = fields.find(field => field.fieldId === FIELD_ID.PRIORITY);
@@ -93,9 +94,7 @@ class TaskListFragment extends React.PureComponent<Props> {
           <TaskTypeIcon type={taskType} className={classes.taskTypeIcon} />
         </ExpansionPanelSummary>
         <ExpansionPanelDetails className={classes.content}>
-          <div>
-            {noteField && noteField.value && noteField.value.text}
-          </div>
+          <div>{noteField && noteField.value && noteField.value.text}</div>
           <div className={classes.actions}>
             <Button onClick={() => onEdit(id)}>Edit</Button>
             <Button onClick={() => onDelete(id)}>Delete</Button>
@@ -114,19 +113,13 @@ class TaskListFragment extends React.PureComponent<Props> {
 
     switch (status) {
       case TASK_STATUSES.TODO: {
-        return (
-          <CheckBoxOutlineBlank className={classNames(classes.grey, classes.icon)} />
-        );
+        return <CheckBoxOutlineBlank className={classNames(classes.grey, classes.icon)} />;
       }
       case TASK_STATUSES.IN_PROGRESS: {
-        return (
-          <Slideshow className={classNames(classes.yellow, classes.icon)} />
-        );
+        return <Slideshow className={classNames(classes.yellow, classes.icon)} />;
       }
       case TASK_STATUSES.DONE: {
-        return (
-          <CheckBox className={classNames(classes.green, classes.icon)} />
-        );
+        return <CheckBox className={classNames(classes.green, classes.icon)} />;
       }
       default: {
         throw new Error(`no status icon for status: ${status}`);
@@ -137,28 +130,27 @@ class TaskListFragment extends React.PureComponent<Props> {
   private renderStatusTooltip(status: TaskStatusEnum): React.ReactNode {
     const icon = this.renderStatusIcon(status);
 
-    return icon && (
-      <Tooltip title={`Status: ${status}`}>
-        {icon}
-      </Tooltip>
-    );
+    return icon && <Tooltip title={`Status: ${status}`}>{icon}</Tooltip>;
   }
 }
 
 export default createFragmentContainer<Props>(
+  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
   // @ts-ignore
   withStyles(styles)(TaskListFragment),
-  graphql`
-    fragment TaskListFragment on TaskType {
-      id
-      taskType
-      fields {
-        ...SliderFieldFragment @relay(mask: false)
-        ...SwitchFieldFragment @relay(mask: false)
-        ...ChoiceFieldFragment @relay(mask: false)
-        ...TextFieldFragment @relay(mask: false)
-        ...NestedFieldFragment @relay(mask: false)
+  {
+    data: graphql`
+      fragment TaskListFragment_data on TaskType {
+        id
+        taskType
+        fields {
+          ...SliderFieldFragment_data @relay(mask: false)
+          ...SwitchFieldFragment_data @relay(mask: false)
+          ...ChoiceFieldFragment_data @relay(mask: false)
+          ...TextFieldFragment_data @relay(mask: false)
+          ...NestedFieldFragment_data @relay(mask: false)
+        }
       }
-    }
-  `,
+    `
+  }
 );

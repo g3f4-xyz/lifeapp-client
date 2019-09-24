@@ -1,10 +1,10 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
-export type TextFieldFragment$ref = any;
-export type TextFieldFragment = {
+export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
+export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
+export type TextFieldFragment_data$ref = any;
+export type TextFieldFragment_data = {
     readonly id: string;
     readonly fieldId: FieldIdEnum;
     readonly meta: {
@@ -21,14 +21,14 @@ export type TextFieldFragment = {
     readonly value: {
         readonly text: string;
     };
-    readonly " $refType": TextFieldFragment$ref;
+    readonly " $refType": TextFieldFragment_data$ref;
 };
 
 
 
 const node: ReaderFragment = ({
     "kind": "Fragment",
-    "name": "TextFieldFragment",
+    "name": "TextFieldFragment_data",
     "type": "TextFieldType",
     "metadata": null,
     "argumentDefinitions": [],
@@ -141,5 +141,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '6eeaff04015f250778418c021f1812c7';
+(node as any).hash = 'e8e3451dc4f68b6c18bbb58baf3ea0ec';
 export default node;
