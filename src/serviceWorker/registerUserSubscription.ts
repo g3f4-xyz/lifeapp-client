@@ -1,4 +1,5 @@
-const publicVapidKey = 'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo';
+const publicVapidKey =
+  'BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo';
 
 function urlBase64ToUint8Array(base64String: string) {
   const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
@@ -15,7 +16,10 @@ function urlBase64ToUint8Array(base64String: string) {
   return outputArray;
 }
 
-export default async function registerUserSubscription(register: ServiceWorkerRegistration, options?: { silent: boolean }) {
+export default async function registerUserSubscription(
+  register: ServiceWorkerRegistration,
+  options?: { silent: boolean },
+) {
   try {
     const subscriptionData = await register.pushManager.subscribe({
       userVisibleOnly: true,

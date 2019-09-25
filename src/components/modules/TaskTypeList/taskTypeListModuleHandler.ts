@@ -6,7 +6,11 @@ interface TaskTypeListHandlerProps extends ModuleProps {
   onSelect(type: TaskTypeEnum): void;
 }
 
-export default ({ moduleId }: ModuleProps, state: AppState, update: (spec: Spec<AppState>) => void): TaskTypeListHandlerProps => ({
+export default (
+  { moduleId }: ModuleProps,
+  state: AppState,
+  update: (spec: Spec<AppState>) => void,
+): TaskTypeListHandlerProps => ({
   moduleId,
   onSelect: (type: TaskTypeEnum) => {
     const { gridView, gridViewLocked, openedTasksModulesProps } = state;

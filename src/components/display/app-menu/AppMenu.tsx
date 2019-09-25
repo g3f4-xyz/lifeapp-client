@@ -8,7 +8,9 @@ interface AppMenuProps {
 
 const AppMenu: FC<AppMenuProps> = props => {
   const { options } = props;
-  const [anchorEl, setAnchorEl] = useState<MouseEvent<HTMLButtonElement>['currentTarget'] | null>(null);
+  const [anchorEl, setAnchorEl] = useState<MouseEvent<HTMLButtonElement>['currentTarget'] | null>(
+    null,
+  );
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget);
@@ -20,7 +22,12 @@ const AppMenu: FC<AppMenuProps> = props => {
 
   return (
     <div>
-      <IconButton aria-label="More" aria-owns={anchorEl ? 'long-menu' : undefined} aria-haspopup="true" onClick={handleClick}>
+      <IconButton
+        aria-label="More"
+        aria-owns={anchorEl ? 'long-menu' : undefined}
+        aria-haspopup="true"
+        onClick={handleClick}
+      >
         <MoreVert />
       </IconButton>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>

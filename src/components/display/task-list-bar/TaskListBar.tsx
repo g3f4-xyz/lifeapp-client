@@ -7,7 +7,10 @@ import Toolbar from '@material-ui/core/Toolbar';
 import SearchIcon from '@material-ui/icons/Search';
 import React, { ChangeEvent, FC } from 'react';
 import { TASK_STATUSES, TASK_TYPE } from '../../../constans';
-import { TaskListQueryResponse, TaskTypeEnum } from '../../modules/TaskList/__generated__/TaskListQuery.graphql';
+import {
+  TaskListQueryResponse,
+  TaskTypeEnum,
+} from '../../modules/TaskList/__generated__/TaskListQuery.graphql';
 import useTaskListBarStyles from './useTaskListBarStyles';
 
 export interface TaskListBarProps {
@@ -49,7 +52,11 @@ const TaskListBar: FC<TaskListBarProps> = props => {
         <Toolbar className={classes.toolbar}>
           <FormControl className={classes.statusFilter}>
             <InputLabel htmlFor="status-filter">Status</InputLabel>
-            <NativeSelect value={status || ''} onChange={onFilterByStatus} input={<Input id="status-filter" />}>
+            <NativeSelect
+              value={status || ''}
+              onChange={onFilterByStatus}
+              input={<Input id="status-filter" />}
+            >
               <option value="" />
               {Object.keys(TASK_STATUSES).map(value => (
                 <option key={value} value={value}>
@@ -61,7 +68,14 @@ const TaskListBar: FC<TaskListBarProps> = props => {
           {Object.keys(TASK_TYPE).map(key => (
             <FormControlLabel
               key={key}
-              control={<Checkbox color="default" checked={taskType.includes(key as TaskTypeEnum)} onChange={onFilterByType} value={key} />}
+              control={
+                <Checkbox
+                  color="default"
+                  checked={taskType.includes(key as TaskTypeEnum)}
+                  onChange={onFilterByType}
+                  value={key}
+                />
+              }
               label={key}
             />
           ))}

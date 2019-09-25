@@ -8,7 +8,9 @@ import {
 } from './__generated__/saveNotificationsGeneralSettingMutation.graphql';
 
 const mutation = graphql`
-  mutation saveNotificationsGeneralSettingMutation($input: saveNotificationsGeneralSettingMutationInput!) {
+  mutation saveNotificationsGeneralSettingMutation(
+    $input: saveNotificationsGeneralSettingMutationInput!
+  ) {
     saveNotificationsGeneralSetting(input: $input) {
       clientMutationId
       savedGeneral {
@@ -18,7 +20,11 @@ const mutation = graphql`
   }
 `;
 
-export default ({ general }: saveNotificationsGeneralSettingMutationInput): Promise<saveNotificationsGeneralSettingMutationResponse> =>
+export default ({
+  general,
+}: saveNotificationsGeneralSettingMutationInput): Promise<
+  saveNotificationsGeneralSettingMutationResponse
+> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { general } };
 

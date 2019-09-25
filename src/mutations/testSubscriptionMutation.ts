@@ -16,7 +16,9 @@ const mutation = graphql`
   }
 `;
 
-export default ({ subscriptionId }: testSubscriptionMutationInput): Promise<testSubscriptionMutationResponse> =>
+export default ({
+  subscriptionId,
+}: testSubscriptionMutationInput): Promise<testSubscriptionMutationResponse> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { subscriptionId } };
 

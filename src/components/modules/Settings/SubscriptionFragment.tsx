@@ -1,5 +1,19 @@
-import { IconButton, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText } from '@material-ui/core';
-import { CheckCircle, Computer, Delete, DevicesOther, HelpOutline, HighlightOff, Smartphone } from '@material-ui/icons';
+import {
+  IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
+} from '@material-ui/core';
+import {
+  CheckCircle,
+  Computer,
+  Delete,
+  DevicesOther,
+  HelpOutline,
+  HighlightOff,
+  Smartphone,
+} from '@material-ui/icons';
 import CloudOffIcon from '@material-ui/icons/CloudOff';
 import graphql from 'babel-plugin-relay/macro';
 import React, { FC, useState } from 'react';

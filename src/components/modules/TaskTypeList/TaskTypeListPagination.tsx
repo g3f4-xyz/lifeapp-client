@@ -34,7 +34,10 @@ const TaskTypeList: FC<TaskTypeListProps> = props => {
       {[...edges]
         .map(edge => edge && edge.node)
         .sort((nodeA, nodeB) => (nodeA && nodeB ? nodeA.order - nodeB.order : 0))
-        .map((data): React.ReactNode => data && <TaskTypeFragment key={data ? data.id : ''} data={data} onSelect={onSelect} />)}
+        .map(
+          (data): React.ReactNode =>
+            data && <TaskTypeFragment key={data ? data.id : ''} data={data} onSelect={onSelect} />,
+        )}
     </Grid>
   );
 };

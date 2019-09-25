@@ -1,4 +1,11 @@
-import { Button, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Tooltip, Typography } from '@material-ui/core';
+import {
+  Button,
+  ExpansionPanel,
+  ExpansionPanelDetails,
+  ExpansionPanelSummary,
+  Tooltip,
+  Typography,
+} from '@material-ui/core';
 import { ExpandMore, PriorityHigh } from '@material-ui/icons';
 import graphql from 'babel-plugin-relay/macro';
 import classNames from 'classnames';
@@ -42,7 +49,9 @@ const TaskListFragment: FC<TaskListFragmentProps> = props => {
             </Tooltip>
           )}
         </div>
-        <Typography className={classes.heading}>{titleField && titleField.value && titleField.value.text}</Typography>
+        <Typography className={classes.heading}>
+          {titleField && titleField.value && titleField.value.text}
+        </Typography>
         <TaskTypeIcon type={taskType} className={classes.taskTypeIcon} />
       </ExpansionPanelSummary>
       <ExpansionPanelDetails className={classes.content}>

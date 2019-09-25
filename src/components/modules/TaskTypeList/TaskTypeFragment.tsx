@@ -5,8 +5,11 @@ import graphql from 'babel-plugin-relay/macro';
 import React, { FC, useState } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import TaskTypeIcon from '../../display/task-type-icon/TaskTypeIcon';
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { TaskTypeEnum, TaskTypeFragment_data } from './__generated__/TaskTypeFragment_data.graphql';
+import {
+  TaskTypeEnum,
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  TaskTypeFragment_data,
+} from './__generated__/TaskTypeFragment_data.graphql';
 import useTaskTypeFragmentStyles from './useTaskTypeFragmentStyles';
 
 interface TaskTypeProps {
@@ -30,7 +33,11 @@ const TaskType: FC<TaskTypeProps> = props => {
     <Grid className={classes.container} item>
       <h1 className={classes.nameContainer}>{label}</h1>
       <div className={classes.descContainer}>
-        {info ? <h3 className={classes.descText}>{description}</h3> : <TaskTypeIcon type={typeId} className={classes.icon} />}
+        {info ? (
+          <h3 className={classes.descText}>{description}</h3>
+        ) : (
+          <TaskTypeIcon type={typeId} className={classes.icon} />
+        )}
       </div>
       <div className={classes.actionsContainer}>
         <IconButton className={classes.infoButton} onClick={handleInfo}>

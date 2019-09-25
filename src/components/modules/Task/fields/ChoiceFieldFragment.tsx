@@ -27,7 +27,15 @@ const ChoiceField: FC<ChoiceFieldProps> = props => {
     await updateTaskFieldMutation({ fieldId, value: { id: changedId }, taskId }, { id });
   };
 
-  return <Choice label={label} value={id || ''} helperText={helperText} options={options} onChange={handleChange} />;
+  return (
+    <Choice
+      label={label}
+      value={id || ''}
+      helperText={helperText}
+      options={options}
+      onChange={handleChange}
+    />
+  );
 };
 
 graphql`

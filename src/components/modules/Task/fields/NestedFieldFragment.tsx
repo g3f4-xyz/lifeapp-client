@@ -8,8 +8,11 @@ import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutati
 import Choice from '../../../display/field/Choice';
 import Switch from '../../../display/field/Switch';
 import Text from '../../../display/field/Text';
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { FieldIdEnum, NestedFieldFragment_data } from './__generated__/NestedFieldFragment_data.graphql';
+import {
+  FieldIdEnum,
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  NestedFieldFragment_data,
+} from './__generated__/NestedFieldFragment_data.graphql';
 
 interface OwnFieldProps {
   // eslint-disable-next-line @typescript-eslint/camelcase
@@ -17,8 +20,10 @@ interface OwnFieldProps {
   // eslint-disable-next-line @typescript-eslint/camelcase
   ownValue: NestedFieldFragment_data['value']['ownValue'];
 
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  onOwnValueChange(updatedValue: NestedFieldFragment_data['value']['ownValue']): void;
+  onOwnValueChange(
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    updatedValue: NestedFieldFragment_data['value']['ownValue'],
+  ): void;
 }
 
 const OwnField: FC<OwnFieldProps> = props => {
@@ -103,7 +108,14 @@ const NestedField: FC<NestedFieldProps> = props => {
       value.ownValue &&
       meta.childrenMeta &&
       meta.childrenMeta.find(childrenMeta => {
-        if (!meta || !meta.ownMeta || !childrenMeta || !childrenMeta.parentValue || !value || !value.ownValue) {
+        if (
+          !meta ||
+          !meta.ownMeta ||
+          !childrenMeta ||
+          !childrenMeta.parentValue ||
+          !value ||
+          !value.ownValue
+        ) {
           return false;
         }
 
@@ -117,8 +129,10 @@ const NestedField: FC<NestedFieldProps> = props => {
 
         return false;
       });
-    // eslint-disable-next-line @typescript-eslint/camelcase
-    const updateOwnValue = (ownValue: NestedFieldFragment_data['value']['ownValue']) => {
+    const updateOwnValue = (
+      // eslint-disable-next-line @typescript-eslint/camelcase
+      ownValue: NestedFieldFragment_data['value']['ownValue'],
+    ) => {
       const updatedValue = immutabilityHelper(value, {
         ownValue: {
           $set: ownValue,
@@ -139,8 +153,18 @@ const NestedField: FC<NestedFieldProps> = props => {
 
     return (
       <Fragment>
-        <OwnField ownMeta={meta.ownMeta} ownValue={value.ownValue || {}} onOwnValueChange={updateOwnValue} />
-        {activeChildrenMeta && <NestedField value={value.childrenValue || {}} meta={activeChildrenMeta} onChange={updateChildrenValue} />}
+        <OwnField
+          ownMeta={meta.ownMeta}
+          ownValue={value.ownValue || {}}
+          onOwnValueChange={updateOwnValue}
+        />
+        {activeChildrenMeta && (
+          <NestedField
+            value={value.childrenValue || {}}
+            meta={activeChildrenMeta}
+            onChange={updateChildrenValue}
+          />
+        )}
       </Fragment>
     );
   }
@@ -168,7 +192,10 @@ const NestedFieldContainer: FC<NestedFieldContainerProps> = props => {
       data: { fieldId, id },
     } = props;
 
-    await updateTaskFieldMutation({ fieldId, value: updatedFieldValue as NestedValueInputType, taskId }, { id });
+    await updateTaskFieldMutation(
+      { fieldId, value: updatedFieldValue as NestedValueInputType, taskId },
+      { id },
+    );
   };
 
   return <NestedField value={value} meta={meta} onChange={handleChange} />;

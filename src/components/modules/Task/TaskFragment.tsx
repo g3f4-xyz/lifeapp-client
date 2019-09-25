@@ -4,7 +4,10 @@ import graphql from 'babel-plugin-relay/macro';
 import React, { FC } from 'react';
 import { Container, createFragmentContainer, RelayProp } from 'react-relay';
 import { FIELD_TYPE_VALUE_MAP } from '../../../constans';
-import { FieldTypeEnum, TaskFragment_data as TaskFragmentResponse } from './__generated__/TaskFragment_data.graphql';
+import {
+  FieldTypeEnum,
+  TaskFragment_data as TaskFragmentResponse,
+} from './__generated__/TaskFragment_data.graphql';
 import ChoiceFieldFragment from './fields/ChoiceFieldFragment';
 import NestedFieldFragment from './fields/NestedFieldFragment';
 import SliderFieldFragment from './fields/SliderFieldFragment';

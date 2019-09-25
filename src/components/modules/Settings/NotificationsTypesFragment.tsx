@@ -30,7 +30,10 @@ interface NotificationsTypesProps {
 const NotificationsTypes: FC<NotificationsTypesProps> = props => {
   const { data } = props;
   const classes = useNotificationsTypesFragmentStyles();
-  const getChangeHandler = (key: string) => async (_: ChangeEvent<HTMLInputElement>, checked: boolean): Promise<void> => {
+  const getChangeHandler = (key: string) => async (
+    _: ChangeEvent<HTMLInputElement>,
+    checked: boolean,
+  ): Promise<void> => {
     await saveNotificationsTypesSettingMutation({
       types: {
         ...props.data,
@@ -55,7 +58,10 @@ const NotificationsTypes: FC<NotificationsTypesProps> = props => {
               </ListItemIcon>
               <ListItemText primary={key.toLowerCase()} />
               <ListItemSecondaryAction>
-                <Switch onChange={getChangeHandler(`${key.toLowerCase()}s`)} checked={data[`${key.toLowerCase()}s`]} />
+                <Switch
+                  onChange={getChangeHandler(`${key.toLowerCase()}s`)}
+                  checked={data[`${key.toLowerCase()}s`]}
+                />
               </ListItemSecondaryAction>
             </ListItem>
           ))}

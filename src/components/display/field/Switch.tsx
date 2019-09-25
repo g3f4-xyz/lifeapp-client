@@ -21,7 +21,14 @@ const Switch: FC<SwitchProps> = props => {
   return (
     <FieldContainer>
       <FormControlLabel
-        control={<MaterialSwitch checked={checked} disabled={disabled as (boolean | undefined)} value={checked} onChange={handleChange} />}
+        control={
+          <MaterialSwitch
+            checked={checked}
+            disabled={disabled as (boolean | undefined)}
+            value={checked}
+            onChange={handleChange}
+          />
+        }
         label={label}
       />
     </FieldContainer>

@@ -9,4 +9,7 @@ const Login = React.lazy(() => import('./components/login/Login'));
 
 const logged: boolean = getCookie('logged');
 
-ReactDOM.render(<Suspense fallback={<Loader />}>{logged ? <App /> : <Login />}</Suspense>, document.getElementById('root'));
+ReactDOM.render(
+  <Suspense fallback={<Loader />}>{logged ? <App /> : <Login />}</Suspense>,
+  document.getElementById('root'),
+);

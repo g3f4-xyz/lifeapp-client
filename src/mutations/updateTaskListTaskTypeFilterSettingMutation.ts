@@ -9,7 +9,9 @@ import {
 } from './__generated__/updateTaskListTaskTypeFilterSettingMutation.graphql';
 
 const mutation = graphql`
-  mutation updateTaskListTaskTypeFilterSettingMutation($input: updateTaskListTaskTypeFilterSettingMutationInput!) {
+  mutation updateTaskListTaskTypeFilterSettingMutation(
+    $input: updateTaskListTaskTypeFilterSettingMutationInput!
+  ) {
     updateTaskListTaskTypeFilterSetting(input: $input) {
       clientMutationId
       taskType

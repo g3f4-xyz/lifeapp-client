@@ -61,7 +61,10 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
   const handleFilterByTitle = async (event: ChangeEvent<HTMLInputElement>) => {
     setLoading(true);
 
-    await updateTaskListTitleFilterSettingMutation({ title: event.target.value }, { parentID: props.settingsId });
+    await updateTaskListTitleFilterSettingMutation(
+      { title: event.target.value },
+      { parentID: props.settingsId },
+    );
 
     props.relay.refetchConnection(5, e => {
       if (e) {
@@ -97,7 +100,10 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
 
     setLoading(true);
 
-    await updateTaskListTaskTypeFilterSettingMutation({ taskType: updatedTaskTypeFilter }, { parentID: props.settingsId });
+    await updateTaskListTaskTypeFilterSettingMutation(
+      { taskType: updatedTaskTypeFilter },
+      { parentID: props.settingsId },
+    );
 
     props.relay.refetchConnection(5, e => {
       if (e) {

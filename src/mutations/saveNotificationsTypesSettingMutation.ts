@@ -8,7 +8,9 @@ import {
 } from './__generated__/saveNotificationsTypesSettingMutation.graphql';
 
 const mutation = graphql`
-  mutation saveNotificationsTypesSettingMutation($input: saveNotificationsTypesSettingMutationInput!) {
+  mutation saveNotificationsTypesSettingMutation(
+    $input: saveNotificationsTypesSettingMutationInput!
+  ) {
     saveNotificationsTypesSetting(input: $input) {
       savedTypes {
         ...NotificationsTypesFragment_data
@@ -17,7 +19,11 @@ const mutation = graphql`
   }
 `;
 
-export default ({ types }: saveNotificationsTypesSettingMutationInput): Promise<saveNotificationsTypesSettingMutationResponse> =>
+export default ({
+  types,
+}: saveNotificationsTypesSettingMutationInput): Promise<
+  saveNotificationsTypesSettingMutationResponse
+> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { types } };
 

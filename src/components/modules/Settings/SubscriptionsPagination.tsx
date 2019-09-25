@@ -29,7 +29,11 @@ const Subscriptions: FC<SubscriptionsProps> = props => {
   return (
     <List className={className}>
       {edges.map(
-        (edge): React.ReactNode => edge && edge.node && <SubscriptionFragment key={edge.node.id} data={edge.node} onDelete={onDelete} />,
+        (edge): React.ReactNode =>
+          edge &&
+          edge.node && (
+            <SubscriptionFragment key={edge.node.id} data={edge.node} onDelete={onDelete} />
+          ),
       )}
     </List>
   );
@@ -41,7 +45,8 @@ export default createPaginationContainer<SubscriptionsProps>(
     data: graphql`
       fragment SubscriptionsPagination_data on NotificationsType {
         id
-        subscriptions(first: $count, after: $after) @connection(key: "Notifications_subscriptions") {
+        subscriptions(first: $count, after: $after)
+          @connection(key: "Notifications_subscriptions") {
           edges {
             node {
               id

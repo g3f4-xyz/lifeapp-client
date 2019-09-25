@@ -46,7 +46,8 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
       ownerId: props.data.ownerId,
     });
 
-    window.location.href = cleanApplication && cleanApplication.navigationUrl ? cleanApplication.navigationUrl : '';
+    window.location.href =
+      cleanApplication && cleanApplication.navigationUrl ? cleanApplication.navigationUrl : '';
   };
 
   const handleActivateNotifications = async () => {
@@ -88,7 +89,11 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
                 <Typography>Subscriptions</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails className={classes.subscriptionsPaginationExpansionPanel}>
-                <SubscriptionsPagination className={classes.list} data={props.data.notifications} onDelete={onDeleteSubscription} />
+                <SubscriptionsPagination
+                  className={classes.list}
+                  data={props.data.notifications}
+                  onDelete={onDeleteSubscription}
+                />
               </ExpansionPanelDetails>
             </ExpansionPanel>
           </Grid>
@@ -132,7 +137,9 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
           >
             <DialogTitle id="alert-dialog-title">{'Clean application?'}</DialogTitle>
             <DialogContent>
-              <DialogContentText id="alert-dialog-description">It will erase all related data on database.</DialogContentText>
+              <DialogContentText id="alert-dialog-description">
+                It will erase all related data on database.
+              </DialogContentText>
             </DialogContent>
             <DialogActions>
               <Button onClick={handleCleanApplicationDialogClose} color="primary">

@@ -42,7 +42,13 @@ const Task: FC<TaskProps> = props => (
         if (response.error) {
           return <div>{JSON.stringify(response.error)}</div>;
         } else if (response.props && response.props.app.task) {
-          return <TaskFragment data={response.props.app.task} {...props} taskListId={response.props.app.taskList.id} />;
+          return (
+            <TaskFragment
+              data={response.props.app.task}
+              {...props}
+              taskListId={response.props.app.taskList.id}
+            />
+          );
         }
         return <Loader />;
       }}

@@ -171,7 +171,9 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
     const { appOpenedModuleIds } = this.state;
     const isApplicationModule = APP_MODULES_IDS.includes(activeModuleId);
     const setAppOpenedModuleIds = () => {
-      return appOpenedModuleIds.includes(activeModuleId) ? appOpenedModuleIds : [...appOpenedModuleIds, activeModuleId];
+      return appOpenedModuleIds.includes(activeModuleId)
+        ? appOpenedModuleIds
+        : [...appOpenedModuleIds, activeModuleId];
     };
 
     this.setState({
@@ -192,14 +194,21 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
         });
       } else {
         this.setState({
-          openedTasksModulesProps: openedTasksModulesProps.filter((props: ModuleProps): boolean => props.moduleId !== moduleId),
+          openedTasksModulesProps: openedTasksModulesProps.filter(
+            (props: ModuleProps): boolean => props.moduleId !== moduleId,
+          ),
         });
       }
     }
   };
 
   private onActiveModuleBack = (): void => {
-    const { activeModuleId, activeModulesHistory, appOpenedModuleIds, openedTasksModulesProps } = this.state;
+    const {
+      activeModuleId,
+      activeModulesHistory,
+      appOpenedModuleIds,
+      openedTasksModulesProps,
+    } = this.state;
     const isApplicationModule = APP_MODULES_IDS.includes(activeModuleId);
 
     if (isApplicationModule) {
@@ -212,7 +221,9 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
       this.setState({
         activeModuleId: activeModulesHistory[activeModulesHistory.length - 2],
         activeModulesHistory: activeModulesHistory.filter(moduleId => moduleId !== activeModuleId),
-        openedTasksModulesProps: openedTasksModulesProps.filter(props => props.moduleId !== activeModuleId),
+        openedTasksModulesProps: openedTasksModulesProps.filter(
+          props => props.moduleId !== activeModuleId,
+        ),
       });
     }
   };
@@ -242,7 +253,12 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
   };
 
   private renderTaskModule = (taskModuleProps: TaskModuleProps): React.ReactNode => {
-    return <Task key={taskModuleProps.moduleId} {...taskHandler(taskModuleProps, this.state, this.updateState)} />;
+    return (
+      <Task
+        key={taskModuleProps.moduleId}
+        {...taskHandler(taskModuleProps, this.state, this.updateState)}
+      />
+    );
   };
 
   private renderApplicationModule = (moduleId: MODULE): React.ReactNode => {
@@ -261,7 +277,11 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
           <TaskTypeList
             key={MODULES_IDS.TASK_TYPE_LIST}
             moduleId={MODULES_IDS.TASK_TYPE_LIST}
-            {...taskTypeListHandler({ moduleId: MODULES_IDS.TASK_TYPE_LIST }, this.state, this.updateState)}
+            {...taskTypeListHandler(
+              { moduleId: MODULES_IDS.TASK_TYPE_LIST },
+              this.state,
+              this.updateState,
+            )}
           />
         );
       }
@@ -304,7 +324,9 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
       return this.renderApplicationModule(activeModuleId);
     }
 
-    const taskModuleProps = this.state.openedTasksModulesProps.find(({ moduleId }) => activeModuleId === moduleId);
+    const taskModuleProps = this.state.openedTasksModulesProps.find(
+      ({ moduleId }) => activeModuleId === moduleId,
+    );
 
     if (!taskModuleProps) {
       throw new Error(`No moduleProps for module "${activeModuleId}"`);

@@ -7,7 +7,11 @@ export interface TaskListHandlerProps extends ModuleProps {
   onEdit(taskId: string): void;
 }
 
-export default (moduleProps: ModuleProps, state: AppState, update: (spec: Spec<AppState>) => void): TaskListHandlerProps => ({
+export default (
+  moduleProps: ModuleProps,
+  state: AppState,
+  update: (spec: Spec<AppState>) => void,
+): TaskListHandlerProps => ({
   moduleId: moduleProps.moduleId,
   onAdd: () => {
     update({

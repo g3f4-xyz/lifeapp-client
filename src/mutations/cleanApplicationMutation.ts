@@ -16,7 +16,9 @@ const mutation = graphql`
   }
 `;
 
-export default ({ ownerId }: cleanApplicationMutationInput): Promise<cleanApplicationMutationResponse> =>
+export default ({
+  ownerId,
+}: cleanApplicationMutationInput): Promise<cleanApplicationMutationResponse> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { ownerId } };
 
