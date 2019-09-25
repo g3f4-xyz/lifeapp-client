@@ -1,8 +1,8 @@
-import { StyledComponentProps, withStyles } from '@material-ui/core';
+import { createStyles, WithStyles, withStyles } from '@material-ui/core';
 import { BugReport } from '@material-ui/icons';
 import React, { Fragment } from 'react';
 
-const styles = {
+const styles = createStyles({
   header: {
     fontSize: 72,
     textAlign: 'center',
@@ -12,18 +12,14 @@ const styles = {
     width: '70%',
     height: '70%',
   },
-};
-
-interface Props extends StyledComponentProps<keyof typeof styles> {
-  children: React.ReactNode;
-}
+});
 
 interface State {
   hasError: boolean;
   error: Error;
 }
 
-class ErrorBoundary extends React.Component<Props, State> {
+class ErrorBoundary extends React.Component<WithStyles, State> {
   state = { hasError: false, error: new Error() };
 
   componentDidCatch(error: Error) {
@@ -32,10 +28,6 @@ class ErrorBoundary extends React.Component<Props, State> {
 
   render(): React.ReactNode {
     const { classes } = this.props;
-
-    if (!classes) {
-      throw new Error(`error loading styles`);
-    }
 
     if (this.state.hasError) {
       return (
@@ -60,6 +52,4 @@ class ErrorBoundary extends React.Component<Props, State> {
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
 export default withStyles(styles)(ErrorBoundary);

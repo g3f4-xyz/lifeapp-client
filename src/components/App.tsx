@@ -1,4 +1,4 @@
-import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
+import { createStyles, IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import immutabilityHelper, { Spec } from 'immutability-helper';
 import React, { Fragment } from 'react';
@@ -32,7 +32,7 @@ assetsServiceWorker.register({
   },
 });
 
-const styles = {
+const styles = createStyles({
   backButton: {
     zIndex: 9,
     position: 'fixed',
@@ -47,7 +47,7 @@ const styles = {
     right: 10,
     zIndex: 9,
   },
-};
+});
 
 const APP_MODULES_IDS = [MODULES_IDS.SETTINGS, MODULES_IDS.TASK_LIST, MODULES_IDS.TASK_TYPE_LIST];
 
@@ -314,6 +314,4 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
   }
 }
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
 export default withStyles(styles)(App);
