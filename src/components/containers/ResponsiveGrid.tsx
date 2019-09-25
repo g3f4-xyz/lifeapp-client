@@ -8,19 +8,19 @@ import { ModuleProps } from '../App';
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 const styles = {
   tileContainer: {
-    overflow: 'scroll'
+    overflow: 'scroll',
   },
   remove: {
     position: 'absolute',
     right: 0,
     top: 0,
-    cursor: 'pointer'
+    cursor: 'pointer',
   },
   zoom: {
     position: 'absolute',
     top: 0,
-    cursor: 'pointer'
-  }
+    cursor: 'pointer',
+  },
 };
 
 interface Props extends StyledComponentProps<keyof typeof styles> {
@@ -34,7 +34,7 @@ class ResponsiveGrid extends React.PureComponent<Props> {
   static defaultProps = {
     className: 'layout',
     cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
-    rowHeight: 30
+    rowHeight: 30,
   };
 
   render(): React.ReactNode {
@@ -76,7 +76,7 @@ class ResponsiveGrid extends React.PureComponent<Props> {
                   <ZoomIn />
                 </IconButton>
               </Paper>
-            )
+            ),
         )}
       </ResponsiveReactGridLayout>
     );

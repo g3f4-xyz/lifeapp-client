@@ -16,7 +16,7 @@ const TaskTypeList: React.FC<Props> = ownProps => (
   <QueryRenderer<TaskTypeListQuery>
     environment={environment}
     variables={{
-      count: ITEMS_PER_PAGE
+      count: ITEMS_PER_PAGE,
     }}
     query={graphql`
       query TaskTypeListQuery($count: Int!, $after: String) {

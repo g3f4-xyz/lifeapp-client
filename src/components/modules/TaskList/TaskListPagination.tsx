@@ -23,23 +23,23 @@ const styles = {
     zIndex: 9,
     position: 'fixed',
     bottom: 20,
-    left: 20
+    left: 20,
   },
   addButtonIcon: {
-    fontSize: 72
+    fontSize: 72,
   },
   moreButton: {
     zIndex: 9,
     position: 'fixed',
     bottom: 20,
-    right: 20
+    right: 20,
   },
   moreButtonIcon: {
-    fontSize: 72
+    fontSize: 72,
   },
   listLoader: {
-    marginTop: 20
-  }
+    marginTop: 20,
+  },
 };
 
 interface Props extends StyledComponentProps<keyof typeof styles> {
@@ -58,14 +58,14 @@ interface State {
 
 class TaskListPagination extends React.Component<Props, State> {
   state = {
-    loading: false
+    loading: false,
   };
 
   updateTaskTypeFilter = (checked: boolean, filter: TaskTypeEnum): TaskTypeEnum[] => {
     const {
       settings: {
-        filters: { taskType }
-      }
+        filters: { taskType },
+      },
     } = this.props;
 
     if (checked) {
@@ -108,9 +108,9 @@ class TaskListPagination extends React.Component<Props, State> {
 
     await updateTaskListStatusFilterSettingMutation(
       {
-        status: event.target.value.length > 0 ? (event.target.value as TaskStatusEnum) : null
+        status: event.target.value.length > 0 ? (event.target.value as TaskStatusEnum) : null,
       },
-      { parentID: this.props.settingsId }
+      { parentID: this.props.settingsId },
     );
 
     this.props.relay.refetchConnection(5, e => {
@@ -152,7 +152,7 @@ class TaskListPagination extends React.Component<Props, State> {
     }
 
     const {
-      list: { edges }
+      list: { edges },
     } = data;
 
     return (
@@ -175,7 +175,7 @@ class TaskListPagination extends React.Component<Props, State> {
                     <Grid key={edge.cursor} item xs={12} sm={12} md={6} lg={4} xl={3}>
                       <TaskListFragment data={edge.node} onDelete={this.handleDelete} onEdit={onEdit} />
                     </Grid>
-                  )
+                  ),
               )}
             </Grid>
             <Button color="primary" className={classes.addButton} onClick={onAdd}>
@@ -216,7 +216,7 @@ export default createPaginationContainer<Props>(
           }
         }
       }
-    `
+    `,
   },
   {
     direction: 'forward',
@@ -235,14 +235,14 @@ export default createPaginationContainer<Props>(
     getFragmentVariables(previousVariables, totalCount) {
       return {
         ...previousVariables,
-        count: totalCount
+        count: totalCount,
       };
     },
     getVariables(_props, { cursor, count }) {
       return {
         count,
-        after: cursor
+        after: cursor,
       };
-    }
-  }
+    },
+  },
 );

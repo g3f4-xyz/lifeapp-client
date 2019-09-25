@@ -4,7 +4,7 @@ import environment from '../environment';
 import {
   testSubscriptionMutation,
   testSubscriptionMutationInput,
-  testSubscriptionMutationResponse
+  testSubscriptionMutationResponse,
 } from './__generated__/testSubscriptionMutation.graphql';
 
 const mutation = graphql`
@@ -24,6 +24,6 @@ export default ({ subscriptionId }: testSubscriptionMutationInput): Promise<test
       mutation,
       variables,
       onCompleted,
-      onError
+      onError,
     });
   });

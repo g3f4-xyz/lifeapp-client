@@ -29,7 +29,7 @@ assetsServiceWorker.register({
   },
   onSuccess(registration) {
     console.info(['assetsServiceWorker.register.onSuccess'], registration);
-  }
+  },
 });
 
 const styles = {
@@ -37,16 +37,16 @@ const styles = {
     zIndex: 9,
     position: 'fixed',
     bottom: 20,
-    left: 20
+    left: 20,
   },
   backButtonIcon: {
-    fontSize: 72
+    fontSize: 72,
   },
   menuContainer: {
     position: 'absolute',
     right: 10,
-    zIndex: 9
-  }
+    zIndex: 9,
+  },
 };
 
 const APP_MODULES_IDS = [MODULES_IDS.SETTINGS, MODULES_IDS.TASK_LIST, MODULES_IDS.TASK_TYPE_LIST];
@@ -80,7 +80,7 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
     openedTasksModulesProps: new Array<TaskModuleProps>(),
     layouts: getFromLS(LOCAL_STORAGE_LAYOUTS_KEY) || {},
     gridView: false,
-    gridViewLocked: false
+    gridViewLocked: false,
   };
 
   componentDidMount(): void {
@@ -142,25 +142,25 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
           options={[
             {
               label: 'Log out',
-              action: () => window.location.replace('logout')
+              action: () => window.location.replace('logout'),
             },
             {
               label: gridView ? 'Hide grid' : 'Show grid',
-              action: this.onToggleGridView
+              action: this.onToggleGridView,
             },
             {
               label: gridViewLocked ? 'Unlock grid' : 'Lock grid',
-              action: this.onToggleGridViewLocked
+              action: this.onToggleGridViewLocked,
             },
             {
               label: 'Reset grid',
               action: this.onResetGrid,
-              visible: gridView
+              visible: gridView,
             },
             {
               label: 'Show settings',
-              action: this.onShowSettings
-            }
+              action: this.onShowSettings,
+            },
           ]}
         />
       </div>
@@ -178,7 +178,7 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
       activeModuleId,
       activeModulesHistory: [MODULES_IDS.TASK_LIST, activeModuleId],
       gridView: false,
-      appOpenedModuleIds: isApplicationModule ? setAppOpenedModuleIds() : appOpenedModuleIds
+      appOpenedModuleIds: isApplicationModule ? setAppOpenedModuleIds() : appOpenedModuleIds,
     });
   };
 
@@ -188,11 +188,11 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
 
       if (APP_MODULES_IDS.includes(moduleId as MODULE)) {
         this.setState({
-          appOpenedModuleIds: appOpenedModuleIds.filter((id: MODULE) => id !== moduleId)
+          appOpenedModuleIds: appOpenedModuleIds.filter((id: MODULE) => id !== moduleId),
         });
       } else {
         this.setState({
-          openedTasksModulesProps: openedTasksModulesProps.filter((props: ModuleProps): boolean => props.moduleId !== moduleId)
+          openedTasksModulesProps: openedTasksModulesProps.filter((props: ModuleProps): boolean => props.moduleId !== moduleId),
         });
       }
     }
@@ -206,13 +206,13 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
       this.setState({
         activeModuleId: activeModulesHistory[activeModulesHistory.length - 1],
         activeModulesHistory: activeModulesHistory.filter(moduleId => moduleId !== activeModuleId),
-        appOpenedModuleIds: appOpenedModuleIds.filter(id => id !== activeModuleId)
+        appOpenedModuleIds: appOpenedModuleIds.filter(id => id !== activeModuleId),
       });
     } else {
       this.setState({
         activeModuleId: activeModulesHistory[activeModulesHistory.length - 2],
         activeModulesHistory: activeModulesHistory.filter(moduleId => moduleId !== activeModuleId),
-        openedTasksModulesProps: openedTasksModulesProps.filter(props => props.moduleId !== activeModuleId)
+        openedTasksModulesProps: openedTasksModulesProps.filter(props => props.moduleId !== activeModuleId),
       });
     }
   };
@@ -237,7 +237,7 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
   private onToggleGridViewLocked = (): void => {
     this.setState({
       gridView: !this.state.gridViewLocked,
-      gridViewLocked: !this.state.gridViewLocked
+      gridViewLocked: !this.state.gridViewLocked,
     });
   };
 

@@ -11,7 +11,7 @@ import {
   Switch,
   Theme,
   Typography,
-  withStyles
+  withStyles,
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 import graphql from 'babel-plugin-relay/macro';
@@ -27,11 +27,11 @@ import { NotificationsTypesFragment_data } from './__generated__/NotificationsTy
 const styles = (theme: Theme) => ({
   wrapper: {
     marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
   },
   list: {
-    width: '100%'
-  }
+    width: '100%',
+  },
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
@@ -44,8 +44,8 @@ class NotificationsTypes extends React.Component<Props> {
     await saveNotificationsTypesSettingMutation({
       types: {
         ...this.props.data,
-        events
-      }
+        events,
+      },
     });
   };
 
@@ -53,8 +53,8 @@ class NotificationsTypes extends React.Component<Props> {
     await saveNotificationsTypesSettingMutation({
       types: {
         ...this.props.data,
-        goals
-      }
+        goals,
+      },
     });
   };
 
@@ -62,8 +62,8 @@ class NotificationsTypes extends React.Component<Props> {
     await saveNotificationsTypesSettingMutation({
       types: {
         ...this.props.data,
-        meetings
-      }
+        meetings,
+      },
     });
   };
 
@@ -71,8 +71,8 @@ class NotificationsTypes extends React.Component<Props> {
     await saveNotificationsTypesSettingMutation({
       types: {
         ...this.props.data,
-        routines
-      }
+        routines,
+      },
     });
   };
 
@@ -80,8 +80,8 @@ class NotificationsTypes extends React.Component<Props> {
     await saveNotificationsTypesSettingMutation({
       types: {
         ...this.props.data,
-        todos
-      }
+        todos,
+      },
     });
   };
 
@@ -90,9 +90,9 @@ class NotificationsTypes extends React.Component<Props> {
       types: {
         ...this.props.data,
         ...{
-          [key]: checked
-        }
-      }
+          [key]: checked,
+        },
+      },
     });
   };
 
@@ -137,5 +137,5 @@ export default createFragmentContainer(withStyles(styles)(NotificationsTypes), {
       routines
       todos
     }
-  `
+  `,
 });

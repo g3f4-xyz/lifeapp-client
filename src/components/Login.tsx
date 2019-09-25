@@ -8,16 +8,16 @@ import React from 'react';
 
 const styles = (theme: Theme) => ({
   button: {
-    margin: theme.spacing(1)
+    margin: theme.spacing(1),
   },
   root: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: 'center',
-    color: theme.palette.text.secondary
-  }
+    color: theme.palette.text.secondary,
+  },
 });
 
 function Login(props: StyledComponentProps<keyof ReturnType<typeof styles>>) {

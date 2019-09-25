@@ -4,7 +4,7 @@ import environment from '../environment';
 import {
   cleanApplicationMutation,
   cleanApplicationMutationInput,
-  cleanApplicationMutationResponse
+  cleanApplicationMutationResponse,
 } from './__generated__/cleanApplicationMutation.graphql';
 
 const mutation = graphql`
@@ -24,6 +24,6 @@ export default ({ ownerId }: cleanApplicationMutationInput): Promise<cleanApplic
       mutation,
       variables,
       onCompleted,
-      onError
+      onError,
     });
   });

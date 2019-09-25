@@ -30,7 +30,7 @@ export default class Choice extends React.Component<Props> {
                 <MenuItem key={option.value} value={option.value}>
                   {option.text}
                 </MenuItem>
-              )
+              ),
           )}
         </Select>
         {helperText && <FormHelperText>{helperText}</FormHelperText>}

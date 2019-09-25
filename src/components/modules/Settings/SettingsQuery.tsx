@@ -14,7 +14,7 @@ class SettingsQuery extends Component {
       <ErrorBoundary>
         <QueryRenderer<ISettingsQuery>
           variables={{
-            count: ITEMS_PER_PAGE * 10
+            count: ITEMS_PER_PAGE * 10,
           }}
           environment={environment}
           query={graphql`

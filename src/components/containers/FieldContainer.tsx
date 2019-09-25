@@ -6,8 +6,8 @@ const styles = (theme: Theme) => ({
     margin: theme.spacing(2),
     minWidth: theme.spacing(20),
     display: 'flex',
-    flexGrow: 1
-  }
+    flexGrow: 1,
+  },
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {

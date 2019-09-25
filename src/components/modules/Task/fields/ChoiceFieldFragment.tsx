@@ -17,7 +17,7 @@ class ChoiceField extends React.Component<Props> {
     const { data } = this.props;
     const {
       value: { id },
-      meta: { options, label, helperText }
+      meta: { options, label, helperText },
     } = data;
 
     return <Choice label={label} value={id || ''} helperText={helperText} options={options} onChange={this.handleChange} />;
@@ -26,7 +26,7 @@ class ChoiceField extends React.Component<Props> {
   private handleChange = async (changedId: string): Promise<void> => {
     const {
       taskId,
-      data: { fieldId, id }
+      data: { fieldId, id },
     } = this.props;
 
     await updateTaskFieldMutation({ fieldId, value: { id: changedId }, taskId }, { id });
@@ -66,5 +66,5 @@ export default createFragmentContainer<Props>(ChoiceField, {
         ...ChoiceFieldFragmentValue @relay(mask: false)
       }
     }
-  `
+  `,
 });

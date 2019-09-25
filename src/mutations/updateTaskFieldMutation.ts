@@ -5,7 +5,7 @@ import environment from '../environment';
 import {
   updateTaskFieldMutation,
   updateTaskFieldMutationInput,
-  updateTaskFieldMutationResponse
+  updateTaskFieldMutationResponse,
 } from './__generated__/updateTaskFieldMutation.graphql';
 
 const mutation = graphql`
@@ -26,7 +26,7 @@ const mutation = graphql`
 
 export default (
   { fieldId, value, taskId }: updateTaskFieldMutationInput,
-  { id }: { id: string }
+  { id }: { id: string },
 ): Promise<updateTaskFieldMutationResponse> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { fieldId, value, taskId } };
@@ -55,6 +55,6 @@ export default (
         if (fieldRecord && updatedFieldValue) {
           fieldRecord.setLinkedRecord(updatedFieldValue, 'value');
         }
-      }
+      },
     });
   });

@@ -7,8 +7,8 @@ const styles = (theme: Theme) => ({
     margin: theme.spacing(1),
     fontSize: '100px',
     lineHeight: 0,
-    color: '#3f51b5'
-  }
+    color: '#3f51b5',
+  },
 });
 
 function Loader({ classes }: StyledComponentProps<keyof ReturnType<typeof styles>>) {

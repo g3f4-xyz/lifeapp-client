@@ -16,8 +16,8 @@ export default (moduleProps: ModuleProps, state: AppState, update: (spec: Spec<A
           ? state.appOpenedModuleIds
           : [...state.appOpenedModuleIds, MODULES_IDS.TASK_TYPE_LIST],
         activeModuleId: MODULES_IDS.TASK_TYPE_LIST,
-        activeModulesHistory: [...state.activeModulesHistory, MODULES_IDS.TASK_TYPE_LIST]
-      }
+        activeModulesHistory: [...state.activeModulesHistory, MODULES_IDS.TASK_TYPE_LIST],
+      },
     });
   },
   onEdit: (taskId: string) => {
@@ -36,10 +36,10 @@ export default (moduleProps: ModuleProps, state: AppState, update: (spec: Spec<A
             isNew: false,
             moduleId,
             taskId,
-            type: null
-          }
-        ]
-      }
+            type: null,
+          },
+        ],
+      },
     });
-  }
+  },
 });

@@ -22,12 +22,12 @@ export default ({ id, parentID }: deleteTaskMutationInput & { parentID: string }
         parentID,
         connectionKeys: [
           {
-            key: 'TaskList_list'
-          }
+            key: 'TaskList_list',
+          },
         ],
         pathToConnection: ['taskList', 'list'],
-        deletedIDFieldName: 'deletedTaskId'
-      }
+        deletedIDFieldName: 'deletedTaskId',
+      },
     ];
 
     commitMutation<deleteTaskMutation>(environment, {
@@ -35,6 +35,6 @@ export default ({ id, parentID }: deleteTaskMutationInput & { parentID: string }
       configs,
       variables,
       onCompleted,
-      onError
+      onError,
     });
   });

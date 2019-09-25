@@ -17,7 +17,7 @@ class SwitchField extends React.Component<Props> {
     const { data } = this.props;
     const {
       value: { enabled },
-      meta: { label, disabled }
+      meta: { label, disabled },
     } = data;
 
     return <Switch disabled={disabled} checked={enabled} label={label} onChange={this.handleChange} />;
@@ -26,7 +26,7 @@ class SwitchField extends React.Component<Props> {
   private handleChange = async (enabled: boolean): Promise<void> => {
     const {
       taskId,
-      data: { fieldId, id }
+      data: { fieldId, id },
     } = this.props;
 
     await updateTaskFieldMutation({ fieldId, value: { enabled }, taskId }, { id });
@@ -61,5 +61,5 @@ export default createFragmentContainer<Props>(SwitchField, {
         ...SwitchFieldFragmentValue @relay(mask: false)
       }
     }
-  `
+  `,
 });

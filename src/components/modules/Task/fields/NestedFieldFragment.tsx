@@ -119,8 +119,8 @@ function NestedField(props: NestedFieldProps): JSX.Element | null {
     const updateOwnValue = (ownValue: NestedFieldFragment_data['value']['ownValue']) => {
       const updatedValue = immutabilityHelper(value, {
         ownValue: {
-          $set: ownValue
-        }
+          $set: ownValue,
+        },
       });
 
       onChange(updatedValue);
@@ -128,8 +128,8 @@ function NestedField(props: NestedFieldProps): JSX.Element | null {
     const updateChildrenValue = (childrenValue: NestedFieldProps['value']) => {
       const updatedValue = immutabilityHelper(value, {
         childrenValue: {
-          $set: childrenValue
-        }
+          $set: childrenValue,
+        },
       });
 
       onChange(updatedValue);
@@ -167,7 +167,7 @@ class NestedFieldContainer extends React.Component<Props> {
   private handleChange = async (updatedFieldValue: NestedFieldProps['value']): Promise<void> => {
     const {
       taskId,
-      data: { fieldId, id }
+      data: { fieldId, id },
     } = this.props;
 
     await updateTaskFieldMutation({ fieldId, value: updatedFieldValue as NestedValueInputType, taskId }, { id });
@@ -303,5 +303,5 @@ export default createFragmentContainer<Props>(NestedFieldContainer, {
         ...NestedFieldFragmentValue @relay(mask: false)
       }
     }
-  `
+  `,
 });

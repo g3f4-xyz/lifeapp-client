@@ -19,7 +19,7 @@ export default async function registerUserSubscription(register: ServiceWorkerRe
   try {
     const subscriptionData = await register.pushManager.subscribe({
       userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(publicVapidKey)
+      applicationServerKey: urlBase64ToUint8Array(publicVapidKey),
     });
 
     await fetch(`/notifications`, {
@@ -27,12 +27,12 @@ export default async function registerUserSubscription(register: ServiceWorkerRe
       method: 'POST',
       headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify({
         subscriptionData,
-        options
-      })
+        options,
+      }),
     });
   } catch (e) {
     throw new Error(`cannot register subscription | ${e}`);

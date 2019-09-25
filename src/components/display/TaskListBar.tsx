@@ -15,35 +15,35 @@ const styles = (theme: Theme) =>
   createStyles({
     root: {
       width: '100%',
-      marginRight: theme.spacing(2)
+      marginRight: theme.spacing(2),
     },
     grow: {
-      flexGrow: 1
+      flexGrow: 1,
     },
     statusFilter: {
       marginBottom: theme.spacing(3),
       marginRight: theme.spacing(2),
-      minWidth: theme.spacing(20)
+      minWidth: theme.spacing(20),
     },
     title: {
       display: 'none',
       [theme.breakpoints.up('md')]: {
-        display: 'block'
-      }
+        display: 'block',
+      },
     },
     search: {
       position: 'relative',
       borderRadius: theme.shape.borderRadius,
       backgroundColor: fade(theme.palette.common.white, 0.15),
       '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25)
+        backgroundColor: fade(theme.palette.common.white, 0.25),
       },
       marginLeft: 0,
       width: '100%',
       [theme.breakpoints.up('md')]: {
         marginLeft: theme.spacing(1),
-        width: 'auto'
-      }
+        width: 'auto',
+      },
     },
     searchIcon: {
       width: theme.spacing(9),
@@ -52,11 +52,11 @@ const styles = (theme: Theme) =>
       pointerEvents: 'none',
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'center',
     },
     inputRoot: {
       color: 'inherit',
-      width: '100%'
+      width: '100%',
     },
     inputInput: {
       paddingTop: theme.spacing(1),
@@ -68,21 +68,21 @@ const styles = (theme: Theme) =>
       [theme.breakpoints.up('md')]: {
         width: 120,
         '&:focus': {
-          width: 200
-        }
-      }
+          width: 200,
+        },
+      },
     },
     wrapper: {
       flexDirection: 'column',
       [theme.breakpoints.up('md')]: {
-        flexDirection: 'row-reverse'
-      }
+        flexDirection: 'row-reverse',
+      },
     },
     toolbar: {
       overflow: 'scroll',
       marginLeft: theme.spacing(1),
-      marginRight: theme.spacing(1)
-    }
+      marginRight: theme.spacing(1),
+    },
   });
 
 export interface Props extends WithStyles<typeof styles> {
@@ -96,7 +96,7 @@ export interface Props extends WithStyles<typeof styles> {
 function TaskListBar(props: Props) {
   const { classes, settings, onFilterByTitle, onFilterByType, onFilterByStatus } = props;
   const {
-    filters: { title, taskType, status }
+    filters: { title, taskType, status },
   } = settings;
 
   return (
@@ -114,7 +114,7 @@ function TaskListBar(props: Props) {
               placeholder="Filter by title..."
               classes={{
                 root: classes.inputRoot,
-                input: classes.inputInput
+                input: classes.inputInput,
               }}
             />
           </div>

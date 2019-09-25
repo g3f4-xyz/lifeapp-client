@@ -15,8 +15,8 @@ const styles = {
     width: '100%',
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'center'
-  }
+    justifyContent: 'center',
+  },
 };
 
 interface Props extends StyledComponentProps<keyof typeof styles> {
@@ -31,9 +31,9 @@ class TaskTypeList extends React.Component<Props> {
     const {
       classes,
       data: {
-        list: { edges }
+        list: { edges },
       },
-      onSelect
+      onSelect,
     } = this.props;
 
     if (!classes) {
@@ -77,7 +77,7 @@ export default createPaginationContainer<Props>(
           }
         }
       }
-    `
+    `,
   },
   {
     direction: 'forward',
@@ -96,14 +96,14 @@ export default createPaginationContainer<Props>(
     getFragmentVariables(previousVariables, totalCount) {
       return {
         ...previousVariables,
-        count: totalCount
+        count: totalCount,
       };
     },
     getVariables(_props, { cursor, count }) {
       return {
         count,
-        after: cursor
+        after: cursor,
       };
-    }
-  }
+    },
+  },
 );

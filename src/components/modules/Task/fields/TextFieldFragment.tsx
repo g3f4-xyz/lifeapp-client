@@ -18,7 +18,7 @@ class TextField extends React.Component<Props> {
 
     const {
       value: { text },
-      meta
+      meta,
     } = data;
     const { max, maxLength, min, minLength, required, inputType, label, helperText } = meta;
 
@@ -41,7 +41,7 @@ class TextField extends React.Component<Props> {
   private handleChange = async (text: string): Promise<void> => {
     const {
       taskId,
-      data: { fieldId, id }
+      data: { fieldId, id },
     } = this.props;
 
     await updateTaskFieldMutation({ fieldId, value: { text }, taskId }, { id });
@@ -81,5 +81,5 @@ export default createFragmentContainer<Props>(TextField, {
         ...TextFieldFragmentValue @relay(mask: false)
       }
     }
-  `
+  `,
 });

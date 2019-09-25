@@ -4,7 +4,7 @@ import environment from '../environment';
 import {
   saveNotificationsGeneralSettingMutation,
   saveNotificationsGeneralSettingMutationInput,
-  saveNotificationsGeneralSettingMutationResponse
+  saveNotificationsGeneralSettingMutationResponse,
 } from './__generated__/saveNotificationsGeneralSettingMutation.graphql';
 
 const mutation = graphql`
@@ -26,6 +26,6 @@ export default ({ general }: saveNotificationsGeneralSettingMutationInput): Prom
       mutation,
       variables,
       onCompleted,
-      onError
+      onError,
     });
   });

@@ -4,7 +4,7 @@ import environment from '../environment';
 import {
   deleteSubscriptionMutation,
   deleteSubscriptionMutationInput,
-  deleteSubscriptionMutationResponse
+  deleteSubscriptionMutationResponse,
 } from './__generated__/deleteSubscriptionMutation.graphql';
 
 const mutation = graphql`
@@ -18,7 +18,7 @@ const mutation = graphql`
 
 export default ({
   parentID,
-  subscriptionId
+  subscriptionId,
 }: deleteSubscriptionMutationInput & { parentID: string }): Promise<deleteSubscriptionMutationResponse> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { subscriptionId } };
@@ -28,12 +28,12 @@ export default ({
         parentID,
         connectionKeys: [
           {
-            key: 'Notifications_subscriptions'
-          }
+            key: 'Notifications_subscriptions',
+          },
         ],
         pathToConnection: ['notifications', 'subscriptions'],
-        deletedIDFieldName: 'subscriptionId'
-      }
+        deletedIDFieldName: 'subscriptionId',
+      },
     ];
 
     commitMutation<deleteSubscriptionMutation>(environment, {
@@ -41,6 +41,6 @@ export default ({
       mutation,
       variables,
       onCompleted,
-      onError
+      onError,
     });
   });

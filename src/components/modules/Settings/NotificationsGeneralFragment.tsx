@@ -11,7 +11,7 @@ import {
   Switch,
   Theme,
   Typography,
-  withStyles
+  withStyles,
 } from '@material-ui/core';
 import { ExpandMore, Slideshow, Vibration } from '@material-ui/icons';
 import graphql from 'babel-plugin-relay/macro';
@@ -24,11 +24,11 @@ import { NotificationsGeneralFragment_data } from './__generated__/Notifications
 const styles = (theme: Theme) => ({
   wrapper: {
     marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
   },
   list: {
-    width: '100%'
-  }
+    width: '100%',
+  },
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
@@ -41,8 +41,8 @@ class NotificationsGeneral extends React.Component<Props> {
     await saveNotificationsGeneralSettingMutation({
       general: {
         ...this.props.data,
-        show
-      }
+        show,
+      },
     });
   };
 
@@ -50,15 +50,15 @@ class NotificationsGeneral extends React.Component<Props> {
     await saveNotificationsGeneralSettingMutation({
       general: {
         ...this.props.data,
-        vibrate
-      }
+        vibrate,
+      },
     });
   };
 
   render(): React.ReactNode {
     const {
       classes,
-      data: { show, vibrate }
+      data: { show, vibrate },
     } = this.props;
 
     if (!classes) {
@@ -103,5 +103,5 @@ export default createFragmentContainer(withStyles(styles)(NotificationsGeneral),
       show
       vibrate
     }
-  `
+  `,
 });

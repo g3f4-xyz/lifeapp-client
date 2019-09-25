@@ -12,7 +12,7 @@ interface State {
 
 class AppMenu extends React.Component<Props, State> {
   state = {
-    anchorEl: null
+    anchorEl: null,
   };
 
   render(): React.ReactNode {

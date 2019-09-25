@@ -5,13 +5,13 @@ import React, { Fragment } from 'react';
 const styles = {
   header: {
     fontSize: 72,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   icon: {
     marginLeft: '15%',
     width: '70%',
-    height: '70%'
-  }
+    height: '70%',
+  },
 };
 
 interface Props extends StyledComponentProps<keyof typeof styles> {

@@ -9,12 +9,12 @@ const fetchQuery: FetchFunction = (operation, variables) => {
     method: 'POST',
     headers: {
       Accept: 'application/json',
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       query: operation.text,
-      variables
-    })
+      variables,
+    }),
   }).then(response => response.json());
 };
 
@@ -24,5 +24,5 @@ const store = new Store(source);
 
 export default new Environment({
   network,
-  store
+  store,
 });

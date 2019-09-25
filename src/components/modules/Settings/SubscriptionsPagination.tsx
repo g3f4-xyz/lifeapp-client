@@ -20,7 +20,7 @@ class Subscriptions extends React.Component<Props> {
   render(): React.ReactNode {
     const { className, data, onDelete } = this.props;
     const {
-      subscriptions: { edges }
+      subscriptions: { edges },
     } = data;
 
     if (!edges) {
@@ -30,7 +30,7 @@ class Subscriptions extends React.Component<Props> {
     return (
       <List className={className}>
         {edges.map(
-          (edge): React.ReactNode => edge && edge.node && <SubscriptionFragment key={edge.node.id} data={edge.node} onDelete={onDelete} />
+          (edge): React.ReactNode => edge && edge.node && <SubscriptionFragment key={edge.node.id} data={edge.node} onDelete={onDelete} />,
         )}
       </List>
     );
@@ -52,7 +52,7 @@ export default createPaginationContainer<Props>(
           }
         }
       }
-    `
+    `,
   },
   {
     direction: 'forward',
@@ -62,7 +62,7 @@ export default createPaginationContainer<Props>(
     getFragmentVariables(prevVars, totalCount) {
       return {
         ...prevVars,
-        count: totalCount
+        count: totalCount,
       };
     },
     getVariables(_props, { count, cursor }) {
@@ -78,6 +78,6 @@ export default createPaginationContainer<Props>(
           }
         }
       }
-    `
-  }
+    `,
+  },
 );

@@ -14,7 +14,7 @@ export default class TaskList extends React.Component<TaskListHandlerProps> {
       <QueryRenderer<TaskListQuery>
         environment={environment}
         variables={{
-          count: ITEMS_PER_PAGE
+          count: ITEMS_PER_PAGE,
         }}
         query={graphql`
           query TaskListQuery($count: Int!, $after: String) {

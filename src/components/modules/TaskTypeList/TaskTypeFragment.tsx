@@ -11,53 +11,53 @@ import { TaskTypeEnum, TaskTypeFragment_data } from './__generated__/TaskTypeFra
 const styles = (theme: Theme) => ({
   actionsContainer: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-between',
   },
   container: {
     display: 'flex',
     flexDirection: 'column',
     width: theme.spacing(1) * 2 * 8,
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing(1) * 2 * 12
+      width: theme.spacing(1) * 2 * 12,
     },
     [theme.breakpoints.up('md')]: {
-      width: theme.spacing(1) * 2 * 16
-    }
+      width: theme.spacing(1) * 2 * 16,
+    },
   },
   nameContainer: {
     fontSize: theme.spacing(3),
     textAlign: 'center',
     [theme.breakpoints.up('sm')]: {
-      fontSize: theme.spacing(4)
+      fontSize: theme.spacing(4),
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: theme.spacing(5)
-    }
+      fontSize: theme.spacing(5),
+    },
   },
   descContainer: {
     flexGrow: 1,
     fontSize: theme.spacing(3),
     [theme.breakpoints.up('sm')]: {
-      fontSize: theme.spacing(4)
+      fontSize: theme.spacing(4),
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: theme.spacing(5)
-    }
+      fontSize: theme.spacing(5),
+    },
   },
   descText: {
     padding: 0,
     margin: 0,
     fontSize: theme.spacing(1) * 1.5,
     [theme.breakpoints.up('sm')]: {
-      fontSize: theme.spacing(2)
+      fontSize: theme.spacing(2),
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: theme.spacing(3)
-    }
+      fontSize: theme.spacing(3),
+    },
   },
   icon: {
     height: '100%',
-    width: '100%'
+    width: '100%',
   },
   infoButton: {
     color: '#505ae8',
@@ -65,12 +65,12 @@ const styles = (theme: Theme) => ({
     width: 64,
     [theme.breakpoints.up('sm')]: {
       height: 80,
-      width: 80
+      width: 80,
     },
     [theme.breakpoints.up('md')]: {
       height: 96,
-      width: 96
-    }
+      width: 96,
+    },
   },
   addButton: {
     color: '#8BC34A',
@@ -78,22 +78,22 @@ const styles = (theme: Theme) => ({
     width: 64,
     [theme.breakpoints.up('sm')]: {
       height: 80,
-      width: 80
+      width: 80,
     },
     [theme.breakpoints.up('md')]: {
       height: 96,
-      width: 96
-    }
+      width: 96,
+    },
   },
   fontSize72: {
     fontSize: 40,
     [theme.breakpoints.up('sm')]: {
-      fontSize: 54
+      fontSize: 54,
     },
     [theme.breakpoints.up('md')]: {
-      fontSize: 72
-    }
-  }
+      fontSize: 72,
+    },
+  },
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
@@ -109,12 +109,12 @@ interface State {
 
 class TaskType extends React.Component<Props, State> {
   state = {
-    info: false
+    info: false,
   };
 
   onInfo = () => {
     this.setState({
-      info: !this.state.info
+      info: !this.state.info,
     });
   };
 
@@ -157,6 +157,6 @@ export default createFragmentContainer<Props>(
         label
         description
       }
-    `
-  }
+    `,
+  },
 );

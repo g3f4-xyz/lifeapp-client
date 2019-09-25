@@ -1,4 +1,5 @@
-import { IconButton, Paper, StyledComponentProps, Theme, withStyles } from '@material-ui/core';
+import { createStyles, IconButton, Paper, Theme, withStyles } from '@material-ui/core';
+import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Done } from '@material-ui/icons';
 import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
@@ -17,64 +18,67 @@ const FIELD_COMPONENTS_MAP: FIELD_TYPE_VALUE_MAP<Container<Props & any>> = {
   SWITCH: SwitchFieldFragment,
   SLIDER: SliderFieldFragment,
   TEXT: TextFieldFragment,
-  NESTED: NestedFieldFragment
+  NESTED: NestedFieldFragment,
 };
 
-const styles = (theme: Theme) => ({
-  wrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing(2),
-      marginRight: theme.spacing(2)
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    wrapper: {
+      display: 'flex',
+      justifyContent: 'center',
+      // flexDirection: 'column',
+      [theme.breakpoints.up('sm')]: {
+        marginLeft: theme.spacing(2),
+        marginRight: theme.spacing(2),
+      },
+      [theme.breakpoints.up('md')]: {
+        marginLeft: theme.spacing(3),
+        marginRight: theme.spacing(3),
+      },
+      [theme.breakpoints.up('lg')]: {
+        marginLeft: theme.spacing(4),
+        marginRight: theme.spacing(4),
+      },
+      [theme.breakpoints.up('xl')]: {
+        marginLeft: theme.spacing(5),
+        marginRight: theme.spacing(5),
+      },
     },
-    [theme.breakpoints.up('md')]: {
-      marginLeft: theme.spacing(3),
-      marginRight: theme.spacing(3)
+    row: {
+      display: 'flex',
+      // flexWrap: 'wrap',
+      justifyContent: 'space-between',
+      marginBottom: theme.spacing(1),
     },
-    [theme.breakpoints.up('lg')]: {
-      marginLeft: theme.spacing(4),
-      marginRight: theme.spacing(4)
+    rowField: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      margin: theme.spacing(1),
+      width: '100%',
+      [theme.breakpoints.down('xs')]: {
+        display: 'block',
+      },
     },
-    [theme.breakpoints.up('xl')]: {
-      marginLeft: theme.spacing(5),
-      marginRight: theme.spacing(5)
-    }
-  },
-  row: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginBottom: theme.spacing(1)
-  },
-  rowField: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    margin: theme.spacing(1),
-    width: '100%',
-    [theme.breakpoints.down('xs')]: {
-      display: 'block'
-    }
-  },
-  doneButton: {
-    zIndex: 9,
-    position: 'fixed',
-    bottom: 20,
-    right: 20
-  },
-  doneButtonIcon: {
-    color: '#8BC34A',
-    fontSize: 72
-  }
-});
+    doneButton: {
+      zIndex: 9,
+      // position: 'fixed',
+      bottom: 20,
+      right: 20,
+    },
+    doneButtonIcon: {
+      color: '#8BC34A',
+      fontSize: 72,
+    },
+  }),
+);
 
-interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
+interface Props {
   editMode: boolean;
   data: TaskFragmentResponse;
   isNew: boolean;
   taskListId: string;
   relay: RelayProp;
+
   onDone(id: string): void;
 }
 
@@ -86,7 +90,8 @@ class Task extends React.Component<Props, TaskFragmentResponse> {
   };
 
   render(): React.ReactNode {
-    const { classes, data } = this.props;
+    const { data } = this.props;
+    const classes = useStyles();
 
     if (!classes) {
       throw new Error(`error loading styles`);
@@ -171,6 +176,6 @@ export default createFragmentContainer<Props>(
           ...NestedFieldFragment_data
         }
       }
-    `
-  }
+    `,
+  },
 );

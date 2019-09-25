@@ -19,7 +19,7 @@ export const saveToLS = (key: LOCAL_STORAGE_LAYOUT_KEY, value: Layouts): void =>
   window.localStorage.setItem(
     ITEM_KEY,
     JSON.stringify({
-      [key]: value
-    })
+      [key]: value,
+    }),
   );
 };

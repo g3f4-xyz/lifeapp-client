@@ -24,10 +24,10 @@ export default ({ moduleId }: ModuleProps, state: AppState, update: (spec: Spec<
             isNew: true,
             moduleId: taskModuleId,
             taskId: '',
-            type
-          }
-        ]
-      }
+            type,
+          },
+        ],
+      },
     });
-  }
+  },
 });

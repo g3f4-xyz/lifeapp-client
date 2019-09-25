@@ -11,13 +11,13 @@ const ICONS: TASK_TYPE_VALUE_MAP<React.ComponentType<SvgIconProps>> = {
   TODO: LocalOffer,
   ROUTINE: Update,
   MEETING: Group,
-  EVENT: DateRange
+  EVENT: DateRange,
 };
 
 const styles = (theme: Theme) => ({
   icon: {
-    fontSize: theme.spacing(3)
-  }
+    fontSize: theme.spacing(3),
+  },
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {

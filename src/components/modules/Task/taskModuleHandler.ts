@@ -13,8 +13,8 @@ export default (moduleProps: TaskModuleProps, state: AppState, update: (spec: Sp
       $merge: {
         activeModuleId: MODULES_IDS.TASK_LIST,
         activeModulesHistory: [MODULES_IDS.TASK_LIST],
-        openedTasksModulesProps: state.openedTasksModulesProps.filter(props => props.taskId === taskId)
-      }
+        openedTasksModulesProps: state.openedTasksModulesProps.filter(props => props.taskId === taskId),
+      },
     });
-  }
+  },
 });

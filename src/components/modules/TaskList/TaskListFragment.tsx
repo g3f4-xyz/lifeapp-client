@@ -7,7 +7,7 @@ import {
   Theme,
   Tooltip,
   Typography,
-  withStyles
+  withStyles,
 } from '@material-ui/core';
 import { green, grey, red, yellow } from '@material-ui/core/colors';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';
@@ -25,10 +25,10 @@ const styles = (theme: Theme) => ({
   actions: {
     display: 'flex',
     flexWrap: 'wrap',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   content: {
-    display: 'block'
+    display: 'block',
   },
   heading: {
     maxHeight: '1.8em',
@@ -37,26 +37,26 @@ const styles = (theme: Theme) => ({
     textAlign: 'center',
     fontSize: theme.typography.pxToRem(20),
     fontWeight: theme.typography.fontWeightRegular,
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   icon: {
-    fontSize: theme.spacing(5)
+    fontSize: theme.spacing(5),
   },
   green: {
-    color: green[700]
+    color: green[700],
   },
   grey: {
-    color: grey[700]
+    color: grey[700],
   },
   red: {
-    color: red[700]
+    color: red[700],
   },
   taskTypeIcon: {
-    marginTop: theme.spacing(1) * 1.5
+    marginTop: theme.spacing(1) * 1.5,
   },
   yellow: {
-    color: yellow[700]
-  }
+    color: yellow[700],
+  },
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
@@ -151,6 +151,6 @@ export default createFragmentContainer<Props>(
           ...NestedFieldFragment_data @relay(mask: false)
         }
       }
-    `
-  }
+    `,
+  },
 );

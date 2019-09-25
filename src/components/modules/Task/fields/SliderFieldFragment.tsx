@@ -17,7 +17,7 @@ class SliderField extends React.Component<Props> {
     const { data } = this.props;
     const {
       value: { progress },
-      meta: { label, disabled, max, min, step }
+      meta: { label, disabled, max, min, step },
     } = data;
 
     return (
@@ -36,7 +36,7 @@ class SliderField extends React.Component<Props> {
   private handleChange = async (progress: number): Promise<void> => {
     const {
       taskId,
-      data: { fieldId, id }
+      data: { fieldId, id },
     } = this.props;
 
     await updateTaskFieldMutation({ fieldId, value: { progress }, taskId }, { id });
@@ -74,5 +74,5 @@ export default createFragmentContainer<Props>(SliderField, {
         ...SliderFieldFragmentValue @relay(mask: false)
       }
     }
-  `
+  `,
 });

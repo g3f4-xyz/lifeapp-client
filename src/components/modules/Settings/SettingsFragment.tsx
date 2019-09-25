@@ -13,7 +13,7 @@ import {
   StyledComponentProps,
   Theme,
   Typography,
-  withStyles
+  withStyles,
 } from '@material-ui/core';
 import { DeleteForever, ExpandMore } from '@material-ui/icons';
 import graphql from 'babel-plugin-relay/macro';
@@ -30,35 +30,35 @@ import SubscriptionsPagination from './SubscriptionsPagination';
 const styles = (theme: Theme) => ({
   accountContent: {
     display: 'flex',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
   subscriptionsWrapper: {
     marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
   },
   list: {
-    width: '100%'
+    width: '100%',
   },
   section: {
     marginBottom: theme.spacing(2),
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1)
+    paddingBottom: theme.spacing(1),
   },
   subscriptionButton: {
     textAlign: 'right',
     margin: theme.spacing(1),
-    padding: theme.spacing(1)
+    padding: theme.spacing(1),
   },
   subscriptionsPaginationExpansionPanel: {
-    paddingRight: theme.spacing(1)
+    paddingRight: theme.spacing(1),
   },
   notificationsInfoWrapper: {
     textAlign: 'right',
     paddingRight: theme.spacing(2),
     paddingLeft: theme.spacing(2),
     paddingTop: theme.spacing(1),
-    paddingBottom: theme.spacing(1)
-  }
+    paddingBottom: theme.spacing(1),
+  },
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
@@ -73,7 +73,7 @@ interface State {
 class SettingsFragment extends React.Component<Props, State> {
   state = {
     cleanApplicationDialogOpen: false,
-    notificationPermission: Notification.permission
+    notificationPermission: Notification.permission,
   };
 
   handleCleanApplicationDialogClose = () => {
@@ -86,7 +86,7 @@ class SettingsFragment extends React.Component<Props, State> {
 
   handleCleanApplication = async () => {
     const { cleanApplication } = await cleanApplicationMutation({
-      ownerId: this.props.data.ownerId
+      ownerId: this.props.data.ownerId,
     });
 
     window.location.href = cleanApplication && cleanApplication.navigationUrl ? cleanApplication.navigationUrl : '';
@@ -108,7 +108,7 @@ class SettingsFragment extends React.Component<Props, State> {
   onDeleteSubscription = async (subscriptionId: string) => {
     await deleteSubscriptionMutation({
       subscriptionId,
-      parentID: this.props.data.notifications.id
+      parentID: this.props.data.notifications.id,
     });
   };
 
@@ -224,6 +224,6 @@ export default createFragmentContainer<Props>(
           ...SubscriptionsPagination_data
         }
       }
-    `
-  }
+    `,
+  },
 );

@@ -5,7 +5,7 @@ import {
   ListItemSecondaryAction,
   ListItemText,
   StyledComponentProps,
-  withStyles
+  withStyles,
 } from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
 import { CheckCircle, Computer, Delete, DevicesOther, HelpOutline, HighlightOff, Smartphone } from '@material-ui/icons';
@@ -21,23 +21,23 @@ import { SubscriptionFragment_data } from './__generated__/SubscriptionFragment_
 const DEVICES_ICONS = {
   [DEVICES.DESKTOP]: Computer,
   [DEVICES.MOBILE]: Smartphone,
-  [DEVICES.OTHER]: DevicesOther
+  [DEVICES.OTHER]: DevicesOther,
 };
 
 const styles = {
   green: {
-    color: green['500']
+    color: green['500'],
   },
   red: {
-    color: red['500']
+    color: red['500'],
   },
   listItem: {
     paddingLeft: 0,
-    paddingRight: 0
+    paddingRight: 0,
   },
   listItemIcon: {
-    marginRight: 0
-  }
+    marginRight: 0,
+  },
 };
 
 interface Props extends StyledComponentProps<keyof typeof styles> {
@@ -52,7 +52,7 @@ interface State {
 
 class Subscription extends React.Component<Props, State> {
   state = {
-    statusCode: ''
+    statusCode: '',
   };
 
   handleDelete = () => {
@@ -61,7 +61,7 @@ class Subscription extends React.Component<Props, State> {
 
   handleTest = async () => {
     const { testSubscription } = await testSubscriptionMutation({
-      subscriptionId: this.props.data.id
+      subscriptionId: this.props.data.id,
     });
 
     if (testSubscription) {
@@ -72,7 +72,7 @@ class Subscription extends React.Component<Props, State> {
   render(): React.ReactNode {
     const {
       classes,
-      data: { id, userDeviceType, userAgent }
+      data: { id, userDeviceType, userAgent },
     } = this.props;
 
     if (!classes) {
@@ -111,5 +111,5 @@ export default createFragmentContainer<Props>(withStyles(styles)(Subscription), 
       userAgent
       userDeviceType
     }
-  `
+  `,
 });

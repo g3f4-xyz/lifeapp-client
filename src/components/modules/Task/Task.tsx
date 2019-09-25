@@ -24,7 +24,7 @@ export default class Task extends React.Component<Props> {
           environment={environment}
           variables={{
             id: this.props.taskId,
-            type: this.props.type
+            type: this.props.type,
           }}
           query={graphql`
             query TaskQuery($id: ID, $type: String) {

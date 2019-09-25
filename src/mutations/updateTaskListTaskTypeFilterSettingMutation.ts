@@ -5,7 +5,7 @@ import environment from '../environment';
 import {
   updateTaskListTaskTypeFilterSettingMutation,
   updateTaskListTaskTypeFilterSettingMutationInput,
-  updateTaskListTaskTypeFilterSettingMutationResponse
+  updateTaskListTaskTypeFilterSettingMutationResponse,
 } from './__generated__/updateTaskListTaskTypeFilterSettingMutation.graphql';
 
 const mutation = graphql`
@@ -19,7 +19,7 @@ const mutation = graphql`
 
 export default (
   { taskType }: updateTaskListTaskTypeFilterSettingMutationInput,
-  { parentID }: { parentID: string }
+  { parentID }: { parentID: string },
 ): Promise<updateTaskListTaskTypeFilterSettingMutationResponse> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { taskType } };
@@ -47,6 +47,6 @@ export default (
         if (filtersRecord && mutationRecord) {
           filtersRecord.setValue(mutationRecord.getValue('taskType'), 'taskType');
         }
-      }
+      },
     });
   });
