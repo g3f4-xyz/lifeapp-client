@@ -39,34 +39,23 @@ const TaskFragment: FC<TaskFragmentProps> = props => {
   const classes = useTaskFragmentStyles();
 
   const { fields } = data;
-
-  const fieldsGroupedByOrder = fields.reduce((acc, field) => {
-    const { order } = field;
-
-    if (typeof order === 'number' && !acc[order]) {
-      acc[order] = [];
-    }
-
-    if (typeof order === 'number') {
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
-      acc[order].push(field);
-    }
-
-    return acc;
-  }, new Array<typeof fields>());
+  const orders = new Set(fields.map(field => field.order).sort());
 
   return (
     <div className={classes.wrapper}>
-      {fieldsGroupedByOrder.map((fieldsInRow, key) => (
-        <Paper className={classes.row} key={key}>
-          {fieldsInRow.map(field => {
-            const Component = FIELD_COMPONENTS_MAP[field.fieldType as FieldTypeEnum];
+      {[...orders].map(order => {
+        const rowFields = fields.filter(field => field.order === order);
 
-            return <Component key={field.fieldId} data={field} taskId={data.id} />;
-          })}
-        </Paper>
-      ))}
+        return (
+          <Paper className={classes.row} key={order}>
+            {rowFields.map(field => {
+              const Component = FIELD_COMPONENTS_MAP[field.fieldType as FieldTypeEnum];
+
+              return <Component key={field.fieldId} data={field} taskId={data.id} />;
+            })}
+          </Paper>
+        );
+      })}
       <IconButton className={classes.doneButton} color="primary" onClick={handleDone}>
         <Done className={classes.doneButtonIcon} />
       </IconButton>
