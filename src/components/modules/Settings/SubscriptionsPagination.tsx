@@ -1,13 +1,13 @@
 import { List } from '@material-ui/core';
 import graphql from 'babel-plugin-relay/macro';
-import React from 'react';
+import React, { FC } from 'react';
 import { createPaginationContainer, RelayPaginationProp } from 'react-relay';
-import Loader from '../../display/Loader';
+import Loader from '../../display/loader/Loader';
 // eslint-disable-next-line @typescript-eslint/camelcase
 import { SubscriptionsPagination_data } from './__generated__/SubscriptionsPagination_data.graphql';
 import SubscriptionFragment from './SubscriptionFragment';
 
-interface Props {
+interface SubscriptionsProps {
   className?: string;
   // eslint-disable-next-line @typescript-eslint/camelcase
   data: SubscriptionsPagination_data;
@@ -16,28 +16,26 @@ interface Props {
   onDelete(subscriptionId: string): void;
 }
 
-class Subscriptions extends React.Component<Props> {
-  render(): React.ReactNode {
-    const { className, data, onDelete } = this.props;
-    const {
-      subscriptions: { edges },
-    } = data;
+const Subscriptions: FC<SubscriptionsProps> = props => {
+  const { className, data, onDelete } = props;
+  const {
+    subscriptions: { edges },
+  } = data;
 
-    if (!edges) {
-      return <Loader />;
-    }
-
-    return (
-      <List className={className}>
-        {edges.map(
-          (edge): React.ReactNode => edge && edge.node && <SubscriptionFragment key={edge.node.id} data={edge.node} onDelete={onDelete} />,
-        )}
-      </List>
-    );
+  if (!edges) {
+    return <Loader />;
   }
-}
 
-export default createPaginationContainer<Props>(
+  return (
+    <List className={className}>
+      {edges.map(
+        (edge): React.ReactNode => edge && edge.node && <SubscriptionFragment key={edge.node.id} data={edge.node} onDelete={onDelete} />,
+      )}
+    </List>
+  );
+};
+
+export default createPaginationContainer<SubscriptionsProps>(
   Subscriptions,
   {
     data: graphql`

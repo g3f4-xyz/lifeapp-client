@@ -7,9 +7,9 @@ import { LOCAL_STORAGE_LAYOUTS_KEY, MODULE, MODULES_IDS } from '../constans';
 import registerUserSubscription from '../serviceWorker/registerUserSubscription';
 import assetsServiceWorker from '../serviceWorker/serviceWorkerManager';
 import { getFromLS, saveToLS } from '../utils/rglLocalStore';
-import ErrorBoundary from './containers/ErrorBoundary';
-import ResponsiveGrid from './containers/ResponsiveGrid';
-import AppMenu from './display/AppMenu';
+import ErrorBoundary from './containers/error-boundary/ErrorBoundary';
+import ResponsiveGrid from './containers/responsive-grid/ResponsiveGrid';
+import AppMenu from './display/app-menu/AppMenu';
 import settingsHandler from './modules/Settings/settingsModuleHandler';
 import SettingsQuery from './modules/Settings/SettingsQuery';
 import Task from './modules/Task/Task';
@@ -225,7 +225,7 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
     this.setState({ layouts: {} });
   };
 
-  private onLayoutChange = (_layout: Layout, layouts: Layouts): void => {
+  private onLayoutChange = (_layout: Layout[], layouts: Layouts): void => {
     saveToLS(LOCAL_STORAGE_LAYOUTS_KEY, layouts);
     this.setState({ layouts });
   };

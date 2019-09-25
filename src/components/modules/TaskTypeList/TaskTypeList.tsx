@@ -3,16 +3,16 @@ import React from 'react';
 import { QueryRenderer } from 'react-relay';
 import { ITEMS_PER_PAGE } from '../../../constans';
 import environment from '../../../environment';
-import Loader from '../../display/Loader';
+import Loader from '../../display/loader/Loader';
 import { TaskTypeEnum } from './__generated__/TaskTypeFragment_data.graphql';
 import { TaskTypeListQuery } from './__generated__/TaskTypeListQuery.graphql';
 import TaskTypeListPagination from './TaskTypeListPagination';
 
-interface Props {
+export interface TaskTypeListProps {
   onSelect(taskType: TaskTypeEnum): void;
 }
 
-const TaskTypeList: React.FC<Props> = ownProps => (
+const TaskTypeList: React.FC<TaskTypeListProps> = props => (
   <QueryRenderer<TaskTypeListQuery>
     environment={environment}
     variables={{
@@ -27,12 +27,13 @@ const TaskTypeList: React.FC<Props> = ownProps => (
         }
       }
     `}
-    render={({ error, props }: { error: Error | null; props: TaskTypeListQuery['response'] | null }) => {
-      if (error) {
-        return <div>{JSON.stringify(error)}</div>;
-      } else if (props) {
-        return <TaskTypeListPagination data={props.app.taskTypeList} {...ownProps} />;
+    render={response => {
+      if (response.error) {
+        return <div>{JSON.stringify(response.error)}</div>;
+      } else if (response.props) {
+        return <TaskTypeListPagination data={response.props.app.taskTypeList} {...props} />;
       }
+
       return <Loader />;
     }}
   />

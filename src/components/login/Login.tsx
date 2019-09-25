@@ -1,31 +1,12 @@
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { StyledComponentProps, Theme } from '@material-ui/core/styles';
-import withStyles from '@material-ui/core/styles/withStyles';
 import Typography from '@material-ui/core/Typography';
-import React from 'react';
+import React, { FC } from 'react';
+import useLoginStyles from './useLoginStyles';
 
-const styles = (theme: Theme) => ({
-  button: {
-    margin: theme.spacing(1),
-  },
-  root: {
-    flexGrow: 1,
-  },
-  paper: {
-    padding: theme.spacing(2),
-    textAlign: 'center',
-    color: theme.palette.text.secondary,
-  },
-});
-
-function Login(props: StyledComponentProps<keyof ReturnType<typeof styles>>) {
-  const { classes } = props;
-
-  if (!classes) {
-    throw new Error(`error loading styles`);
-  }
+const Login: FC = () => {
+  const classes = useLoginStyles();
 
   return (
     <div className={classes.root}>
@@ -58,8 +39,6 @@ function Login(props: StyledComponentProps<keyof ReturnType<typeof styles>>) {
       </div>
     </div>
   );
-}
+};
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
-export default withStyles(styles)(Login);
+export default Login;

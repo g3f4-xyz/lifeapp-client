@@ -1,8 +1,8 @@
 import { FormHelperText, InputLabel, MenuItem, Select } from '@material-ui/core';
-import React from 'react';
-import FieldContainer from '../../containers/FieldContainer';
+import React, { FC } from 'react';
+import FieldContainer from '../../containers/field-container/FieldContainer';
 
-interface Props {
+interface ChoiceProps {
   value?: string;
   label?: string;
   helperText?: string;
@@ -12,33 +12,33 @@ interface Props {
   onChange(value: string): void;
 }
 
-export default class Choice extends React.Component<Props> {
-  render(): React.ReactNode {
-    const { label, value, helperText, options } = this.props;
+const Choice: FC<ChoiceProps> = props => {
+  const { label, value, helperText, options } = props;
 
-    if (!options) {
-      throw new Error('no options');
-    }
-
-    return (
-      <FieldContainer>
-        {label && <InputLabel>{label}</InputLabel>}
-        <Select value={value} onChange={this.handleChange}>
-          {options.map(
-            option =>
-              option && (
-                <MenuItem key={option.value} value={option.value}>
-                  {option.text}
-                </MenuItem>
-              ),
-          )}
-        </Select>
-        {helperText && <FormHelperText>{helperText}</FormHelperText>}
-      </FieldContainer>
-    );
+  if (!options) {
+    throw new Error('no options');
   }
 
-  handleChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
-    this.props.onChange(event.target.value as string);
+  const handleChange = (event: React.ChangeEvent<{ name?: string; value: unknown }>) => {
+    props.onChange(event.target.value as string);
   };
-}
+
+  return (
+    <FieldContainer>
+      {label && <InputLabel>{label}</InputLabel>}
+      <Select value={value} onChange={handleChange}>
+        {options.map(
+          option =>
+            option && (
+              <MenuItem key={option.value} value={option.value}>
+                {option.text}
+              </MenuItem>
+            ),
+        )}
+      </Select>
+      {helperText && <FormHelperText>{helperText}</FormHelperText>}
+    </FieldContainer>
+  );
+};
+
+export default Choice;

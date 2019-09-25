@@ -1,39 +1,36 @@
 import graphql from 'babel-plugin-relay/macro';
-import React from 'react';
+import React, { FC } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Switch from '../../../display/field/Switch';
 // eslint-disable-next-line @typescript-eslint/camelcase
 import { SwitchFieldFragment_data } from './__generated__/SwitchFieldFragment_data.graphql';
 
-interface Props {
+interface SwitchFieldProps {
   // eslint-disable-next-line @typescript-eslint/camelcase
   data: SwitchFieldFragment_data;
   taskId: string;
 }
 
-class SwitchField extends React.Component<Props> {
-  render(): React.ReactNode {
-    const { data } = this.props;
-    const {
-      value: { enabled },
-      meta: { label, disabled },
-    } = data;
+const SwitchField: FC<SwitchFieldProps> = props => {
+  const { data } = props;
+  const {
+    value: { enabled },
+    meta: { label, disabled },
+  } = data;
 
-    return <Switch disabled={disabled} checked={enabled} label={label} onChange={this.handleChange} />;
-  }
-
-  private handleChange = async (enabled: boolean): Promise<void> => {
+  const handleChange = async (enabled: boolean): Promise<void> => {
     const {
       taskId,
       data: { fieldId, id },
-    } = this.props;
+    } = props;
 
     await updateTaskFieldMutation({ fieldId, value: { enabled }, taskId }, { id });
   };
-}
 
-// tslint:disable-next-line:no-unused-expression
+  return <Switch disabled={disabled} checked={enabled} label={label} onChange={handleChange} />;
+};
+
 graphql`
   fragment SwitchFieldFragmentMeta on SwitchMetaType {
     fieldType
@@ -42,14 +39,14 @@ graphql`
     required
   }
 `;
-// tslint:disable-next-line:no-unused-expression
+
 graphql`
   fragment SwitchFieldFragmentValue on SwitchValueType {
     enabled
   }
 `;
 
-export default createFragmentContainer<Props>(SwitchField, {
+export default createFragmentContainer<SwitchFieldProps>(SwitchField, {
   data: graphql`
     fragment SwitchFieldFragment_data on SwitchFieldType {
       id

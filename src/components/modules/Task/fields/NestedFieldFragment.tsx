@@ -21,7 +21,9 @@ interface OwnFieldProps {
   onOwnValueChange(updatedValue: NestedFieldFragment_data['value']['ownValue']): void;
 }
 
-const OwnField: FC<OwnFieldProps> = ({ ownMeta, ownValue, onOwnValueChange }: OwnFieldProps) => {
+const OwnField: FC<OwnFieldProps> = props => {
+  const { ownMeta, ownValue, onOwnValueChange } = props;
+
   if (ownMeta && ownValue) {
     if (ownMeta.fieldType === FIELD_TYPE.CHOICE) {
       const { label, helperText, options } = ownMeta;
@@ -93,7 +95,7 @@ interface NestedFieldProps {
   onChange(value: NestedFieldProps['value']): void;
 }
 
-function NestedField(props: NestedFieldProps): JSX.Element | null {
+const NestedField: FC<NestedFieldProps> = props => {
   const { meta, value, onChange } = props;
 
   if (meta && meta.ownMeta && value) {
@@ -144,9 +146,9 @@ function NestedField(props: NestedFieldProps): JSX.Element | null {
   }
 
   return null;
-}
+};
 
-interface Props {
+export interface NestedFieldContainerProps {
   data: {
     id: string;
     fieldId: FieldIdEnum;
@@ -156,25 +158,22 @@ interface Props {
   taskId: string;
 }
 
-class NestedFieldContainer extends React.Component<Props> {
-  render(): React.ReactNode {
-    const { data } = this.props;
-    const { meta, value } = data;
+const NestedFieldContainer: FC<NestedFieldContainerProps> = props => {
+  const { data } = props;
+  const { meta, value } = data;
 
-    return <NestedField value={value} meta={meta} onChange={this.handleChange} />;
-  }
-
-  private handleChange = async (updatedFieldValue: NestedFieldProps['value']): Promise<void> => {
+  const handleChange = async (updatedFieldValue: NestedFieldProps['value']): Promise<void> => {
     const {
       taskId,
       data: { fieldId, id },
-    } = this.props;
+    } = props;
 
     await updateTaskFieldMutation({ fieldId, value: updatedFieldValue as NestedValueInputType, taskId }, { id });
   };
-}
 
-// tslint:disable-next-line:no-unused-expression
+  return <NestedField value={value} meta={meta} onChange={handleChange} />;
+};
+
 graphql`
   fragment NestedFieldFragmentMeta on NestedMetaType {
     fieldType
@@ -266,7 +265,7 @@ graphql`
     }
   }
 `;
-// tslint:disable-next-line:no-unused-expression
+
 graphql`
   fragment NestedFieldFragmentValue on NestedValueType {
     ownValue {
@@ -291,7 +290,7 @@ graphql`
   }
 `;
 
-export default createFragmentContainer<Props>(NestedFieldContainer, {
+export default createFragmentContainer<NestedFieldContainerProps>(NestedFieldContainer, {
   data: graphql`
     fragment NestedFieldFragment_data on NestedFieldType {
       id
