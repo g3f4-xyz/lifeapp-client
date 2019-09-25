@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-type TaskTypeListPagination_data$ref = any;
+type useTaskTypePagination$ref = any;
 export type TaskTypeListQueryVariables = {
     readonly count: number;
     readonly after?: string | null;
@@ -9,7 +9,7 @@ export type TaskTypeListQueryVariables = {
 export type TaskTypeListQueryResponse = {
     readonly app: {
         readonly taskTypeList: {
-            readonly " $fragmentRefs": TaskTypeListPagination_data$ref;
+            readonly " $fragmentRefs": useTaskTypePagination$ref;
         };
     };
 };
@@ -27,33 +27,33 @@ query TaskTypeListQuery(
 ) {
   app {
     taskTypeList {
-      ...TaskTypeListPagination_data
+      ...useTaskTypePagination
       id
     }
     id
   }
 }
 
-fragment TaskTypeListPagination_data on TaskTypeListType {
+fragment useTaskTypePagination on TaskTypeListType {
   id
   list(first: $count, after: $after) {
     edges {
       node {
         id
         order
-        ...TaskTypeFragment_data
+        ...useTaskTypeFragment
         __typename
       }
       cursor
     }
     pageInfo {
-      hasNextPage
       endCursor
+      hasNextPage
     }
   }
 }
 
-fragment TaskTypeFragment_data on TaskTypeType {
+fragment useTaskTypeFragment on TaskTypeType {
   id
   typeId
   label
@@ -122,7 +122,7 @@ const node: ConcreteRequest = (function () {
                             "selections": [
                                 {
                                     "kind": "FragmentSpread",
-                                    "name": "TaskTypeListPagination_data",
+                                    "name": "useTaskTypePagination",
                                     "args": null
                                 }
                             ]
@@ -241,14 +241,14 @@ const node: ConcreteRequest = (function () {
                                                 {
                                                     "kind": "ScalarField",
                                                     "alias": null,
-                                                    "name": "hasNextPage",
+                                                    "name": "endCursor",
                                                     "args": null,
                                                     "storageKey": null
                                                 },
                                                 {
                                                     "kind": "ScalarField",
                                                     "alias": null,
-                                                    "name": "endCursor",
+                                                    "name": "hasNextPage",
                                                     "args": null,
                                                     "storageKey": null
                                                 }
@@ -276,10 +276,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "TaskTypeListQuery",
             "id": null,
-            "text": "query TaskTypeListQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    taskTypeList {\n      ...TaskTypeListPagination_data\n      id\n    }\n    id\n  }\n}\n\nfragment TaskTypeListPagination_data on TaskTypeListType {\n  id\n  list(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        order\n        ...TaskTypeFragment_data\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n\nfragment TaskTypeFragment_data on TaskTypeType {\n  id\n  typeId\n  label\n  description\n}\n",
+            "text": "query TaskTypeListQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    taskTypeList {\n      ...useTaskTypePagination\n      id\n    }\n    id\n  }\n}\n\nfragment useTaskTypePagination on TaskTypeListType {\n  id\n  list(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        order\n        ...useTaskTypeFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment useTaskTypeFragment on TaskTypeType {\n  id\n  typeId\n  label\n  description\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = 'a5359964ccbe171f21379af5b27f2b5f';
+(node as any).hash = '6840762d04d041df4905b4da1f80d010';
 export default node;

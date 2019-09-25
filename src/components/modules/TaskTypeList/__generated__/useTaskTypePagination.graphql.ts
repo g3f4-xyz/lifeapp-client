@@ -1,24 +1,20 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-type TaskTypeFragment_data$ref = any;
-export type TaskTypeListPagination_data$ref = any;
-export type TaskTypeListPagination_data = {
+type useTaskTypeFragment$ref = any;
+export type useTaskTypePagination$ref = any;
+export type useTaskTypePagination = {
     readonly id: string;
     readonly list: {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly id: string;
                 readonly order: number;
-                readonly " $fragmentRefs": TaskTypeFragment_data$ref;
+                readonly " $fragmentRefs": useTaskTypeFragment$ref;
             } | null;
         } | null> | null;
-        readonly pageInfo: {
-            readonly hasNextPage: boolean;
-            readonly endCursor: string | null;
-        };
     };
-    readonly " $refType": TaskTypeListPagination_data$ref;
+    readonly " $refType": useTaskTypePagination$ref;
 };
 
 
@@ -33,7 +29,7 @@ const node: ReaderFragment = (function () {
     } as any);
     return {
         "kind": "Fragment",
-        "name": "TaskTypeListPagination_data",
+        "name": "useTaskTypePagination",
         "type": "TaskTypeListType",
         "metadata": {
             "connection": [
@@ -105,7 +101,7 @@ const node: ReaderFragment = (function () {
                                     },
                                     {
                                         "kind": "FragmentSpread",
-                                        "name": "TaskTypeFragment_data",
+                                        "name": "useTaskTypeFragment",
                                         "args": null
                                     }
                                 ]
@@ -131,14 +127,14 @@ const node: ReaderFragment = (function () {
                             {
                                 "kind": "ScalarField",
                                 "alias": null,
-                                "name": "hasNextPage",
+                                "name": "endCursor",
                                 "args": null,
                                 "storageKey": null
                             },
                             {
                                 "kind": "ScalarField",
                                 "alias": null,
-                                "name": "endCursor",
+                                "name": "hasNextPage",
                                 "args": null,
                                 "storageKey": null
                             }
@@ -149,5 +145,5 @@ const node: ReaderFragment = (function () {
         ]
     } as any;
 })();
-(node as any).hash = '220ae70705652fc7c48b18d1ee3a3bf1';
+(node as any).hash = '7977ccbcaf8d2efc13fd6eb6f6d90ce5';
 export default node;

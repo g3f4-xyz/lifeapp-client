@@ -1,29 +1,27 @@
 import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { AddCircle, InfoOutlined } from '@material-ui/icons';
-import graphql from 'babel-plugin-relay/macro';
 import React, { FC, useState } from 'react';
-import { createFragmentContainer } from 'react-relay';
 import TaskTypeIcon from '../../display/task-type-icon/TaskTypeIcon';
-import {
-  TaskTypeEnum,
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  TaskTypeFragment_data,
-} from './__generated__/TaskTypeFragment_data.graphql';
+// eslint-disable-next-line @typescript-eslint/camelcase
+import { TaskTypeListPagination_data$ref } from './__generated__/TaskTypeListPagination_data.graphql';
+import { TaskTypeEnum } from './__generated__/useTaskTypeFragment.graphql';
+import useTaskTypeFragment from './useTaskTypeFragment';
 import useTaskTypeFragmentStyles from './useTaskTypeFragmentStyles';
 
-interface TaskTypeProps {
+interface TaskTypeFragmentProps {
   // eslint-disable-next-line @typescript-eslint/camelcase
-  data: TaskTypeFragment_data;
+  data: TaskTypeListPagination_data$ref;
 
   onSelect(taskType: TaskTypeEnum): void;
 }
 
-const TaskType: FC<TaskTypeProps> = props => {
+const TaskTypeFragment: FC<TaskTypeFragmentProps> = props => {
   const { data, onSelect } = props;
   const [info, setInfo] = useState(false);
-  const { label, description, typeId } = data;
   const classes = useTaskTypeFragmentStyles();
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  const { label, description, typeId } = useTaskTypeFragment(data);
 
   const handleInfo = () => {
     setInfo(value => !value);
@@ -51,13 +49,4 @@ const TaskType: FC<TaskTypeProps> = props => {
   );
 };
 
-export default createFragmentContainer<TaskTypeProps>(TaskType, {
-  data: graphql`
-    fragment TaskTypeFragment_data on TaskTypeType {
-      id
-      typeId
-      label
-      description
-    }
-  `,
-});
+export default TaskTypeFragment;
