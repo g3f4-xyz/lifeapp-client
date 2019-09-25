@@ -18,6 +18,7 @@ import graphql from 'babel-plugin-relay/macro';
 import React, { ChangeEvent } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import saveNotificationsGeneralSettingMutation from '../../../mutations/saveNotificationsGeneralSettingMutation';
+// eslint-disable-next-line @typescript-eslint/camelcase
 import { NotificationsGeneralFragment_data } from './__generated__/NotificationsGeneralFragment_data.graphql';
 
 const styles = (theme: Theme) => ({
@@ -31,6 +32,7 @@ const styles = (theme: Theme) => ({
 });
 
 interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
+  // eslint-disable-next-line @typescript-eslint/camelcase
   data: NotificationsGeneralFragment_data;
 }
 

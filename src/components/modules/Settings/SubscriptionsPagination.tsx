@@ -3,11 +3,13 @@ import graphql from 'babel-plugin-relay/macro';
 import React from 'react';
 import { createPaginationContainer, RelayPaginationProp } from 'react-relay';
 import Loader from '../../display/Loader';
+// eslint-disable-next-line @typescript-eslint/camelcase
 import { SubscriptionsPagination_data } from './__generated__/SubscriptionsPagination_data.graphql';
 import SubscriptionFragment from './SubscriptionFragment';
 
 interface Props {
   className?: string;
+  // eslint-disable-next-line @typescript-eslint/camelcase
   data: SubscriptionsPagination_data;
   relay: RelayPaginationProp;
 
@@ -27,7 +29,9 @@ class Subscriptions extends React.Component<Props> {
 
     return (
       <List className={className}>
-        {edges.map((edge): React.ReactNode => edge && edge.node && <SubscriptionFragment key={edge.node.id} data={edge.node} onDelete={onDelete} />)}
+        {edges.map(
+          (edge): React.ReactNode => edge && edge.node && <SubscriptionFragment key={edge.node.id} data={edge.node} onDelete={onDelete} />
+        )}
       </List>
     );
   }

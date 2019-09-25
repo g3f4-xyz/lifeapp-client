@@ -1,7 +1,11 @@
 import graphql from 'babel-plugin-relay/macro';
 import { commitMutation } from 'react-relay';
 import environment from '../environment';
-import { testSubscriptionMutation, testSubscriptionMutationInput, testSubscriptionMutationResponse } from './__generated__/testSubscriptionMutation.graphql';
+import {
+  testSubscriptionMutation,
+  testSubscriptionMutationInput,
+  testSubscriptionMutationResponse
+} from './__generated__/testSubscriptionMutation.graphql';
 
 const mutation = graphql`
   mutation testSubscriptionMutation($input: testSubscriptionMutationInput!) {

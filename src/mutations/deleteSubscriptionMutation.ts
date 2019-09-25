@@ -16,7 +16,10 @@ const mutation = graphql`
   }
 `;
 
-export default ({ parentID, subscriptionId }: deleteSubscriptionMutationInput & { parentID: string }): Promise<deleteSubscriptionMutationResponse> =>
+export default ({
+  parentID,
+  subscriptionId
+}: deleteSubscriptionMutationInput & { parentID: string }): Promise<deleteSubscriptionMutationResponse> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { subscriptionId } };
     const configs: DeclarativeMutationConfig[] = [

@@ -63,7 +63,11 @@ class ResponsiveGrid extends React.PureComponent<Props> {
           (node: ReactElement<ModuleProps>, key: number) =>
             node &&
             node.props && (
-              <Paper className={classes.tileContainer} key={node.props.moduleId} data-grid={{ w: 6, h: 4, x: key * 2, y: 0, minW: 1, minH: 1 }}>
+              <Paper
+                className={classes.tileContainer}
+                key={node.props.moduleId}
+                data-grid={{ w: 6, h: 4, x: key * 2, y: 0, minW: 1, minH: 1 }}
+              >
                 {node}
                 <IconButton className={classes.remove} onClick={() => onModuleClose(node.props.moduleId)}>
                   <Clear />

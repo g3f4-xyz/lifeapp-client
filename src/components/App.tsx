@@ -266,7 +266,13 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
         );
       }
       case MODULES_IDS.SETTINGS: {
-        return <SettingsQuery key={MODULES_IDS.SETTINGS} moduleId={MODULES_IDS.SETTINGS} {...settingsHandler({ moduleId: MODULES_IDS.SETTINGS })} />;
+        return (
+          <SettingsQuery
+            key={MODULES_IDS.SETTINGS}
+            moduleId={MODULES_IDS.SETTINGS}
+            {...settingsHandler({ moduleId: MODULES_IDS.SETTINGS })}
+          />
+        );
       }
       default: {
         throw new Error(`no application module: ${moduleId}`);
@@ -278,7 +284,12 @@ class App extends React.Component<StyledComponentProps<keyof typeof styles>, App
     const { appOpenedModuleIds, openedTasksModulesProps, layouts } = this.state;
 
     return (
-      <ResponsiveGrid layouts={layouts} onModuleClose={this.onModuleClose} onModuleZoom={this.onModuleZoom} onLayoutChange={this.onLayoutChange}>
+      <ResponsiveGrid
+        layouts={layouts}
+        onModuleClose={this.onModuleClose}
+        onModuleZoom={this.onModuleZoom}
+        onLayoutChange={this.onLayoutChange}
+      >
         {appOpenedModuleIds.map(this.renderApplicationModule)}
         {openedTasksModulesProps.map(this.renderTaskModule)}
       </ResponsiveGrid>

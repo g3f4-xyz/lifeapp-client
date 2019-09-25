@@ -7,7 +7,7 @@ import {
   Theme,
   Tooltip,
   Typography,
-  withStyles,
+  withStyles
 } from '@material-ui/core';
 import { green, grey, red, yellow } from '@material-ui/core/colors';
 import { SvgIconProps } from '@material-ui/core/SvgIcon';

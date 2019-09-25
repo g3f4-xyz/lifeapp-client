@@ -138,7 +138,11 @@ class SettingsFragment extends React.Component<Props, State> {
                   <Typography>Subscriptions</Typography>
                 </ExpansionPanelSummary>
                 <ExpansionPanelDetails className={classes.subscriptionsPaginationExpansionPanel}>
-                  <SubscriptionsPagination className={classes.list} data={this.props.data.notifications} onDelete={this.onDeleteSubscription} />
+                  <SubscriptionsPagination
+                    className={classes.list}
+                    data={this.props.data.notifications}
+                    onDelete={this.onDeleteSubscription}
+                  />
                 </ExpansionPanelDetails>
               </ExpansionPanel>
             </Grid>

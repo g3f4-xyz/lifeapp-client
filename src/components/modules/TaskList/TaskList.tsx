@@ -38,8 +38,15 @@ export default class TaskList extends React.Component<TaskListHandlerProps> {
         render={({ error, props }) => {
           if (error) {
             return <div>{JSON.stringify(error)}</div>;
-          } else if (props) {
-            return <TaskListPagination {...this.props} data={props.app.taskList} settings={props.app.settings.taskList} settingsId={props.app.settings.id} />;
+          } else if (props && props.app) {
+            return (
+              <TaskListPagination
+                {...this.props}
+                data={props.app.taskList}
+                settings={props.app.settings.taskList}
+                settingsId={props.app.settings.id}
+              />
+            );
           }
           return <Loader />;
         }}

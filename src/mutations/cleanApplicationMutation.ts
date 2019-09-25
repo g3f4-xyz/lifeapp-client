@@ -1,7 +1,11 @@
 import graphql from 'babel-plugin-relay/macro';
 import { commitMutation } from 'react-relay';
 import environment from '../environment';
-import { cleanApplicationMutation, cleanApplicationMutationInput, cleanApplicationMutationResponse } from './__generated__/cleanApplicationMutation.graphql';
+import {
+  cleanApplicationMutation,
+  cleanApplicationMutationInput,
+  cleanApplicationMutationResponse
+} from './__generated__/cleanApplicationMutation.graphql';
 
 const mutation = graphql`
   mutation cleanApplicationMutation($input: cleanApplicationMutationInput!) {

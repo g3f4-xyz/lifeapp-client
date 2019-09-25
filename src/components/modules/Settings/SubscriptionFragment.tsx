@@ -1,4 +1,12 @@
-import { IconButton, ListItem, ListItemIcon, ListItemSecondaryAction, ListItemText, StyledComponentProps, withStyles } from '@material-ui/core';
+import {
+  IconButton,
+  ListItem,
+  ListItemIcon,
+  ListItemSecondaryAction,
+  ListItemText,
+  StyledComponentProps,
+  withStyles
+} from '@material-ui/core';
 import { green, red } from '@material-ui/core/colors';
 import { CheckCircle, Computer, Delete, DevicesOther, HelpOutline, HighlightOff, Smartphone } from '@material-ui/icons';
 import CloudOffIcon from '@material-ui/icons/CloudOff';
@@ -7,6 +15,7 @@ import React from 'react';
 import { createFragmentContainer } from 'react-relay';
 import { DEVICES, STATUSES } from '../../../constans';
 import testSubscriptionMutation from '../../../mutations/testSubscriptionMutation';
+// eslint-disable-next-line @typescript-eslint/camelcase
 import { SubscriptionFragment_data } from './__generated__/SubscriptionFragment_data.graphql';
 
 const DEVICES_ICONS = {
@@ -32,6 +41,7 @@ const styles = {
 };
 
 interface Props extends StyledComponentProps<keyof typeof styles> {
+  // eslint-disable-next-line @typescript-eslint/camelcase
   data: SubscriptionFragment_data;
   onDelete(subscriptionId: string): void;
 }

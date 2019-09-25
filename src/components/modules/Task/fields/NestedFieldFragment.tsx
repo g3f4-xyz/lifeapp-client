@@ -78,11 +78,14 @@ const OwnField: FC<OwnFieldProps> = ({ ownMeta, ownValue, onOwnValueChange }: Ow
 interface NestedFieldProps {
   meta?: {
     fieldType?: string;
+    // eslint-disable-next-line @typescript-eslint/camelcase
     parentValue?: NestedFieldFragment_data['value']['ownValue'];
+    // eslint-disable-next-line @typescript-eslint/camelcase
     ownMeta: NestedFieldFragment_data['meta']['ownMeta'];
     childrenMeta: Array<NestedFieldProps['meta']>;
   };
   value?: {
+    // eslint-disable-next-line @typescript-eslint/camelcase
     ownValue?: NestedFieldFragment_data['value']['ownValue'];
     childrenValue?: NestedFieldProps['value'];
   };
@@ -112,6 +115,7 @@ function NestedField(props: NestedFieldProps): JSX.Element | null {
 
         return false;
       });
+    // eslint-disable-next-line @typescript-eslint/camelcase
     const updateOwnValue = (ownValue: NestedFieldFragment_data['value']['ownValue']) => {
       const updatedValue = immutabilityHelper(value, {
         ownValue: {

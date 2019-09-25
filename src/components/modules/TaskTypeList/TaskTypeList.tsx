@@ -12,32 +12,30 @@ interface Props {
   onSelect(taskType: TaskTypeEnum): void;
 }
 
-export default class TaskTypeList extends React.Component<Props> {
-  render(): React.ReactNode {
-    return (
-      <QueryRenderer<TaskTypeListQuery>
-        environment={environment}
-        variables={{
-          count: ITEMS_PER_PAGE
-        }}
-        query={graphql`
-          query TaskTypeListQuery($count: Int!, $after: String) {
-            app {
-              taskTypeList {
-                ...TaskTypeListPagination_data
-              }
-            }
+const TaskTypeList: React.FC<Props> = ownProps => (
+  <QueryRenderer<TaskTypeListQuery>
+    environment={environment}
+    variables={{
+      count: ITEMS_PER_PAGE
+    }}
+    query={graphql`
+      query TaskTypeListQuery($count: Int!, $after: String) {
+        app {
+          taskTypeList {
+            ...TaskTypeListPagination_data
           }
-        `}
-        render={({ error, props }) => {
-          if (error) {
-            return <div>{JSON.stringify(error)}</div>;
-          } else if (props) {
-            return <TaskTypeListPagination data={props.app.taskTypeList} {...this.props} />;
-          }
-          return <Loader />;
-        }}
-      />
-    );
-  }
-}
+        }
+      }
+    `}
+    render={({ error, props }: { error: Error | null; props: TaskTypeListQuery['response'] | null }) => {
+      if (error) {
+        return <div>{JSON.stringify(error)}</div>;
+      } else if (props) {
+        return <TaskTypeListPagination data={props.app.taskTypeList} {...ownProps} />;
+      }
+      return <Loader />;
+    }}
+  />
+);
+
+export default TaskTypeList;
