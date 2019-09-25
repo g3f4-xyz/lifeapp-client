@@ -4,8 +4,8 @@ import { useQuery } from 'relay-hooks';
 import { ITEMS_PER_PAGE } from '../../../constans';
 import Loader from '../../display/loader/Loader';
 import { TaskTypeListQuery } from './__generated__/TaskTypeListQuery.graphql';
-import { TaskTypeEnum } from './__generated__/useTaskTypeFragment.graphql';
-import TaskTypeListPagination from './TaskTypeListPagination';
+import TaskTypeListPagination from './pagination/TaskTypeListPagination';
+import { TaskTypeEnum } from './fragment/__generated__/useTaskTypeFragment.graphql';
 
 export interface TaskTypeListProps {
   onSelect(taskType: TaskTypeEnum): void;

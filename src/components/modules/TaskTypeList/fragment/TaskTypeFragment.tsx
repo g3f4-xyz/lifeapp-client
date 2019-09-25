@@ -2,16 +2,14 @@ import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { AddCircle, InfoOutlined } from '@material-ui/icons';
 import React, { FC, useState } from 'react';
-import TaskTypeIcon from '../../display/task-type-icon/TaskTypeIcon';
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { TaskTypeListPagination_data$ref } from './__generated__/TaskTypeListPagination_data.graphql';
-import { TaskTypeEnum } from './__generated__/useTaskTypeFragment.graphql';
+import TaskTypeIcon from '../../../display/task-type-icon/TaskTypeIcon';
+import { useTaskTypePagination$ref } from '../pagination/__generated__/useTaskTypePagination.graphql';
 import useTaskTypeFragment from './useTaskTypeFragment';
 import useTaskTypeFragmentStyles from './useTaskTypeFragmentStyles';
+import { TaskTypeEnum } from './__generated__/useTaskTypeFragment.graphql';
 
 interface TaskTypeFragmentProps {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  data: TaskTypeListPagination_data$ref;
+  data: useTaskTypePagination$ref;
 
   onSelect(taskType: TaskTypeEnum): void;
 }
@@ -20,7 +18,6 @@ const TaskTypeFragment: FC<TaskTypeFragmentProps> = props => {
   const { data, onSelect } = props;
   const [info, setInfo] = useState(false);
   const classes = useTaskTypeFragmentStyles();
-  // eslint-disable-next-line @typescript-eslint/camelcase
   const { label, description, typeId } = useTaskTypeFragment(data);
 
   const handleInfo = () => {

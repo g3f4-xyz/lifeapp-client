@@ -1,15 +1,13 @@
 import Grid from '@material-ui/core/Grid';
 import React, { FC } from 'react';
-import Loader from '../../display/loader/Loader';
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { TaskTypeEnum } from './__generated__/useTaskTypeFragment.graphql';
+import Loader from '../../../display/loader/Loader';
+import { TaskTypeEnum } from '../fragment/__generated__/useTaskTypeFragment.graphql';
+import TaskTypeFragment from '../fragment/TaskTypeFragment';
 import { useTaskTypePagination$ref } from './__generated__/useTaskTypePagination.graphql';
-import TaskTypeFragment from './TaskTypeFragment';
 import useTaskTypeListPaginationStyles from './useTaskTypeListPaginationStyles';
 import useTaskTypePagination from './useTaskTypePagination';
 
 interface TaskTypeListProps {
-  // eslint-disable-next-line @typescript-eslint/camelcase
   data: useTaskTypePagination$ref;
 
   onSelect(taskType: TaskTypeEnum): void;
