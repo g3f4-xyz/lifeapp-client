@@ -20,9 +20,8 @@ const AppMenu: FC<AppMenuProps> = props => {
 
   return (
     <div>
-      <IconButton aria-label="More" aria-owns={anchorEl ? 'long-menu' : undefined} aria-haspopup="true"
-                  onClick={handleClick}>
-        <MoreVert/>
+      <IconButton aria-label="More" aria-owns={anchorEl ? 'long-menu' : undefined} aria-haspopup="true" onClick={handleClick}>
+        <MoreVert />
       </IconButton>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleClose}>
         {options
