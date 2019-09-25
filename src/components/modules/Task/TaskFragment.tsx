@@ -1,4 +1,4 @@
-import { createStyles, IconButton, Paper, Theme, withStyles } from '@material-ui/core';
+import { createStyles, IconButton, Paper, Theme } from '@material-ui/core';
 import makeStyles from '@material-ui/core/styles/makeStyles';
 import { Done } from '@material-ui/icons';
 import graphql from 'babel-plugin-relay/macro';
@@ -134,48 +134,43 @@ class Task extends React.Component<Props, TaskFragmentResponse> {
   }
 }
 
-export default createFragmentContainer<Props>(
-  // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-  // @ts-ignore
-  withStyles(styles)(Task),
-  {
-    data: graphql`
-      fragment TaskFragment_data on TaskType {
-        id
-        fields {
-          __typename
-          ... on ChoiceFieldType {
-            fieldId
-            fieldType
-            order
-          }
-          ... on SwitchFieldType {
-            fieldId
-            fieldType
-            order
-          }
-          ... on SliderFieldType {
-            fieldId
-            fieldType
-            order
-          }
-          ... on NestedFieldType {
-            fieldId
-            fieldType
-            order
-          }
-          ... on TextFieldType {
-            fieldId
-            fieldType
-            order
-          }
-          ...SliderFieldFragment_data
-          ...SwitchFieldFragment_data
-          ...ChoiceFieldFragment_data
-          ...TextFieldFragment_data
-          ...NestedFieldFragment_data
+export default createFragmentContainer<Props>(Task, {
+  data: graphql`
+    fragment TaskFragment_data on TaskType {
+      id
+      fields {
+        __typename
+        ... on ChoiceFieldType {
+          fieldId
+          fieldType
+          order
         }
+        ... on SwitchFieldType {
+          fieldId
+          fieldType
+          order
+        }
+        ... on SliderFieldType {
+          fieldId
+          fieldType
+          order
+        }
+        ... on NestedFieldType {
+          fieldId
+          fieldType
+          order
+        }
+        ... on TextFieldType {
+          fieldId
+          fieldType
+          order
+        }
+        ...SliderFieldFragment_data
+        ...SwitchFieldFragment_data
+        ...ChoiceFieldFragment_data
+        ...TextFieldFragment_data
+        ...NestedFieldFragment_data
       }
-    `,
-  },
-);
+    }
+  `,
+});
