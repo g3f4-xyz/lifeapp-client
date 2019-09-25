@@ -1,62 +1,53 @@
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
-import React from 'react';
+import React, { FC } from 'react';
 import { QueryRenderer } from 'react-relay';
 import environment from '../../../environment';
-import ErrorBoundary from '../../containers/ErrorBoundary';
-import Loader from '../../display/Loader';
-import { TaskTypeEnum } from '../TaskList/__generated__/TaskListFragment.graphql';
+import ErrorBoundary from '../../containers/error-boundary/ErrorBoundary';
+import Loader from '../../display/loader/Loader';
+import { TaskTypeEnum } from '../TaskList/__generated__/TaskListQuery.graphql';
 import { TaskQuery } from './__generated__/TaskQuery.graphql';
 import TaskFragment from './TaskFragment';
 
-interface Props {
+interface TaskProps {
   isNew: boolean;
   taskId: string;
   type: TaskTypeEnum | null;
   editMode: boolean;
+
   onDone(taskId: string): void;
 }
 
-export default class Task extends React.Component<Props> {
-  render(): React.ReactNode {
-    return (
-      <ErrorBoundary>
-        <QueryRenderer<TaskQuery>
-          environment={environment}
-          variables={{
-            id: this.props.taskId,
-            type: this.props.type,
-          }}
-          query={graphql`
-            query TaskQuery (
-              $id: ID
-              $type: String
-            ) {
-              app {
-                task (id: $id type: $type) {
-                  id
-                  ...TaskFragment
-                }
-                taskList {
-                  id
-                }
-              }
+const Task: FC<TaskProps> = props => (
+  <ErrorBoundary>
+    <QueryRenderer<TaskQuery>
+      environment={environment}
+      variables={{
+        id: props.taskId,
+        type: props.type,
+      }}
+      query={graphql`
+        query TaskQuery($id: ID, $type: String) {
+          app {
+            task(id: $id, type: $type) {
+              id
+              ...TaskFragment_data
             }
-          `}
-          render={({ error, props }) => {
-            if (error) {
-              return <div>{JSON.stringify(error)}</div>;
-            } else if (props && props.app.task) {
-              return (
-                <TaskFragment data={props.app.task} {...this.props} taskListId={props.app.taskList.id} />
-              );
+            taskList {
+              id
             }
-            return (
-              <Loader/>
-            );
-          }}
-        />
-      </ErrorBoundary>
-    );
-  }
-}
+          }
+        }
+      `}
+      render={response => {
+        if (response.error) {
+          return <div>{JSON.stringify(response.error)}</div>;
+        } else if (response.props && response.props.app.task) {
+          return <TaskFragment data={response.props.app.task} {...props} taskListId={response.props.app.taskList.id} />;
+        }
+        return <Loader />;
+      }}
+    />
+  </ErrorBoundary>
+);
+
+export default Task;

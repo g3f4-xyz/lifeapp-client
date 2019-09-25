@@ -1,14 +1,14 @@
 {
   "compilerOptions": {
-    "emitDecoratorMetadata": true,
+    "target": "es2015",
     "module": "esnext",
+    "emitDecoratorMetadata": true,
     "moduleResolution": "node",
     "noImplicitAny": true,
     "noUnusedLocals": true,
     "pretty": true,
     "removeComments": false,
     "suppressImplicitAnyIndexErrors": true,
-    "target": "es6",
     "lib": [
       "dom",
       "es7",

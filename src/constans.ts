@@ -1,16 +1,16 @@
+import { FieldIdEnum } from './components/modules/Task/__generated__/TaskFragment_data.graphql';
 import { FieldTypeEnum } from './components/modules/Task/fields/__generated__/ChoiceFieldFragmentMeta.graphql';
-import { FieldIdEnum } from './components/modules/Task/fields/__generated__/SwitchFieldFragment.graphql';
-import { TaskTypeEnum } from './components/modules/TaskTypeList/__generated__/TaskTypeFragment.graphql';
+import { TaskTypeEnum } from './components/modules/TaskList/__generated__/TaskListQuery.graphql';
 import { TaskStatusEnum } from './mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 
 export type Without<T, K> = Pick<T, Exclude<keyof T, K>>;
 export type ExcludeFutureAdded<T> = Without<T, '%future added value'>;
 export type UnionKeyToValue<U extends string, V = U> = {
-  [K in U]: V
+  [K in U]: V;
 };
 
 type KEYOF_TYPE_VALUE_MAP<T, V> = {
-  [K in keyof T]: V
+  [K in keyof T]: V;
 };
 
 export type MODULE = 'settings' | 'task' | 'taskList' | 'taskTypeList';

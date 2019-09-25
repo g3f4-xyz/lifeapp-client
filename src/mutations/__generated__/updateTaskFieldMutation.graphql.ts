@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
+export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
 export type updateTaskFieldMutationInput = {
     readonly taskId: string;
     readonly fieldId: FieldIdEnum;
@@ -24,35 +24,35 @@ export type updateTaskFieldMutationVariables = {
     readonly input: updateTaskFieldMutationInput;
 };
 export type updateTaskFieldMutationResponse = {
-    readonly updateTaskField: ({
+    readonly updateTaskField: {
         readonly fieldId: FieldIdEnum;
         readonly taskId: string;
         readonly updatedValue: {
             readonly id?: string;
-            readonly ownValue?: ({
+            readonly ownValue?: {
                 readonly enabled?: boolean;
                 readonly text?: string;
                 readonly id?: string;
-            }) | null;
-            readonly childrenValue?: ({
-                readonly ownValue: ({
+            } | null;
+            readonly childrenValue?: {
+                readonly ownValue: {
                     readonly enabled?: boolean;
                     readonly text?: string;
                     readonly id?: string;
-                }) | null;
-                readonly childrenValue: ({
-                    readonly ownValue: ({
+                } | null;
+                readonly childrenValue: {
+                    readonly ownValue: {
                         readonly enabled?: boolean;
                         readonly text?: string;
                         readonly id?: string;
-                    }) | null;
-                }) | null;
-            }) | null;
+                    } | null;
+                } | null;
+            } | null;
             readonly enabled?: boolean;
             readonly progress?: number;
             readonly text?: string;
         };
-    }) | null;
+    } | null;
 };
 export type updateTaskFieldMutation = {
     readonly response: updateTaskFieldMutationResponse;
@@ -141,8 +141,7 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "Variable",
             "name": "input",
-            "variableName": "input",
-            "type": "updateTaskFieldMutationInput!"
+            "variableName": "input"
         } as any)
     ], v2 = ({
         "kind": "ScalarField",

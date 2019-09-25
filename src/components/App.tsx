@@ -1,4 +1,4 @@
-import { IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
+import { createStyles, IconButton, StyledComponentProps, withStyles } from '@material-ui/core';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import immutabilityHelper, { Spec } from 'immutability-helper';
 import React, { Fragment } from 'react';
@@ -7,14 +7,14 @@ import { LOCAL_STORAGE_LAYOUTS_KEY, MODULE, MODULES_IDS } from '../constans';
 import registerUserSubscription from '../serviceWorker/registerUserSubscription';
 import assetsServiceWorker from '../serviceWorker/serviceWorkerManager';
 import { getFromLS, saveToLS } from '../utils/rglLocalStore';
-import ErrorBoundary from './containers/ErrorBoundary';
-import ResponsiveGrid from './containers/ResponsiveGrid';
-import AppMenu from './display/AppMenu';
+import ErrorBoundary from './containers/error-boundary/ErrorBoundary';
+import ResponsiveGrid from './containers/responsive-grid/ResponsiveGrid';
+import AppMenu from './display/app-menu/AppMenu';
 import settingsHandler from './modules/Settings/settingsModuleHandler';
 import SettingsQuery from './modules/Settings/SettingsQuery';
 import Task from './modules/Task/Task';
 import taskHandler from './modules/Task/taskModuleHandler';
-import { TaskTypeEnum } from './modules/TaskList/__generated__/TaskListFragment.graphql';
+import { TaskTypeEnum } from './modules/TaskList/__generated__/TaskListQuery.graphql';
 import TaskList from './modules/TaskList/TaskList';
 import taskListHandler from './modules/TaskList/taskListModuleHandler';
 import TaskTypeList from './modules/TaskTypeList/TaskTypeList';
@@ -32,7 +32,7 @@ assetsServiceWorker.register({
   },
 });
 
-const styles = {
+const styles = createStyles({
   backButton: {
     zIndex: 9,
     position: 'fixed',
@@ -47,13 +47,9 @@ const styles = {
     right: 10,
     zIndex: 9,
   },
-};
+});
 
-const APP_MODULES_IDS = [
-  MODULES_IDS.SETTINGS,
-  MODULES_IDS.TASK_LIST,
-  MODULES_IDS.TASK_TYPE_LIST,
-];
+const APP_MODULES_IDS = [MODULES_IDS.SETTINGS, MODULES_IDS.TASK_LIST, MODULES_IDS.TASK_TYPE_LIST];
 
 export interface ModuleProps {
   moduleId: string;
@@ -66,9 +62,6 @@ export interface TaskModuleProps extends ModuleProps {
   type: TaskTypeEnum | null;
 }
 
-interface Props extends StyledComponentProps<keyof typeof styles> {
-}
-
 export interface AppState {
   activeModuleId: string;
   activeModulesHistory: string[];
@@ -79,7 +72,7 @@ export interface AppState {
   gridViewLocked: boolean;
 }
 
-class App extends React.Component<Props, AppState> {
+class App extends React.Component<StyledComponentProps<keyof typeof styles>, AppState> {
   state = {
     activeModuleId: MODULES_IDS.TASK_LIST,
     activeModulesHistory: [MODULES_IDS.TASK_LIST],
@@ -105,11 +98,7 @@ class App extends React.Component<Props, AppState> {
   }
 
   render(): React.ReactNode {
-    return (
-      <ErrorBoundary>
-        {this.renderApplication()}
-      </ErrorBoundary>
-    );
+    return <ErrorBoundary>{this.renderApplication()}</ErrorBoundary>;
   }
 
   private renderApplication(): React.ReactNode {
@@ -127,10 +116,7 @@ class App extends React.Component<Props, AppState> {
         {this.renderMenu()}
         {this.state.gridView ? this.renderResponsiveGrid() : this.renderModule()}
         {!(isTaskListModuleActive || gridView) && (
-          <IconButton
-            className={classes.backButton}
-            onClick={this.onActiveModuleBack}
-          >
+          <IconButton className={classes.backButton} onClick={this.onActiveModuleBack}>
             <NavigateBeforeIcon className={classes.backButtonIcon} />
           </IconButton>
         )}
@@ -138,7 +124,10 @@ class App extends React.Component<Props, AppState> {
     );
   }
 
-  private updateState = (spec: Spec<AppState>): void => this.setState(immutabilityHelper(this.state, spec));
+  private updateState = (spec: Spec<AppState>): void =>
+    // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+    // @ts-ignore
+    this.setState(immutabilityHelper(this.state, spec));
 
   private renderMenu(): React.ReactNode {
     const { gridView, gridViewLocked } = this.state;
@@ -150,23 +139,29 @@ class App extends React.Component<Props, AppState> {
     return (
       <div className={this.props.classes.menuContainer}>
         <AppMenu
-          options={[{
-            label: 'Log out',
-            action: () => window.location.replace('logout'),
-          }, {
-            label: gridView ? 'Hide grid' : 'Show grid',
-            action: this.onToggleGridView,
-          }, {
-            label: gridViewLocked ? 'Unlock grid' : 'Lock grid',
-            action: this.onToggleGridViewLocked,
-          }, {
-            label: 'Reset grid',
-            action: this.onResetGrid,
-            visible: gridView,
-          }, {
-            label: 'Show settings',
-            action: this.onShowSettings,
-          }]}
+          options={[
+            {
+              label: 'Log out',
+              action: () => window.location.replace('logout'),
+            },
+            {
+              label: gridView ? 'Hide grid' : 'Show grid',
+              action: this.onToggleGridView,
+            },
+            {
+              label: gridViewLocked ? 'Unlock grid' : 'Lock grid',
+              action: this.onToggleGridViewLocked,
+            },
+            {
+              label: 'Reset grid',
+              action: this.onResetGrid,
+              visible: gridView,
+            },
+            {
+              label: 'Show settings',
+              action: this.onShowSettings,
+            },
+          ]}
         />
       </div>
     );
@@ -176,18 +171,14 @@ class App extends React.Component<Props, AppState> {
     const { appOpenedModuleIds } = this.state;
     const isApplicationModule = APP_MODULES_IDS.includes(activeModuleId);
     const setAppOpenedModuleIds = () => {
-      return appOpenedModuleIds.includes(activeModuleId)
-        ? appOpenedModuleIds
-        : [...appOpenedModuleIds, activeModuleId];
+      return appOpenedModuleIds.includes(activeModuleId) ? appOpenedModuleIds : [...appOpenedModuleIds, activeModuleId];
     };
 
     this.setState({
       activeModuleId,
       activeModulesHistory: [MODULES_IDS.TASK_LIST, activeModuleId],
       gridView: false,
-      appOpenedModuleIds: isApplicationModule
-        ? setAppOpenedModuleIds()
-        : appOpenedModuleIds,
+      appOpenedModuleIds: isApplicationModule ? setAppOpenedModuleIds() : appOpenedModuleIds,
     });
   };
 
@@ -201,8 +192,7 @@ class App extends React.Component<Props, AppState> {
         });
       } else {
         this.setState({
-          openedTasksModulesProps: openedTasksModulesProps
-            .filter((props: ModuleProps): boolean => props.moduleId !== moduleId),
+          openedTasksModulesProps: openedTasksModulesProps.filter((props: ModuleProps): boolean => props.moduleId !== moduleId),
         });
       }
     }
@@ -215,14 +205,14 @@ class App extends React.Component<Props, AppState> {
     if (isApplicationModule) {
       this.setState({
         activeModuleId: activeModulesHistory[activeModulesHistory.length - 1],
-        activeModulesHistory: activeModulesHistory.filter((moduleId) => moduleId !== activeModuleId),
-        appOpenedModuleIds: appOpenedModuleIds.filter((id) => id !== activeModuleId),
+        activeModulesHistory: activeModulesHistory.filter(moduleId => moduleId !== activeModuleId),
+        appOpenedModuleIds: appOpenedModuleIds.filter(id => id !== activeModuleId),
       });
     } else {
       this.setState({
         activeModuleId: activeModulesHistory[activeModulesHistory.length - 2],
-        activeModulesHistory: activeModulesHistory.filter((moduleId) => moduleId !== activeModuleId),
-        openedTasksModulesProps: openedTasksModulesProps.filter((props) => props.moduleId !== activeModuleId),
+        activeModulesHistory: activeModulesHistory.filter(moduleId => moduleId !== activeModuleId),
+        openedTasksModulesProps: openedTasksModulesProps.filter(props => props.moduleId !== activeModuleId),
       });
     }
   };
@@ -235,7 +225,7 @@ class App extends React.Component<Props, AppState> {
     this.setState({ layouts: {} });
   };
 
-  private onLayoutChange = (_layout: Layout, layouts: Layouts): void => {
+  private onLayoutChange = (_layout: Layout[], layouts: Layouts): void => {
     saveToLS(LOCAL_STORAGE_LAYOUTS_KEY, layouts);
     this.setState({ layouts });
   };
@@ -252,9 +242,7 @@ class App extends React.Component<Props, AppState> {
   };
 
   private renderTaskModule = (taskModuleProps: TaskModuleProps): React.ReactNode => {
-    return (
-      <Task key={taskModuleProps.moduleId} {...taskHandler(taskModuleProps, this.state, this.updateState)} />
-    );
+    return <Task key={taskModuleProps.moduleId} {...taskHandler(taskModuleProps, this.state, this.updateState)} />;
   };
 
   private renderApplicationModule = (moduleId: MODULE): React.ReactNode => {
@@ -324,8 +312,6 @@ class App extends React.Component<Props, AppState> {
 
     return this.renderTaskModule(taskModuleProps);
   }
-
 }
 
-// @ts-ignore
 export default withStyles(styles)(App);

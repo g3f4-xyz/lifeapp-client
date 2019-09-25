@@ -1,4 +1,3 @@
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import { commitMutation } from 'react-relay';
 import { RecordSourceSelectorProxy } from 'relay-runtime';
@@ -10,9 +9,7 @@ import {
 } from './__generated__/updateTaskFieldMutation.graphql';
 
 const mutation = graphql`
-  mutation updateTaskFieldMutation(
-    $input: updateTaskFieldMutationInput!
-  ) {
+  mutation updateTaskFieldMutation($input: updateTaskFieldMutationInput!) {
     updateTaskField(input: $input) {
       fieldId
       taskId
@@ -30,13 +27,11 @@ const mutation = graphql`
 export default (
   { fieldId, value, taskId }: updateTaskFieldMutationInput,
   { id }: { id: string },
-): Promise<updateTaskFieldMutationResponse> => new Promise((onCompleted, onError): void => {
-  const variables = { input: { fieldId, value, taskId } };
+): Promise<updateTaskFieldMutationResponse> =>
+  new Promise((onCompleted, onError): void => {
+    const variables = { input: { fieldId, value, taskId } };
 
-  commitMutation<updateTaskFieldMutation>(
-    environment,
-    {
-      // @ts-ignore
+    commitMutation<updateTaskFieldMutation>(environment, {
       mutation,
       variables,
       onCompleted,
@@ -61,6 +56,5 @@ export default (
           fieldRecord.setLinkedRecord(updatedFieldValue, 'value');
         }
       },
-    },
-  );
-});
+    });
+  });

@@ -1,17 +1,17 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
+export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
 export type ChoiceFieldFragmentMeta$ref = any;
 export type ChoiceFieldFragmentMeta = {
     readonly fieldType: FieldTypeEnum;
     readonly helperText: string;
     readonly label: string;
     readonly defaultValue: string | null;
-    readonly options: ReadonlyArray<({
+    readonly options: ReadonlyArray<{
         readonly text: string;
         readonly value: string;
-    }) | null>;
+    } | null>;
     readonly required: boolean;
     readonly " $refType": ChoiceFieldFragmentMeta$ref;
 };

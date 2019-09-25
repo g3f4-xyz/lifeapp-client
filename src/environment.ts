@@ -1,5 +1,6 @@
 import { Environment, FetchFunction, Network, RecordSource, Store } from 'relay-runtime';
 
+// eslint-disable-next-line no-undef
 const GRAPHQL_API_HOST = process.env.REACT_APP_GRAPHQL_HOST || `/graphql`;
 
 const fetchQuery: FetchFunction = (operation, variables) => {
@@ -7,14 +8,14 @@ const fetchQuery: FetchFunction = (operation, variables) => {
     credentials: 'same-origin',
     method: 'POST',
     headers: {
-      'Accept': 'application/json',
+      Accept: 'application/json',
       'Content-Type': 'application/json',
     },
     body: JSON.stringify({
       query: operation.text,
       variables,
     }),
-  }).then((response) => response.json());
+  }).then(response => response.json());
 };
 
 const network = Network.create(fetchQuery);

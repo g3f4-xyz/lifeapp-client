@@ -1,53 +1,42 @@
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
-import React, { Component } from 'react';
+import React, { FC } from 'react';
 import { QueryRenderer } from 'react-relay';
 import { ITEMS_PER_PAGE } from '../../../constans';
 import environment from '../../../environment';
-import ErrorBoundary from '../../containers/ErrorBoundary';
-import Loader from '../../display/Loader';
+import { ModuleProps } from '../../App';
+import ErrorBoundary from '../../containers/error-boundary/ErrorBoundary';
+import Loader from '../../display/loader/Loader';
 import { SettingsQuery as ISettingsQuery } from './__generated__/SettingsQuery.graphql';
 import SettingsFragment from './SettingsFragment';
 
-class SettingsQuery extends Component {
-  render(): React.ReactNode {
-    return (
-      <ErrorBoundary>
-        <QueryRenderer<ISettingsQuery>
-          variables={{
-            count: ITEMS_PER_PAGE * 10,
-          }}
-          environment={environment}
-          query={graphql`
-            query SettingsQuery(
-              $count: Int!,
-              $after: String
-            ) {
-              app {
-                settings {
-                  id
-                  ...SettingsFragment
-                }
-              }
+const SettingsQuery: FC<ModuleProps> = props => (
+  <ErrorBoundary>
+    <QueryRenderer<ISettingsQuery>
+      variables={{
+        count: ITEMS_PER_PAGE * 10,
+      }}
+      environment={environment}
+      query={graphql`
+        query SettingsQuery($count: Int!, $after: String) {
+          app {
+            settings {
+              id
+              ...SettingsFragment_data
             }
-          `}
-          render={({ error, props }) => {
-            if (error) {
-              return <div>{JSON.stringify(error)}</div>;
-            } else if (props && props.app.settings) {
-              return (
-                <SettingsFragment data={props.app.settings} {...this.props} />
-              );
-            }
+          }
+        }
+      `}
+      render={response => {
+        if (response.error) {
+          return <div>{JSON.stringify(response.error)}</div>;
+        } else if (response.props && response.props.app.settings) {
+          return <SettingsFragment data={response.props.app.settings} {...props} />;
+        }
 
-            return (
-              <Loader/>
-            );
-          }}
-        />
-      </ErrorBoundary>
-    );
-  }
-}
+        return <Loader />;
+      }}
+    />
+  </ErrorBoundary>
+);
 
 export default SettingsQuery;

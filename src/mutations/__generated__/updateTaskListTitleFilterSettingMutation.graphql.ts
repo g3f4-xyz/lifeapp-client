@@ -9,10 +9,10 @@ export type updateTaskListTitleFilterSettingMutationVariables = {
     readonly input: updateTaskListTitleFilterSettingMutationInput;
 };
 export type updateTaskListTitleFilterSettingMutationResponse = {
-    readonly updateTaskListTitleFilterSetting: ({
+    readonly updateTaskListTitleFilterSetting: {
         readonly clientMutationId: string | null;
         readonly title: string | null;
-    }) | null;
+    } | null;
 };
 export type updateTaskListTitleFilterSettingMutation = {
     readonly response: updateTaskListTitleFilterSettingMutationResponse;
@@ -50,8 +50,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "kind": "Variable",
                     "name": "input",
-                    "variableName": "input",
-                    "type": "updateTaskListTitleFilterSettingMutationInput!"
+                    "variableName": "input"
                 }
             ],
             "concreteType": "updateTaskListTitleFilterSettingMutationPayload",

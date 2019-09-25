@@ -1,4 +1,3 @@
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import { commitMutation } from 'react-relay';
 import { RecordSourceSelectorProxy } from 'relay-runtime';
@@ -10,9 +9,7 @@ import {
 } from './__generated__/updateTaskListTitleFilterSettingMutation.graphql';
 
 const mutation = graphql`
-  mutation updateTaskListTitleFilterSettingMutation(
-  $input: updateTaskListTitleFilterSettingMutationInput!
-  ) {
+  mutation updateTaskListTitleFilterSettingMutation($input: updateTaskListTitleFilterSettingMutationInput!) {
     updateTaskListTitleFilterSetting(input: $input) {
       clientMutationId
       title
@@ -23,12 +20,11 @@ const mutation = graphql`
 export default (
   { title }: updateTaskListTitleFilterSettingMutationInput,
   { parentID }: { parentID: string },
-): Promise<updateTaskListTitleFilterSettingMutationResponse> => new Promise((onCompleted, onError): void => {
-  const variables = { input: { title } };
+): Promise<updateTaskListTitleFilterSettingMutationResponse> =>
+  new Promise((onCompleted, onError): void => {
+    const variables = { input: { title } };
 
-  commitMutation<updateTaskListTitleFilterSettingMutation>(
-    environment,
-    {
+    commitMutation<updateTaskListTitleFilterSettingMutation>(environment, {
       mutation,
       variables,
       onCompleted,
@@ -52,6 +48,5 @@ export default (
           filtersRecord.setValue(mutationRecord.getValue('title'), 'title');
         }
       },
-    },
-  );
-});
+    });
+  });

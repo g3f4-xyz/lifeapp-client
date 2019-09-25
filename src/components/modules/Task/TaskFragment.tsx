@@ -1,20 +1,19 @@
-import { IconButton, Paper, StyledComponentProps, Theme, withStyles } from '@material-ui/core';
+import { IconButton, Paper } from '@material-ui/core';
 import { Done } from '@material-ui/icons';
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
-import React from 'react';
-import { createFragmentContainer, RelayContainer, RelayProp } from 'react-relay';
+import React, { FC } from 'react';
+import { Container, createFragmentContainer, RelayProp } from 'react-relay';
 import { FIELD_TYPE_VALUE_MAP } from '../../../constans';
-import {
-  TaskFragment as TaskFragmentResponse,
-} from './__generated__/TaskFragment.graphql';
+import { FieldTypeEnum, TaskFragment_data as TaskFragmentResponse } from './__generated__/TaskFragment_data.graphql';
 import ChoiceFieldFragment from './fields/ChoiceFieldFragment';
 import NestedFieldFragment from './fields/NestedFieldFragment';
 import SliderFieldFragment from './fields/SliderFieldFragment';
 import SwitchFieldFragment from './fields/SwitchFieldFragment';
 import TextFieldFragment from './fields/TextFieldFragment';
+import useTaskFragmentStyles from './useTaskFragmentStyles';
 
-const FIELD_COMPONENTS_MAP: FIELD_TYPE_VALUE_MAP<RelayContainer<Props & any>> = {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const FIELD_COMPONENTS_MAP: FIELD_TYPE_VALUE_MAP<Container<TaskFragmentProps & any>> = {
   CHOICE: ChoiceFieldFragment,
   SWITCH: SwitchFieldFragment,
   SLIDER: SliderFieldFragment,
@@ -22,121 +21,51 @@ const FIELD_COMPONENTS_MAP: FIELD_TYPE_VALUE_MAP<RelayContainer<Props & any>> = 
   NESTED: NestedFieldFragment,
 };
 
-const styles = (theme: Theme) => ({
-  wrapper: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexDirection: 'column',
-    [theme.breakpoints.up('sm')]: {
-      marginLeft: theme.spacing.unit * 2,
-      marginRight: theme.spacing.unit * 2,
-    },
-    [theme.breakpoints.up('md')]: {
-      marginLeft: theme.spacing.unit * 3,
-      marginRight: theme.spacing.unit * 3,
-    },
-    [theme.breakpoints.up('lg')]: {
-      marginLeft: theme.spacing.unit * 4,
-      marginRight: theme.spacing.unit * 4,
-    },
-    [theme.breakpoints.up('xl')]: {
-      marginLeft: theme.spacing.unit * 5,
-      marginRight: theme.spacing.unit * 5,
-    },
-  },
-  row: {
-    display: 'flex',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginBottom: theme.spacing.unit,
-  },
-  rowField: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    margin: theme.spacing.unit,
-    width: '100%',
-    [theme.breakpoints.down('xs')]: {
-      display: 'block',
-    },
-  },
-  doneButton: {
-    zIndex: 9,
-    position: 'fixed',
-    bottom: 20,
-    right: 20,
-  },
-  doneButtonIcon: {
-    color: '#8BC34A',
-    fontSize: 72,
-  },
-});
-
-interface Props extends StyledComponentProps<keyof ReturnType<typeof styles>> {
+interface TaskFragmentProps {
   editMode: boolean;
   data: TaskFragmentResponse;
   isNew: boolean;
   taskListId: string;
   relay: RelayProp;
+
   onDone(id: string): void;
 }
 
-class Task extends React.Component<Props, TaskFragmentResponse> {
-  state = this.props.data || {};
-
-  handleDone = () => {
-    this.props.onDone(this.props.data.id);
+const TaskFragment: FC<TaskFragmentProps> = props => {
+  const { data } = props;
+  const handleDone = () => {
+    props.onDone(props.data.id);
   };
+  const classes = useTaskFragmentStyles();
 
-  render(): React.ReactNode {
-    const { classes, data } = this.props;
+  const { fields } = data;
+  const orders = new Set(fields.map(field => field.order).sort());
 
-    if (!classes) {
-      throw new Error(`error loading styles`);
-    }
+  return (
+    <div className={classes.wrapper}>
+      {[...orders].map(order => {
+        const rowFields = fields.filter(field => field.order === order);
 
-    const { fields } = data;
-
-    const fieldsGroupedByOrder = fields.reduce((acc, field) => {
-      const { order } = field;
-
-      if (!acc[order as number]) {
-        acc[order as number] = [];
-      }
-
-      (acc[order as number] as any).push(field);
-
-      return acc;
-    }, new Array<typeof fields>());
-
-    return (
-      <div className={classes.wrapper}>
-        {fieldsGroupedByOrder.map((fieldsInRow, key) => (
-          <Paper className={classes.row} key={key}>
-            {fieldsInRow.map(field => {
-              // @ts-ignore
-              const Component = FIELD_COMPONENTS_MAP[field.fieldType];
+        return (
+          <Paper className={classes.row} key={order}>
+            {rowFields.map(field => {
+              const Component = FIELD_COMPONENTS_MAP[field.fieldType as FieldTypeEnum];
 
               return <Component key={field.fieldId} data={field} taskId={data.id} />;
             })}
           </Paper>
-        ))}
-        <IconButton
-          className={classes.doneButton}
-          color="primary"
-          onClick={this.handleDone}
-        >
-          <Done className={classes.doneButtonIcon} />
-        </IconButton>
-      </div>
-    );
-  }
-}
+        );
+      })}
+      <IconButton className={classes.doneButton} color="primary" onClick={handleDone}>
+        <Done className={classes.doneButtonIcon} />
+      </IconButton>
+    </div>
+  );
+};
 
-export default createFragmentContainer<Props>(
-  // @ts-ignore
-  withStyles(styles)(Task),
-  graphql`
-    fragment TaskFragment on TaskType {
+export default createFragmentContainer<TaskFragmentProps>(TaskFragment, {
+  data: graphql`
+    fragment TaskFragment_data on TaskType {
       id
       fields {
         __typename
@@ -165,12 +94,12 @@ export default createFragmentContainer<Props>(
           fieldType
           order
         }
-        ...SliderFieldFragment
-        ...SwitchFieldFragment
-        ...ChoiceFieldFragment
-        ...TextFieldFragment
-        ...NestedFieldFragment
+        ...SliderFieldFragment_data
+        ...SwitchFieldFragment_data
+        ...ChoiceFieldFragment_data
+        ...TextFieldFragment_data
+        ...NestedFieldFragment_data
       }
     }
   `,
-);
+});

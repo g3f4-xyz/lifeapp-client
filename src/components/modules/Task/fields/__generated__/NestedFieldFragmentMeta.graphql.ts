@@ -1,24 +1,24 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
+export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
 export type NestedFieldFragmentMeta$ref = any;
 export type NestedFieldFragmentMeta = {
     readonly fieldType: FieldTypeEnum;
-    readonly parentValue: ({
+    readonly parentValue: {
         readonly enabled?: boolean;
         readonly text?: string;
         readonly id?: string;
-    }) | null;
-    readonly ownMeta: ({
+    } | null;
+    readonly ownMeta: {
         readonly fieldType?: FieldTypeEnum;
         readonly helperText?: string;
         readonly label?: string;
         readonly defaultValue?: string | null;
-        readonly options?: ReadonlyArray<({
+        readonly options?: ReadonlyArray<{
             readonly text: string;
             readonly value: string;
-        }) | null>;
+        } | null>;
         readonly required?: boolean;
         readonly inputType?: string | null;
         readonly min?: number | null;
@@ -26,23 +26,23 @@ export type NestedFieldFragmentMeta = {
         readonly maxLength?: number | null;
         readonly minLength?: number | null;
         readonly disabled?: boolean | null;
-    }) | null;
-    readonly childrenMeta: ReadonlyArray<({
+    } | null;
+    readonly childrenMeta: ReadonlyArray<{
         readonly fieldType: FieldTypeEnum;
-        readonly parentValue: ({
+        readonly parentValue: {
             readonly enabled?: boolean;
             readonly text?: string;
             readonly id?: string;
-        }) | null;
-        readonly ownMeta: ({
+        } | null;
+        readonly ownMeta: {
             readonly fieldType?: FieldTypeEnum;
             readonly helperText?: string;
             readonly label?: string;
             readonly defaultValue?: string | null;
-            readonly options?: ReadonlyArray<({
+            readonly options?: ReadonlyArray<{
                 readonly text: string;
                 readonly value: string;
-            }) | null>;
+            } | null>;
             readonly required?: boolean;
             readonly inputType?: string | null;
             readonly min?: number | null;
@@ -50,20 +50,20 @@ export type NestedFieldFragmentMeta = {
             readonly maxLength?: number | null;
             readonly minLength?: number | null;
             readonly disabled?: boolean | null;
-            readonly parentValue?: ({
+            readonly parentValue?: {
                 readonly enabled?: boolean;
                 readonly text?: string;
                 readonly id?: string;
-            }) | null;
-            readonly ownMeta?: ({
+            } | null;
+            readonly ownMeta?: {
                 readonly fieldType?: FieldTypeEnum;
                 readonly helperText?: string;
                 readonly label?: string;
                 readonly defaultValue?: string | null;
-                readonly options?: ReadonlyArray<({
+                readonly options?: ReadonlyArray<{
                     readonly text: string;
                     readonly value: string;
-                }) | null>;
+                } | null>;
                 readonly required?: boolean;
                 readonly inputType?: string | null;
                 readonly min?: number | null;
@@ -71,23 +71,23 @@ export type NestedFieldFragmentMeta = {
                 readonly maxLength?: number | null;
                 readonly minLength?: number | null;
                 readonly disabled?: boolean | null;
-            }) | null;
-            readonly childrenMeta?: ReadonlyArray<({
+            } | null;
+            readonly childrenMeta?: ReadonlyArray<{
                 readonly fieldType: FieldTypeEnum;
-                readonly parentValue: ({
+                readonly parentValue: {
                     readonly enabled?: boolean;
                     readonly text?: string;
                     readonly id?: string;
-                }) | null;
-                readonly ownMeta: ({
+                } | null;
+                readonly ownMeta: {
                     readonly fieldType?: FieldTypeEnum;
                     readonly helperText?: string;
                     readonly label?: string;
                     readonly defaultValue?: string | null;
-                    readonly options?: ReadonlyArray<({
+                    readonly options?: ReadonlyArray<{
                         readonly text: string;
                         readonly value: string;
-                    }) | null>;
+                    } | null>;
                     readonly required?: boolean;
                     readonly inputType?: string | null;
                     readonly min?: number | null;
@@ -95,25 +95,25 @@ export type NestedFieldFragmentMeta = {
                     readonly maxLength?: number | null;
                     readonly minLength?: number | null;
                     readonly disabled?: boolean | null;
-                }) | null;
-            }) | null> | null;
-        }) | null;
-        readonly childrenMeta: ReadonlyArray<({
+                } | null;
+            } | null> | null;
+        } | null;
+        readonly childrenMeta: ReadonlyArray<{
             readonly fieldType: FieldTypeEnum;
-            readonly parentValue: ({
+            readonly parentValue: {
                 readonly enabled?: boolean;
                 readonly text?: string;
                 readonly id?: string;
-            }) | null;
-            readonly ownMeta: ({
+            } | null;
+            readonly ownMeta: {
                 readonly fieldType?: FieldTypeEnum;
                 readonly helperText?: string;
                 readonly label?: string;
                 readonly defaultValue?: string | null;
-                readonly options?: ReadonlyArray<({
+                readonly options?: ReadonlyArray<{
                     readonly text: string;
                     readonly value: string;
-                }) | null>;
+                } | null>;
                 readonly required?: boolean;
                 readonly inputType?: string | null;
                 readonly min?: number | null;
@@ -121,20 +121,20 @@ export type NestedFieldFragmentMeta = {
                 readonly maxLength?: number | null;
                 readonly minLength?: number | null;
                 readonly disabled?: boolean | null;
-                readonly parentValue?: ({
+                readonly parentValue?: {
                     readonly enabled?: boolean;
                     readonly text?: string;
                     readonly id?: string;
-                }) | null;
-                readonly ownMeta?: ({
+                } | null;
+                readonly ownMeta?: {
                     readonly fieldType?: FieldTypeEnum;
                     readonly helperText?: string;
                     readonly label?: string;
                     readonly defaultValue?: string | null;
-                    readonly options?: ReadonlyArray<({
+                    readonly options?: ReadonlyArray<{
                         readonly text: string;
                         readonly value: string;
-                    }) | null>;
+                    } | null>;
                     readonly required?: boolean;
                     readonly inputType?: string | null;
                     readonly min?: number | null;
@@ -142,23 +142,23 @@ export type NestedFieldFragmentMeta = {
                     readonly maxLength?: number | null;
                     readonly minLength?: number | null;
                     readonly disabled?: boolean | null;
-                }) | null;
-                readonly childrenMeta?: ReadonlyArray<({
+                } | null;
+                readonly childrenMeta?: ReadonlyArray<{
                     readonly fieldType: FieldTypeEnum;
-                    readonly parentValue: ({
+                    readonly parentValue: {
                         readonly enabled?: boolean;
                         readonly text?: string;
                         readonly id?: string;
-                    }) | null;
-                    readonly ownMeta: ({
+                    } | null;
+                    readonly ownMeta: {
                         readonly fieldType?: FieldTypeEnum;
                         readonly helperText?: string;
                         readonly label?: string;
                         readonly defaultValue?: string | null;
-                        readonly options?: ReadonlyArray<({
+                        readonly options?: ReadonlyArray<{
                             readonly text: string;
                             readonly value: string;
-                        }) | null>;
+                        } | null>;
                         readonly required?: boolean;
                         readonly inputType?: string | null;
                         readonly min?: number | null;
@@ -166,11 +166,11 @@ export type NestedFieldFragmentMeta = {
                         readonly maxLength?: number | null;
                         readonly minLength?: number | null;
                         readonly disabled?: boolean | null;
-                    }) | null;
-                }) | null> | null;
-            }) | null;
-        }) | null> | null;
-    }) | null> | null;
+                    } | null;
+                } | null> | null;
+            } | null;
+        } | null> | null;
+    } | null> | null;
     readonly " $refType": NestedFieldFragmentMeta$ref;
 };
 

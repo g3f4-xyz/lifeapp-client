@@ -1,36 +1,29 @@
+import MaterialSlider, { SliderProps as MaterialSliderProps } from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
-import MaterialSlider, { SliderProps } from '@material-ui/lab/Slider';
-import React, { ChangeEvent } from 'react';
-import FieldContainer from '../../containers/FieldContainer';
+import React, { FC } from 'react';
+import FieldContainer from '../../containers/field-container/FieldContainer';
 
-interface Props extends Pick<SliderProps, 'max' | 'min' | 'step' | 'value' | 'disabled'> {
+interface SliderProps extends Pick<MaterialSliderProps, 'max' | 'min' | 'step' | 'value' | 'disabled'> {
   label?: string;
   required?: boolean;
 
   onChange(value: number): void;
 }
 
-export default class Slider extends React.Component<Props> {
-  render(): React.ReactNode {
-    const { max, min, step, value, disabled, label } = this.props;
+const Slider: FC<SliderProps> = props => {
+  const { max, min, step, value, disabled, label } = props;
 
-    return (
-      <FieldContainer>
-        <Typography>{label}</Typography>
-        <br />
-        <MaterialSlider
-          value={value}
-          max={max}
-          min={min}
-          step={step}
-          disabled={disabled!}
-          onChange={this.handleChange}
-        />
-      </FieldContainer>
-    );
-  }
-
-  private handleChange = async (_event: ChangeEvent<{}>, value: number): Promise<void> => {
-    this.props.onChange(value);
+  const handleChange = async (_event: React.ChangeEvent<{}>, value: number | number[]): Promise<void> => {
+    props.onChange(value as number);
   };
-}
+
+  return (
+    <FieldContainer>
+      <Typography>{label}</Typography>
+      <br />
+      <MaterialSlider value={value} max={max} min={min} step={step} disabled={disabled} onChange={handleChange} />
+    </FieldContainer>
+  );
+};
+
+export default Slider;

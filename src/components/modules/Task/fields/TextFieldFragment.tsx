@@ -1,45 +1,49 @@
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
-import React from 'react';
+import React, { FC } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Text from '../../../display/field/Text';
-import { TextFieldFragment } from './__generated__/TextFieldFragment.graphql';
+// eslint-disable-next-line @typescript-eslint/camelcase
+import { TextFieldFragment_data } from './__generated__/TextFieldFragment_data.graphql';
 
-interface Props {
-  data: TextFieldFragment;
+interface TextFieldProps {
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  data: TextFieldFragment_data;
   taskId: string;
 }
 
-class TextField extends React.Component<Props> {
-  render(): React.ReactNode {
-    const { data } = this.props;
+const TextField: FC<TextFieldProps> = props => {
+  const { data } = props;
+  const {
+    value: { text },
+    meta,
+  } = data;
+  const { max, maxLength, min, minLength, required, inputType, label, helperText } = meta;
 
-    const { value: { text }, meta } = data;
-    const { max, maxLength, min, minLength, required, inputType, label, helperText } = meta;
-
-    return (
-      <Text
-        value={text}
-        label={label}
-        helperText={helperText}
-        max={max || undefined}
-        min={min || undefined}
-        minLength={minLength || undefined}
-        maxLength={maxLength || undefined}
-        required={required}
-        inputType={inputType || undefined}
-        onChange={this.handleChange}
-      />
-    );
-  }
-
-  private handleChange = async (text: string): Promise<void> => {
-    const { taskId, data: { fieldId, id }} = this.props;
+  const handleChange = async (text: string): Promise<void> => {
+    const {
+      taskId,
+      data: { fieldId, id },
+    } = props;
 
     await updateTaskFieldMutation({ fieldId, value: { text }, taskId }, { id });
   };
-}
+
+  return (
+    <Text
+      value={text}
+      label={label}
+      helperText={helperText}
+      max={max || undefined}
+      min={min || undefined}
+      minLength={minLength || undefined}
+      maxLength={maxLength || undefined}
+      required={required}
+      inputType={inputType || undefined}
+      onChange={handleChange}
+    />
+  );
+};
 
 // tslint:disable-next-line:no-unused-expression
 graphql`
@@ -62,11 +66,9 @@ graphql`
   }
 `;
 
-export default createFragmentContainer<Props>(
-  // @ts-ignore
-  TextField,
-  graphql`
-    fragment TextFieldFragment on TextFieldType {
+export default createFragmentContainer<TextFieldProps>(TextField, {
+  data: graphql`
+    fragment TextFieldFragment_data on TextFieldType {
       id
       fieldId
       meta {
@@ -77,4 +79,4 @@ export default createFragmentContainer<Props>(
       }
     }
   `,
-);
+});

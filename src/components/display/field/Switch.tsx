@@ -1,8 +1,8 @@
 import { FormControlLabel, Switch as MaterialSwitch } from '@material-ui/core';
-import React, { ChangeEvent } from 'react';
-import FieldContainer from '../../containers/FieldContainer';
+import React, { ChangeEvent, FC } from 'react';
+import FieldContainer from '../../containers/field-container/FieldContainer';
 
-interface Props {
+export interface SwitchProps {
   checked?: boolean;
   disabled?: boolean | null;
   label?: string;
@@ -11,28 +11,21 @@ interface Props {
   onChange(value: boolean): void;
 }
 
-export default class Switch extends React.Component<Props> {
-  render(): React.ReactNode {
-    const { checked, disabled, label } = this.props;
+const Switch: FC<SwitchProps> = props => {
+  const { checked, disabled, label } = props;
 
-    return (
-      <FieldContainer>
-        <FormControlLabel
-          control={
-            <MaterialSwitch
-              checked={checked}
-              disabled={disabled!}
-              value={checked}
-              onChange={this.handleChange}
-            />
-          }
-          label={label}
-        />
-      </FieldContainer>
-    );
-  }
-
-  private handleChange = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
-    this.props.onChange(event.target.checked);
+  const handleChange = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
+    props.onChange(event.target.checked);
   };
-}
+
+  return (
+    <FieldContainer>
+      <FormControlLabel
+        control={<MaterialSwitch checked={checked} disabled={disabled as (boolean | undefined)} value={checked} onChange={handleChange} />}
+        label={label}
+      />
+    </FieldContainer>
+  );
+};
+
+export default Switch;

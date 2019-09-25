@@ -1,40 +1,35 @@
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
-import React from 'react';
+import React, { FC } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Choice from '../../../display/field/Choice';
-import { ChoiceFieldFragment } from './__generated__/ChoiceFieldFragment.graphql';
+// eslint-disable-next-line @typescript-eslint/camelcase
+import { ChoiceFieldFragment_data } from './__generated__/ChoiceFieldFragment_data.graphql';
 
-interface Props {
-  data: ChoiceFieldFragment;
+interface ChoiceFieldProps {
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  data: ChoiceFieldFragment_data;
   taskId: string;
 }
 
-class ChoiceField extends React.Component<Props> {
-  render(): React.ReactNode {
-    const { data } = this.props;
-    const { value: { id }, meta: { options, label, helperText } } = data;
-
-    return (
-      <Choice
-        label={label}
-        value={id || ''}
-        helperText={helperText}
-        options={options}
-        onChange={this.handleChange}
-      />
-    );
-  }
-
-  private handleChange = async (changedId: string): Promise<void> => {
-    const { taskId, data: { fieldId, id }} = this.props;
+const ChoiceField: FC<ChoiceFieldProps> = props => {
+  const { data } = props;
+  const {
+    value: { id },
+    meta: { options, label, helperText },
+  } = data;
+  const handleChange = async (changedId: string): Promise<void> => {
+    const {
+      taskId,
+      data: { fieldId, id },
+    } = props;
 
     await updateTaskFieldMutation({ fieldId, value: { id: changedId }, taskId }, { id });
   };
-}
 
-// tslint:disable-next-line:no-unused-expression
+  return <Choice label={label} value={id || ''} helperText={helperText} options={options} onChange={handleChange} />;
+};
+
 graphql`
   fragment ChoiceFieldFragmentMeta on ChoiceMetaType {
     fieldType
@@ -48,18 +43,16 @@ graphql`
     required
   }
 `;
-// tslint:disable-next-line:no-unused-expression
+
 graphql`
   fragment ChoiceFieldFragmentValue on ChoiceValueType {
     id
   }
 `;
 
-export default createFragmentContainer<Props>(
-  // @ts-ignore
-  ChoiceField,
-  graphql`
-    fragment ChoiceFieldFragment on ChoiceFieldType {
+export default createFragmentContainer<ChoiceFieldProps>(ChoiceField, {
+  data: graphql`
+    fragment ChoiceFieldFragment_data on ChoiceFieldType {
       id
       fieldId
       meta {
@@ -70,4 +63,4 @@ export default createFragmentContainer<Props>(
       }
     }
   `,
-);
+});

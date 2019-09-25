@@ -3,25 +3,25 @@
 import { ReaderFragment } from "relay-runtime";
 export type NestedFieldFragmentValue$ref = any;
 export type NestedFieldFragmentValue = {
-    readonly ownValue: ({
+    readonly ownValue: {
         readonly enabled?: boolean;
         readonly text?: string;
         readonly id?: string;
-    }) | null;
-    readonly childrenValue: ({
-        readonly ownValue: ({
+    } | null;
+    readonly childrenValue: {
+        readonly ownValue: {
             readonly enabled?: boolean;
             readonly text?: string;
             readonly id?: string;
-        }) | null;
-        readonly childrenValue: ({
-            readonly ownValue: ({
+        } | null;
+        readonly childrenValue: {
+            readonly ownValue: {
                 readonly enabled?: boolean;
                 readonly text?: string;
                 readonly id?: string;
-            }) | null;
-        }) | null;
-    }) | null;
+            } | null;
+        } | null;
+    } | null;
     readonly " $refType": NestedFieldFragmentValue$ref;
 };
 

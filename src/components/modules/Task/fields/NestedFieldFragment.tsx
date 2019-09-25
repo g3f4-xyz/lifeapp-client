@@ -1,7 +1,6 @@
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import immutabilityHelper from 'immutability-helper';
-import React, { Fragment, FunctionComponent } from 'react';
+import React, { FC, Fragment } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import { FIELD_TYPE } from '../../../../constans';
 import { NestedValueInputType } from '../../../../mutations/__generated__/updateTaskFieldMutation.graphql';
@@ -9,16 +8,22 @@ import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutati
 import Choice from '../../../display/field/Choice';
 import Switch from '../../../display/field/Switch';
 import Text from '../../../display/field/Text';
-import { FieldIdEnum, NestedFieldFragment } from './__generated__/NestedFieldFragment.graphql';
+// eslint-disable-next-line @typescript-eslint/camelcase
+import { FieldIdEnum, NestedFieldFragment_data } from './__generated__/NestedFieldFragment_data.graphql';
 
 interface OwnFieldProps {
-  ownMeta: NestedFieldFragment['meta']['ownMeta'];
-  ownValue: NestedFieldFragment['value']['ownValue'];
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  ownMeta: NestedFieldFragment_data['meta']['ownMeta'];
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  ownValue: NestedFieldFragment_data['value']['ownValue'];
 
-  onOwnValueChange(updatedValue: NestedFieldFragment['value']['ownValue']): void;
+  // eslint-disable-next-line @typescript-eslint/camelcase
+  onOwnValueChange(updatedValue: NestedFieldFragment_data['value']['ownValue']): void;
 }
 
-const OwnField: FunctionComponent<OwnFieldProps> = ({ ownMeta, ownValue, onOwnValueChange }) => {
+const OwnField: FC<OwnFieldProps> = props => {
+  const { ownMeta, ownValue, onOwnValueChange } = props;
+
   if (ownMeta && ownValue) {
     if (ownMeta.fieldType === FIELD_TYPE.CHOICE) {
       const { label, helperText, options } = ownMeta;
@@ -75,38 +80,45 @@ const OwnField: FunctionComponent<OwnFieldProps> = ({ ownMeta, ownValue, onOwnVa
 interface NestedFieldProps {
   meta?: {
     fieldType?: string;
-    parentValue?: NestedFieldFragment['value']['ownValue'];
-    ownMeta: NestedFieldFragment['meta']['ownMeta'];
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    parentValue?: NestedFieldFragment_data['value']['ownValue'];
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    ownMeta: NestedFieldFragment_data['meta']['ownMeta'];
     childrenMeta: Array<NestedFieldProps['meta']>;
   };
   value?: {
-    ownValue?: NestedFieldFragment['value']['ownValue'];
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    ownValue?: NestedFieldFragment_data['value']['ownValue'];
     childrenValue?: NestedFieldProps['value'];
   };
 
   onChange(value: NestedFieldProps['value']): void;
 }
 
-function NestedField(props: NestedFieldProps): JSX.Element | null {
+const NestedField: FC<NestedFieldProps> = props => {
   const { meta, value, onChange } = props;
 
   if (meta && meta.ownMeta && value) {
-    const activeChildrenMeta = value.ownValue && meta.childrenMeta && meta.childrenMeta.find((childrenMeta) => {
-      if (!meta || !meta.ownMeta || !childrenMeta || !childrenMeta.parentValue || !value || !value.ownValue) {
+    const activeChildrenMeta =
+      value.ownValue &&
+      meta.childrenMeta &&
+      meta.childrenMeta.find(childrenMeta => {
+        if (!meta || !meta.ownMeta || !childrenMeta || !childrenMeta.parentValue || !value || !value.ownValue) {
+          return false;
+        }
+
+        if (meta.ownMeta.fieldType === FIELD_TYPE.CHOICE) {
+          return childrenMeta.parentValue.id === value.ownValue.id;
+        } else if (meta.ownMeta.fieldType === FIELD_TYPE.TEXT) {
+          return childrenMeta.parentValue.text === value.ownValue.text;
+        } else if (meta.ownMeta.fieldType === FIELD_TYPE.SWITCH) {
+          return childrenMeta.parentValue.enabled === value.ownValue.enabled;
+        }
+
         return false;
-      }
-
-      if (meta.ownMeta.fieldType === FIELD_TYPE.CHOICE) {
-        return childrenMeta.parentValue.id === value.ownValue.id;
-      } else if (meta.ownMeta.fieldType === FIELD_TYPE.TEXT) {
-        return childrenMeta.parentValue.text === value.ownValue.text;
-      } else if (meta.ownMeta.fieldType === FIELD_TYPE.SWITCH) {
-        return childrenMeta.parentValue.enabled === value.ownValue.enabled;
-      }
-
-      return false;
-    });
-    const updateOwnValue = (ownValue: NestedFieldFragment['value']['ownValue']) => {
+      });
+    // eslint-disable-next-line @typescript-eslint/camelcase
+    const updateOwnValue = (ownValue: NestedFieldFragment_data['value']['ownValue']) => {
       const updatedValue = immutabilityHelper(value, {
         ownValue: {
           $set: ownValue,
@@ -128,17 +140,15 @@ function NestedField(props: NestedFieldProps): JSX.Element | null {
     return (
       <Fragment>
         <OwnField ownMeta={meta.ownMeta} ownValue={value.ownValue || {}} onOwnValueChange={updateOwnValue} />
-        {activeChildrenMeta && (
-          <NestedField value={value.childrenValue || {}} meta={activeChildrenMeta} onChange={updateChildrenValue} />
-        )}
+        {activeChildrenMeta && <NestedField value={value.childrenValue || {}} meta={activeChildrenMeta} onChange={updateChildrenValue} />}
       </Fragment>
     );
   }
 
   return null;
-}
+};
 
-interface Props {
+export interface NestedFieldContainerProps {
   data: {
     id: string;
     fieldId: FieldIdEnum;
@@ -148,24 +158,22 @@ interface Props {
   taskId: string;
 }
 
-class NestedFieldContainer extends React.Component<Props> {
-  render(): React.ReactNode {
-    const { data } = this.props;
-    const { meta, value } = data;
+const NestedFieldContainer: FC<NestedFieldContainerProps> = props => {
+  const { data } = props;
+  const { meta, value } = data;
 
-    return (
-      <NestedField value={value} meta={meta} onChange={this.handleChange} />
-    );
-  }
-
-  private handleChange = async (updatedFieldValue: NestedFieldProps['value']): Promise<void> => {
-    const { taskId, data: { fieldId, id } } = this.props;
+  const handleChange = async (updatedFieldValue: NestedFieldProps['value']): Promise<void> => {
+    const {
+      taskId,
+      data: { fieldId, id },
+    } = props;
 
     await updateTaskFieldMutation({ fieldId, value: updatedFieldValue as NestedValueInputType, taskId }, { id });
   };
-}
 
-// tslint:disable-next-line:no-unused-expression
+  return <NestedField value={value} meta={meta} onChange={handleChange} />;
+};
+
 graphql`
   fragment NestedFieldFragmentMeta on NestedMetaType {
     fieldType
@@ -257,7 +265,7 @@ graphql`
     }
   }
 `;
-// tslint:disable-next-line:no-unused-expression
+
 graphql`
   fragment NestedFieldFragmentValue on NestedValueType {
     ownValue {
@@ -282,11 +290,9 @@ graphql`
   }
 `;
 
-export default createFragmentContainer<Props>(
-  // @ts-ignore
-  NestedFieldContainer,
-  graphql`
-    fragment NestedFieldFragment on NestedFieldType {
+export default createFragmentContainer<NestedFieldContainerProps>(NestedFieldContainer, {
+  data: graphql`
+    fragment NestedFieldFragment_data on NestedFieldType {
       id
       fieldId
       meta {
@@ -297,4 +303,4 @@ export default createFragmentContainer<Props>(
       }
     }
   `,
-);
+});

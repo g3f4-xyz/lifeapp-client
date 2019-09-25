@@ -9,10 +9,10 @@ export type testSubscriptionMutationVariables = {
     readonly input: testSubscriptionMutationInput;
 };
 export type testSubscriptionMutationResponse = {
-    readonly testSubscription: ({
+    readonly testSubscription: {
         readonly clientMutationId: string | null;
         readonly statusCode: string;
-    }) | null;
+    } | null;
 };
 export type testSubscriptionMutation = {
     readonly response: testSubscriptionMutationResponse;
@@ -50,8 +50,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "kind": "Variable",
                     "name": "input",
-                    "variableName": "input",
-                    "type": "testSubscriptionMutationInput!"
+                    "variableName": "input"
                 }
             ],
             "concreteType": "testSubscriptionMutationPayload",

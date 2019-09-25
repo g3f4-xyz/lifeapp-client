@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-type SubscriptionsPagination$ref = any;
+type SubscriptionsPagination_data$ref = any;
 export type SubscriptionsPaginationQueryVariables = {
     readonly count: number;
     readonly after?: string | null;
@@ -10,7 +10,7 @@ export type SubscriptionsPaginationQueryResponse = {
     readonly app: {
         readonly settings: {
             readonly notifications: {
-                readonly " $fragmentRefs": SubscriptionsPagination$ref;
+                readonly " $fragmentRefs": SubscriptionsPagination_data$ref;
             };
         };
     };
@@ -30,7 +30,7 @@ query SubscriptionsPaginationQuery(
   app {
     settings {
       notifications {
-        ...SubscriptionsPagination
+        ...SubscriptionsPagination_data
         id
       }
       id
@@ -39,13 +39,13 @@ query SubscriptionsPaginationQuery(
   }
 }
 
-fragment SubscriptionsPagination on NotificationsType {
+fragment SubscriptionsPagination_data on NotificationsType {
   id
   subscriptions(first: $count, after: $after) {
     edges {
       node {
         id
-        ...SubscriptionFragment
+        ...SubscriptionFragment_data
         __typename
       }
       cursor
@@ -57,7 +57,7 @@ fragment SubscriptionsPagination on NotificationsType {
   }
 }
 
-fragment SubscriptionFragment on SubscriptionType {
+fragment SubscriptionFragment_data on SubscriptionType {
   id
   userAgent
   userDeviceType
@@ -88,14 +88,12 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "Variable",
             "name": "after",
-            "variableName": "after",
-            "type": "String"
+            "variableName": "after"
         } as any),
         ({
             "kind": "Variable",
             "name": "first",
-            "variableName": "count",
-            "type": "Int"
+            "variableName": "count"
         } as any)
     ];
     return {
@@ -136,7 +134,7 @@ const node: ConcreteRequest = (function () {
                                     "selections": [
                                         {
                                             "kind": "FragmentSpread",
-                                            "name": "SubscriptionsPagination",
+                                            "name": "SubscriptionsPagination_data",
                                             "args": null
                                         }
                                     ]
@@ -290,10 +288,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "SubscriptionsPaginationQuery",
             "id": null,
-            "text": "query SubscriptionsPaginationQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    settings {\n      notifications {\n        ...SubscriptionsPagination\n        id\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment SubscriptionsPagination on NotificationsType {\n  id\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...SubscriptionFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SubscriptionFragment on SubscriptionType {\n  id\n  userAgent\n  userDeviceType\n}\n",
+            "text": "query SubscriptionsPaginationQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    settings {\n      notifications {\n        ...SubscriptionsPagination_data\n        id\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment SubscriptionsPagination_data on NotificationsType {\n  id\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...SubscriptionFragment_data\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SubscriptionFragment_data on SubscriptionType {\n  id\n  userAgent\n  userDeviceType\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '4a9c09295fe76b029ddaee9b3b30e9ab';
+(node as any).hash = 'c621ee82e7cb8431db5296306a43e62c';
 export default node;

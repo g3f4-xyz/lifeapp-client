@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-type NotificationsGeneralFragment$ref = any;
+type NotificationsGeneralFragment_data$ref = any;
 export type saveNotificationsGeneralSettingMutationInput = {
     readonly general?: SettingsNotificationsGeneralInputType | null;
     readonly clientMutationId?: string | null;
@@ -14,12 +14,12 @@ export type saveNotificationsGeneralSettingMutationVariables = {
     readonly input: saveNotificationsGeneralSettingMutationInput;
 };
 export type saveNotificationsGeneralSettingMutationResponse = {
-    readonly saveNotificationsGeneralSetting: ({
+    readonly saveNotificationsGeneralSetting: {
         readonly clientMutationId: string | null;
         readonly savedGeneral: {
-            readonly " $fragmentRefs": NotificationsGeneralFragment$ref;
+            readonly " $fragmentRefs": NotificationsGeneralFragment_data$ref;
         };
-    }) | null;
+    } | null;
 };
 export type saveNotificationsGeneralSettingMutation = {
     readonly response: saveNotificationsGeneralSettingMutationResponse;
@@ -35,13 +35,13 @@ mutation saveNotificationsGeneralSettingMutation(
   saveNotificationsGeneralSetting(input: $input) {
     clientMutationId
     savedGeneral {
-      ...NotificationsGeneralFragment
+      ...NotificationsGeneralFragment_data
       id
     }
   }
 }
 
-fragment NotificationsGeneralFragment on NotificationsGeneralSettingType {
+fragment NotificationsGeneralFragment_data on NotificationsGeneralSettingType {
   show
   vibrate
 }
@@ -59,8 +59,7 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "Variable",
             "name": "input",
-            "variableName": "input",
-            "type": "saveNotificationsGeneralSettingMutationInput!"
+            "variableName": "input"
         } as any)
     ], v2 = ({
         "kind": "ScalarField",
@@ -99,7 +98,7 @@ const node: ConcreteRequest = (function () {
                             "selections": [
                                 {
                                     "kind": "FragmentSpread",
-                                    "name": "NotificationsGeneralFragment",
+                                    "name": "NotificationsGeneralFragment_data",
                                     "args": null
                                 }
                             ]
@@ -163,10 +162,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "mutation",
             "name": "saveNotificationsGeneralSettingMutation",
             "id": null,
-            "text": "mutation saveNotificationsGeneralSettingMutation(\n  $input: saveNotificationsGeneralSettingMutationInput!\n) {\n  saveNotificationsGeneralSetting(input: $input) {\n    clientMutationId\n    savedGeneral {\n      ...NotificationsGeneralFragment\n      id\n    }\n  }\n}\n\nfragment NotificationsGeneralFragment on NotificationsGeneralSettingType {\n  show\n  vibrate\n}\n",
+            "text": "mutation saveNotificationsGeneralSettingMutation(\n  $input: saveNotificationsGeneralSettingMutationInput!\n) {\n  saveNotificationsGeneralSetting(input: $input) {\n    clientMutationId\n    savedGeneral {\n      ...NotificationsGeneralFragment_data\n      id\n    }\n  }\n}\n\nfragment NotificationsGeneralFragment_data on NotificationsGeneralSettingType {\n  show\n  vibrate\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '20b31067b15de5920fa7f5342c26be7c';
+(node as any).hash = '81a0ff4ce3494b486b7ea34d389f2a10';
 export default node;
