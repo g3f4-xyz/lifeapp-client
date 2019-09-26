@@ -1,10 +1,9 @@
-import { FieldIdEnum } from './components/modules/Task/__generated__/TaskFragment_data.graphql';
 import { FieldTypeEnum } from './components/modules/Task/fields/__generated__/ChoiceFieldFragmentMeta.graphql';
-import { TaskTypeEnum } from './components/modules/TaskList/__generated__/TaskListQuery.graphql';
+import { FieldIdEnum } from './components/modules/Task/fragment/__generated__/useTaskFragment.graphql';
+import { TaskTypeEnum } from './components/modules/TaskTypeList/fragment/__generated__/useTaskTypeFragment.graphql';
 import { TaskStatusEnum } from './mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 
-export type Without<T, K> = Pick<T, Exclude<keyof T, K>>;
-export type ExcludeFutureAdded<T> = Without<T, '%future added value'>;
+export type ExcludeFutureAdded<T> = Omit<T, '%future added value'>;
 export type UnionKeyToValue<U extends string, V = U> = {
   [K in U]: V;
 };

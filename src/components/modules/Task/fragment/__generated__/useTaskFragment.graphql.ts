@@ -8,8 +8,8 @@ type SwitchFieldFragment_data$ref = any;
 type TextFieldFragment_data$ref = any;
 export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
 export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
-export type TaskFragment_data$ref = any;
-export type TaskFragment_data = {
+export type useTaskFragment$ref = any;
+export type useTaskFragment = {
     readonly id: string;
     readonly fields: ReadonlyArray<{
         readonly __typename: string;
@@ -18,7 +18,7 @@ export type TaskFragment_data = {
         readonly order?: number;
         readonly " $fragmentRefs": SliderFieldFragment_data$ref & SwitchFieldFragment_data$ref & ChoiceFieldFragment_data$ref & TextFieldFragment_data$ref & NestedFieldFragment_data$ref;
     }>;
-    readonly " $refType": TaskFragment_data$ref;
+    readonly " $refType": useTaskFragment$ref;
 };
 
 
@@ -49,7 +49,7 @@ const node: ReaderFragment = (function () {
     ];
     return {
         "kind": "Fragment",
-        "name": "TaskFragment_data",
+        "name": "useTaskFragment",
         "type": "TaskType",
         "metadata": null,
         "argumentDefinitions": [],
@@ -132,5 +132,5 @@ const node: ReaderFragment = (function () {
         ]
     } as any;
 })();
-(node as any).hash = 'a641b606dec5605581add165c91f0da7';
+(node as any).hash = '530ae61e2de5f5a2c286623ddc04ca36';
 export default node;

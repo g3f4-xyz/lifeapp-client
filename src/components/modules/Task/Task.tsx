@@ -6,7 +6,7 @@ import ErrorBoundary from '../../containers/error-boundary/ErrorBoundary';
 import Loader from '../../display/loader/Loader';
 import { TaskTypeEnum } from '../TaskList/__generated__/TaskListQuery.graphql';
 import { TaskQuery } from './__generated__/TaskQuery.graphql';
-import TaskFragment from './TaskFragment';
+import TaskFragment from './fragment/TaskFragment';
 
 interface TaskProps {
   isNew: boolean;
@@ -30,7 +30,7 @@ const Task: FC<TaskProps> = props => (
           app {
             task(id: $id, type: $type) {
               id
-              ...TaskFragment_data
+              ...useTaskFragment
             }
             taskList {
               id
