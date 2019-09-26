@@ -18,7 +18,7 @@ import React, { FC, useState } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import cleanApplicationMutation from '../../../../mutations/cleanApplicationMutation';
 import deleteSubscriptionMutation from '../../../../mutations/deleteSubscriptionMutation';
-import registerUserSubscription from '../../../../serviceWorker/registerUserSubscription';
+import registerUserSubscription from '../../../../service-worker/registerUserSubscription';
 import { SettingsFragment_data as SettingsFragmentResponse } from './__generated__/SettingsFragment_data.graphql';
 import NotificationsGeneralFragment from '../notifications/general/NotificationsGeneralFragment';
 import NotificationsTypesFragment from '../notifications/types/NotificationsTypesFragment';
