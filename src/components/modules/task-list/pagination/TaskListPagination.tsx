@@ -7,8 +7,7 @@ import { TaskTypeEnum } from '../../../../constans';
 import { TaskStatusEnum } from '../../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 import deleteTaskMutation from '../../../../mutations/deleteTaskMutation';
 import updateTaskListStatusFilterSettingMutation from '../../../../mutations/updateTaskListStatusFilterSettingMutation';
-import updateTaskListTaskTypeFilterSettingMutation
-  from '../../../../mutations/updateTaskListTaskTypeFilterSettingMutation';
+import updateTaskListTaskTypeFilterSettingMutation from '../../../../mutations/updateTaskListTaskTypeFilterSettingMutation';
 import updateTaskListTitleFilterSettingMutation from '../../../../mutations/updateTaskListTitleFilterSettingMutation';
 import Loader from '../../../display/loader/Loader';
 import TaskListBar from '../../../display/task-list-bar/TaskListBar';
@@ -31,7 +30,10 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
   const { onAdd, onEdit, settings } = props;
   const [loading, setLoading] = useState(false);
   const classes = useTaskListPaginationStyles();
-  const [data, { hasMore, isLoading, loadMore, refetchConnection }] = useTaskListPagination(props.data, 8);
+  const [data, { hasMore, isLoading, loadMore, refetchConnection }] = useTaskListPagination(
+    props.data,
+    8,
+  );
 
   const updateTaskTypeFilter = (checked: boolean, filter: TaskTypeEnum): TaskTypeEnum[] => {
     const {

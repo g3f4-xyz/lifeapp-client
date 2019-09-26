@@ -22,13 +22,7 @@ const Task: React.FC<TaskProps> = ownProps => {
   if (error) {
     return <div>{JSON.stringify(error)}</div>;
   } else if (props && props.app.task) {
-    return (
-      <TaskFragment
-        taskListId={props.app.taskList.id}
-        data={props.app.task}
-        {...ownProps}
-      />
-    );
+    return <TaskFragment taskListId={props.app.taskList.id} data={props.app.task} {...ownProps} />;
   }
 
   return <Loader />;

@@ -49,7 +49,10 @@ const connectionConfig: ConnectionConfig = {
   `,
 };
 
-export type TaskListPaginationFunction = Omit<PaginationFunction, 'loadMore' | 'refetchConnection'> & {
+export type TaskListPaginationFunction = Omit<
+  PaginationFunction,
+  'loadMore' | 'refetchConnection'
+> & {
   loadMore(): void;
   refetchConnection(): void;
 };
@@ -85,5 +88,6 @@ export default (
       hasMore,
       loadMore: _loadMore,
       refetchConnection: _refetchConnection,
-    }];
+    },
+  ];
 };
