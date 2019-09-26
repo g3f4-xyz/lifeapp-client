@@ -6,15 +6,12 @@ import InputBase from '@material-ui/core/InputBase';
 import Toolbar from '@material-ui/core/Toolbar';
 import SearchIcon from '@material-ui/icons/Search';
 import React, { ChangeEvent, FC } from 'react';
-import { TASK_STATUSES, TASK_TYPE } from '../../../constans';
-import {
-  TaskListQueryResponse,
-  TaskTypeEnum,
-} from '../../modules/TaskList/__generated__/TaskListQuery.graphql';
+import { TASK_STATUSES, TASK_TYPE, TaskTypeEnum } from '../../../constans';
+import { useTaskListQuery } from '../../modules/task-list/__generated__/useTaskListQuery.graphql';
 import useTaskListBarStyles from './useTaskListBarStyles';
 
 export interface TaskListBarProps {
-  settings: TaskListQueryResponse['app']['settings']['taskList'];
+  settings: useTaskListQuery['response']['app']['settings']['taskList'];
 
   onFilterByTitle(event: ChangeEvent<HTMLInputElement>): void;
   onFilterByType(event: ChangeEvent<HTMLInputElement>): void;

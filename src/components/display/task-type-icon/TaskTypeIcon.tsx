@@ -2,8 +2,7 @@ import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { DateRange, Group, LocalOffer, Settings, Update } from '@material-ui/icons';
 import classNames from 'classnames';
 import React, { FC } from 'react';
-import { TASK_TYPE_VALUE_MAP } from '../../../constans';
-import { TaskTypeEnum } from '../../modules/TaskList/__generated__/TaskListQuery.graphql';
+import { TASK_TYPE_VALUE_MAP, TaskTypeEnum } from '../../../constans';
 import useTaskTypeIconStyles from './useTaskTypeIconStyles';
 
 const ICONS: TASK_TYPE_VALUE_MAP<React.ComponentType<SvgIconProps>> = {

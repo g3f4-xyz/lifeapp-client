@@ -3,22 +3,21 @@ import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import immutabilityHelper, { Spec } from 'immutability-helper';
 import React, { Fragment } from 'react';
 import { Layout, Layouts } from 'react-grid-layout';
-import { LOCAL_STORAGE_LAYOUTS_KEY, MODULE, MODULES_IDS } from '../constans';
+import { LOCAL_STORAGE_LAYOUTS_KEY, MODULE, MODULES_IDS, TaskTypeEnum } from '../constans';
 import registerUserSubscription from '../serviceWorker/registerUserSubscription';
 import assetsServiceWorker from '../serviceWorker/serviceWorkerManager';
 import { getFromLS, saveToLS } from '../utils/rglLocalStore';
 import ErrorBoundary from './containers/error-boundary/ErrorBoundary';
 import ResponsiveGrid from './containers/responsive-grid/ResponsiveGrid';
 import AppMenu from './display/app-menu/AppMenu';
-import settingsHandler from './modules/Settings/settingsModuleHandler';
-import SettingsQuery from './modules/Settings/SettingsQuery';
-import Task from './modules/Task/Task';
-import taskHandler from './modules/Task/taskModuleHandler';
-import { TaskTypeEnum } from './modules/TaskList/__generated__/TaskListQuery.graphql';
-import TaskList from './modules/TaskList/TaskList';
-import taskListHandler from './modules/TaskList/taskListModuleHandler';
-import TaskTypeList from './modules/TaskTypeList/TaskTypeList';
-import taskTypeListHandler from './modules/TaskTypeList/taskTypeListModuleHandler';
+import settingsHandler from './modules/settings/settingsModuleHandler';
+import SettingsQuery from './modules/settings/SettingsQuery';
+import Task from './modules/task/Task';
+import taskHandler from './modules/task/taskModuleHandler';
+import TaskList from './modules/task-list/TaskList';
+import taskListHandler from './modules/task-list/taskListModuleHandler';
+import TaskTypeList from './modules/task-type-list/TaskTypeList';
+import taskTypeListHandler from './modules/task-type-list/taskTypeListModuleHandler';
 
 assetsServiceWorker.register({
   onUpdate(registration) {
