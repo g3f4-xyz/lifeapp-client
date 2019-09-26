@@ -2,26 +2,26 @@
 
 import { ConcreteRequest } from "relay-runtime";
 type useTaskTypePagination$ref = any;
-export type TaskTypeListQueryVariables = {
+export type useTaskTypeListQueryVariables = {
     readonly count: number;
     readonly after?: string | null;
 };
-export type TaskTypeListQueryResponse = {
+export type useTaskTypeListQueryResponse = {
     readonly app: {
         readonly taskTypeList: {
             readonly " $fragmentRefs": useTaskTypePagination$ref;
         };
     };
 };
-export type TaskTypeListQuery = {
-    readonly response: TaskTypeListQueryResponse;
-    readonly variables: TaskTypeListQueryVariables;
+export type useTaskTypeListQuery = {
+    readonly response: useTaskTypeListQueryResponse;
+    readonly variables: useTaskTypeListQueryVariables;
 };
 
 
 
 /*
-query TaskTypeListQuery(
+query useTaskTypeListQuery(
   $count: Int!
   $after: String
 ) {
@@ -97,7 +97,7 @@ const node: ConcreteRequest = (function () {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "TaskTypeListQuery",
+            "name": "useTaskTypeListQuery",
             "type": "QueryType",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
@@ -133,7 +133,7 @@ const node: ConcreteRequest = (function () {
         },
         "operation": {
             "kind": "Operation",
-            "name": "TaskTypeListQuery",
+            "name": "useTaskTypeListQuery",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": [
                 {
@@ -274,12 +274,12 @@ const node: ConcreteRequest = (function () {
         },
         "params": {
             "operationKind": "query",
-            "name": "TaskTypeListQuery",
+            "name": "useTaskTypeListQuery",
             "id": null,
-            "text": "query TaskTypeListQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    taskTypeList {\n      ...useTaskTypePagination\n      id\n    }\n    id\n  }\n}\n\nfragment useTaskTypePagination on TaskTypeListType {\n  id\n  list(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        order\n        ...useTaskTypeFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment useTaskTypeFragment on TaskTypeType {\n  id\n  typeId\n  label\n  description\n}\n",
+            "text": "query useTaskTypeListQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    taskTypeList {\n      ...useTaskTypePagination\n      id\n    }\n    id\n  }\n}\n\nfragment useTaskTypePagination on TaskTypeListType {\n  id\n  list(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        order\n        ...useTaskTypeFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment useTaskTypeFragment on TaskTypeType {\n  id\n  typeId\n  label\n  description\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '6840762d04d041df4905b4da1f80d010';
+(node as any).hash = '0d29f34540f758214c365d80a8ec90e2';
 export default node;
