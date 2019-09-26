@@ -1,7 +1,7 @@
-import { FieldTypeEnum } from './components/modules/Task/fields/__generated__/ChoiceFieldFragmentMeta.graphql';
-import { FieldIdEnum } from './components/modules/Task/fragment/__generated__/useTaskFragment.graphql';
-import { TaskTypeEnum } from './components/modules/TaskTypeList/fragment/__generated__/useTaskTypeFragment.graphql';
-import { TaskStatusEnum } from './mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
+import { FieldTypeEnum as FieldType } from './components/modules/task/fields/__generated__/ChoiceFieldFragmentMeta.graphql';
+import { FieldIdEnum as FieldId } from './components/modules/task/fragment/__generated__/useTaskFragment.graphql';
+import { TaskTypeEnum as TaskType } from './components/modules/task-type-list/fragment/__generated__/useTaskTypeFragment.graphql';
+import { TaskStatusEnum as TaskStatus } from './mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 
 export type ExcludeFutureAdded<T> = Omit<T, '%future added value'>;
 export type UnionKeyToValue<U extends string, V = U> = {
@@ -23,7 +23,7 @@ export const MODULES_IDS: { [key: string]: MODULE } = {
   TASK_TYPE_LIST: 'taskTypeList',
 };
 
-export const FIELD_ID: ExcludeFutureAdded<UnionKeyToValue<FieldIdEnum>> = {
+export const FIELD_ID: ExcludeFutureAdded<UnionKeyToValue<FieldId>> = {
   TITLE: 'TITLE',
   PRIORITY: 'PRIORITY',
   PROGRESS: 'PROGRESS',
@@ -40,7 +40,7 @@ export const FIELD_ID: ExcludeFutureAdded<UnionKeyToValue<FieldIdEnum>> = {
   NOTIFICATIONS: 'NOTIFICATIONS',
 };
 
-export const FIELD_TYPE: ExcludeFutureAdded<UnionKeyToValue<FieldTypeEnum>> = {
+export const FIELD_TYPE: ExcludeFutureAdded<UnionKeyToValue<FieldType>> = {
   CHOICE: 'CHOICE',
   SLIDER: 'SLIDER',
   SWITCH: 'SWITCH',
@@ -66,7 +66,7 @@ export const STATUSES: { [key: string]: STATUS } = {
   NOT_REGISTERED: '410',
 };
 
-export const TASK_TYPE: ExcludeFutureAdded<UnionKeyToValue<TaskTypeEnum>> = {
+export const TASK_TYPE: ExcludeFutureAdded<UnionKeyToValue<TaskType>> = {
   EVENT: 'EVENT',
   GOAL: 'GOAL',
   MEETING: 'MEETING',
@@ -76,7 +76,7 @@ export const TASK_TYPE: ExcludeFutureAdded<UnionKeyToValue<TaskTypeEnum>> = {
 
 export type TASK_TYPE_VALUE_MAP<V> = KEYOF_TYPE_VALUE_MAP<typeof TASK_TYPE, V>;
 
-export const TASK_STATUSES: ExcludeFutureAdded<UnionKeyToValue<TaskStatusEnum>> = {
+export const TASK_STATUSES: ExcludeFutureAdded<UnionKeyToValue<TaskStatus>> = {
   TODO: 'TODO',
   IN_PROGRESS: 'IN_PROGRESS',
   DONE: 'DONE',
@@ -85,3 +85,8 @@ export const TASK_STATUSES: ExcludeFutureAdded<UnionKeyToValue<TaskStatusEnum>> 
 export type LOCAL_STORAGE_LAYOUT_KEY = 'layouts';
 
 export const LOCAL_STORAGE_LAYOUTS_KEY = 'layouts';
+
+export type FieldTypeEnum = FieldType;
+export type FieldIdEnum = FieldId;
+export type TaskTypeEnum = TaskType;
+export type TaskStatusEnum = TaskStatus;
