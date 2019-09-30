@@ -1,6 +1,6 @@
 import { CheckBox, CheckBoxOutlineBlank, Slideshow } from '@material-ui/icons';
 import classNames from 'classnames';
-import React, { FC } from 'react';
+import React, { FC, forwardRef } from 'react';
 import { TASK_STATUSES } from '../../../constans';
 import { TaskStatusEnum } from '../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 import useStatusIconStyles from './useStatusIconStyles';
@@ -29,4 +29,4 @@ const StatusIcon: FC<StatusIconProps> = props => {
   }
 };
 
-export default StatusIcon;
+export default forwardRef(StatusIcon);
