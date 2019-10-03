@@ -56,7 +56,7 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
   };
 
   const handleDelete = async (id: string): Promise<void> => {
-    await deleteTaskMutation({ id, parentID: props.data.id });
+    await deleteTaskMutation({ id, parentID: data.id });
   };
 
   const handleFilterByTitle = async (event: ChangeEvent<HTMLInputElement>) => {

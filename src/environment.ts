@@ -15,7 +15,17 @@ const fetchQuery: FetchFunction = (operation, variables) => {
       query: operation.text,
       variables,
     }),
-  }).then(response => response.json());
+  })
+    .then(response => response.json())
+    .then(json => {
+      if (json && json.errors) {
+        json.errors.forEach((error: Error) => {
+          console.error(error.message);
+        });
+      }
+
+      return json;
+    });
 };
 
 const network = Network.create(fetchQuery);
