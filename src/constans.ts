@@ -90,3 +90,5 @@ export type FieldTypeEnum = FieldType;
 export type FieldIdEnum = FieldId;
 export type TaskTypeEnum = TaskType;
 export type TaskStatusEnum = TaskStatus;
+
+export const DATE_TIME_FORMAT = `YYYY-MM-DDTHH:mm`;
