@@ -1,6 +1,26 @@
 {
   "name": "lifeapp-client",
   "version": "2.2.12",
+  "homepage": "https://g3f4-xyz.github.io/lifeapp-client/",
+  "license": "MIT",
+  "scripts": {
+    "build": "NODE_ENV=production react-scripts build && sw-precache --config=sw-precache-config.js && cra-append-sw ./public/notifications-worker.js",
+    "get:local:schema": "fetch-graphql-schema http://localhost:30000/graphql -o graphql.schema.json",
+    "get:remote:schema": "fetch-graphql-schema https://lifeapp-server.herokuapp.com/graphql -o graphql.schema.json",
+    "lint": "eslint './src/**/*.{ts,tsx}'",
+    "lint:fix": "eslint './src/**/*.{ts,tsx}' --fix",
+    "relay": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript",
+    "relay:watch": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript --watch --noFutureProofEnums",
+    "start": "REACT_APP_HOST=http://localhost:30000 react-scripts start",
+    "start:remote": "REACT_APP_GRAPHQL_HOST=https://lifeapp-server.herokuapp.com/graphql react-scripts start",
+    "test": "react-scripts test"
+  },
+  "browserslist": [
+    "last 1 version",
+    "> 1%",
+    "maintained node versions",
+    "not dead"
+  ],
   "dependencies": {
     "@material-ui/core": "4.4.3",
     "@material-ui/icons": "4.4.3",
@@ -37,31 +57,6 @@
     "ts-node": "8.4.1",
     "typescript": "3.6.3"
   },
-  "license": "MIT",
-  "scripts": {
-    "build:package": "yarn run build && tar -zcvf client-package-local-$npm_package_version.tar.gz build/",
-    "build:heroku": "REACT_APP_GRAPHQL_HOST=https://lifeapp-server.herokuapp.com/graphql yarn run build",
-    "build:heroku:package": "yarn run build:heroku && tar -zcvf client-package-heroku-$npm_package_version.tar.gz build/",
-    "start": "REACT_APP_HOST=http://localhost:30000 react-scripts start",
-    "start:remote": "REACT_APP_GRAPHQL_HOST=https://lifeapp-server.herokuapp.com/graphql react-scripts start",
-    "build": "NODE_ENV=production react-scripts build && sw-precache --config=sw-precache-config.js && cra-append-sw ./public/notifications-worker.js",
-    "lint": "eslint './src/**/*.{ts,tsx}'",
-    "lint:fix": "eslint './src/**/*.{ts,tsx}' --fix",
-    "test": "react-scripts test",
-    "get:local:schema": "fetch-graphql-schema http://localhost:30000/graphql -o graphql.schema.json",
-    "get:remote:schema": "fetch-graphql-schema https://lifeapp-server.herokuapp.com/graphql -o graphql.schema.json",
-    "relay": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript",
-    "relay:watch": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript --watch --noFutureProofEnums",
-    "add-tag": "git tag -a v$npm_package_version -m \"client version $npm_package_version\""
-  },
-  "proxy": "http://localhost:30000",
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "homepage": "https://g3f4-xyz.github.io/lifeapp-client/",
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "2.3.1",
     "@typescript-eslint/parser": "2.3.1",
@@ -74,5 +69,6 @@
   },
   "babelMacros": {
     "relay": {}
-  }
+  },
+  "proxy": "http://localhost:30000"
 }
