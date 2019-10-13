@@ -2,8 +2,9 @@ import { Button, IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import MoreIcon from '@material-ui/icons/MoreHoriz';
-import React, { ChangeEvent, FC, Fragment, useState } from 'react';
-import { TaskTypeEnum } from '../../../../constans';
+import React, { ChangeEvent, FC, Fragment, useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom';
+import { MODULES_IDS, TaskTypeEnum } from '../../../../constans';
 import { TaskStatusEnum } from '../../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 import deleteTaskMutation from '../../../../mutations/deleteTaskMutation';
 import updateTaskListStatusFilterSettingMutation from '../../../../mutations/updateTaskListStatusFilterSettingMutation';
@@ -21,18 +22,25 @@ interface TaskListPaginationProps {
   data: useTaskListPagination$ref;
   settings: useTaskListQuery['response']['app']['settings']['taskList'];
   settingsId: string;
-
-  onAdd(): void;
-  onEdit(taskId: string): void;
 }
 
 const TaskListPagination: FC<TaskListPaginationProps> = props => {
-  const { onAdd, onEdit, settings } = props;
+  const { settings } = props;
   const [loading, setLoading] = useState(false);
   const classes = useTaskListPaginationStyles();
   const [data, { hasMore, isLoading, loadMore, refetchConnection }] = useTaskListPagination(
     props.data,
     8,
+  );
+  const history = useHistory();
+  const handleAdd = useCallback(() => {
+    history.push(`/${MODULES_IDS.TASK_TYPE_LIST}`);
+  }, [history]);
+  const handleEdit = useCallback(
+    (taskType: TaskTypeEnum, taskId: string) => {
+      history.push(`/${MODULES_IDS.TASK}/${taskType}/${taskId}`);
+    },
+    [history],
   );
 
   const updateTaskTypeFilter = (checked: boolean, filter: TaskTypeEnum): TaskTypeEnum[] => {
@@ -129,12 +137,16 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
                 edge &&
                 edge.node && (
                   <Grid key={edge.cursor} item xs={12} sm={12} md={6} lg={4} xl={3}>
-                    <TaskListFragment data={edge.node} onDelete={handleDelete} onEdit={onEdit} />
+                    <TaskListFragment
+                      data={edge.node}
+                      onDelete={handleDelete}
+                      onEdit={handleEdit}
+                    />
                   </Grid>
                 ),
             )}
           </Grid>
-          <Button color="primary" className={classes.addButton} onClick={onAdd}>
+          <Button color="primary" className={classes.addButton} onClick={handleAdd}>
             <AddBoxIcon className={classes.addButtonIcon} />
           </Button>
           {loading && <Loader />}

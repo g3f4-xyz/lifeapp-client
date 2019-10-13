@@ -10,5 +10,15 @@ export default makeStyles(() =>
       flexWrap: 'wrap',
       justifyContent: 'center',
     },
+    doneButton: {
+      zIndex: 9,
+      position: 'fixed',
+      bottom: 20,
+      right: 20,
+    },
+    doneButtonIcon: {
+      color: '#8BC34A',
+      fontSize: 72,
+    },
   }),
 );

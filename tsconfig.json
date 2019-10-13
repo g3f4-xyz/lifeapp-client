@@ -5,7 +5,7 @@
     "emitDecoratorMetadata": true,
     "moduleResolution": "node",
     "noImplicitAny": true,
-    "noUnusedLocals": true,
+    "noUnusedLocals": false,
     "pretty": true,
     "removeComments": false,
     "suppressImplicitAnyIndexErrors": true,

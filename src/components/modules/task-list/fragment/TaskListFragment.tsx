@@ -9,7 +9,7 @@ import {
 import { ExpandMore, PriorityHigh } from '@material-ui/icons';
 import classNames from 'classnames';
 import React, { FC } from 'react';
-import { FIELD_ID } from '../../../../constans';
+import { FIELD_ID, TaskTypeEnum } from '../../../../constans';
 import { TaskStatusEnum } from '../../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 import StatusIcon from '../../../display/status-icon/StatusIcon';
 import TaskTypeIcon from '../../../display/task-type-icon/TaskTypeIcon';
@@ -21,7 +21,7 @@ export interface TaskListFragmentProps {
   data: useTaskListFragment$ref;
 
   onDelete(id: string): void;
-  onEdit(id: string): void;
+  onEdit(taskType: TaskTypeEnum, taskId: string): void;
 }
 
 const TaskListFragment: FC<TaskListFragmentProps> = props => {
@@ -56,7 +56,7 @@ const TaskListFragment: FC<TaskListFragmentProps> = props => {
       <ExpansionPanelDetails className={classes.content}>
         <div>{noteField && noteField.value && noteField.value.text}</div>
         <div className={classes.actions}>
-          <Button onClick={() => onEdit(id)}>Edit</Button>
+          <Button onClick={() => onEdit(taskType, id)}>Edit</Button>
           <Button onClick={() => onDelete(id)}>Delete</Button>
         </div>
       </ExpansionPanelDetails>
