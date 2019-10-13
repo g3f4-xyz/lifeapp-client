@@ -31,6 +31,7 @@ const App: FC = () => {
     [setOpenedTasksParams],
   );
   const removeGridItem = (path: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_hash, firstPart, secondPart, thirdPart] = path.split('/');
 
     if (firstPart === 'task') {
