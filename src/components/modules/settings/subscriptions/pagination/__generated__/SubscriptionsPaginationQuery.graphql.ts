@@ -40,7 +40,6 @@ query SubscriptionsPaginationQuery(
 }
 
 fragment SubscriptionsPagination_data on NotificationsType {
-  id
   subscriptions(first: $count, after: $after) {
     edges {
       node {
@@ -78,13 +77,7 @@ const node: ConcreteRequest = (function () {
             "type": "String",
             "defaultValue": null
         } as any)
-    ], v1 = ({
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "id",
-        "args": null,
-        "storageKey": null
-    } as any), v2 = [
+    ], v1 = [
         ({
             "kind": "Variable",
             "name": "after",
@@ -95,7 +88,13 @@ const node: ConcreteRequest = (function () {
             "name": "first",
             "variableName": "count"
         } as any)
-    ];
+    ], v2 = ({
+        "kind": "ScalarField",
+        "alias": null,
+        "name": "id",
+        "args": null,
+        "storageKey": null
+    } as any);
     return {
         "kind": "Request",
         "fragment": {
@@ -177,13 +176,12 @@ const node: ConcreteRequest = (function () {
                                     "concreteType": "NotificationsType",
                                     "plural": false,
                                     "selections": [
-                                        (v1 /*: any*/),
                                         {
                                             "kind": "LinkedField",
                                             "alias": null,
                                             "name": "subscriptions",
                                             "storageKey": null,
-                                            "args": (v2 /*: any*/),
+                                            "args": (v1 /*: any*/),
                                             "concreteType": "SubscriptionTypeConnection",
                                             "plural": false,
                                             "selections": [
@@ -205,7 +203,7 @@ const node: ConcreteRequest = (function () {
                                                             "concreteType": "SubscriptionType",
                                                             "plural": false,
                                                             "selections": [
-                                                                (v1 /*: any*/),
+                                                                (v2 /*: any*/),
                                                                 {
                                                                     "kind": "ScalarField",
                                                                     "alias": null,
@@ -269,17 +267,18 @@ const node: ConcreteRequest = (function () {
                                             "kind": "LinkedHandle",
                                             "alias": null,
                                             "name": "subscriptions",
-                                            "args": (v2 /*: any*/),
+                                            "args": (v1 /*: any*/),
                                             "handle": "connection",
                                             "key": "Notifications_subscriptions",
                                             "filters": null
-                                        }
+                                        },
+                                        (v2 /*: any*/)
                                     ]
                                 },
-                                (v1 /*: any*/)
+                                (v2 /*: any*/)
                             ]
                         },
-                        (v1 /*: any*/)
+                        (v2 /*: any*/)
                     ]
                 }
             ]
@@ -288,7 +287,7 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "SubscriptionsPaginationQuery",
             "id": null,
-            "text": "query SubscriptionsPaginationQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    settings {\n      notifications {\n        ...SubscriptionsPagination_data\n        id\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment SubscriptionsPagination_data on NotificationsType {\n  id\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...SubscriptionFragment_data\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SubscriptionFragment_data on SubscriptionType {\n  id\n  userAgent\n  userDeviceType\n}\n",
+            "text": "query SubscriptionsPaginationQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    settings {\n      notifications {\n        ...SubscriptionsPagination_data\n        id\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment SubscriptionsPagination_data on NotificationsType {\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...SubscriptionFragment_data\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SubscriptionFragment_data on SubscriptionType {\n  id\n  userAgent\n  userDeviceType\n}\n",
             "metadata": {}
         }
     } as any;

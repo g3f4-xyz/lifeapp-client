@@ -42,11 +42,9 @@ fragment SettingsFragment_data on SettingsType {
     id
     general {
       ...NotificationsGeneralFragment_data
-      id
     }
     types {
       ...NotificationsTypesFragment_data
-      id
     }
     ...SubscriptionsPagination_data
   }
@@ -66,7 +64,6 @@ fragment NotificationsTypesFragment_data on NotificationsTypesSettingType {
 }
 
 fragment SubscriptionsPagination_data on NotificationsType {
-  id
   subscriptions(first: $count, after: $after) {
     edges {
       node {
@@ -224,8 +221,7 @@ const node: ConcreteRequest = (function () {
                                                     "name": "vibrate",
                                                     "args": null,
                                                     "storageKey": null
-                                                },
-                                                (v1 /*: any*/)
+                                                }
                                             ]
                                         },
                                         {
@@ -271,8 +267,7 @@ const node: ConcreteRequest = (function () {
                                                     "name": "todos",
                                                     "args": null,
                                                     "storageKey": null
-                                                },
-                                                (v1 /*: any*/)
+                                                }
                                             ]
                                         },
                                         {
@@ -384,7 +379,7 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "SettingsQuery",
             "id": null,
-            "text": "query SettingsQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    settings {\n      id\n      ...SettingsFragment_data\n    }\n    id\n  }\n}\n\nfragment SettingsFragment_data on SettingsType {\n  id\n  ownerId\n  notifications {\n    id\n    general {\n      ...NotificationsGeneralFragment_data\n      id\n    }\n    types {\n      ...NotificationsTypesFragment_data\n      id\n    }\n    ...SubscriptionsPagination_data\n  }\n}\n\nfragment NotificationsGeneralFragment_data on NotificationsGeneralSettingType {\n  show\n  vibrate\n}\n\nfragment NotificationsTypesFragment_data on NotificationsTypesSettingType {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n\nfragment SubscriptionsPagination_data on NotificationsType {\n  id\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...SubscriptionFragment_data\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SubscriptionFragment_data on SubscriptionType {\n  id\n  userAgent\n  userDeviceType\n}\n",
+            "text": "query SettingsQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    settings {\n      id\n      ...SettingsFragment_data\n    }\n    id\n  }\n}\n\nfragment SettingsFragment_data on SettingsType {\n  id\n  ownerId\n  notifications {\n    id\n    general {\n      ...NotificationsGeneralFragment_data\n    }\n    types {\n      ...NotificationsTypesFragment_data\n    }\n    ...SubscriptionsPagination_data\n  }\n}\n\nfragment NotificationsGeneralFragment_data on NotificationsGeneralSettingType {\n  show\n  vibrate\n}\n\nfragment NotificationsTypesFragment_data on NotificationsTypesSettingType {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n\nfragment SubscriptionsPagination_data on NotificationsType {\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...SubscriptionFragment_data\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SubscriptionFragment_data on SubscriptionType {\n  id\n  userAgent\n  userDeviceType\n}\n",
             "metadata": {}
         }
     } as any;

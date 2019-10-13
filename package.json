@@ -11,7 +11,7 @@
     "lint:fix": "eslint './src/**/*.{ts,tsx}' --fix",
     "relay": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript",
     "relay:watch": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript --watch --noFutureProofEnums",
-    "start": "REACT_APP_HOST=http://localhost:30000 react-scripts start",
+    "start": "react-scripts start",
     "start:remote": "REACT_APP_GRAPHQL_HOST=https://lifeapp-server.herokuapp.com/graphql react-scripts start",
     "test": "react-scripts test"
   },
@@ -38,7 +38,7 @@
     "babel-plugin-relay": "6.0.0",
     "classnames": "2.2.6",
     "cra-append-sw": "2.6.1",
-    "date-fns-timezone": "^0.1.4",
+    "date-fns-timezone": "0.1.4",
     "fetch-graphql-schema": "0.2.1",
     "graphql": "14.5.8",
     "graphql-compiler": "1.7.0",

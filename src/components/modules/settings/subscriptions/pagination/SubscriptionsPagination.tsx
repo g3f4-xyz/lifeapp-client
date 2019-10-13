@@ -44,7 +44,6 @@ export default createPaginationContainer<SubscriptionsProps>(
   {
     data: graphql`
       fragment SubscriptionsPagination_data on NotificationsType {
-        id
         subscriptions(first: $count, after: $after)
           @connection(key: "Notifications_subscriptions") {
           edges {

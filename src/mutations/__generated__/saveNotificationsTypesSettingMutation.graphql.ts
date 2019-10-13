@@ -37,7 +37,6 @@ mutation saveNotificationsTypesSettingMutation(
   saveNotificationsTypesSetting(input: $input) {
     savedTypes {
       ...NotificationsTypesFragment_data
-      id
     }
   }
 }
@@ -161,13 +160,6 @@ const node: ConcreteRequest = (function () {
                                     "name": "todos",
                                     "args": null,
                                     "storageKey": null
-                                },
-                                {
-                                    "kind": "ScalarField",
-                                    "alias": null,
-                                    "name": "id",
-                                    "args": null,
-                                    "storageKey": null
                                 }
                             ]
                         }
@@ -179,7 +171,7 @@ const node: ConcreteRequest = (function () {
             "operationKind": "mutation",
             "name": "saveNotificationsTypesSettingMutation",
             "id": null,
-            "text": "mutation saveNotificationsTypesSettingMutation(\n  $input: saveNotificationsTypesSettingMutationInput!\n) {\n  saveNotificationsTypesSetting(input: $input) {\n    savedTypes {\n      ...NotificationsTypesFragment_data\n      id\n    }\n  }\n}\n\nfragment NotificationsTypesFragment_data on NotificationsTypesSettingType {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n",
+            "text": "mutation saveNotificationsTypesSettingMutation(\n  $input: saveNotificationsTypesSettingMutationInput!\n) {\n  saveNotificationsTypesSetting(input: $input) {\n    savedTypes {\n      ...NotificationsTypesFragment_data\n    }\n  }\n}\n\nfragment NotificationsTypesFragment_data on NotificationsTypesSettingType {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n",
             "metadata": {}
         }
     } as any;

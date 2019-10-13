@@ -36,7 +36,6 @@ mutation saveNotificationsGeneralSettingMutation(
     clientMutationId
     savedGeneral {
       ...NotificationsGeneralFragment_data
-      id
     }
   }
 }
@@ -144,13 +143,6 @@ const node: ConcreteRequest = (function () {
                                     "name": "vibrate",
                                     "args": null,
                                     "storageKey": null
-                                },
-                                {
-                                    "kind": "ScalarField",
-                                    "alias": null,
-                                    "name": "id",
-                                    "args": null,
-                                    "storageKey": null
                                 }
                             ]
                         }
@@ -162,7 +154,7 @@ const node: ConcreteRequest = (function () {
             "operationKind": "mutation",
             "name": "saveNotificationsGeneralSettingMutation",
             "id": null,
-            "text": "mutation saveNotificationsGeneralSettingMutation(\n  $input: saveNotificationsGeneralSettingMutationInput!\n) {\n  saveNotificationsGeneralSetting(input: $input) {\n    clientMutationId\n    savedGeneral {\n      ...NotificationsGeneralFragment_data\n      id\n    }\n  }\n}\n\nfragment NotificationsGeneralFragment_data on NotificationsGeneralSettingType {\n  show\n  vibrate\n}\n",
+            "text": "mutation saveNotificationsGeneralSettingMutation(\n  $input: saveNotificationsGeneralSettingMutationInput!\n) {\n  saveNotificationsGeneralSetting(input: $input) {\n    clientMutationId\n    savedGeneral {\n      ...NotificationsGeneralFragment_data\n    }\n  }\n}\n\nfragment NotificationsGeneralFragment_data on NotificationsGeneralSettingType {\n  show\n  vibrate\n}\n",
             "metadata": {}
         }
     } as any;
