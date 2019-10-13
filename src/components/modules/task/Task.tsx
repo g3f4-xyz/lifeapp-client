@@ -9,6 +9,7 @@ import useTaskQuery from './useTaskQuery';
 export interface TaskProps {
   taskId?: string;
   taskType?: TaskTypeEnum;
+  path?: string;
 }
 
 const Task: FC<TaskProps> = ownProps => {

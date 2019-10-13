@@ -3,9 +3,6 @@ import makeStyles from '@material-ui/core/styles/makeStyles';
 
 export default makeStyles(() =>
   createStyles({
-    tileContainer: {
-      overflow: 'scroll',
-    },
     remove: {
       position: 'absolute',
       right: 0,

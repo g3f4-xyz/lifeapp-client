@@ -4,7 +4,11 @@ import Loader from '../../display/loader/Loader';
 import TaskListPagination from './pagination/TaskListPagination';
 import useTaskListQuery from './useTaskListQuery';
 
-const TaskList: FC = () => {
+export interface TaskListProps {
+  path?: string;
+}
+
+const TaskList: FC<TaskListProps> = () => {
   const { props, error } = useTaskListQuery({
     count: ITEMS_PER_PAGE,
   });

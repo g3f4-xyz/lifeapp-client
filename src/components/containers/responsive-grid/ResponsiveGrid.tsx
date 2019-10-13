@@ -1,5 +1,9 @@
+import { IconButton } from '@material-ui/core';
+import { Clear, ZoomIn } from '@material-ui/icons';
 import React, { Children, FC, useCallback, useState } from 'react';
 import { Layout, Layouts, Responsive, WidthProvider } from 'react-grid-layout';
+import { useHistory } from 'react-router-dom';
+import useResponsiveGridStyles from './useResponsiveGridStyles';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
@@ -28,8 +32,15 @@ function saveToLS(key: string, value: Layouts) {
   }
 }
 
-const ResponsiveGrid: FC = props => {
+export interface ResponsiveGridNodeProps {
+  onRemove(moduleId: string): void;
+}
+
+const ResponsiveGrid: FC<ResponsiveGridNodeProps> = props => {
+  const { children, onRemove } = props;
   const [layouts, setLayouts] = useState(JSON.parse(JSON.stringify(getFromLS('layouts') || {})));
+  const classes = useResponsiveGridStyles();
+  const history = useHistory();
 
   const resetLayout = useCallback(() => {
     setLayouts({});
@@ -43,6 +54,14 @@ const ResponsiveGrid: FC = props => {
     [setLayouts],
   );
 
+  const handleZoom = useCallback(
+    (path: string) => {
+      console.log(['handleZoom'], path)
+      history.push(path);
+    },
+    [history],
+  );
+
   return (
     <div>
       <button onClick={resetLayout}>Reset Layout</button>
@@ -53,13 +72,29 @@ const ResponsiveGrid: FC = props => {
         layouts={layouts}
         onLayoutChange={onLayoutChange}
       >
-        {Children.map(props.children, (node, index) => (
+        {Children.map(children, (node: any, index) => (
           <div
             key={index}
             style={{ border: 'solid', overflow: 'scroll' }}
             data-grid={{ w: 2, h: 3, x: index * 2, y: 0, minW: 2, minH: 3 }}
           >
             {node}
+            <IconButton
+              className={classes.remove}
+              onClick={() => {
+                onRemove(node.props.path);
+              }}
+            >
+              <Clear />
+            </IconButton>
+            <IconButton
+              className={classes.zoom}
+              onClick={() => {
+                handleZoom(node.props.path);
+              }}
+            >
+              <ZoomIn />
+            </IconButton>
           </div>
         ))}
       </ResponsiveReactGridLayout>

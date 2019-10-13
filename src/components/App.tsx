@@ -44,6 +44,14 @@ const App: FC = () => {
     },
     [setOpenedTasksParams],
   );
+  const removeGridNode = useCallback(
+    (moduleId: string) => {
+      setOpenedTasksParams(prev =>
+        prev.filter(params => params.taskId === moduleId || params.taskType === moduleId),
+      );
+    },
+    [setOpenedTasksParams],
+  );
 
   useLayoutEffect(() => {
     try {
@@ -72,12 +80,16 @@ const App: FC = () => {
             <Route
               path="/dashboard"
               component={() => (
-                <ResponsiveGrid>
-                  <TaskList />
-                  <TaskTypeList />
-                  <SettingsQuery />
+                <ResponsiveGrid onRemove={removeGridNode}>
+                  <TaskList path={`${MODULES_IDS.TASK_LIST}`} />
+                  <TaskTypeList path={`${MODULES_IDS.TASK_TYPE_LIST}`} />
+                  <SettingsQuery path={`${MODULES_IDS.SETTINGS}`} />
                   {openedTasksParams.map(params => (
-                    <Task key={params.taskId || params.taskType} {...params} />
+                    <Task
+                      key={params.taskId || params.taskType}
+                      path={`${params.taskId}/${params.taskType}`}
+                      {...params}
+                    />
                   ))}
                 </ResponsiveGrid>
               )}
