@@ -3,13 +3,12 @@ import React, { FC } from 'react';
 import { QueryRenderer } from 'react-relay';
 import { ITEMS_PER_PAGE } from '../../../constans';
 import environment from '../../../environment';
-import { ModuleProps } from '../../App';
 import ErrorBoundary from '../../containers/error-boundary/ErrorBoundary';
 import Loader from '../../display/loader/Loader';
 import { SettingsQuery as ISettingsQuery } from './__generated__/SettingsQuery.graphql';
 import SettingsFragment from './fragment/SettingsFragment';
 
-const SettingsQuery: FC<ModuleProps> = props => (
+const SettingsQuery: FC = props => (
   <ErrorBoundary>
     <QueryRenderer<ISettingsQuery>
       variables={{

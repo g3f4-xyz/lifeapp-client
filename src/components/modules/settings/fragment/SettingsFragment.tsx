@@ -9,13 +9,16 @@ import {
   ExpansionPanelDetails,
   ExpansionPanelSummary,
   Grid,
+  IconButton,
   Paper,
   Typography,
 } from '@material-ui/core';
-import { DeleteForever, ExpandMore } from '@material-ui/icons';
+import { DeleteForever, Done, ExpandMore } from '@material-ui/icons';
 import graphql from 'babel-plugin-relay/macro';
-import React, { FC, useState } from 'react';
+import React, { FC, useCallback, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 import { createFragmentContainer } from 'react-relay';
+import { MODULES_IDS } from '../../../../constans';
 import cleanApplicationMutation from '../../../../mutations/cleanApplicationMutation';
 import deleteSubscriptionMutation from '../../../../mutations/deleteSubscriptionMutation';
 import registerUserSubscription from '../../../../service-worker/registerUserSubscription';
@@ -32,6 +35,11 @@ export interface SettingsFragmentProps {
 const SettingsFragment: FC<SettingsFragmentProps> = props => {
   const classes = useSettingsFragmentStyles();
   const [cleanApplicationDialogOpen, setCleanApplicationDialogOpen] = useState(false);
+  const history = useHistory();
+
+  const handleDone = useCallback(() => {
+    history.push(`/${MODULES_IDS.TASK_LIST}`);
+  }, [history]);
 
   const handleCleanApplicationDialogClose = () => {
     setCleanApplicationDialogOpen(false);
@@ -152,6 +160,9 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
           </Dialog>
         </div>
       </Paper>
+      <IconButton className={classes.doneButton} color="primary" onClick={handleDone}>
+        <Done className={classes.doneButtonIcon} />
+      </IconButton>
     </div>
   );
 };

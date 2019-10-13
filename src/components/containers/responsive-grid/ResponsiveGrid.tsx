@@ -1,68 +1,75 @@
-import { IconButton, Paper } from '@material-ui/core';
-import { Clear, ZoomIn } from '@material-ui/icons';
-import React, { Children, FC, ReactElement } from 'react';
-import { Responsive, ResponsiveProps, WidthProvider } from 'react-grid-layout';
-import { ModuleProps } from '../../App';
-import useResponsiveGridStyles from './useResponsiveGridStyles';
+import React, { Children } from 'react';
+import { WidthProvider, Responsive, Layout, Layouts } from 'react-grid-layout';
 
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
 
-export interface ResponsiveGridProps extends ResponsiveProps {
-  onModuleClose(moduleId: string): void;
-  onModuleZoom(moduleId: string): void;
-}
+function getFromLS(key: string): Layouts | null {
+  let ls = {};
 
-const ResponsiveGrid: FC<ResponsiveGridProps> = props => {
-  const { children, layouts, onLayoutChange, onModuleClose, onModuleZoom } = props;
-  const classes = useResponsiveGridStyles();
-
-  if (!children) {
-    return null;
+  if (localStorage) {
+    try {
+      ls = JSON.parse(localStorage.getItem('rgl-8') || '') || {};
+    } catch (e) {
+      /*Ignore*/
+    }
   }
 
-  return (
-    <ResponsiveReactGridLayout
-      className="layout"
-      cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
-      rowHeight={30}
-      layouts={layouts}
-      // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-      // @ts-ignore
-      onLayoutChange={onLayoutChange}
-    >
-      {Children.map(
-        children as ReactElement<ModuleProps>,
-        (node: ReactElement<ModuleProps>, key: number) =>
-          node &&
-          node.props && (
-            <Paper
-              className={classes.tileContainer}
-              key={node.props.moduleId}
-              data-grid={{ w: 6, h: 4, x: key * 2, y: 0, minW: 1, minH: 1 }}
+  return ls[key];
+}
+
+function saveToLS(key: string, value: Layouts) {
+  if (localStorage) {
+    localStorage.setItem(
+      'rgl-8',
+      JSON.stringify({
+        [key]: value,
+      }),
+    );
+  }
+}
+
+export default class ResponsiveGrid extends React.PureComponent {
+  state = {
+    layouts: JSON.parse(JSON.stringify(getFromLS('layouts') || {})),
+  };
+
+  static defaultProps = {
+    className: 'layout',
+    cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
+    rowHeight: 30,
+  };
+
+  resetLayout = () => {
+    this.setState({ layouts: {} });
+  };
+
+  onLayoutChange = (_currentLayout: Layout[], allLayouts: Layouts) => {
+    saveToLS('layouts', allLayouts);
+    this.setState({ layouts: allLayouts });
+  };
+
+  render() {
+    return (
+      <div>
+        <button onClick={this.resetLayout}>Reset Layout</button>
+        <ResponsiveReactGridLayout
+          className="layout"
+          cols={{ lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 }}
+          rowHeight={50}
+          layouts={this.state.layouts}
+          onLayoutChange={this.onLayoutChange}
+        >
+          {Children.map(this.props.children, (node, index) => (
+            <div
+              key={index}
+              style={{ border: 'solid', overflow: 'scroll' }}
+              data-grid={{ w: 2, h: 3, x: index * 2, y: 0, minW: 2, minH: 3 }}
             >
               {node}
-              <IconButton
-                className={classes.remove}
-                onClick={() => onModuleClose(node.props.moduleId)}
-              >
-                <Clear />
-              </IconButton>
-              <IconButton
-                className={classes.zoom}
-                onClick={() => onModuleZoom(node.props.moduleId)}
-              >
-                <ZoomIn />
-              </IconButton>
-            </Paper>
-          ),
-      )}
-    </ResponsiveReactGridLayout>
-  );
-};
-
-ResponsiveGrid.defaultProps = {
-  cols: { lg: 12, md: 10, sm: 6, xs: 4, xxs: 2 },
-  rowHeight: 30,
-};
-
-export default ResponsiveGrid;
+            </div>
+          ))}
+        </ResponsiveReactGridLayout>
+      </div>
+    );
+  }
+}

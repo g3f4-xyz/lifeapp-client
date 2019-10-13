@@ -24,5 +24,15 @@ export default makeStyles(() =>
     listLoader: {
       marginTop: 20,
     },
+    doneButton: {
+      zIndex: 9,
+      position: 'fixed',
+      bottom: 20,
+      right: 20,
+    },
+    doneButtonIcon: {
+      color: '#8BC34A',
+      fontSize: 72,
+    },
   }),
 );
