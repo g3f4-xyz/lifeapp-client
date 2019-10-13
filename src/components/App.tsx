@@ -81,9 +81,9 @@ const App: FC = () => {
               path="/dashboard"
               component={() => (
                 <ResponsiveGrid onRemove={removeGridNode}>
-                  <TaskList path={`${MODULES_IDS.TASK_LIST}`} />
-                  <TaskTypeList path={`${MODULES_IDS.TASK_TYPE_LIST}`} />
-                  <SettingsQuery path={`${MODULES_IDS.SETTINGS}`} />
+                  <TaskList path={`${MODULES_IDS.TASK_LIST}`} static />
+                  <TaskTypeList path={`${MODULES_IDS.TASK_TYPE_LIST}`} static />
+                  <SettingsQuery path={`${MODULES_IDS.SETTINGS}`} static />
                   {openedTasksParams.map(params => (
                     <Task
                       key={params.taskId || params.taskType}

@@ -6,6 +6,7 @@ import useTaskListQuery from './useTaskListQuery';
 
 export interface TaskListProps {
   path?: string;
+  static?: boolean;
 }
 
 const TaskList: FC<TaskListProps> = () => {

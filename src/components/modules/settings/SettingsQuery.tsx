@@ -10,6 +10,7 @@ import SettingsFragment from './fragment/SettingsFragment';
 
 export interface SettingsQueryProps {
   path?: string;
+  static?: boolean;
 }
 
 const SettingsQuery: FC<SettingsQueryProps> = props => (

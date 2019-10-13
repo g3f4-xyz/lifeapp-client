@@ -10,6 +10,7 @@ export interface TaskProps {
   taskId?: string;
   taskType?: TaskTypeEnum;
   path?: string;
+  static?: boolean;
 }
 
 const Task: FC<TaskProps> = ownProps => {

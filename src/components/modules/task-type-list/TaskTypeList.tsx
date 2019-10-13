@@ -6,6 +6,7 @@ import useTaskTypeQuery from './useTaskTypeListQuery';
 
 export interface TaskTypeListProps {
   path?: string;
+  static?: boolean;
 }
 
 const TaskTypeList: FC<TaskTypeListProps> = () => {

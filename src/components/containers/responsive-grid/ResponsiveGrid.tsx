@@ -80,14 +80,16 @@ const ResponsiveGrid: FC<ResponsiveGridNodeProps> = props => {
             data-grid={{ w: 2, h: 3, x: index * 2, y: 0, minW: 2, minH: 3 }}
           >
             {node}
-            <IconButton
-              className={classes.remove}
-              onClick={() => {
-                onRemove(node.props.path);
-              }}
-            >
-              <Clear />
-            </IconButton>
+            {!node.props.static && (
+              <IconButton
+                className={classes.remove}
+                onClick={() => {
+                  onRemove(node.props.path);
+                }}
+              >
+                <Clear />
+              </IconButton>
+            )}
             <IconButton
               className={classes.zoom}
               onClick={() => {
