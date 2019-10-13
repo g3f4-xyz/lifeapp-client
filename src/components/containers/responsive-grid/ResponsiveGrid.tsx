@@ -1,4 +1,5 @@
 import { IconButton } from '@material-ui/core';
+import Paper from '@material-ui/core/Paper';
 import { Clear, ZoomIn } from '@material-ui/icons';
 import React, { Children, FC, useCallback, useState } from 'react';
 import { Layout, Layouts, Responsive, WidthProvider } from 'react-grid-layout';
@@ -73,9 +74,9 @@ const ResponsiveGrid: FC<ResponsiveGridNodeProps> = props => {
         onLayoutChange={onLayoutChange}
       >
         {Children.map(children, (node: any, index) => (
-          <div
+          <Paper
             key={index}
-            style={{ border: 'solid', overflow: 'scroll' }}
+            style={{ overflow: 'scroll' }}
             data-grid={{ w: 2, h: 3, x: index * 2, y: 0, minW: 2, minH: 3 }}
           >
             {node}
@@ -95,7 +96,7 @@ const ResponsiveGrid: FC<ResponsiveGridNodeProps> = props => {
             >
               <ZoomIn />
             </IconButton>
-          </div>
+          </Paper>
         ))}
       </ResponsiveReactGridLayout>
     </div>
