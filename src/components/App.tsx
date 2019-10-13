@@ -1,8 +1,9 @@
-import React, { FC, useLayoutEffect } from 'react';
+import React, { FC, useCallback, useLayoutEffect, useState } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { MODULES_IDS } from '../constans';
 import registerUserSubscription from '../service-worker/registerUserSubscription';
 import assetsServiceWorker from '../service-worker/serviceWorkerManager';
+import AppContext, { TaskParams } from './AppContext';
 import ErrorBoundary from './containers/error-boundary/ErrorBoundary';
 import ResponsiveGrid from './containers/responsive-grid/ResponsiveGrid';
 import AppMenu from './display/app-menu/AppMenu';
@@ -24,6 +25,26 @@ assetsServiceWorker.register({
 });
 
 const App: FC = () => {
+  const [openedTasksParams, setOpenedTasksParams] = useState<TaskParams[]>([]);
+
+  const addTaskParam = useCallback(
+    (taskParams: TaskParams) => {
+      const duplicate =
+        openedTasksParams.findIndex(({ taskId }) => taskId === taskParams.taskId) >= 0;
+
+      if (!duplicate) {
+        setOpenedTasksParams(prev => [...prev, taskParams]);
+      }
+    },
+    [openedTasksParams, setOpenedTasksParams],
+  );
+  const removeTaskParam = useCallback(
+    (taskParams: TaskParams) => {
+      setOpenedTasksParams(prev => prev.filter(params => params.taskId === taskParams.taskId));
+    },
+    [setOpenedTasksParams],
+  );
+
   useLayoutEffect(() => {
     try {
       if (Notification.permission === 'granted') {
@@ -40,28 +61,33 @@ const App: FC = () => {
 
   return (
     <ErrorBoundary>
-      <BrowserRouter>
-        <AppMenu />
-        <Switch>
-          <Route path={`/${MODULES_IDS.TASK_LIST}`} component={TaskList} />
-          <Route path={`/${MODULES_IDS.TASK_TYPE_LIST}`} component={TaskTypeList} />
-          <Route path={`/${MODULES_IDS.TASK}/*`} component={Task} />
-          <Route path={`/${MODULES_IDS.SETTINGS}`} component={SettingsQuery} />
-          <Route
-            path="/dashboard"
-            component={() => (
-              <ResponsiveGrid>
-                <TaskList />
-                <TaskTypeList />
-                <SettingsQuery />
-              </ResponsiveGrid>
-            )}
-          />
-          <Route path="/">
-            <Redirect to={MODULES_IDS.TASK_LIST} />
-          </Route>
-        </Switch>
-      </BrowserRouter>
+      <AppContext.Provider value={{ value: { openedTasksParams }, addTaskParam, removeTaskParam }}>
+        <BrowserRouter>
+          <AppMenu />
+          <Switch>
+            <Route path={`/${MODULES_IDS.TASK_LIST}`} component={TaskList} />
+            <Route path={`/${MODULES_IDS.TASK_TYPE_LIST}`} component={TaskTypeList} />
+            <Route path={`/${MODULES_IDS.TASK}/*`} component={Task} />
+            <Route path={`/${MODULES_IDS.SETTINGS}`} component={SettingsQuery} />
+            <Route
+              path="/dashboard"
+              component={() => (
+                <ResponsiveGrid>
+                  <TaskList />
+                  <TaskTypeList />
+                  <SettingsQuery />
+                  {openedTasksParams.map(params => (
+                    <Task key={params.taskId || params.taskType} {...params} />
+                  ))}
+                </ResponsiveGrid>
+              )}
+            />
+            <Route path="/">
+              <Redirect to={MODULES_IDS.TASK_LIST} />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </AppContext.Provider>
     </ErrorBoundary>
   );
 };

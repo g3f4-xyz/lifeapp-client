@@ -1,19 +1,33 @@
 import { createContext } from 'react';
+import { TaskTypeEnum } from '../constans';
+
+export interface TaskParams {
+  taskType: TaskTypeEnum;
+  taskId: string;
+}
 
 export interface AppContextValue {
-  pure: boolean;
+  openedTasksParams: TaskParams[];
 }
 
 export interface AppContextProps {
   value: AppContextValue;
-  toggleMemo(): void;
+
+  addTaskParam(taskParams: TaskParams): void;
+  removeTaskParam(taskParams: TaskParams): void;
 }
 
 const AppContext = createContext<AppContextProps>({
   value: {
-    pure: false,
+    openedTasksParams: [],
   },
-  toggleMemo: Function,
+
+  addTaskParam(_taskParams: TaskParams): void {
+    return;
+  },
+  removeTaskParam(_taskParams: TaskParams): void {
+    return;
+  },
 });
 
 export default AppContext;

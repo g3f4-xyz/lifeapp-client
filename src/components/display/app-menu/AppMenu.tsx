@@ -1,7 +1,7 @@
 import { IconButton, Menu, MenuItem } from '@material-ui/core';
 import { MoreVert } from '@material-ui/icons';
 import React, { FC, MouseEvent, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useRouteMatch } from 'react-router-dom';
 import { MODULES_IDS } from '../../../constans';
 
 const AppMenu: FC = () => {
@@ -9,6 +9,7 @@ const AppMenu: FC = () => {
   const [anchorEl, setAnchorEl] = useState<MouseEvent<HTMLButtonElement>['currentTarget'] | null>(
     null,
   );
+  const { isExact: gridView } = useRouteMatch('/dashboard') || {};
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget);
@@ -26,15 +27,9 @@ const AppMenu: FC = () => {
       },
     },
     {
-      label: 'Show grid',
+      label: gridView ? 'Hide grid' : 'Show grid',
       action: () => {
-        history.push('/dashboard');
-      },
-    },
-    {
-      label: 'Hide grid',
-      action: () => {
-        history.push(`/${MODULES_IDS.TASK_LIST}`);
+        history.push(gridView ? `/${MODULES_IDS.TASK_LIST}` : '/dashboard');
       },
     },
     {

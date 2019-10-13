@@ -29,9 +29,7 @@ function saveToLS(key: string, value: Layouts) {
 }
 
 const ResponsiveGrid: FC = props => {
-  const [layouts, setLayouts] = useState(
-    JSON.parse(JSON.stringify(getFromLS('layouts') || {}))
-  );
+  const [layouts, setLayouts] = useState(JSON.parse(JSON.stringify(getFromLS('layouts') || {})));
 
   const resetLayout = useCallback(() => {
     setLayouts({});
@@ -42,7 +40,7 @@ const ResponsiveGrid: FC = props => {
       saveToLS('layouts', allLayouts);
       setLayouts(allLayouts);
     },
-    [saveToLS, setLayouts],
+    [setLayouts],
   );
 
   return (
