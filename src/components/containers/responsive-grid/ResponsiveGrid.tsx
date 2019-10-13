@@ -33,15 +33,9 @@ function saveToLS(key: string, value: Layouts) {
   }
 }
 
-export interface ResponsiveGridNodeProps {
-  onRemove(moduleId: string): void;
-}
-
-const ResponsiveGrid: FC<ResponsiveGridNodeProps> = props => {
-  const { children, onRemove } = props;
+const ResponsiveGrid: FC = props => {
+  const { children } = props;
   const [layouts, setLayouts] = useState(JSON.parse(JSON.stringify(getFromLS('layouts') || {})));
-  const classes = useResponsiveGridStyles();
-  const history = useHistory();
 
   const resetLayout = useCallback(() => {
     setLayouts({});
@@ -55,14 +49,6 @@ const ResponsiveGrid: FC<ResponsiveGridNodeProps> = props => {
     [setLayouts],
   );
 
-  const handleZoom = useCallback(
-    (path: string) => {
-      console.log(['handleZoom'], path)
-      history.push(path);
-    },
-    [history],
-  );
-
   return (
     <div>
       <button onClick={resetLayout}>Reset Layout</button>
@@ -73,34 +59,51 @@ const ResponsiveGrid: FC<ResponsiveGridNodeProps> = props => {
         layouts={layouts}
         onLayoutChange={onLayoutChange}
       >
-        {Children.map(children, (node: any, index) => (
+        {Children.map(children, (node, index) => (
           <Paper
             key={index}
             style={{ overflow: 'scroll' }}
             data-grid={{ w: 2, h: 3, x: index * 2, y: 0, minW: 2, minH: 3 }}
           >
             {node}
-            {!node.props.static && (
-              <IconButton
-                className={classes.remove}
-                onClick={() => {
-                  onRemove(node.props.path);
-                }}
-              >
-                <Clear />
-              </IconButton>
-            )}
-            <IconButton
-              className={classes.zoom}
-              onClick={() => {
-                handleZoom(node.props.path);
-              }}
-            >
-              <ZoomIn />
-            </IconButton>
           </Paper>
         ))}
       </ResponsiveReactGridLayout>
+    </div>
+  );
+};
+
+export interface ResponsiveGridItemProps {
+  path: string;
+  fixed?: boolean;
+
+  onRemove(moduleId: string): void;
+}
+
+export const ResponsiveGridItem: FC<ResponsiveGridItemProps> = props => {
+  const { children, path, fixed, onRemove } = props;
+  const history = useHistory();
+  const classes = useResponsiveGridStyles();
+
+  const handleRemove = useCallback(() => {
+    onRemove(path);
+  }, [path, onRemove]);
+
+  const handleZoom = useCallback(() => {
+    history.push(path);
+  }, [history, path]);
+
+  return (
+    <div>
+      {children}
+      {!fixed && (
+        <IconButton className={classes.remove} onClick={handleRemove}>
+          <Clear />
+        </IconButton>
+      )}
+      <IconButton className={classes.zoom} onClick={handleZoom}>
+        <ZoomIn />
+      </IconButton>
     </div>
   );
 };

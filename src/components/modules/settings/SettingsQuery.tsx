@@ -8,12 +8,7 @@ import Loader from '../../display/loader/Loader';
 import { SettingsQuery as ISettingsQuery } from './__generated__/SettingsQuery.graphql';
 import SettingsFragment from './fragment/SettingsFragment';
 
-export interface SettingsQueryProps {
-  path?: string;
-  static?: boolean;
-}
-
-const SettingsQuery: FC<SettingsQueryProps> = props => (
+const SettingsQuery: FC = props => (
   <ErrorBoundary>
     <QueryRenderer<ISettingsQuery>
       variables={{
