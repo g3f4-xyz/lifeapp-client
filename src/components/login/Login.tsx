@@ -3,6 +3,7 @@ import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import React, { FC } from 'react';
+import { HOST } from '../../constans';
 import useLoginStyles from './useLoginStyles';
 
 const Login: FC = () => {
@@ -22,14 +23,14 @@ const Login: FC = () => {
             </Grid>
             <Grid item xs={6}>
               <Paper className={classes.paper}>
-                <Button size="large" href="auth/google" className={classes.button}>
+                <Button size="large" href={`${HOST}/auth/google`} className={classes.button}>
                   Connect with Google
                 </Button>
               </Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className={classes.paper}>
-                <Button size="large" href="demo" className={classes.button}>
+                <Button size="large" href={`${HOST}/demo`} className={classes.button}>
                   Try Demo
                 </Button>
               </Paper>

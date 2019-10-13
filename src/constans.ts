@@ -82,13 +82,11 @@ export const TASK_STATUSES: ExcludeFutureAdded<UnionKeyToValue<TaskStatus>> = {
   DONE: 'DONE',
 };
 
-export type LOCAL_STORAGE_LAYOUT_KEY = 'layouts';
-
-export const LOCAL_STORAGE_LAYOUTS_KEY = 'layouts';
-
 export type FieldTypeEnum = FieldType;
 export type FieldIdEnum = FieldId;
 export type TaskTypeEnum = TaskType;
 export type TaskStatusEnum = TaskStatus;
 
 export const DATE_TIME_FORMAT = `YYYY-MM-DDTHH:mm`;
+
+export const HOST = process.env.REACT_APP_GRAPHQL_HOST ? process.env.REACT_APP_GRAPHQL_HOST.slice(0, -8) : '';
