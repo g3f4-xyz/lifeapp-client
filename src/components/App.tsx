@@ -1,5 +1,5 @@
 import React, { FC, useCallback, useState } from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 import { MODULES_IDS } from '../constans';
 import AppContext, { TaskParams } from './AppContext';
 import ErrorBoundary from './containers/error-boundary/ErrorBoundary';
@@ -31,7 +31,7 @@ const App: FC = () => {
     [setOpenedTasksParams],
   );
   const removeGridItem = (path: string) => {
-    const [firstPart, secondPart, thirdPart] = path.split('/');
+    const [_hash, firstPart, secondPart, thirdPart] = path.split('/');
 
     if (firstPart === 'task') {
       const filtered = openedTasksParams.filter(
@@ -45,7 +45,7 @@ const App: FC = () => {
   return (
     <ErrorBoundary>
       <AppContext.Provider value={{ value: { openedTasksParams }, addTaskParam, removeTaskParam }}>
-        <BrowserRouter>
+        <HashRouter>
           <AppMenu />
           <Switch>
             <Route path={`/${MODULES_IDS.TASK_LIST}`} component={TaskList} />
@@ -57,21 +57,21 @@ const App: FC = () => {
               component={() => (
                 <ResponsiveGrid>
                   <ResponsiveGridItem
-                    path={`${MODULES_IDS.TASK_LIST}`}
+                    path={`/${MODULES_IDS.TASK_LIST}`}
                     onRemove={removeGridItem}
                     fixed
                   >
                     <TaskList />
                   </ResponsiveGridItem>
                   <ResponsiveGridItem
-                    path={`${MODULES_IDS.TASK_TYPE_LIST}`}
+                    path={`/${MODULES_IDS.TASK_TYPE_LIST}`}
                     onRemove={removeGridItem}
                     fixed
                   >
                     <TaskTypeList />
                   </ResponsiveGridItem>
                   <ResponsiveGridItem
-                    path={`${MODULES_IDS.SETTINGS}`}
+                    path={`/${MODULES_IDS.SETTINGS}`}
                     onRemove={removeGridItem}
                     fixed
                   >
@@ -80,7 +80,7 @@ const App: FC = () => {
                   {openedTasksParams.map(params => (
                     <ResponsiveGridItem
                       key={params.taskId || params.taskType}
-                      path={`task/${params.taskType}/${params.taskId}`}
+                      path={`/task/${params.taskType}/${params.taskId}`}
                       onRemove={removeGridItem}
                     >
                       <Task {...params} />
@@ -89,11 +89,11 @@ const App: FC = () => {
                 </ResponsiveGrid>
               )}
             />
-            <Route path="/">
-              <Redirect to={MODULES_IDS.TASK_LIST} />
+            <Route path="/*">
+              <Redirect to={`/${MODULES_IDS.TASK_LIST}`} />
             </Route>
           </Switch>
-        </BrowserRouter>
+        </HashRouter>
       </AppContext.Provider>
     </ErrorBoundary>
   );
