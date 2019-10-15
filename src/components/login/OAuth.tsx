@@ -8,7 +8,11 @@ import { UserInfo } from './useAuth';
 // eslint-disable-next-line no-undef
 const API_HOST = process.env.REACT_APP_API_HOST || '';
 
-const socket = io(API_HOST);
+const openWindow = (provider: string, socketId: string) => {
+  const url = `${API_HOST}/auth/${provider}?socketId=${socketId}`;
+
+  return window.open(url);
+};
 
 export interface OAuthProps {
   provider: string;
@@ -28,15 +32,6 @@ export default class OAuth extends Component<OAuthProps, State> {
 
   private authWindow: Window | null = null;
 
-  componentDidMount() {
-    const { provider } = this.props;
-
-    socket.on(provider, (user: UserInfo) => {
-      this.authWindow && this.authWindow.close();
-      this.props.onUserInfo(user);
-    });
-  }
-
   checkWindow() {
     const check = setInterval(() => {
       const { authWindow } = this;
@@ -48,19 +43,24 @@ export default class OAuth extends Component<OAuthProps, State> {
     }, 1000);
   }
 
-  openWindow() {
-    const { provider } = this.props;
-    const url = `${API_HOST}/auth/${provider}?socketId=${socket.id}`;
-
-    return window.open(url);
-  }
-
   startAuth = () => {
     if (!this.state.disabled) {
-      this.authWindow = this.openWindow();
+      const { provider } = this.props;
+      const socket = io(API_HOST);
 
-      this.checkWindow();
-      this.setState({ disabled: true });
+      socket.on('connect', () => {
+        this.authWindow = openWindow(provider, socket.id);
+
+        this.checkWindow();
+        this.setState({
+          disabled: true,
+        });
+
+        socket.on(provider, (user: UserInfo) => {
+          this.authWindow && this.authWindow.close();
+          this.props.onUserInfo(user);
+        });
+      });
     }
   };
 
