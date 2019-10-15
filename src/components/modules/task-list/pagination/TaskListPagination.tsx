@@ -33,12 +33,13 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
     8,
   );
   const history = useHistory();
+
   const handleAdd = useCallback(() => {
-    history.push(`/${MODULES_IDS.TASK_TYPE_LIST}`);
+    history.push(`/app/${MODULES_IDS.TASK_TYPE_LIST}`);
   }, [history]);
   const handleEdit = useCallback(
     (taskType: TaskTypeEnum, taskId: string) => {
-      history.push(`/${MODULES_IDS.TASK}/${taskType}/${taskId}`);
+      history.push(`/app/${MODULES_IDS.TASK}/${taskType}/${taskId}`);
     },
     [history],
   );

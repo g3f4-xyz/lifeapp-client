@@ -1,4 +1,3 @@
-import { getJSON as getCookie } from 'js-cookie';
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import Loader from './components/display/loader/Loader';
@@ -9,9 +8,6 @@ import registerUserSubscription from './service-worker/registerUserSubscription'
 import assetsServiceWorker from './service-worker/serviceWorkerManager';
 
 const App = React.lazy(() => import('./components/App'));
-const Login = React.lazy(() => import('./components/login/Login'));
-
-const logged: boolean = getCookie('logged');
 
 assetsServiceWorker.register({
   onUpdate(registration) {
@@ -39,13 +35,9 @@ try {
 
 ReactDOM.render(
   <Suspense fallback={<Loader />}>
-    {logged ? (
-      <RelayEnvironmentProvider environment={environment}>
-        <App />
-      </RelayEnvironmentProvider>
-    ) : (
-      <Login />
-    )}
+    <RelayEnvironmentProvider environment={environment}>
+      <App />
+    </RelayEnvironmentProvider>
   </Suspense>,
   document.getElementById('root'),
 );

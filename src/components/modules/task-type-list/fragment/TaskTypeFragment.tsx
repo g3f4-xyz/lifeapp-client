@@ -21,7 +21,7 @@ const TaskTypeFragment: FC<TaskTypeFragmentProps> = props => {
   const history = useHistory();
 
   const handleAdd = useCallback(() => {
-    history.push(`/${MODULES_IDS.TASK}/${typeId}/`);
+    history.push(`/app/${MODULES_IDS.TASK}/${typeId}/`);
   }, [typeId, history]);
   const handleInfo = useCallback(() => {
     setInfo(value => !value);

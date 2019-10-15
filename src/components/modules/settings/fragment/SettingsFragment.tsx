@@ -16,17 +16,17 @@ import {
 import { DeleteForever, Done, ExpandMore } from '@material-ui/icons';
 import graphql from 'babel-plugin-relay/macro';
 import React, { FC, useCallback, useState } from 'react';
-import { useHistory } from 'react-router-dom';
 import { createFragmentContainer } from 'react-relay';
+import { useHistory } from 'react-router-dom';
 import { MODULES_IDS } from '../../../../constans';
 import cleanApplicationMutation from '../../../../mutations/cleanApplicationMutation';
 import deleteSubscriptionMutation from '../../../../mutations/deleteSubscriptionMutation';
 import registerUserSubscription from '../../../../service-worker/registerUserSubscription';
-import { SettingsFragment_data as SettingsFragmentResponse } from './__generated__/SettingsFragment_data.graphql';
 import NotificationsGeneralFragment from '../notifications/general/NotificationsGeneralFragment';
 import NotificationsTypesFragment from '../notifications/types/NotificationsTypesFragment';
-import SubscriptionsPagination from '../subscriptions/pagination/SubscriptionsPagination';
 import useSettingsFragmentStyles from '../subscriptions/fragment/useSettingsFragmentStyles';
+import SubscriptionsPagination from '../subscriptions/pagination/SubscriptionsPagination';
+import { SettingsFragment_data as SettingsFragmentResponse } from './__generated__/SettingsFragment_data.graphql';
 
 export interface SettingsFragmentProps {
   data: SettingsFragmentResponse;
@@ -38,7 +38,7 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
   const history = useHistory();
 
   const handleDone = useCallback(() => {
-    history.push(`/${MODULES_IDS.TASK_LIST}`);
+    history.push(`/app/${MODULES_IDS.TASK_LIST}`);
   }, [history]);
 
   const handleCleanApplicationDialogClose = () => {
