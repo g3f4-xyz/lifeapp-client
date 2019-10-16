@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
+import { HashRouter } from 'react-router-dom';
 import Loader from './components/display/loader/Loader';
 import './index.css';
 import { RelayEnvironmentProvider } from 'relay-hooks';
@@ -36,7 +37,9 @@ try {
 ReactDOM.render(
   <Suspense fallback={<Loader />}>
     <RelayEnvironmentProvider environment={environment}>
-      <App />
+      <HashRouter>
+        <App />
+      </HashRouter>
     </RelayEnvironmentProvider>
   </Suspense>,
   document.getElementById('root'),

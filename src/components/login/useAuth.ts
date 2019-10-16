@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 // eslint-disable-next-line no-undef
 const API_HOST = process.env.REACT_APP_API_HOST || '';
@@ -22,12 +23,13 @@ export interface UseAuth {
 const useAuth: UseAuth = () => {
   const [loading, setLoading] = useState(true);
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
       // @ts-ignore
-      const response = await fetch(`${API_HOST}/wake-up`, {
+      const response = await fetch(`${API_HOST}/user-info`, {
         // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
         // @ts-ignore
         headers: { 'Access-Control-Allow-Credentials': true },
@@ -36,6 +38,10 @@ const useAuth: UseAuth = () => {
         credentials: 'include',
       });
       const userInfo = await response.json();
+
+      if (userInfo.name) {
+        history.push('/app');
+      }
 
       setLoading(false);
       setUserInfo(userInfo);

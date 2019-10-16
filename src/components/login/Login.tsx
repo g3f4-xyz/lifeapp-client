@@ -6,6 +6,7 @@ import React, { FC, useCallback, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import AuthContext from '../../contexts/AuthContext';
 import OAuth from './OAuth';
+import { UserInfo } from './useAuth';
 import useLoginStyles from './useLoginStyles';
 
 const providers = [
@@ -17,9 +18,17 @@ const Login: FC = () => {
   const classes = useLoginStyles();
   const history = useHistory();
   const { loading, userInfo, setUserInfo } = useContext(AuthContext);
+
   const handleDemo = useCallback(() => {
     history.push('/app');
   }, [history]);
+  const handleLogged = useCallback(
+    (userInfo: UserInfo) => {
+      setUserInfo(userInfo);
+      history.push('/app');
+    },
+    [history, setUserInfo],
+  );
 
   return (
     <div className={classes.root}>
@@ -41,7 +50,7 @@ const Login: FC = () => {
                       <OAuth
                         provider={provider}
                         key={provider}
-                        onUserInfo={setUserInfo}
+                        onUserInfo={handleLogged}
                         userInfo={userInfo}
                       />
                     ))}
