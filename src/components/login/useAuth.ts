@@ -41,7 +41,9 @@ const useAuth: UseAuth = () => {
       setUserInfo(userInfo);
     };
 
-    fetchUserInfo();
+    if (loading) {
+      fetchUserInfo();
+    }
   }, [loading, setLoading, setUserInfo]);
 
   return {

@@ -26,22 +26,25 @@ interface State {
 }
 
 export default class OAuth extends Component<OAuthProps, State> {
-  state = {
+  state: State = {
     disabled: false,
   };
 
   private authWindow: Window | null = null;
 
-  checkWindow() {
+  checkWindow = () => {
     const check = setInterval(() => {
       const { authWindow } = this;
 
       if (!authWindow || authWindow.closed || authWindow.closed === undefined) {
         clearInterval(check);
+
+        io(API_HOST).emit('end');
+
         this.setState({ disabled: false });
       }
     }, 1000);
-  }
+  };
 
   startAuth = () => {
     if (!this.state.disabled) {
