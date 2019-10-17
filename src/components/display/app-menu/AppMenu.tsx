@@ -23,19 +23,19 @@ const AppMenu: FC = () => {
     {
       label: 'Log out',
       action: () => {
-        history.push('/logout');
+        history.push('/login');
       },
     },
     {
       label: gridView ? 'Hide grid' : 'Show grid',
       action: () => {
-        history.push(gridView ? `/${MODULES_IDS.TASK_LIST}` : '/dashboard');
+        history.push(gridView ? `/app/${MODULES_IDS.TASK_LIST}` : '/dashboard');
       },
     },
     {
       label: 'Show settings',
       action: () => {
-        history.push(`/${MODULES_IDS.SETTINGS}`);
+        history.push(`/app/${MODULES_IDS.SETTINGS}`);
       },
     },
   ];

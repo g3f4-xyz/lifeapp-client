@@ -2,12 +2,33 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import React, { FC } from 'react';
-import { HOST } from '../../constans';
+import React, { FC, useCallback, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
+import AuthContext from '../../contexts/AuthContext';
+import OAuth from './OAuth';
+import { UserInfo } from './useAuth';
 import useLoginStyles from './useLoginStyles';
+
+const providers = [
+  'google',
+  // 'github',
+];
 
 const Login: FC = () => {
   const classes = useLoginStyles();
+  const history = useHistory();
+  const { loading, userInfo, setUserInfo } = useContext(AuthContext);
+
+  const handleDemo = useCallback(() => {
+    history.push('/app');
+  }, [history]);
+  const handleLogged = useCallback(
+    (userInfo: UserInfo) => {
+      setUserInfo(userInfo);
+      history.push('/app');
+    },
+    [history, setUserInfo],
+  );
 
   return (
     <div className={classes.root}>
@@ -23,14 +44,21 @@ const Login: FC = () => {
             </Grid>
             <Grid item xs={6}>
               <Paper className={classes.paper}>
-                <Button size="large" href={`${HOST}/auth/google`} className={classes.button}>
-                  Connect with Google
-                </Button>
+                {loading
+                  ? 'Preparing authorization...'
+                  : providers.map(provider => (
+                      <OAuth
+                        provider={provider}
+                        key={provider}
+                        onUserInfo={handleLogged}
+                        userInfo={userInfo}
+                      />
+                    ))}
               </Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className={classes.paper}>
-                <Button size="large" href={`${HOST}/demo`} className={classes.button}>
+                <Button size="large" onClick={handleDemo} className={classes.button}>
                   Try Demo
                 </Button>
               </Paper>

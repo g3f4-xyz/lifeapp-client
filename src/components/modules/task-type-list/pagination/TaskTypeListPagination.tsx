@@ -25,7 +25,7 @@ const TaskTypeList: FC<TaskTypeListProps> = props => {
   const history = useHistory();
 
   const handleDone = useCallback(() => {
-    history.push(`/${MODULES_IDS.TASK_LIST}`);
+    history.push(`/app/${MODULES_IDS.TASK_LIST}`);
   }, [history]);
 
   if (isLoading()) {

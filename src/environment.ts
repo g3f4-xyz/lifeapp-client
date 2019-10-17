@@ -4,28 +4,35 @@ import { Environment, FetchFunction, Network, RecordSource, Store } from 'relay-
 const GRAPHQL_API_HOST = process.env.REACT_APP_GRAPHQL_HOST || `/graphql`;
 
 const fetchQuery: FetchFunction = (operation, variables) => {
-  return fetch(GRAPHQL_API_HOST, {
-    credentials: 'same-origin',
+  const opts = {
+    credentials: 'include',
     method: 'POST',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
+      'Access-Control-Allow-Credentials': true,
     },
     body: JSON.stringify({
       query: operation.text,
       variables,
     }),
-  })
-    .then(response => response.json())
-    .then(json => {
-      if (json && json.errors) {
-        json.errors.forEach((error: Error) => {
-          console.error(error.message);
-        });
-      }
+  };
+  return (
+    // @ts-ignore
+    fetch(GRAPHQL_API_HOST, opts)
+      // @ts-ignore
+      .then(response => response.json())
+      // @ts-ignore
+      .then(json => {
+        if (json && json.errors) {
+          json.errors.forEach((error: Error) => {
+            console.error(error.message);
+          });
+        }
 
-      return json;
-    });
+        return json;
+      })
+  );
 };
 
 const network = Network.create(fetchQuery);

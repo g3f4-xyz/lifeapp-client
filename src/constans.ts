@@ -89,4 +89,8 @@ export type TaskStatusEnum = TaskStatus;
 
 export const DATE_TIME_FORMAT = `YYYY-MM-DDTHH:mm`;
 
-export const HOST = process.env.REACT_APP_GRAPHQL_HOST ? process.env.REACT_APP_GRAPHQL_HOST.slice(0, -8) : '';
+// eslint-disable-next-line no-undef
+export const HOST = process.env.REACT_APP_GRAPHQL_HOST
+  ? // eslint-disable-next-line no-undef
+    process.env.REACT_APP_GRAPHQL_HOST.slice(0, -8)
+  : '';
