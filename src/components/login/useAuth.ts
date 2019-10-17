@@ -50,7 +50,7 @@ const useAuth: UseAuth = () => {
     if (loading) {
       fetchUserInfo();
     }
-  }, [loading, setLoading, setUserInfo]);
+  }, [loading, history, setLoading, setUserInfo]);
 
   return {
     userInfo,
