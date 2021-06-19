@@ -1,20 +1,19 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
+export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
 export type SwitchFieldFragment_data$ref = any;
 export type SwitchFieldFragment_data = {
     readonly id: string;
-    readonly fieldId: FieldIdEnum;
+    readonly fieldId: FieldId;
     readonly meta: {
-        readonly fieldType: FieldTypeEnum;
-        readonly label: string;
-        readonly disabled: boolean | null;
-        readonly required: boolean;
+        readonly fieldType?: string | null;
+        readonly label?: string | null;
+        readonly disabled?: boolean | null;
+        readonly required?: boolean | null;
     };
     readonly value: {
-        readonly enabled: boolean;
+        readonly enabled?: boolean | null;
     };
     readonly " $refType": SwitchFieldFragment_data$ref;
 };
@@ -24,7 +23,7 @@ export type SwitchFieldFragment_data = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "SwitchFieldFragment_data",
-    "type": "SwitchFieldType",
+    "type": "Field",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -48,36 +47,42 @@ const node: ReaderFragment = ({
             "name": "meta",
             "storageKey": null,
             "args": null,
-            "concreteType": "SwitchMetaType",
+            "concreteType": null,
             "plural": false,
             "selections": [
                 {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "fieldType",
-                    "args": null,
-                    "storageKey": null
-                },
-                {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "label",
-                    "args": null,
-                    "storageKey": null
-                },
-                {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "disabled",
-                    "args": null,
-                    "storageKey": null
-                },
-                {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "required",
-                    "args": null,
-                    "storageKey": null
+                    "kind": "InlineFragment",
+                    "type": "SwitchFieldMeta",
+                    "selections": [
+                        {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "fieldType",
+                            "args": null,
+                            "storageKey": null
+                        },
+                        {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "label",
+                            "args": null,
+                            "storageKey": null
+                        },
+                        {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "disabled",
+                            "args": null,
+                            "storageKey": null
+                        },
+                        {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "required",
+                            "args": null,
+                            "storageKey": null
+                        }
+                    ]
                 }
             ]
         },
@@ -87,19 +92,25 @@ const node: ReaderFragment = ({
             "name": "value",
             "storageKey": null,
             "args": null,
-            "concreteType": "SwitchValueType",
+            "concreteType": null,
             "plural": false,
             "selections": [
                 {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "enabled",
-                    "args": null,
-                    "storageKey": null
+                    "kind": "InlineFragment",
+                    "type": "SwitchFieldValue",
+                    "selections": [
+                        {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "enabled",
+                            "args": null,
+                            "storageKey": null
+                        }
+                    ]
                 }
             ]
         }
     ]
 } as any);
-(node as any).hash = 'ece959f676ef97be1b514ae8aa9625f6';
+(node as any).hash = '63df6621076a6b6c5a1109094e44739e';
 export default node;

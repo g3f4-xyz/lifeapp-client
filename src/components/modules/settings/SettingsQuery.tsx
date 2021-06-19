@@ -17,19 +17,16 @@ const SettingsQuery: FC = props => (
       environment={environment}
       query={graphql`
         query SettingsQuery($count: Int!, $after: String) {
-          app {
-            settings {
-              id
-              ...SettingsFragment_data
-            }
+          settings {
+            ...SettingsFragment_data
           }
         }
       `}
       render={response => {
         if (response.error) {
           return <div>{JSON.stringify(response.error)}</div>;
-        } else if (response.props && response.props.app.settings) {
-          return <SettingsFragment data={response.props.app.settings} {...props} />;
+        } else if (response.props && response.props.settings) {
+          return <SettingsFragment data={response.props.settings} {...props} />;
         }
 
         return <Loader />;

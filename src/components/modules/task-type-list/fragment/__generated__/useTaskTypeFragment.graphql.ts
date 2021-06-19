@@ -1,13 +1,13 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type TaskTypeEnum = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO" | "%future added value";
+export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
 export type useTaskTypeFragment$ref = any;
 export type useTaskTypeFragment = {
     readonly id: string;
-    readonly typeId: TaskTypeEnum;
-    readonly label: string;
-    readonly description: string;
+    readonly typeId: TaskTypeId | null;
+    readonly label: string | null;
+    readonly description: string | null;
     readonly " $refType": useTaskTypeFragment$ref;
 };
 
@@ -16,7 +16,7 @@ export type useTaskTypeFragment = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "useTaskTypeFragment",
-    "type": "TaskTypeType",
+    "type": "TaskType",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -50,5 +50,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '406265357a2eb26cbdac9e1009cfbcb9';
+(node as any).hash = 'eb870fd7838b7dd406c970c73d51c783';
 export default node;

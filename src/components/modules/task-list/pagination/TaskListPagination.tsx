@@ -5,7 +5,7 @@ import MoreIcon from '@material-ui/icons/MoreHoriz';
 import React, { ChangeEvent, FC, Fragment, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { MODULES_IDS, TaskTypeEnum } from '../../../../constans';
-import { TaskStatusEnum } from '../../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
+import { TaskStatus } from '../../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 import deleteTaskMutation from '../../../../mutations/deleteTaskMutation';
 import updateTaskListStatusFilterSettingMutation from '../../../../mutations/updateTaskListStatusFilterSettingMutation';
 import updateTaskListTaskTypeFilterSettingMutation from '../../../../mutations/updateTaskListTaskTypeFilterSettingMutation';
@@ -20,7 +20,7 @@ import useTaskListPaginationStyles from './useTaskListPaginationStyles';
 
 interface TaskListPaginationProps {
   data: useTaskListPagination$ref;
-  settings: useTaskListQuery['response']['app']['settings']['taskList'];
+  settings: useTaskListQuery['response']['settings']['taskList'];
   settingsId: string;
 }
 
@@ -86,7 +86,7 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
 
     await updateTaskListStatusFilterSettingMutation(
       {
-        status: event.target.value.length > 0 ? (event.target.value as TaskStatusEnum) : null,
+        status: event.target.value.length > 0 ? (event.target.value as TaskStatus) : null,
       },
       { parentID: props.settingsId },
     );
@@ -137,7 +137,7 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
               edge =>
                 edge &&
                 edge.node && (
-                  <Grid key={edge.cursor} item xs={12} sm={12} md={6} lg={4} xl={3}>
+                  <Grid key={edge.node.id} item xs={12} sm={12} md={6} lg={4} xl={3}>
                     <TaskListFragment
                       data={edge.node}
                       onDelete={handleDelete}

@@ -4,13 +4,14 @@ import { RecordSourceSelectorProxy } from 'relay-runtime';
 import environment from '../environment';
 import {
   updateTaskListTaskTypeFilterSettingMutation,
-  updateTaskListTaskTypeFilterSettingMutationInput,
+  UpdateTaskListTaskTypeFilterSettingInput,
   updateTaskListTaskTypeFilterSettingMutationResponse,
 } from './__generated__/updateTaskListTaskTypeFilterSettingMutation.graphql';
+import { Primitive } from "relay-runtime/lib/store/RelayStoreTypes";
 
 const mutation = graphql`
   mutation updateTaskListTaskTypeFilterSettingMutation(
-    $input: updateTaskListTaskTypeFilterSettingMutationInput!
+    $input: UpdateTaskListTaskTypeFilterSettingInput!
   ) {
     updateTaskListTaskTypeFilterSetting(input: $input) {
       clientMutationId
@@ -20,7 +21,7 @@ const mutation = graphql`
 `;
 
 export default (
-  { taskType }: updateTaskListTaskTypeFilterSettingMutationInput,
+  { taskType }: UpdateTaskListTaskTypeFilterSettingInput,
   { parentID }: { parentID: string },
 ): Promise<updateTaskListTaskTypeFilterSettingMutationResponse> =>
   new Promise((onCompleted, onError): void => {
@@ -37,7 +38,7 @@ export default (
         const filtersRecord = taskListRecord && taskListRecord.getLinkedRecord('filters');
 
         if (filtersRecord) {
-          filtersRecord.setValue(taskType, 'taskType');
+          filtersRecord.setValue(taskType as Primitive[], 'taskType');
         }
       },
       updater: (store: RecordSourceSelectorProxy) => {

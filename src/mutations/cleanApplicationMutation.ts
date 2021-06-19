@@ -3,12 +3,12 @@ import { commitMutation } from 'react-relay';
 import environment from '../environment';
 import {
   cleanApplicationMutation,
-  cleanApplicationMutationInput,
+  CleanApplicationInput,
   cleanApplicationMutationResponse,
 } from './__generated__/cleanApplicationMutation.graphql';
 
 const mutation = graphql`
-  mutation cleanApplicationMutation($input: cleanApplicationMutationInput!) {
+  mutation cleanApplicationMutation($input: CleanApplicationInput!) {
     cleanApplication(input: $input) {
       clientMutationId
       navigationUrl
@@ -18,7 +18,7 @@ const mutation = graphql`
 
 export default ({
   ownerId,
-}: cleanApplicationMutationInput): Promise<cleanApplicationMutationResponse> =>
+}: CleanApplicationInput): Promise<cleanApplicationMutationResponse> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { ownerId } };
 

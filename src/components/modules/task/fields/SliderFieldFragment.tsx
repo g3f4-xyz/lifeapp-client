@@ -31,7 +31,9 @@ const SliderField: FC<SliderFieldProps> = props => {
   return (
     <Slider
       disabled={disabled || undefined}
+      // @ts-ignore
       value={progress}
+      // @ts-ignore
       label={label}
       max={max || undefined}
       min={min || undefined}
@@ -42,7 +44,7 @@ const SliderField: FC<SliderFieldProps> = props => {
 };
 
 graphql`
-  fragment SliderFieldFragmentMeta on SliderMetaType {
+  fragment SliderFieldFragmentMeta on SliderFieldMeta {
     fieldType
     label
     disabled
@@ -54,14 +56,14 @@ graphql`
 `;
 
 graphql`
-  fragment SliderFieldFragmentValue on SliderValueType {
+  fragment SliderFieldFragmentValue on SliderFieldValue {
     progress
   }
 `;
 
 export default createFragmentContainer<SliderFieldProps>(SliderField, {
   data: graphql`
-    fragment SliderFieldFragment_data on SliderFieldType {
+    fragment SliderFieldFragment_data on Field {
       id
       fieldId
       meta {

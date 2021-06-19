@@ -3,12 +3,12 @@ import { commitMutation } from 'react-relay';
 import environment from '../environment';
 import {
   testSubscriptionMutation,
-  testSubscriptionMutationInput,
+  TestSubscriptionInput,
   testSubscriptionMutationResponse,
 } from './__generated__/testSubscriptionMutation.graphql';
 
 const mutation = graphql`
-  mutation testSubscriptionMutation($input: testSubscriptionMutationInput!) {
+  mutation testSubscriptionMutation($input: TestSubscriptionInput!) {
     testSubscription(input: $input) {
       clientMutationId
       statusCode
@@ -18,7 +18,7 @@ const mutation = graphql`
 
 export default ({
   subscriptionId,
-}: testSubscriptionMutationInput): Promise<testSubscriptionMutationResponse> =>
+}: TestSubscriptionInput): Promise<testSubscriptionMutationResponse> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { subscriptionId } };
 

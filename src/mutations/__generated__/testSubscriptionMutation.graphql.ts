@@ -1,18 +1,18 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type testSubscriptionMutationInput = {
-    readonly subscriptionId?: string | null;
+export type TestSubscriptionInput = {
     readonly clientMutationId?: string | null;
+    readonly subscriptionId: string;
 };
 export type testSubscriptionMutationVariables = {
-    readonly input: testSubscriptionMutationInput;
+    readonly input: TestSubscriptionInput;
 };
 export type testSubscriptionMutationResponse = {
     readonly testSubscription: {
         readonly clientMutationId: string | null;
         readonly statusCode: string;
-    } | null;
+    };
 };
 export type testSubscriptionMutation = {
     readonly response: testSubscriptionMutationResponse;
@@ -23,7 +23,7 @@ export type testSubscriptionMutation = {
 
 /*
 mutation testSubscriptionMutation(
-  $input: testSubscriptionMutationInput!
+  $input: TestSubscriptionInput!
 ) {
   testSubscription(input: $input) {
     clientMutationId
@@ -37,7 +37,7 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "LocalArgument",
             "name": "input",
-            "type": "testSubscriptionMutationInput!",
+            "type": "TestSubscriptionInput!",
             "defaultValue": null
         } as any)
     ], v1 = [
@@ -53,7 +53,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "testSubscriptionMutationPayload",
+            "concreteType": "TestSubscriptionOutput",
             "plural": false,
             "selections": [
                 {
@@ -78,7 +78,7 @@ const node: ConcreteRequest = (function () {
         "fragment": {
             "kind": "Fragment",
             "name": "testSubscriptionMutation",
-            "type": "MutationType",
+            "type": "Mutation",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
@@ -93,10 +93,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "mutation",
             "name": "testSubscriptionMutation",
             "id": null,
-            "text": "mutation testSubscriptionMutation(\n  $input: testSubscriptionMutationInput!\n) {\n  testSubscription(input: $input) {\n    clientMutationId\n    statusCode\n  }\n}\n",
+            "text": "mutation testSubscriptionMutation(\n  $input: TestSubscriptionInput!\n) {\n  testSubscription(input: $input) {\n    clientMutationId\n    statusCode\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '2441060bcf9cb7295eebd9ec4edc0e9f';
+(node as any).hash = '95a52a8f85b003d0d4ee9347f3228758';
 export default node;

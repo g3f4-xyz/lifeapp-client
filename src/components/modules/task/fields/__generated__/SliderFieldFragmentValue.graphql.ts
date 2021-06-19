@@ -3,7 +3,7 @@
 import { ReaderFragment } from "relay-runtime";
 export type SliderFieldFragmentValue$ref = any;
 export type SliderFieldFragmentValue = {
-    readonly progress: number;
+    readonly progress: number | null;
     readonly " $refType": SliderFieldFragmentValue$ref;
 };
 
@@ -12,7 +12,7 @@ export type SliderFieldFragmentValue = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "SliderFieldFragmentValue",
-    "type": "SliderValueType",
+    "type": "SliderFieldValue",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -25,5 +25,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'a5f3b7c0b50f8cb3f6b1099b426417dd';
+(node as any).hash = 'cd4d2d4d1ff9a44f2c358669444a0ea3';
 export default node;

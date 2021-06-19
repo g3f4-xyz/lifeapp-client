@@ -39,7 +39,7 @@ const ChoiceField: FC<ChoiceFieldProps> = props => {
 };
 
 graphql`
-  fragment ChoiceFieldFragmentMeta on ChoiceMetaType {
+  fragment ChoiceFieldFragmentMeta on ChoiceFieldMeta {
     fieldType
     helperText
     label
@@ -53,14 +53,14 @@ graphql`
 `;
 
 graphql`
-  fragment ChoiceFieldFragmentValue on ChoiceValueType {
+  fragment ChoiceFieldFragmentValue on ChoiceFieldValue {
     id
   }
 `;
 
 export default createFragmentContainer<ChoiceFieldProps>(ChoiceField, {
   data: graphql`
-    fragment ChoiceFieldFragment_data on ChoiceFieldType {
+    fragment ChoiceFieldFragment_data on Field {
       id
       fieldId
       meta {

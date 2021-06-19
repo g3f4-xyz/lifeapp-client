@@ -1,7 +1,6 @@
-import { FieldTypeEnum as FieldType } from './components/modules/task/fields/__generated__/ChoiceFieldFragmentMeta.graphql';
-import { FieldIdEnum as FieldId } from './components/modules/task/fragment/__generated__/useTaskFragment.graphql';
-import { TaskTypeEnum as TaskType } from './components/modules/task-type-list/fragment/__generated__/useTaskTypeFragment.graphql';
-import { TaskStatusEnum as TaskStatus } from './mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
+import { FieldId, FieldType } from './components/modules/task/fragment/__generated__/useTaskFragment.graphql';
+import { TaskTypeId } from './components/modules/task-type-list/fragment/__generated__/useTaskTypeFragment.graphql';
+import { TaskStatus } from './mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 
 export type ExcludeFutureAdded<T> = Omit<T, '%future added value'>;
 export type UnionKeyToValue<U extends string, V = U> = {
@@ -37,7 +36,7 @@ export const FIELD_ID: ExcludeFutureAdded<UnionKeyToValue<FieldId>> = {
   NOTE: 'NOTE',
   ACTION: 'ACTION',
   CYCLE: 'CYCLE',
-  NOTIFICATIONS: 'NOTIFICATIONS',
+  NOTIFICATION: 'NOTIFICATION',
 };
 
 export const FIELD_TYPE: ExcludeFutureAdded<UnionKeyToValue<FieldType>> = {
@@ -66,7 +65,7 @@ export const STATUSES: { [key: string]: STATUS } = {
   NOT_REGISTERED: '410',
 };
 
-export const TASK_TYPE: ExcludeFutureAdded<UnionKeyToValue<TaskType>> = {
+export const TASK_TYPE: ExcludeFutureAdded<UnionKeyToValue<TaskTypeId>> = {
   EVENT: 'EVENT',
   GOAL: 'GOAL',
   MEETING: 'MEETING',
@@ -84,7 +83,7 @@ export const TASK_STATUSES: ExcludeFutureAdded<UnionKeyToValue<TaskStatus>> = {
 
 export type FieldTypeEnum = FieldType;
 export type FieldIdEnum = FieldId;
-export type TaskTypeEnum = TaskType;
+export type TaskTypeEnum = TaskTypeId;
 export type TaskStatusEnum = TaskStatus;
 
 export const DATE_TIME_FORMAT = `YYYY-MM-DDTHH:mm`;

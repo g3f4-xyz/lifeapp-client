@@ -1,25 +1,24 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
+export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
 export type ChoiceFieldFragment_data$ref = any;
 export type ChoiceFieldFragment_data = {
     readonly id: string;
-    readonly fieldId: FieldIdEnum;
+    readonly fieldId: FieldId;
     readonly meta: {
-        readonly fieldType: FieldTypeEnum;
-        readonly helperText: string;
-        readonly label: string;
-        readonly defaultValue: string | null;
-        readonly options: ReadonlyArray<{
+        readonly fieldType?: string | null;
+        readonly helperText?: string | null;
+        readonly label?: string | null;
+        readonly defaultValue?: string | null;
+        readonly options?: ReadonlyArray<{
             readonly text: string;
             readonly value: string;
-        } | null>;
-        readonly required: boolean;
+        }>;
+        readonly required?: boolean | null;
     };
     readonly value: {
-        readonly id: string;
+        readonly id?: string | null;
     };
     readonly " $refType": ChoiceFieldFragment_data$ref;
 };
@@ -37,7 +36,7 @@ const node: ReaderFragment = (function () {
     return {
         "kind": "Fragment",
         "name": "ChoiceFieldFragment_data",
-        "type": "ChoiceFieldType",
+        "type": "Field",
         "metadata": null,
         "argumentDefinitions": [],
         "selections": [
@@ -55,68 +54,74 @@ const node: ReaderFragment = (function () {
                 "name": "meta",
                 "storageKey": null,
                 "args": null,
-                "concreteType": "ChoiceMetaType",
+                "concreteType": null,
                 "plural": false,
                 "selections": [
                     {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "fieldType",
-                        "args": null,
-                        "storageKey": null
-                    },
-                    {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "helperText",
-                        "args": null,
-                        "storageKey": null
-                    },
-                    {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "label",
-                        "args": null,
-                        "storageKey": null
-                    },
-                    {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "defaultValue",
-                        "args": null,
-                        "storageKey": null
-                    },
-                    {
-                        "kind": "LinkedField",
-                        "alias": null,
-                        "name": "options",
-                        "storageKey": null,
-                        "args": null,
-                        "concreteType": "ChoiceOptionsMetaType",
-                        "plural": true,
+                        "kind": "InlineFragment",
+                        "type": "ChoiceFieldMeta",
                         "selections": [
                             {
                                 "kind": "ScalarField",
                                 "alias": null,
-                                "name": "text",
+                                "name": "fieldType",
                                 "args": null,
                                 "storageKey": null
                             },
                             {
                                 "kind": "ScalarField",
                                 "alias": null,
-                                "name": "value",
+                                "name": "helperText",
+                                "args": null,
+                                "storageKey": null
+                            },
+                            {
+                                "kind": "ScalarField",
+                                "alias": null,
+                                "name": "label",
+                                "args": null,
+                                "storageKey": null
+                            },
+                            {
+                                "kind": "ScalarField",
+                                "alias": null,
+                                "name": "defaultValue",
+                                "args": null,
+                                "storageKey": null
+                            },
+                            {
+                                "kind": "LinkedField",
+                                "alias": null,
+                                "name": "options",
+                                "storageKey": null,
+                                "args": null,
+                                "concreteType": "FieldMetaOptions",
+                                "plural": true,
+                                "selections": [
+                                    {
+                                        "kind": "ScalarField",
+                                        "alias": null,
+                                        "name": "text",
+                                        "args": null,
+                                        "storageKey": null
+                                    },
+                                    {
+                                        "kind": "ScalarField",
+                                        "alias": null,
+                                        "name": "value",
+                                        "args": null,
+                                        "storageKey": null
+                                    }
+                                ]
+                            },
+                            {
+                                "kind": "ScalarField",
+                                "alias": null,
+                                "name": "required",
                                 "args": null,
                                 "storageKey": null
                             }
                         ]
-                    },
-                    {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "required",
-                        "args": null,
-                        "storageKey": null
                     }
                 ]
             },
@@ -126,14 +131,20 @@ const node: ReaderFragment = (function () {
                 "name": "value",
                 "storageKey": null,
                 "args": null,
-                "concreteType": "ChoiceValueType",
+                "concreteType": null,
                 "plural": false,
                 "selections": [
-                    (v0 /*: any*/)
+                    {
+                        "kind": "InlineFragment",
+                        "type": "ChoiceFieldValue",
+                        "selections": [
+                            (v0 /*: any*/)
+                        ]
+                    }
                 ]
             }
         ]
     } as any;
 })();
-(node as any).hash = 'bbb82ec78dbedbac965f0d7a91b74151';
+(node as any).hash = 'ad7a111830af82a1f0673a2da9f4a3af';
 export default node;

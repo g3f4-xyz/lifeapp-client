@@ -3,12 +3,12 @@ import { commitMutation, DeclarativeMutationConfig } from 'react-relay';
 import environment from '../environment';
 import {
   deleteTaskMutation,
-  deleteTaskMutationInput,
+  DeleteTaskInput,
   deleteTaskMutationResponse,
 } from './__generated__/deleteTaskMutation.graphql';
 
 const mutation = graphql`
-  mutation deleteTaskMutation($input: deleteTaskMutationInput!) {
+  mutation deleteTaskMutation($input: DeleteTaskInput!) {
     deleteTask(input: $input) {
       # Aktualnie serwer zwraca null przez co za pewne nie działa jakiś mechanizm relay
       clientMutationId
@@ -20,7 +20,7 @@ const mutation = graphql`
 export default ({
   id,
   parentID,
-}: deleteTaskMutationInput & { parentID: string }): Promise<deleteTaskMutationResponse> =>
+}: DeleteTaskInput & { parentID: string }): Promise<deleteTaskMutationResponse> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { id } };
     const configs: DeclarativeMutationConfig[] = [
@@ -29,10 +29,10 @@ export default ({
         parentID,
         connectionKeys: [
           {
-            key: 'TaskList_list',
+            key: 'TaskConnection_list',
           },
         ],
-        pathToConnection: ['taskList', 'list'],
+        pathToConnection: ['tasks', 'list'],
         deletedIDFieldName: 'deletedTaskId',
       },
     ];

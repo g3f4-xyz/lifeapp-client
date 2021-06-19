@@ -4,13 +4,13 @@ import { RecordSourceSelectorProxy } from 'relay-runtime';
 import environment from '../environment';
 import {
   updateTaskListStatusFilterSettingMutation,
-  updateTaskListStatusFilterSettingMutationInput,
+  UpdateTaskListStatusFilterSettingInput,
   updateTaskListStatusFilterSettingMutationResponse,
 } from './__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 
 const mutation = graphql`
   mutation updateTaskListStatusFilterSettingMutation(
-    $input: updateTaskListStatusFilterSettingMutationInput!
+    $input: UpdateTaskListStatusFilterSettingInput!
   ) {
     updateTaskListStatusFilterSetting(input: $input) {
       clientMutationId
@@ -20,7 +20,7 @@ const mutation = graphql`
 `;
 
 export default (
-  { status }: updateTaskListStatusFilterSettingMutationInput,
+  { status }: UpdateTaskListStatusFilterSettingInput,
   { parentID }: { parentID: string },
 ): Promise<updateTaskListStatusFilterSettingMutationResponse> =>
   new Promise((onCompleted, onError): void => {

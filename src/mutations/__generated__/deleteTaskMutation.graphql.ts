@@ -1,18 +1,18 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type deleteTaskMutationInput = {
+export type DeleteTaskInput = {
     readonly id?: string | null;
     readonly clientMutationId?: string | null;
 };
 export type deleteTaskMutationVariables = {
-    readonly input: deleteTaskMutationInput;
+    readonly input: DeleteTaskInput;
 };
 export type deleteTaskMutationResponse = {
     readonly deleteTask: {
         readonly clientMutationId: string | null;
         readonly deletedTaskId: string;
-    } | null;
+    };
 };
 export type deleteTaskMutation = {
     readonly response: deleteTaskMutationResponse;
@@ -23,7 +23,7 @@ export type deleteTaskMutation = {
 
 /*
 mutation deleteTaskMutation(
-  $input: deleteTaskMutationInput!
+  $input: DeleteTaskInput!
 ) {
   deleteTask(input: $input) {
     clientMutationId
@@ -37,7 +37,7 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "LocalArgument",
             "name": "input",
-            "type": "deleteTaskMutationInput!",
+            "type": "DeleteTaskInput!",
             "defaultValue": null
         } as any)
     ], v1 = [
@@ -53,7 +53,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "deleteTaskMutationPayload",
+            "concreteType": "DeleteTaskOutput",
             "plural": false,
             "selections": [
                 {
@@ -78,7 +78,7 @@ const node: ConcreteRequest = (function () {
         "fragment": {
             "kind": "Fragment",
             "name": "deleteTaskMutation",
-            "type": "MutationType",
+            "type": "Mutation",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
@@ -93,10 +93,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "mutation",
             "name": "deleteTaskMutation",
             "id": null,
-            "text": "mutation deleteTaskMutation(\n  $input: deleteTaskMutationInput!\n) {\n  deleteTask(input: $input) {\n    clientMutationId\n    deletedTaskId\n  }\n}\n",
+            "text": "mutation deleteTaskMutation(\n  $input: DeleteTaskInput!\n) {\n  deleteTask(input: $input) {\n    clientMutationId\n    deletedTaskId\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '0fea97b083f2b0606224f2330ae81334';
+(node as any).hash = '3bd030a0546fe2119c2e1e41d985a49e';
 export default node;

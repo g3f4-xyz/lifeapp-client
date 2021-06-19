@@ -8,7 +8,7 @@ import {
 } from './__generated__/useTaskTypeFragment.graphql';
 
 const query = graphql`
-  fragment useTaskTypeFragment on TaskTypeType {
+  fragment useTaskTypeFragment on TaskType {
     id
     typeId
     label

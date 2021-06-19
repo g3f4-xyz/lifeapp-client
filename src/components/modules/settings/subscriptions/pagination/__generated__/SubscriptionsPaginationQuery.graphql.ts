@@ -7,11 +7,9 @@ export type SubscriptionsPaginationQueryVariables = {
     readonly after?: string | null;
 };
 export type SubscriptionsPaginationQueryResponse = {
-    readonly app: {
-        readonly settings: {
-            readonly notifications: {
-                readonly " $fragmentRefs": SubscriptionsPagination_data$ref;
-            };
+    readonly settings: {
+        readonly notifications: {
+            readonly " $fragmentRefs": SubscriptionsPagination_data$ref;
         };
     };
 };
@@ -27,19 +25,16 @@ query SubscriptionsPaginationQuery(
   $count: Int!
   $after: String
 ) {
-  app {
-    settings {
-      notifications {
-        ...SubscriptionsPagination_data
-        id
-      }
+  settings {
+    notifications {
+      ...SubscriptionsPagination_data
       id
     }
     id
   }
 }
 
-fragment SubscriptionsPagination_data on NotificationsType {
+fragment SubscriptionsPagination_data on NotificationsSettings {
   subscriptions(first: $count, after: $after) {
     edges {
       node {
@@ -56,7 +51,7 @@ fragment SubscriptionsPagination_data on NotificationsType {
   }
 }
 
-fragment SubscriptionFragment_data on SubscriptionType {
+fragment SubscriptionFragment_data on NotificationSubscription {
   id
   userAgent
   userDeviceType
@@ -100,43 +95,32 @@ const node: ConcreteRequest = (function () {
         "fragment": {
             "kind": "Fragment",
             "name": "SubscriptionsPaginationQuery",
-            "type": "QueryType",
+            "type": "Query",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
             "selections": [
                 {
                     "kind": "LinkedField",
                     "alias": null,
-                    "name": "app",
+                    "name": "settings",
                     "storageKey": null,
                     "args": null,
-                    "concreteType": "AppType",
+                    "concreteType": "Settings",
                     "plural": false,
                     "selections": [
                         {
                             "kind": "LinkedField",
                             "alias": null,
-                            "name": "settings",
+                            "name": "notifications",
                             "storageKey": null,
                             "args": null,
-                            "concreteType": "SettingsType",
+                            "concreteType": "NotificationsSettings",
                             "plural": false,
                             "selections": [
                                 {
-                                    "kind": "LinkedField",
-                                    "alias": null,
-                                    "name": "notifications",
-                                    "storageKey": null,
-                                    "args": null,
-                                    "concreteType": "NotificationsType",
-                                    "plural": false,
-                                    "selections": [
-                                        {
-                                            "kind": "FragmentSpread",
-                                            "name": "SubscriptionsPagination_data",
-                                            "args": null
-                                        }
-                                    ]
+                                    "kind": "FragmentSpread",
+                                    "name": "SubscriptionsPagination_data",
+                                    "args": null
                                 }
                             ]
                         }
@@ -152,128 +136,116 @@ const node: ConcreteRequest = (function () {
                 {
                     "kind": "LinkedField",
                     "alias": null,
-                    "name": "app",
+                    "name": "settings",
                     "storageKey": null,
                     "args": null,
-                    "concreteType": "AppType",
+                    "concreteType": "Settings",
                     "plural": false,
                     "selections": [
                         {
                             "kind": "LinkedField",
                             "alias": null,
-                            "name": "settings",
+                            "name": "notifications",
                             "storageKey": null,
                             "args": null,
-                            "concreteType": "SettingsType",
+                            "concreteType": "NotificationsSettings",
                             "plural": false,
                             "selections": [
                                 {
                                     "kind": "LinkedField",
                                     "alias": null,
-                                    "name": "notifications",
+                                    "name": "subscriptions",
                                     "storageKey": null,
-                                    "args": null,
-                                    "concreteType": "NotificationsType",
+                                    "args": (v1 /*: any*/),
+                                    "concreteType": "NotificationSubscriptionConnection",
                                     "plural": false,
                                     "selections": [
                                         {
                                             "kind": "LinkedField",
                                             "alias": null,
-                                            "name": "subscriptions",
+                                            "name": "edges",
                                             "storageKey": null,
-                                            "args": (v1 /*: any*/),
-                                            "concreteType": "SubscriptionTypeConnection",
-                                            "plural": false,
+                                            "args": null,
+                                            "concreteType": "NotificationSubscriptionConnectionEdge",
+                                            "plural": true,
                                             "selections": [
                                                 {
                                                     "kind": "LinkedField",
                                                     "alias": null,
-                                                    "name": "edges",
+                                                    "name": "node",
                                                     "storageKey": null,
                                                     "args": null,
-                                                    "concreteType": "SubscriptionTypeEdge",
-                                                    "plural": true,
+                                                    "concreteType": "NotificationSubscription",
+                                                    "plural": false,
                                                     "selections": [
+                                                        (v2 /*: any*/),
                                                         {
-                                                            "kind": "LinkedField",
+                                                            "kind": "ScalarField",
                                                             "alias": null,
-                                                            "name": "node",
-                                                            "storageKey": null,
+                                                            "name": "userAgent",
                                                             "args": null,
-                                                            "concreteType": "SubscriptionType",
-                                                            "plural": false,
-                                                            "selections": [
-                                                                (v2 /*: any*/),
-                                                                {
-                                                                    "kind": "ScalarField",
-                                                                    "alias": null,
-                                                                    "name": "userAgent",
-                                                                    "args": null,
-                                                                    "storageKey": null
-                                                                },
-                                                                {
-                                                                    "kind": "ScalarField",
-                                                                    "alias": null,
-                                                                    "name": "userDeviceType",
-                                                                    "args": null,
-                                                                    "storageKey": null
-                                                                },
-                                                                {
-                                                                    "kind": "ScalarField",
-                                                                    "alias": null,
-                                                                    "name": "__typename",
-                                                                    "args": null,
-                                                                    "storageKey": null
-                                                                }
-                                                            ]
+                                                            "storageKey": null
                                                         },
                                                         {
                                                             "kind": "ScalarField",
                                                             "alias": null,
-                                                            "name": "cursor",
+                                                            "name": "userDeviceType",
+                                                            "args": null,
+                                                            "storageKey": null
+                                                        },
+                                                        {
+                                                            "kind": "ScalarField",
+                                                            "alias": null,
+                                                            "name": "__typename",
                                                             "args": null,
                                                             "storageKey": null
                                                         }
                                                     ]
                                                 },
                                                 {
-                                                    "kind": "LinkedField",
+                                                    "kind": "ScalarField",
                                                     "alias": null,
-                                                    "name": "pageInfo",
-                                                    "storageKey": null,
+                                                    "name": "cursor",
                                                     "args": null,
-                                                    "concreteType": "PageInfo",
-                                                    "plural": false,
-                                                    "selections": [
-                                                        {
-                                                            "kind": "ScalarField",
-                                                            "alias": null,
-                                                            "name": "endCursor",
-                                                            "args": null,
-                                                            "storageKey": null
-                                                        },
-                                                        {
-                                                            "kind": "ScalarField",
-                                                            "alias": null,
-                                                            "name": "hasNextPage",
-                                                            "args": null,
-                                                            "storageKey": null
-                                                        }
-                                                    ]
+                                                    "storageKey": null
                                                 }
                                             ]
                                         },
                                         {
-                                            "kind": "LinkedHandle",
+                                            "kind": "LinkedField",
                                             "alias": null,
-                                            "name": "subscriptions",
-                                            "args": (v1 /*: any*/),
-                                            "handle": "connection",
-                                            "key": "Notifications_subscriptions",
-                                            "filters": null
-                                        },
-                                        (v2 /*: any*/)
+                                            "name": "pageInfo",
+                                            "storageKey": null,
+                                            "args": null,
+                                            "concreteType": "PageInfo",
+                                            "plural": false,
+                                            "selections": [
+                                                {
+                                                    "kind": "ScalarField",
+                                                    "alias": null,
+                                                    "name": "endCursor",
+                                                    "args": null,
+                                                    "storageKey": null
+                                                },
+                                                {
+                                                    "kind": "ScalarField",
+                                                    "alias": null,
+                                                    "name": "hasNextPage",
+                                                    "args": null,
+                                                    "storageKey": null
+                                                }
+                                            ]
+                                        }
                                     ]
+                                },
+                                {
+                                    "kind": "LinkedHandle",
+                                    "alias": null,
+                                    "name": "subscriptions",
+                                    "args": (v1 /*: any*/),
+                                    "handle": "connection",
+                                    "key": "Notifications_subscriptions",
+                                    "filters": null
                                 },
                                 (v2 /*: any*/)
                             ]
@@ -287,10 +259,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "SubscriptionsPaginationQuery",
             "id": null,
-            "text": "query SubscriptionsPaginationQuery(\n  $count: Int!\n  $after: String\n) {\n  app {\n    settings {\n      notifications {\n        ...SubscriptionsPagination_data\n        id\n      }\n      id\n    }\n    id\n  }\n}\n\nfragment SubscriptionsPagination_data on NotificationsType {\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...SubscriptionFragment_data\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SubscriptionFragment_data on SubscriptionType {\n  id\n  userAgent\n  userDeviceType\n}\n",
+            "text": "query SubscriptionsPaginationQuery(\n  $count: Int!\n  $after: String\n) {\n  settings {\n    notifications {\n      ...SubscriptionsPagination_data\n      id\n    }\n    id\n  }\n}\n\nfragment SubscriptionsPagination_data on NotificationsSettings {\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...SubscriptionFragment_data\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SubscriptionFragment_data on NotificationSubscription {\n  id\n  userAgent\n  userDeviceType\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = 'c621ee82e7cb8431db5296306a43e62c';
+(node as any).hash = 'a9a242e0a4f993d343c1294200996ee1';
 export default node;

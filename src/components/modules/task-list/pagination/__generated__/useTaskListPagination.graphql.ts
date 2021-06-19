@@ -7,7 +7,7 @@ export type useTaskListPagination = {
     readonly id: string;
     readonly list: {
         readonly edges: ReadonlyArray<{
-            readonly cursor: string;
+            readonly cursor: string | null;
             readonly node: {
                 readonly id: string;
                 readonly " $fragmentRefs": useTaskListFragment$ref;
@@ -16,8 +16,8 @@ export type useTaskListPagination = {
         readonly pageInfo: {
             readonly hasNextPage: boolean;
             readonly endCursor: string | null;
-        };
-    } | null;
+        } | null;
+    };
     readonly " $refType": useTaskListPagination$ref;
 };
 
@@ -34,7 +34,7 @@ const node: ReaderFragment = (function () {
     return {
         "kind": "Fragment",
         "name": "useTaskListPagination",
-        "type": "TaskListType",
+        "type": "Tasks",
         "metadata": {
             "connection": [
                 {
@@ -64,10 +64,10 @@ const node: ReaderFragment = (function () {
             {
                 "kind": "LinkedField",
                 "alias": "list",
-                "name": "__TaskList_list_connection",
+                "name": "__TaskConnection_list_connection",
                 "storageKey": null,
                 "args": null,
-                "concreteType": "TaskTypeConnection",
+                "concreteType": "TaskConnection_list",
                 "plural": false,
                 "selections": [
                     {
@@ -76,7 +76,7 @@ const node: ReaderFragment = (function () {
                         "name": "edges",
                         "storageKey": null,
                         "args": null,
-                        "concreteType": "TaskTypeEdge",
+                        "concreteType": "TaskConnection_listEdge",
                         "plural": true,
                         "selections": [
                             {
@@ -92,7 +92,7 @@ const node: ReaderFragment = (function () {
                                 "name": "node",
                                 "storageKey": null,
                                 "args": null,
-                                "concreteType": "TaskType",
+                                "concreteType": "Task",
                                 "plural": false,
                                 "selections": [
                                     (v0 /*: any*/),
@@ -142,5 +142,5 @@ const node: ReaderFragment = (function () {
         ]
     } as any;
 })();
-(node as any).hash = '1797b1e818d6fa4d25bf30c275a54a4d';
+(node as any).hash = '4cf5d13981a851338ba6ff2aac6c43aa';
 export default node;

@@ -8,9 +8,9 @@ import {
 } from './__generated__/useTaskListFragment.graphql';
 
 const query = graphql`
-  fragment useTaskListFragment on TaskType {
+  fragment useTaskListFragment on Task {
     id
-    taskType
+    typeId
     fields {
       ...SliderFieldFragment_data @relay(mask: false)
       ...SwitchFieldFragment_data @relay(mask: false)

@@ -11,7 +11,7 @@ import { useTaskListQuery } from '../../modules/task-list/__generated__/useTaskL
 import useTaskListBarStyles from './useTaskListBarStyles';
 
 export interface TaskListBarProps {
-  settings: useTaskListQuery['response']['app']['settings']['taskList'];
+  settings: useTaskListQuery['response']['settings']['taskList'];
 
   onFilterByTitle(event: ChangeEvent<HTMLInputElement>): void;
   onFilterByType(event: ChangeEvent<HTMLInputElement>): void;

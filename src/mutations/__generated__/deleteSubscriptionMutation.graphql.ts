@@ -1,18 +1,18 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type deleteSubscriptionMutationInput = {
-    readonly subscriptionId: string;
+export type DeleteSubscriptionInput = {
     readonly clientMutationId?: string | null;
+    readonly subscriptionId: string;
 };
 export type deleteSubscriptionMutationVariables = {
-    readonly input: deleteSubscriptionMutationInput;
+    readonly input: DeleteSubscriptionInput;
 };
 export type deleteSubscriptionMutationResponse = {
     readonly deleteSubscription: {
         readonly clientMutationId: string | null;
         readonly subscriptionId: string;
-    } | null;
+    };
 };
 export type deleteSubscriptionMutation = {
     readonly response: deleteSubscriptionMutationResponse;
@@ -23,7 +23,7 @@ export type deleteSubscriptionMutation = {
 
 /*
 mutation deleteSubscriptionMutation(
-  $input: deleteSubscriptionMutationInput!
+  $input: DeleteSubscriptionInput!
 ) {
   deleteSubscription(input: $input) {
     clientMutationId
@@ -37,7 +37,7 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "LocalArgument",
             "name": "input",
-            "type": "deleteSubscriptionMutationInput!",
+            "type": "DeleteSubscriptionInput!",
             "defaultValue": null
         } as any)
     ], v1 = [
@@ -53,7 +53,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "deleteSubscriptionMutationPayload",
+            "concreteType": "DeleteSubscriptionOutput",
             "plural": false,
             "selections": [
                 {
@@ -78,7 +78,7 @@ const node: ConcreteRequest = (function () {
         "fragment": {
             "kind": "Fragment",
             "name": "deleteSubscriptionMutation",
-            "type": "MutationType",
+            "type": "Mutation",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
@@ -93,10 +93,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "mutation",
             "name": "deleteSubscriptionMutation",
             "id": null,
-            "text": "mutation deleteSubscriptionMutation(\n  $input: deleteSubscriptionMutationInput!\n) {\n  deleteSubscription(input: $input) {\n    clientMutationId\n    subscriptionId\n  }\n}\n",
+            "text": "mutation deleteSubscriptionMutation(\n  $input: DeleteSubscriptionInput!\n) {\n  deleteSubscription(input: $input) {\n    clientMutationId\n    subscriptionId\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = 'ca443516a1f27f5b4f31e01f78920675';
+(node as any).hash = '49991ffe859e0fa2e66e70f85eece767';
 export default node;

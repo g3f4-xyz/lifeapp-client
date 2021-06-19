@@ -3,12 +3,12 @@ import { commitMutation, DeclarativeMutationConfig } from 'react-relay';
 import environment from '../environment';
 import {
   deleteSubscriptionMutation,
-  deleteSubscriptionMutationInput,
+  DeleteSubscriptionInput,
   deleteSubscriptionMutationResponse,
 } from './__generated__/deleteSubscriptionMutation.graphql';
 
 const mutation = graphql`
-  mutation deleteSubscriptionMutation($input: deleteSubscriptionMutationInput!) {
+  mutation deleteSubscriptionMutation($input: DeleteSubscriptionInput!) {
     deleteSubscription(input: $input) {
       clientMutationId
       subscriptionId
@@ -19,7 +19,7 @@ const mutation = graphql`
 export default ({
   parentID,
   subscriptionId,
-}: deleteSubscriptionMutationInput & { parentID: string }): Promise<
+}: DeleteSubscriptionInput & { parentID: string }): Promise<
   deleteSubscriptionMutationResponse
 > =>
   new Promise((onCompleted, onError): void => {

@@ -3,13 +3,13 @@ import { commitMutation } from 'react-relay';
 import environment from '../environment';
 import {
   saveNotificationsGeneralSettingMutation,
-  saveNotificationsGeneralSettingMutationInput,
+  SaveNotificationsGeneralSettingInput,
   saveNotificationsGeneralSettingMutationResponse,
 } from './__generated__/saveNotificationsGeneralSettingMutation.graphql';
 
 const mutation = graphql`
   mutation saveNotificationsGeneralSettingMutation(
-    $input: saveNotificationsGeneralSettingMutationInput!
+    $input: SaveNotificationsGeneralSettingInput!
   ) {
     saveNotificationsGeneralSetting(input: $input) {
       clientMutationId
@@ -22,7 +22,7 @@ const mutation = graphql`
 
 export default ({
   general,
-}: saveNotificationsGeneralSettingMutationInput): Promise<
+}: SaveNotificationsGeneralSettingInput): Promise<
   saveNotificationsGeneralSettingMutationResponse
 > =>
   new Promise((onCompleted, onError): void => {

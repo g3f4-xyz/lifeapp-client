@@ -3,7 +3,7 @@
 import { ReaderFragment } from "relay-runtime";
 export type ChoiceFieldFragmentValue$ref = any;
 export type ChoiceFieldFragmentValue = {
-    readonly id: string;
+    readonly id: string | null;
     readonly " $refType": ChoiceFieldFragmentValue$ref;
 };
 
@@ -12,7 +12,7 @@ export type ChoiceFieldFragmentValue = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "ChoiceFieldFragmentValue",
-    "type": "ChoiceValueType",
+    "type": "ChoiceFieldValue",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -25,5 +25,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '3d615c0ba97941ad82833ff5ccf4f3f8';
+(node as any).hash = 'de8f44f7cd970cdf5b26e46b60987e58';
 export default node;

@@ -2,11 +2,11 @@ import { CheckBox, CheckBoxOutlineBlank, Slideshow } from '@material-ui/icons';
 import classNames from 'classnames';
 import React, { FC, forwardRef } from 'react';
 import { TASK_STATUSES } from '../../../constans';
-import { TaskStatusEnum } from '../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
+import { TaskStatus } from '../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 import useStatusIconStyles from './useStatusIconStyles';
 
 export interface StatusIconProps {
-  status: TaskStatusEnum;
+  status: TaskStatus;
 }
 
 const StatusIcon: FC<StatusIconProps> = props => {
@@ -24,7 +24,8 @@ const StatusIcon: FC<StatusIconProps> = props => {
       return <CheckBox className={classNames(classes.green, classes.icon)} />;
     }
     default: {
-      throw new Error(`no status icon for status: ${status}`);
+      return null;
+      // throw new Error(`no status icon for status: ${status}`);
     }
   }
 };

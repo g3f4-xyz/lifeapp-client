@@ -1,18 +1,17 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
 export type ChoiceFieldFragmentMeta$ref = any;
 export type ChoiceFieldFragmentMeta = {
-    readonly fieldType: FieldTypeEnum;
-    readonly helperText: string;
-    readonly label: string;
+    readonly fieldType: string | null;
+    readonly helperText: string | null;
+    readonly label: string | null;
     readonly defaultValue: string | null;
     readonly options: ReadonlyArray<{
         readonly text: string;
         readonly value: string;
-    } | null>;
-    readonly required: boolean;
+    }>;
+    readonly required: boolean | null;
     readonly " $refType": ChoiceFieldFragmentMeta$ref;
 };
 
@@ -21,7 +20,7 @@ export type ChoiceFieldFragmentMeta = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "ChoiceFieldFragmentMeta",
-    "type": "ChoiceMetaType",
+    "type": "ChoiceFieldMeta",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -59,7 +58,7 @@ const node: ReaderFragment = ({
             "name": "options",
             "storageKey": null,
             "args": null,
-            "concreteType": "ChoiceOptionsMetaType",
+            "concreteType": "FieldMetaOptions",
             "plural": true,
             "selections": [
                 {
@@ -87,5 +86,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '67aefad39d8993dd090362047881e34b';
+(node as any).hash = 'cb7eda6e689191e9ab6c083ddc6f5c50';
 export default node;

@@ -13,7 +13,7 @@ export type NotificationsGeneralFragment_data = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "NotificationsGeneralFragment_data",
-    "type": "NotificationsGeneralSettingType",
+    "type": "GeneralNotificationsSettings",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -33,5 +33,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '0fa7a2f02479f370881769eb72be5e84';
+(node as any).hash = '08a623e3ce75fd9c9fea9a49fe4ad7eb';
 export default node;

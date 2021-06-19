@@ -10,7 +10,7 @@ import { ExpandMore, PriorityHigh } from '@material-ui/icons';
 import classNames from 'classnames';
 import React, { FC } from 'react';
 import { FIELD_ID, TaskTypeEnum } from '../../../../constans';
-import { TaskStatusEnum } from '../../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
+import { TaskStatus } from '../../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 import StatusIcon from '../../../display/status-icon/StatusIcon';
 import TaskTypeIcon from '../../../display/task-type-icon/TaskTypeIcon';
 import { useTaskListFragment$ref } from './__generated__/useTaskListFragment.graphql';
@@ -21,12 +21,12 @@ export interface TaskListFragmentProps {
   data: useTaskListFragment$ref;
 
   onDelete(id: string): void;
-  onEdit(taskType: TaskTypeEnum, taskId: string): void;
+  onEdit(typeId: TaskTypeEnum, taskId: string): void;
 }
 
 const TaskListFragment: FC<TaskListFragmentProps> = props => {
   const { data, onDelete, onEdit } = props;
-  const { id, taskType, fields } = useTaskListFragment(data);
+  const { id, typeId, fields } = useTaskListFragment(data);
   const titleField = fields.find(field => field.fieldId === FIELD_ID.TITLE);
   const noteField = fields.find(field => field.fieldId === FIELD_ID.NOTE);
   const priorityField = fields.find(field => field.fieldId === FIELD_ID.PRIORITY);
@@ -38,8 +38,8 @@ const TaskListFragment: FC<TaskListFragmentProps> = props => {
       <ExpansionPanelSummary expandIcon={<ExpandMore />}>
         <div>
           {statusField && statusField.value && (
-            <Tooltip title={`Status: ${statusField.value.id as TaskStatusEnum}`}>
-              <StatusIcon status={statusField.value.id as TaskStatusEnum} />
+            <Tooltip title={`Status: ${statusField.value.id as TaskStatus}`}>
+              <StatusIcon status={statusField.value.id as TaskStatus} />
             </Tooltip>
           )}
           {priorityField && priorityField.value && priorityField.value.enabled && (
@@ -51,12 +51,12 @@ const TaskListFragment: FC<TaskListFragmentProps> = props => {
         <Typography className={classes.heading}>
           {titleField && titleField.value && titleField.value.text}
         </Typography>
-        <TaskTypeIcon type={taskType} className={classes.taskTypeIcon} />
+        <TaskTypeIcon type={typeId} className={classes.taskTypeIcon} />
       </ExpansionPanelSummary>
       <ExpansionPanelDetails className={classes.content}>
         <div>{noteField && noteField.value && noteField.value.text}</div>
         <div className={classes.actions}>
-          <Button onClick={() => onEdit(taskType, id)}>Edit</Button>
+          <Button onClick={() => onEdit(typeId, id)}>Edit</Button>
           <Button onClick={() => onDelete(id)}>Delete</Button>
         </div>
       </ExpansionPanelDetails>

@@ -32,7 +32,7 @@ const SwitchField: FC<SwitchFieldProps> = props => {
 };
 
 graphql`
-  fragment SwitchFieldFragmentMeta on SwitchMetaType {
+  fragment SwitchFieldFragmentMeta on SwitchFieldMeta {
     fieldType
     label
     disabled
@@ -41,14 +41,14 @@ graphql`
 `;
 
 graphql`
-  fragment SwitchFieldFragmentValue on SwitchValueType {
+  fragment SwitchFieldFragmentValue on SwitchFieldValue {
     enabled
   }
 `;
 
 export default createFragmentContainer<SwitchFieldProps>(SwitchField, {
   data: graphql`
-    fragment SwitchFieldFragment_data on SwitchFieldType {
+    fragment SwitchFieldFragment_data on Field {
       id
       fieldId
       meta {

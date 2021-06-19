@@ -18,8 +18,8 @@ const Task: FC<TaskProps> = ownProps => {
 
   const [taskType, taskId] = firstParam ? firstParam.split('/') : [];
   const { props, error } = useTaskQuery({
-    id: ownProps.taskId || taskId,
-    type: ownProps.taskType || taskType,
+    id: ownProps.taskId || taskId.length > 0 ? taskId : null,
+    typeId: ownProps.taskType || taskType,
   });
 
   const saveParams = useCallback(() => {
@@ -42,8 +42,8 @@ const Task: FC<TaskProps> = ownProps => {
 
   if (error) {
     return <div>{JSON.stringify(error)}</div>;
-  } else if (props && props.app.task) {
-    return <TaskFragment data={props.app.task} />;
+  } else if (props && props.task) {
+    return <TaskFragment data={props.task} />;
   }
 
   return <Loader />;

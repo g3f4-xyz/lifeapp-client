@@ -15,10 +15,15 @@ import useTaskFragmentStyles from './useTaskFragmentStyles';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const FIELD_COMPONENTS_MAP: FIELD_TYPE_VALUE_MAP<Container<TaskFragmentProps & any>> = {
+  // @ts-ignore
   CHOICE: ChoiceFieldFragment,
+  // @ts-ignore
   SWITCH: SwitchFieldFragment,
+  // @ts-ignore
   SLIDER: SliderFieldFragment,
+  // @ts-ignore
   TEXT: TextFieldFragment,
+  // @ts-ignore
   NESTED: NestedFieldFragment,
 };
 
@@ -34,7 +39,7 @@ const TaskFragment: FC<TaskFragmentProps> = props => {
     history.push(`/app/${MODULES_IDS.TASK_LIST}`);
   };
   const classes = useTaskFragmentStyles();
-  const { fields } = useTaskFragment(data);
+  const { fields, id } = useTaskFragment(data);
   const orders = new Set(fields.map(field => field.order).sort());
 
   return (
@@ -47,7 +52,7 @@ const TaskFragment: FC<TaskFragmentProps> = props => {
             {rowFields.map(field => {
               const Component = FIELD_COMPONENTS_MAP[field.fieldType || ''];
 
-              return <Component key={field.fieldId} data={field} taskId={data.id} />;
+              return <Component key={field.fieldId} data={field} taskId={id} />;
             })}
           </Paper>
         );

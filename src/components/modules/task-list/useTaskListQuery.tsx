@@ -7,20 +7,19 @@ import {
   useTaskListQueryVariables,
 } from './__generated__/useTaskListQuery.graphql';
 
+// TODO dlaczego nie działa tutaj `...useTaskListPagination`
 const query = graphql`
   query useTaskListQuery($count: Int!, $after: String) {
-    app {
+    tasks {
+      ...useTaskListPagination
+    }
+    settings {
+      id
       taskList {
-        ...useTaskListPagination
-      }
-      settings {
-        id
-        taskList {
-          filters {
-            title
-            taskType
-            status
-          }
+        filters {
+          title
+          taskType
+          status
         }
       }
     }

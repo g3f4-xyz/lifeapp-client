@@ -47,7 +47,7 @@ const TextField: FC<TextFieldProps> = props => {
 
 // tslint:disable-next-line:no-unused-expression
 graphql`
-  fragment TextFieldFragmentMeta on TextMetaType {
+  fragment TextFieldFragmentMeta on TextFieldMeta {
     fieldType
     helperText
     label
@@ -61,14 +61,14 @@ graphql`
 `;
 // tslint:disable-next-line:no-unused-expression
 graphql`
-  fragment TextFieldFragmentValue on TextValueType {
+  fragment TextFieldFragmentValue on TextFieldValue {
     text
   }
 `;
 
 export default createFragmentContainer<TextFieldProps>(TextField, {
   data: graphql`
-    fragment TextFieldFragment_data on TextFieldType {
+    fragment TextFieldFragment_data on Field {
       id
       fieldId
       meta {

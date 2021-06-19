@@ -20,7 +20,7 @@ export type SubscriptionsPagination_data = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "SubscriptionsPagination_data",
-    "type": "NotificationsType",
+    "type": "NotificationsSettings",
     "metadata": {
         "connection": [
             {
@@ -52,7 +52,7 @@ const node: ReaderFragment = ({
             "name": "__Notifications_subscriptions_connection",
             "storageKey": null,
             "args": null,
-            "concreteType": "SubscriptionTypeConnection",
+            "concreteType": "NotificationSubscriptionConnection",
             "plural": false,
             "selections": [
                 {
@@ -61,7 +61,7 @@ const node: ReaderFragment = ({
                     "name": "edges",
                     "storageKey": null,
                     "args": null,
-                    "concreteType": "SubscriptionTypeEdge",
+                    "concreteType": "NotificationSubscriptionConnectionEdge",
                     "plural": true,
                     "selections": [
                         {
@@ -70,7 +70,7 @@ const node: ReaderFragment = ({
                             "name": "node",
                             "storageKey": null,
                             "args": null,
-                            "concreteType": "SubscriptionType",
+                            "concreteType": "NotificationSubscription",
                             "plural": false,
                             "selections": [
                                 {
@@ -132,5 +132,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'fa08caa20c5033ddeacccbe3b3e81201';
+(node as any).hash = 'a15a113df5388c103d423ccb4bc44283';
 export default node;

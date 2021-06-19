@@ -1,18 +1,18 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type cleanApplicationMutationInput = {
-    readonly ownerId?: string | null;
+export type CleanApplicationInput = {
     readonly clientMutationId?: string | null;
+    readonly ownerId?: string | null;
 };
 export type cleanApplicationMutationVariables = {
-    readonly input: cleanApplicationMutationInput;
+    readonly input: CleanApplicationInput;
 };
 export type cleanApplicationMutationResponse = {
     readonly cleanApplication: {
         readonly clientMutationId: string | null;
-        readonly navigationUrl: string;
-    } | null;
+        readonly navigationUrl: string | null;
+    };
 };
 export type cleanApplicationMutation = {
     readonly response: cleanApplicationMutationResponse;
@@ -23,7 +23,7 @@ export type cleanApplicationMutation = {
 
 /*
 mutation cleanApplicationMutation(
-  $input: cleanApplicationMutationInput!
+  $input: CleanApplicationInput!
 ) {
   cleanApplication(input: $input) {
     clientMutationId
@@ -37,7 +37,7 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "LocalArgument",
             "name": "input",
-            "type": "cleanApplicationMutationInput!",
+            "type": "CleanApplicationInput!",
             "defaultValue": null
         } as any)
     ], v1 = [
@@ -53,7 +53,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "cleanApplicationMutationPayload",
+            "concreteType": "CleanApplicationOutput",
             "plural": false,
             "selections": [
                 {
@@ -78,7 +78,7 @@ const node: ConcreteRequest = (function () {
         "fragment": {
             "kind": "Fragment",
             "name": "cleanApplicationMutation",
-            "type": "MutationType",
+            "type": "Mutation",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
@@ -93,10 +93,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "mutation",
             "name": "cleanApplicationMutation",
             "id": null,
-            "text": "mutation cleanApplicationMutation(\n  $input: cleanApplicationMutationInput!\n) {\n  cleanApplication(input: $input) {\n    clientMutationId\n    navigationUrl\n  }\n}\n",
+            "text": "mutation cleanApplicationMutation(\n  $input: CleanApplicationInput!\n) {\n  cleanApplication(input: $input) {\n    clientMutationId\n    navigationUrl\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = 'e33a08718a266e818be1fb489e644a48';
+(node as any).hash = '26609137c182a37ddbb53cebc5cdea1e';
 export default node;

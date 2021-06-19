@@ -4,10 +4,10 @@ import FieldContainer from '../../containers/field-container/FieldContainer';
 
 interface ChoiceProps {
   value?: string;
-  label?: string;
-  helperText?: string;
-  required?: boolean;
-  options: ReadonlyArray<{ readonly text: string; readonly value: string } | null> | undefined;
+  label?: string | null;
+  helperText?: string | null;
+  required?: boolean | null;
+  options?: ReadonlyArray<{ readonly text: string; readonly value: string }>;
 
   onChange(value: string): void;
 }

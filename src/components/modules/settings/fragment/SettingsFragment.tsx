@@ -169,8 +169,7 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
 
 export default createFragmentContainer<SettingsFragmentProps>(SettingsFragment, {
   data: graphql`
-    fragment SettingsFragment_data on SettingsType {
-      id
+    fragment SettingsFragment_data on Settings {
       ownerId
       notifications {
         id

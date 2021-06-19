@@ -72,7 +72,7 @@ const NotificationsTypes: FC<NotificationsTypesProps> = props => {
 
 export default createFragmentContainer(NotificationsTypes, {
   data: graphql`
-    fragment NotificationsTypesFragment_data on NotificationsTypesSettingType {
+    fragment NotificationsTypesFragment_data on TypesNotificationsSettings {
       events
       goals
       meetings

@@ -1,13 +1,12 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
 export type SwitchFieldFragmentMeta$ref = any;
 export type SwitchFieldFragmentMeta = {
-    readonly fieldType: FieldTypeEnum;
-    readonly label: string;
+    readonly fieldType: string | null;
+    readonly label: string | null;
     readonly disabled: boolean | null;
-    readonly required: boolean;
+    readonly required: boolean | null;
     readonly " $refType": SwitchFieldFragmentMeta$ref;
 };
 
@@ -16,7 +15,7 @@ export type SwitchFieldFragmentMeta = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "SwitchFieldFragmentMeta",
-    "type": "SwitchMetaType",
+    "type": "SwitchFieldMeta",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -50,5 +49,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '749b930d69930046f29aa01f911d63b6';
+(node as any).hash = 'e42b1ba9acb914f4a73b97dd46c87265';
 export default node;

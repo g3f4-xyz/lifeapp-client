@@ -1,18 +1,17 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
 export type TextFieldFragmentMeta$ref = any;
 export type TextFieldFragmentMeta = {
-    readonly fieldType: FieldTypeEnum;
-    readonly helperText: string;
-    readonly label: string;
+    readonly fieldType: string | null;
+    readonly helperText: string | null;
+    readonly label: string | null;
     readonly inputType: string | null;
     readonly min: number | null;
     readonly max: number | null;
     readonly maxLength: number | null;
     readonly minLength: number | null;
-    readonly required: boolean;
+    readonly required: boolean | null;
     readonly " $refType": TextFieldFragmentMeta$ref;
 };
 
@@ -21,7 +20,7 @@ export type TextFieldFragmentMeta = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "TextFieldFragmentMeta",
-    "type": "TextMetaType",
+    "type": "TextFieldMeta",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -90,5 +89,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'b79748c916fe0880fad9817ca83f6371';
+(node as any).hash = '148309af86e56e9c69601e024909d63a';
 export default node;

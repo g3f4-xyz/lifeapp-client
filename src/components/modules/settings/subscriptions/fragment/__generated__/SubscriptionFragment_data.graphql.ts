@@ -4,8 +4,8 @@ import { ReaderFragment } from "relay-runtime";
 export type SubscriptionFragment_data$ref = any;
 export type SubscriptionFragment_data = {
     readonly id: string;
-    readonly userAgent: string;
-    readonly userDeviceType: string;
+    readonly userAgent: string | null;
+    readonly userDeviceType: string | null;
     readonly " $refType": SubscriptionFragment_data$ref;
 };
 
@@ -14,7 +14,7 @@ export type SubscriptionFragment_data = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "SubscriptionFragment_data",
-    "type": "SubscriptionType",
+    "type": "NotificationSubscription",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -41,5 +41,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'c072dc47b197d39aeeb70300eb7869c0';
+(node as any).hash = 'f39a0b5923f15f5f7237d8031924a906';
 export default node;

@@ -11,12 +11,12 @@ const TaskList: FC = () => {
 
   if (error) {
     return <div>{JSON.stringify(error)}</div>;
-  } else if (props && props.app) {
+  } else if (props) {
     return (
       <TaskListPagination
-        data={props.app.taskList}
-        settings={props.app.settings.taskList}
-        settingsId={props.app.settings.id}
+        data={props.tasks}
+        settings={props.settings.taskList}
+        settingsId={props.settings.id}
       />
     );
   }

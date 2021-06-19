@@ -3,7 +3,7 @@
 import { ReaderFragment } from "relay-runtime";
 export type SwitchFieldFragmentValue$ref = any;
 export type SwitchFieldFragmentValue = {
-    readonly enabled: boolean;
+    readonly enabled: boolean | null;
     readonly " $refType": SwitchFieldFragmentValue$ref;
 };
 
@@ -12,7 +12,7 @@ export type SwitchFieldFragmentValue = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "SwitchFieldFragmentValue",
-    "type": "SwitchValueType",
+    "type": "SwitchFieldValue",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -25,5 +25,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '17b2b5f676ec23834c8e625601aa96b6';
+(node as any).hash = 'ae6fad281c1a4b738f4a0088ae295025';
 export default node;

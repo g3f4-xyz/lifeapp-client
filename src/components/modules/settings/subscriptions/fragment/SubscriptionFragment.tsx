@@ -58,7 +58,7 @@ const SubscriptionFragment: FC<SubscriptionFragmentProps> = props => {
     }
   };
 
-  const UserDeviceTypeIcon = DEVICES_ICONS[userDeviceType] || DEVICES_ICONS[DEVICES.OTHER];
+  const UserDeviceTypeIcon = userDeviceType ? DEVICES_ICONS[userDeviceType] : DEVICES_ICONS[DEVICES.OTHER];
 
   return (
     <ListItem key={id} className={classes.listItem}>
@@ -83,7 +83,7 @@ const SubscriptionFragment: FC<SubscriptionFragmentProps> = props => {
 
 export default createFragmentContainer<SubscriptionFragmentProps>(SubscriptionFragment, {
   data: graphql`
-    fragment SubscriptionFragment_data on SubscriptionType {
+    fragment SubscriptionFragment_data on NotificationSubscription {
       id
       userAgent
       userDeviceType

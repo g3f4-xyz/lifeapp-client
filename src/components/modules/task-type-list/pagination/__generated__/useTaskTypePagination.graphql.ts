@@ -30,7 +30,7 @@ const node: ReaderFragment = (function () {
     return {
         "kind": "Fragment",
         "name": "useTaskTypePagination",
-        "type": "TaskTypeListType",
+        "type": "TaskTypes",
         "metadata": {
             "connection": [
                 {
@@ -60,10 +60,10 @@ const node: ReaderFragment = (function () {
             {
                 "kind": "LinkedField",
                 "alias": "list",
-                "name": "__TaskTypeList_list_connection",
+                "name": "__TaskTypeConnection_list_connection",
                 "storageKey": null,
                 "args": null,
-                "concreteType": "TaskTypeTypeConnection",
+                "concreteType": "TaskTypeConnection_list",
                 "plural": false,
                 "selections": [
                     {
@@ -72,7 +72,7 @@ const node: ReaderFragment = (function () {
                         "name": "edges",
                         "storageKey": null,
                         "args": null,
-                        "concreteType": "TaskTypeTypeEdge",
+                        "concreteType": "TaskTypeConnection_listEdge",
                         "plural": true,
                         "selections": [
                             {
@@ -81,7 +81,7 @@ const node: ReaderFragment = (function () {
                                 "name": "node",
                                 "storageKey": null,
                                 "args": null,
-                                "concreteType": "TaskTypeType",
+                                "concreteType": "TaskType",
                                 "plural": false,
                                 "selections": [
                                     (v0 /*: any*/),
@@ -145,5 +145,5 @@ const node: ReaderFragment = (function () {
         ]
     } as any;
 })();
-(node as any).hash = '7977ccbcaf8d2efc13fd6eb6f6d90ce5';
+(node as any).hash = 'd8a346b0a0d08dbd3a1bad4cf98cc998';
 export default node;

@@ -5,35 +5,13 @@ import { useFragment } from 'relay-hooks';
 import { useTaskFragment, useTaskFragment$ref } from './__generated__/useTaskFragment.graphql';
 
 const query = graphql`
-  fragment useTaskFragment on TaskType {
+  fragment useTaskFragment on Task {
     id
     fields {
       __typename
-      ... on ChoiceFieldType {
-        fieldId
-        fieldType
-        order
-      }
-      ... on SwitchFieldType {
-        fieldId
-        fieldType
-        order
-      }
-      ... on SliderFieldType {
-        fieldId
-        fieldType
-        order
-      }
-      ... on NestedFieldType {
-        fieldId
-        fieldType
-        order
-      }
-      ... on TextFieldType {
-        fieldId
-        fieldType
-        order
-      }
+      fieldId
+      fieldType
+      order
       ...SliderFieldFragment_data
       ...SwitchFieldFragment_data
       ...ChoiceFieldFragment_data

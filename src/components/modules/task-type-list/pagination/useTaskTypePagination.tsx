@@ -9,9 +9,9 @@ import {
 } from './__generated__/useTaskTypePagination.graphql';
 
 const query = graphql`
-  fragment useTaskTypePagination on TaskTypeListType {
+  fragment useTaskTypePagination on TaskTypes {
     id
-    list(first: $count, after: $after) @connection(key: "TaskTypeList_list") {
+    list(first: $count, after: $after) @connection(key: "TaskTypeConnection_list") {
       edges {
         node {
           id

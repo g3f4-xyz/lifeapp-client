@@ -87,7 +87,7 @@ const NotificationsGeneral: FC<NotificationsGeneralProps> = props => {
 
 export default createFragmentContainer(NotificationsGeneral, {
   data: graphql`
-    fragment NotificationsGeneralFragment_data on NotificationsGeneralSettingType {
+    fragment NotificationsGeneralFragment_data on GeneralNotificationsSettings {
       show
       vibrate
     }

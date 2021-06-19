@@ -3,7 +3,7 @@
 import { ReaderFragment } from "relay-runtime";
 export type TextFieldFragmentValue$ref = any;
 export type TextFieldFragmentValue = {
-    readonly text: string;
+    readonly text: string | null;
     readonly " $refType": TextFieldFragmentValue$ref;
 };
 
@@ -12,7 +12,7 @@ export type TextFieldFragmentValue = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "TextFieldFragmentValue",
-    "type": "TextValueType",
+    "type": "TextFieldValue",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -25,5 +25,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '4aea032a5f6e70fe4d383564ab0496e7';
+(node as any).hash = '49086ec67a12e6d1c2d5f8af2e738b26';
 export default node;

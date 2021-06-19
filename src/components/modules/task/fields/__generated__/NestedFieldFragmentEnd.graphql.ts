@@ -1,16 +1,16 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-type NestedFieldFragment$ref = any;
-export type NestedFieldFragmentMeta$ref = any;
-export type NestedFieldFragmentMeta = {
+type NestedFieldFragmentSimpleMetasFragment$ref = any;
+export type NestedFieldFragmentEnd$ref = any;
+export type NestedFieldFragmentEnd = {
     readonly ownMeta: {
-        readonly " $fragmentRefs": NestedFieldFragment$ref;
+        readonly " $fragmentRefs": NestedFieldFragmentSimpleMetasFragment$ref;
     } | null;
     readonly childrenMeta: ReadonlyArray<{
-        readonly " $fragmentRefs": NestedFieldFragment$ref;
+        readonly " $fragmentRefs": NestedFieldFragmentSimpleMetasFragment$ref;
     }> | null;
-    readonly " $refType": NestedFieldFragmentMeta$ref;
+    readonly " $refType": NestedFieldFragmentEnd$ref;
 };
 
 
@@ -19,13 +19,13 @@ const node: ReaderFragment = (function () {
     var v0 = [
         ({
             "kind": "FragmentSpread",
-            "name": "NestedFieldFragment",
+            "name": "NestedFieldFragmentSimpleMetasFragment",
             "args": null
         } as any)
     ];
     return {
         "kind": "Fragment",
-        "name": "NestedFieldFragmentMeta",
+        "name": "NestedFieldFragmentEnd",
         "type": "NestedFieldMeta",
         "metadata": null,
         "argumentDefinitions": [],
@@ -53,5 +53,5 @@ const node: ReaderFragment = (function () {
         ]
     } as any;
 })();
-(node as any).hash = '4002006acf12f624410d56f763547dab';
+(node as any).hash = 'f55a658e342254e25a237ab452d914d3';
 export default node;

@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "build": "NODE_ENV=production react-scripts build && sw-precache --config=sw-precache-config.js && cra-append-sw ./public/notifications-worker.js",
-    "get:local:schema": "fetch-graphql-schema http://localhost:30000/graphql -o graphql.schema.json",
+    "get:local:schema": "fetch-graphql-schema http://localhost:9000/graphql -o graphql.schema.json",
     "get:remote:schema": "fetch-graphql-schema https://lifeapp-server.herokuapp.com/graphql -o graphql.schema.json",
     "lint": "eslint './src/**/*.{ts,tsx}'",
     "lint:fix": "eslint './src/**/*.{ts,tsx}' --fix",
@@ -74,5 +74,5 @@
   "babelMacros": {
     "relay": {}
   },
-  "proxy": "http://localhost:30000"
+  "proxy": "http://localhost:9000"
 }

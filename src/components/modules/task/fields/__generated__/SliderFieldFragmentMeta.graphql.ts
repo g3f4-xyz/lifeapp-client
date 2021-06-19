@@ -1,13 +1,12 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
 export type SliderFieldFragmentMeta$ref = any;
 export type SliderFieldFragmentMeta = {
-    readonly fieldType: FieldTypeEnum;
-    readonly label: string;
+    readonly fieldType: string | null;
+    readonly label: string | null;
     readonly disabled: boolean | null;
-    readonly required: boolean;
+    readonly required: boolean | null;
     readonly max: number | null;
     readonly min: number | null;
     readonly step: number | null;
@@ -19,7 +18,7 @@ export type SliderFieldFragmentMeta = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "SliderFieldFragmentMeta",
-    "type": "SliderMetaType",
+    "type": "SliderFieldMeta",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -74,5 +73,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '36b66358d3aea5cc5a05f342f1021d78';
+(node as any).hash = '96643ed0c35884ec9be0393887fb6b7a';
 export default node;

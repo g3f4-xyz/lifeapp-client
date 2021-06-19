@@ -16,7 +16,7 @@ export type NotificationsTypesFragment_data = {
 const node: ReaderFragment = ({
     "kind": "Fragment",
     "name": "NotificationsTypesFragment_data",
-    "type": "NotificationsTypesSettingType",
+    "type": "TypesNotificationsSettings",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -57,5 +57,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '4a370dee4f1b611a3bd8ba13a2f52987';
+(node as any).hash = '8eec3f9ea582c756893bd21ef0d6a43d';
 export default node;

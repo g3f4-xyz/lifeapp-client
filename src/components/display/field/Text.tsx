@@ -5,20 +5,20 @@ import { DATE_TIME_FORMAT } from '../../../constans';
 import FieldContainer from '../../containers/field-container/FieldContainer';
 
 interface TextProps {
-  value?: string;
-  label?: string;
-  helperText?: string;
-  max?: number;
-  min?: number;
-  minLength?: number;
-  maxLength?: number;
-  required?: boolean;
-  inputType?: string;
+  value?: string | null;
+  label?: string | null;
+  helperText?: string | null;
+  max?: number | null;
+  min?: number | null;
+  minLength?: number | null;
+  maxLength?: number | null;
+  required?: boolean | null;
+  inputType?: string | null;
 
   onChange(value?: string): void;
 }
 
-const formatInputValue = (value?: string, inputType?: string): string | undefined => {
+const formatInputValue = (value?: string | null, inputType?: string | null): string | undefined | null => {
   if (value && inputType === 'datetime-local') {
     return formatToTimeZone(value, DATE_TIME_FORMAT, {
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -28,7 +28,7 @@ const formatInputValue = (value?: string, inputType?: string): string | undefine
   return value;
 };
 
-const parseInputValue = (value?: string, inputType?: string): string | undefined => {
+const parseInputValue = (value?: string, inputType?: string | null): string | undefined => {
   if (value && inputType === 'datetime-local') {
     return convertToTimeZone(value, {
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -51,7 +51,7 @@ const Text: FC<TextProps> = props => {
     <FieldContainer>
       <TextField
         label={label}
-        required={required}
+        required={required as (boolean | undefined)}
         InputLabelProps={{ shrink: true }}
         inputProps={{ type: inputType, max, maxLength, min, minLength }}
         helperText={helperText}

@@ -1,19 +1,19 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type TaskTypeEnum = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO" | "%future added value";
-export type updateTaskListTaskTypeFilterSettingMutationInput = {
-    readonly taskType: ReadonlyArray<TaskTypeEnum>;
+export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
+export type UpdateTaskListTaskTypeFilterSettingInput = {
     readonly clientMutationId?: string | null;
+    readonly taskType?: ReadonlyArray<TaskTypeId | null> | null;
 };
 export type updateTaskListTaskTypeFilterSettingMutationVariables = {
-    readonly input: updateTaskListTaskTypeFilterSettingMutationInput;
+    readonly input: UpdateTaskListTaskTypeFilterSettingInput;
 };
 export type updateTaskListTaskTypeFilterSettingMutationResponse = {
     readonly updateTaskListTaskTypeFilterSetting: {
         readonly clientMutationId: string | null;
-        readonly taskType: ReadonlyArray<TaskTypeEnum>;
-    } | null;
+        readonly taskType: ReadonlyArray<TaskTypeId | null> | null;
+    };
 };
 export type updateTaskListTaskTypeFilterSettingMutation = {
     readonly response: updateTaskListTaskTypeFilterSettingMutationResponse;
@@ -24,7 +24,7 @@ export type updateTaskListTaskTypeFilterSettingMutation = {
 
 /*
 mutation updateTaskListTaskTypeFilterSettingMutation(
-  $input: updateTaskListTaskTypeFilterSettingMutationInput!
+  $input: UpdateTaskListTaskTypeFilterSettingInput!
 ) {
   updateTaskListTaskTypeFilterSetting(input: $input) {
     clientMutationId
@@ -38,7 +38,7 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "LocalArgument",
             "name": "input",
-            "type": "updateTaskListTaskTypeFilterSettingMutationInput!",
+            "type": "UpdateTaskListTaskTypeFilterSettingInput!",
             "defaultValue": null
         } as any)
     ], v1 = [
@@ -54,7 +54,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "updateTaskListTaskTypeFilterSettingMutationPayload",
+            "concreteType": "UpdateTaskListTaskTypeFilterSettingOutput",
             "plural": false,
             "selections": [
                 {
@@ -79,7 +79,7 @@ const node: ConcreteRequest = (function () {
         "fragment": {
             "kind": "Fragment",
             "name": "updateTaskListTaskTypeFilterSettingMutation",
-            "type": "MutationType",
+            "type": "Mutation",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
@@ -94,10 +94,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "mutation",
             "name": "updateTaskListTaskTypeFilterSettingMutation",
             "id": null,
-            "text": "mutation updateTaskListTaskTypeFilterSettingMutation(\n  $input: updateTaskListTaskTypeFilterSettingMutationInput!\n) {\n  updateTaskListTaskTypeFilterSetting(input: $input) {\n    clientMutationId\n    taskType\n  }\n}\n",
+            "text": "mutation updateTaskListTaskTypeFilterSettingMutation(\n  $input: UpdateTaskListTaskTypeFilterSettingInput!\n) {\n  updateTaskListTaskTypeFilterSetting(input: $input) {\n    clientMutationId\n    taskType\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '0ccf099efab74163f70e11d75f7ddee3';
+(node as any).hash = '9d3cf3bbc80677c784219cb82743cc7e';
 export default node;

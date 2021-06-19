@@ -9,10 +9,8 @@ import {
 
 const query = graphql`
   query useTaskTypeListQuery($count: Int!, $after: String) {
-    app {
-      taskTypeList {
-        ...useTaskTypePagination
-      }
+    taskTypes {
+      ...useTaskTypePagination
     }
   }
 `;

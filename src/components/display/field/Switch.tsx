@@ -3,9 +3,9 @@ import React, { ChangeEvent, FC } from 'react';
 import FieldContainer from '../../containers/field-container/FieldContainer';
 
 export interface SwitchProps {
-  checked?: boolean;
+  checked?: boolean | null;
   disabled?: boolean | null;
-  label?: string;
+  label?: string | null;
   required?: boolean;
 
   onChange(value: boolean): void;
@@ -23,6 +23,7 @@ const Switch: FC<SwitchProps> = props => {
       <FormControlLabel
         control={
           <MaterialSwitch
+            // @ts-ignore
             checked={checked}
             disabled={disabled as (boolean | undefined)}
             value={checked}

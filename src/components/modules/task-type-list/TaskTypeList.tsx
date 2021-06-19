@@ -10,7 +10,7 @@ const TaskTypeList: FC = () => {
   if (error) {
     return <div>{JSON.stringify(error)}</div>;
   } else if (props) {
-    return <TaskTypeListPagination data={props.app.taskTypeList} />;
+    return <TaskTypeListPagination data={props.taskTypes} />;
   }
 
   return <Loader />;

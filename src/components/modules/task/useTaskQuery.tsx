@@ -5,15 +5,9 @@ import { useQuery } from 'relay-hooks';
 import { useTaskQuery, useTaskQueryVariables } from './__generated__/useTaskQuery.graphql';
 
 const query = graphql`
-  query useTaskQuery($id: ID, $type: String) {
-    app {
-      task(id: $id, type: $type) {
-        id
-        ...useTaskFragment
-      }
-      taskList {
-        id
-      }
+  query useTaskQuery($id: ID, $typeId: TaskTypeId) {
+    task(id: $id, typeId: $typeId) {
+      ...useTaskFragment
     }
   }
 `;
