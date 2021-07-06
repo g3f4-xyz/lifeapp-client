@@ -1,10 +1,11 @@
 import graphql from 'babel-plugin-relay/macro';
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Text from '../../../display/field/Text';
 // eslint-disable-next-line @typescript-eslint/camelcase
 import { TextFieldFragment_data } from './__generated__/TextFieldFragment_data.graphql';
+import RelayEnvironmentContext from '../../../../contexts/RelayEnvironmentContext';
 
 interface TextFieldProps {
   // eslint-disable-next-line @typescript-eslint/camelcase
@@ -19,14 +20,14 @@ const TextField: FC<TextFieldProps> = props => {
     meta,
   } = data;
   const { max, maxLength, min, minLength, required, inputType, label, helperText } = meta;
-
+  const environment = useContext(RelayEnvironmentContext);
   const handleChange = async (text: string): Promise<void> => {
     const {
       taskId,
       data: { fieldId, id },
     } = props;
 
-    await updateTaskFieldMutation({ fieldId, value: { text }, taskId }, { id });
+    await updateTaskFieldMutation({ fieldId, value: { text }, taskId }, { id }, environment);
   };
 
   return (

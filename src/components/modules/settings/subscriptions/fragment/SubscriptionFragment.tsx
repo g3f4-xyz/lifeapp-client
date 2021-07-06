@@ -16,13 +16,14 @@ import {
 } from '@material-ui/icons';
 import CloudOffIcon from '@material-ui/icons/CloudOff';
 import graphql from 'babel-plugin-relay/macro';
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import { DEVICES, STATUSES } from '../../../../../constans';
 import testSubscriptionMutation from '../../../../../mutations/testSubscriptionMutation';
 // eslint-disable-next-line @typescript-eslint/camelcase
 import { SubscriptionFragment_data } from './__generated__/SubscriptionFragment_data.graphql';
 import useSubscriptionFragmentStyles from '../pagination/useSubscriptionFragmentStyles';
+import RelayEnvironmentContext from '../../../../../contexts/RelayEnvironmentContext';
 
 const DEVICES_ICONS = {
   [DEVICES.DESKTOP]: Computer,
@@ -43,22 +44,28 @@ const SubscriptionFragment: FC<SubscriptionFragmentProps> = props => {
   } = props;
   const classes = useSubscriptionFragmentStyles();
   const [statusCode, setStatusCode] = useState('');
+  const environment = useContext(RelayEnvironmentContext);
 
   const handleDelete = () => {
     props.onDelete(props.data.id);
   };
 
   const handleTest = async () => {
-    const { testSubscription } = await testSubscriptionMutation({
-      subscriptionId: props.data.id,
-    });
+    const { testSubscription } = await testSubscriptionMutation(
+      {
+        subscriptionId: props.data.id,
+      },
+      environment,
+    );
 
     if (testSubscription) {
       setStatusCode(testSubscription.statusCode);
     }
   };
 
-  const UserDeviceTypeIcon = userDeviceType ? DEVICES_ICONS[userDeviceType] : DEVICES_ICONS[DEVICES.OTHER];
+  const UserDeviceTypeIcon = userDeviceType
+    ? DEVICES_ICONS[userDeviceType]
+    : DEVICES_ICONS[DEVICES.OTHER];
 
   return (
     <ListItem key={id} className={classes.listItem}>

@@ -1,10 +1,11 @@
 import graphql from 'babel-plugin-relay/macro';
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Switch from '../../../display/field/Switch';
 // eslint-disable-next-line @typescript-eslint/camelcase
 import { SwitchFieldFragment_data } from './__generated__/SwitchFieldFragment_data.graphql';
+import RelayEnvironmentContext from '../../../../contexts/RelayEnvironmentContext';
 
 interface SwitchFieldProps {
   // eslint-disable-next-line @typescript-eslint/camelcase
@@ -18,6 +19,7 @@ const SwitchField: FC<SwitchFieldProps> = props => {
     value: { enabled },
     meta: { label, disabled },
   } = data;
+  const environment = useContext(RelayEnvironmentContext);
 
   const handleChange = async (enabled: boolean): Promise<void> => {
     const {
@@ -25,7 +27,7 @@ const SwitchField: FC<SwitchFieldProps> = props => {
       data: { fieldId, id },
     } = props;
 
-    await updateTaskFieldMutation({ fieldId, value: { enabled }, taskId }, { id });
+    await updateTaskFieldMutation({ fieldId, value: { enabled }, taskId }, { id }, environment);
   };
 
   return <Switch disabled={disabled} checked={enabled} label={label} onChange={handleChange} />;

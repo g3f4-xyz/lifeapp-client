@@ -1,7 +1,6 @@
 import graphql from 'babel-plugin-relay/macro';
 import { commitMutation } from 'react-relay';
-import { RecordSourceSelectorProxy } from 'relay-runtime';
-import environment from '../environment';
+import { Environment, RecordSourceSelectorProxy } from 'relay-runtime';
 import {
   updateTaskListTitleFilterSettingMutation,
   UpdateTaskListTitleFilterSettingInput,
@@ -22,6 +21,7 @@ const mutation = graphql`
 export default (
   { title }: UpdateTaskListTitleFilterSettingInput,
   { parentID }: { parentID: string },
+  environment: Environment,
 ): Promise<updateTaskListTitleFilterSettingMutationResponse> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { title } };

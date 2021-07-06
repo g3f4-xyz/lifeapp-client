@@ -1,11 +1,11 @@
 import graphql from 'babel-plugin-relay/macro';
 import { commitMutation } from 'react-relay';
-import environment from '../environment';
 import {
   cleanApplicationMutation,
   CleanApplicationInput,
   cleanApplicationMutationResponse,
 } from './__generated__/cleanApplicationMutation.graphql';
+import { Environment } from 'relay-runtime';
 
 const mutation = graphql`
   mutation cleanApplicationMutation($input: CleanApplicationInput!) {
@@ -16,9 +16,10 @@ const mutation = graphql`
   }
 `;
 
-export default ({
-  ownerId,
-}: CleanApplicationInput): Promise<cleanApplicationMutationResponse> =>
+export default (
+  { ownerId }: CleanApplicationInput,
+  environment: Environment,
+): Promise<cleanApplicationMutationResponse> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { ownerId } };
 

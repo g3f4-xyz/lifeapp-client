@@ -1,10 +1,11 @@
 import graphql from 'babel-plugin-relay/macro';
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Choice from '../../../display/field/Choice';
 // eslint-disable-next-line @typescript-eslint/camelcase
 import { ChoiceFieldFragment_data } from './__generated__/ChoiceFieldFragment_data.graphql';
+import RelayEnvironmentContext from '../../../../contexts/RelayEnvironmentContext';
 
 interface ChoiceFieldProps {
   // eslint-disable-next-line @typescript-eslint/camelcase
@@ -18,13 +19,18 @@ const ChoiceField: FC<ChoiceFieldProps> = props => {
     value: { id },
     meta: { options, label, helperText },
   } = data;
+  const environment = useContext(RelayEnvironmentContext);
   const handleChange = async (changedId: string): Promise<void> => {
     const {
       taskId,
       data: { fieldId, id },
     } = props;
 
-    await updateTaskFieldMutation({ fieldId, value: { id: changedId }, taskId }, { id });
+    await updateTaskFieldMutation(
+      { fieldId, value: { id: changedId }, taskId },
+      { id },
+      environment,
+    );
   };
 
   return (

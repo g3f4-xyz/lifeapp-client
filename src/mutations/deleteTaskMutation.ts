@@ -1,11 +1,11 @@
 import graphql from 'babel-plugin-relay/macro';
 import { commitMutation, DeclarativeMutationConfig } from 'react-relay';
-import environment from '../environment';
 import {
   deleteTaskMutation,
   DeleteTaskInput,
   deleteTaskMutationResponse,
 } from './__generated__/deleteTaskMutation.graphql';
+import { Environment } from 'relay-runtime';
 
 const mutation = graphql`
   mutation deleteTaskMutation($input: DeleteTaskInput!) {
@@ -17,10 +17,10 @@ const mutation = graphql`
   }
 `;
 
-export default ({
-  id,
-  parentID,
-}: DeleteTaskInput & { parentID: string }): Promise<deleteTaskMutationResponse> =>
+export default (
+  { id, parentID }: DeleteTaskInput & { parentID: string },
+  environment: Environment,
+): Promise<deleteTaskMutationResponse> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { id } };
     const configs: DeclarativeMutationConfig[] = [

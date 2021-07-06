@@ -1,16 +1,14 @@
 import graphql from 'babel-plugin-relay/macro';
 import { commitMutation } from 'react-relay';
-import environment from '../environment';
 import {
   saveNotificationsTypesSettingMutation,
   SaveNotificationsTypesSettingInput,
   saveNotificationsTypesSettingMutationResponse,
 } from './__generated__/saveNotificationsTypesSettingMutation.graphql';
+import { Environment } from 'relay-runtime';
 
 const mutation = graphql`
-  mutation saveNotificationsTypesSettingMutation(
-    $input: SaveNotificationsTypesSettingInput!
-  ) {
+  mutation saveNotificationsTypesSettingMutation($input: SaveNotificationsTypesSettingInput!) {
     saveNotificationsTypesSetting(input: $input) {
       savedTypes {
         ...NotificationsTypesFragment_data
@@ -19,11 +17,10 @@ const mutation = graphql`
   }
 `;
 
-export default ({
-  types,
-}: SaveNotificationsTypesSettingInput): Promise<
-  saveNotificationsTypesSettingMutationResponse
-> =>
+export default (
+  { types }: SaveNotificationsTypesSettingInput,
+  environment: Environment,
+): Promise<saveNotificationsTypesSettingMutationResponse> =>
   new Promise((onCompleted, onError): void => {
     const variables = { input: { types } };
 

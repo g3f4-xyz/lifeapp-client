@@ -1,6 +1,6 @@
 {
   "name": "lifeapp-client",
-  "version": "2.2.12",
+  "version": "2.3.0",
   "homepage": "https://g3f4-xyz.github.io/lifeapp-client/",
   "license": "MIT",
   "scripts": {
@@ -22,6 +22,7 @@
     "not dead"
   ],
   "dependencies": {
+    "@auth0/auth0-react": "1.5.0",
     "@material-ui/core": "4.4.3",
     "@material-ui/icons": "4.4.3",
     "@types/classnames": "2.2.9",
@@ -44,6 +45,7 @@
     "fetch-graphql-schema": "0.2.1",
     "graphql": "14.5.8",
     "graphql-compiler": "1.7.0",
+    "history": "5.0.0",
     "immutability-helper": "3.0.1",
     "js-cookie": "2.2.1",
     "react": "16.9.0",
@@ -73,6 +75,5 @@
   },
   "babelMacros": {
     "relay": {}
-  },
-  "proxy": "http://localhost:9000"
+  }
 }

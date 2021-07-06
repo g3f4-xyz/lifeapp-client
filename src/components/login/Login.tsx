@@ -2,33 +2,28 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import React, { FC, useCallback, useContext } from 'react';
+import React, { FC, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import AuthContext from '../../contexts/AuthContext';
-import OAuth from './OAuth';
-import { UserInfo } from './useAuth';
 import useLoginStyles from './useLoginStyles';
+import { useAuth0 } from '@auth0/auth0-react';
 
-const providers = [
-  'google',
-  // 'github',
-];
+interface UserInfo {
+  picture: string;
+  name: string;
+}
 
 const Login: FC = () => {
   const classes = useLoginStyles();
   const history = useHistory();
-  const { loading, userInfo, setUserInfo } = useContext(AuthContext);
+  const { user, isAuthenticated, loginWithRedirect } = useAuth0<UserInfo>();
 
-  const handleDemo = useCallback(() => {
+  const navigateToApp = useCallback(() => {
     history.push('/app');
   }, [history]);
-  const handleLogged = useCallback(
-    (userInfo: UserInfo) => {
-      setUserInfo(userInfo);
-      history.push('/app');
-    },
-    [history, setUserInfo],
-  );
+
+  const handleLogIn = useCallback(() => {
+    loginWithRedirect().then(() => {});
+  }, [loginWithRedirect]);
 
   return (
     <div className={classes.root}>
@@ -44,22 +39,15 @@ const Login: FC = () => {
             </Grid>
             <Grid item xs={6}>
               <Paper className={classes.paper}>
-                {loading
-                  ? 'Preparing authorization...'
-                  : providers.map(provider => (
-                      <OAuth
-                        provider={provider}
-                        key={provider}
-                        onUserInfo={handleLogged}
-                        userInfo={userInfo}
-                      />
-                    ))}
+                <Button size="large" onClick={handleLogIn} className={classes.button}>
+                  {isAuthenticated ? `Hi ${user && user.name}!` : 'Log in'}
+                </Button>
               </Paper>
             </Grid>
             <Grid item xs={6}>
               <Paper className={classes.paper}>
-                <Button size="large" onClick={handleDemo} className={classes.button}>
-                  Try Demo
+                <Button size="large" onClick={navigateToApp} className={classes.button}>
+                  App
                 </Button>
               </Paper>
             </Grid>

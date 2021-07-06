@@ -2,7 +2,7 @@ import { Button, IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import MoreIcon from '@material-ui/icons/MoreHoriz';
-import React, { ChangeEvent, FC, Fragment, useCallback, useState } from 'react';
+import React, { ChangeEvent, FC, Fragment, useCallback, useContext, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { MODULES_IDS, TaskTypeEnum } from '../../../../constans';
 import { TaskStatus } from '../../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
@@ -17,6 +17,7 @@ import TaskListFragment from '../fragment/TaskListFragment';
 import { useTaskListPagination$ref } from './__generated__/useTaskListPagination.graphql';
 import useTaskListPagination from './useTaskListPagination';
 import useTaskListPaginationStyles from './useTaskListPaginationStyles';
+import RelayEnvironmentContext from '../../../../contexts/RelayEnvironmentContext';
 
 interface TaskListPaginationProps {
   data: useTaskListPagination$ref;
@@ -33,6 +34,7 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
     8,
   );
   const history = useHistory();
+  const environment = useContext(RelayEnvironmentContext);
 
   const handleAdd = useCallback(() => {
     history.push(`/app/${MODULES_IDS.TASK_TYPE_LIST}`);
@@ -65,15 +67,15 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
   };
 
   const handleDelete = async (id: string): Promise<void> => {
-    await deleteTaskMutation({ id, parentID: data.id });
+    await deleteTaskMutation({ id, parentID: data.id }, environment);
   };
 
   const handleFilterByTitle = async (event: ChangeEvent<HTMLInputElement>) => {
     setLoading(true);
-
     await updateTaskListTitleFilterSettingMutation(
       { title: event.target.value },
       { parentID: props.settingsId },
+      environment,
     );
 
     refetchConnection();
@@ -89,6 +91,7 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
         status: event.target.value.length > 0 ? (event.target.value as TaskStatus) : null,
       },
       { parentID: props.settingsId },
+      environment,
     );
 
     refetchConnection();
@@ -105,6 +108,7 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
     await updateTaskListTaskTypeFilterSettingMutation(
       { taskType: updatedTaskTypeFilter },
       { parentID: props.settingsId },
+      environment,
     );
 
     refetchConnection();

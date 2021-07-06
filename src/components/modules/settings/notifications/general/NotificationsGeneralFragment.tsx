@@ -12,12 +12,13 @@ import {
 } from '@material-ui/core';
 import { ExpandMore, Slideshow, Vibration } from '@material-ui/icons';
 import graphql from 'babel-plugin-relay/macro';
-import React, { ChangeEvent, FC } from 'react';
+import React, { ChangeEvent, FC, useContext } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import saveNotificationsGeneralSettingMutation from '../../../../../mutations/saveNotificationsGeneralSettingMutation';
 // eslint-disable-next-line @typescript-eslint/camelcase
 import { NotificationsGeneralFragment_data } from './__generated__/NotificationsGeneralFragment_data.graphql';
 import useNotificationsGeneralFragmentStyles from './useNotificationsGeneralFragmentStyles';
+import RelayEnvironmentContext from '../../../../../contexts/RelayEnvironmentContext';
 
 interface NotificationsGeneralProps {
   // eslint-disable-next-line @typescript-eslint/camelcase
@@ -29,29 +30,36 @@ const NotificationsGeneral: FC<NotificationsGeneralProps> = props => {
     data: { show, vibrate },
   } = props;
   const classes = useNotificationsGeneralFragmentStyles();
+  const environment = useContext(RelayEnvironmentContext);
 
   const handleShowChange = async (
     _: ChangeEvent<HTMLInputElement>,
     show: boolean,
   ): Promise<void> => {
-    await saveNotificationsGeneralSettingMutation({
-      general: {
-        ...props.data,
-        show,
+    await saveNotificationsGeneralSettingMutation(
+      {
+        general: {
+          ...props.data,
+          show,
+        },
       },
-    });
+      environment,
+    );
   };
 
   const handleVibrateChange = async (
     _: ChangeEvent<HTMLInputElement>,
     vibrate: boolean,
   ): Promise<void> => {
-    await saveNotificationsGeneralSettingMutation({
-      general: {
-        ...props.data,
-        vibrate,
+    await saveNotificationsGeneralSettingMutation(
+      {
+        general: {
+          ...props.data,
+          vibrate,
+        },
       },
-    });
+      environment,
+    );
   };
 
   return (

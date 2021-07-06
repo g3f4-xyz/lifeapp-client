@@ -15,7 +15,7 @@ import {
 } from '@material-ui/core';
 import { DeleteForever, Done, ExpandMore } from '@material-ui/icons';
 import graphql from 'babel-plugin-relay/macro';
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useContext, useState } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import { useHistory } from 'react-router-dom';
 import { MODULES_IDS } from '../../../../constans';
@@ -27,6 +27,7 @@ import NotificationsTypesFragment from '../notifications/types/NotificationsType
 import useSettingsFragmentStyles from '../subscriptions/fragment/useSettingsFragmentStyles';
 import SubscriptionsPagination from '../subscriptions/pagination/SubscriptionsPagination';
 import { SettingsFragment_data as SettingsFragmentResponse } from './__generated__/SettingsFragment_data.graphql';
+import RelayEnvironmentContext from '../../../../contexts/RelayEnvironmentContext';
 
 export interface SettingsFragmentProps {
   data: SettingsFragmentResponse;
@@ -36,6 +37,7 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
   const classes = useSettingsFragmentStyles();
   const [cleanApplicationDialogOpen, setCleanApplicationDialogOpen] = useState(false);
   const history = useHistory();
+  const environment = useContext(RelayEnvironmentContext);
 
   const handleDone = useCallback(() => {
     history.push(`/app/${MODULES_IDS.TASK_LIST}`);
@@ -50,9 +52,12 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
   };
 
   const handleCleanApplication = async () => {
-    const { cleanApplication } = await cleanApplicationMutation({
-      ownerId: props.data.ownerId,
-    });
+    const { cleanApplication } = await cleanApplicationMutation(
+      {
+        ownerId: props.data.ownerId,
+      },
+      environment,
+    );
 
     window.location.href =
       cleanApplication && cleanApplication.navigationUrl ? cleanApplication.navigationUrl : '';
@@ -72,10 +77,13 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
   };
 
   const onDeleteSubscription = async (subscriptionId: string) => {
-    await deleteSubscriptionMutation({
-      subscriptionId,
-      parentID: props.data.notifications.id,
-    });
+    await deleteSubscriptionMutation(
+      {
+        subscriptionId,
+        parentID: props.data.notifications.id,
+      },
+      environment,
+    );
   };
 
   return (

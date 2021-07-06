@@ -1,10 +1,11 @@
 import graphql from 'babel-plugin-relay/macro';
-import React, { FC } from 'react';
+import React, { FC, useContext } from 'react';
 import { createFragmentContainer } from 'react-relay';
 import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Slider from '../../../display/field/Slider';
 // eslint-disable-next-line @typescript-eslint/camelcase
 import { SliderFieldFragment_data } from './__generated__/SliderFieldFragment_data.graphql';
+import RelayEnvironmentContext from '../../../../contexts/RelayEnvironmentContext';
 
 interface SliderFieldProps {
   // eslint-disable-next-line @typescript-eslint/camelcase
@@ -18,6 +19,7 @@ const SliderField: FC<SliderFieldProps> = props => {
     value: { progress },
     meta: { label, disabled, max, min, step },
   } = data;
+  const environment = useContext(RelayEnvironmentContext);
 
   const handleChange = async (progress: number): Promise<void> => {
     const {
@@ -25,7 +27,7 @@ const SliderField: FC<SliderFieldProps> = props => {
       data: { fieldId, id },
     } = props;
 
-    await updateTaskFieldMutation({ fieldId, value: { progress }, taskId }, { id });
+    await updateTaskFieldMutation({ fieldId, value: { progress }, taskId }, { id }, environment);
   };
 
   return (

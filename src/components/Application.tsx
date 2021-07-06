@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useState } from 'react';
+import React, { FC, useCallback, useContext, useState } from 'react';
 import { useRouteMatch } from 'react-router-dom';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import { MODULES_IDS } from '../constans';
@@ -10,6 +10,8 @@ import SettingsQuery from './modules/settings/SettingsQuery';
 import TaskList from './modules/task-list/TaskList';
 import TaskTypeList from './modules/task-type-list/TaskTypeList';
 import Task from './modules/task/Task';
+import { RelayEnvironmentProvider } from 'relay-hooks';
+import RelayEnvironmentContext from '../contexts/RelayEnvironmentContext';
 
 const Application: FC = () => {
   const [openedTasksParams, setOpenedTasksParams] = useState<TaskParams[]>([]);
@@ -19,6 +21,7 @@ const Application: FC = () => {
     path: '',
     url: '',
   };
+  const environment = useContext(RelayEnvironmentContext);
 
   const addTaskParam = useCallback(
     (taskParams: TaskParams) => {
@@ -52,55 +55,59 @@ const Application: FC = () => {
 
   return (
     <ErrorBoundary>
-      <AppContext.Provider value={{ value: { openedTasksParams }, addTaskParam, removeTaskParam }}>
-        <AppMenu />
-        <Switch>
-          <Route path={`${match.url}/${MODULES_IDS.TASK_LIST}`} component={TaskList} />
-          <Route path={`${match.url}/${MODULES_IDS.TASK_TYPE_LIST}`} component={TaskTypeList} />
-          <Route path={`${match.url}/${MODULES_IDS.SETTINGS}`} component={SettingsQuery} />
-          <Route path={`${match.url}/${MODULES_IDS.TASK}/*`} component={Task} />
-          <Route
-            path={`${match.url}/dashboard`}
-            component={() => (
-              <ResponsiveGrid>
-                <ResponsiveGridItem
-                  path={`${match.url}/${MODULES_IDS.TASK_LIST}`}
-                  onRemove={removeGridItem}
-                  fixed
-                >
-                  <TaskList />
-                </ResponsiveGridItem>
-                <ResponsiveGridItem
-                  path={`${match.url}/${MODULES_IDS.TASK_TYPE_LIST}`}
-                  onRemove={removeGridItem}
-                  fixed
-                >
-                  <TaskTypeList />
-                </ResponsiveGridItem>
-                <ResponsiveGridItem
-                  path={`${match.url}/${MODULES_IDS.SETTINGS}`}
-                  onRemove={removeGridItem}
-                  fixed
-                >
-                  <SettingsQuery />
-                </ResponsiveGridItem>
-                {openedTasksParams.map(params => (
+      <RelayEnvironmentProvider environment={environment}>
+        <AppContext.Provider
+          value={{ value: { openedTasksParams }, addTaskParam, removeTaskParam }}
+        >
+          <AppMenu />
+          <Switch>
+            <Route path={`${match.url}/${MODULES_IDS.TASK_LIST}`} component={TaskList} />
+            <Route path={`${match.url}/${MODULES_IDS.TASK_TYPE_LIST}`} component={TaskTypeList} />
+            <Route path={`${match.url}/${MODULES_IDS.SETTINGS}`} component={SettingsQuery} />
+            <Route path={`${match.url}/${MODULES_IDS.TASK}/*`} component={Task} />
+            <Route
+              path={`${match.url}/dashboard`}
+              component={() => (
+                <ResponsiveGrid>
                   <ResponsiveGridItem
-                    key={params.taskId || params.taskType}
-                    path={`${match.url}/task/${params.taskType}/${params.taskId}`}
+                    path={`${match.url}/${MODULES_IDS.TASK_LIST}`}
                     onRemove={removeGridItem}
+                    fixed
                   >
-                    <Task {...params} />
+                    <TaskList />
                   </ResponsiveGridItem>
-                ))}
-              </ResponsiveGrid>
-            )}
-          />
-          <Route path="/*">
-            <Redirect to={`${match.url}/${MODULES_IDS.TASK_LIST}`} />
-          </Route>
-        </Switch>
-      </AppContext.Provider>
+                  <ResponsiveGridItem
+                    path={`${match.url}/${MODULES_IDS.TASK_TYPE_LIST}`}
+                    onRemove={removeGridItem}
+                    fixed
+                  >
+                    <TaskTypeList />
+                  </ResponsiveGridItem>
+                  <ResponsiveGridItem
+                    path={`${match.url}/${MODULES_IDS.SETTINGS}`}
+                    onRemove={removeGridItem}
+                    fixed
+                  >
+                    <SettingsQuery />
+                  </ResponsiveGridItem>
+                  {openedTasksParams.map(params => (
+                    <ResponsiveGridItem
+                      key={params.taskId || params.taskType}
+                      path={`${match.url}/task/${params.taskType}/${params.taskId}`}
+                      onRemove={removeGridItem}
+                    >
+                      <Task {...params} />
+                    </ResponsiveGridItem>
+                  ))}
+                </ResponsiveGrid>
+              )}
+            />
+            <Route path="/*">
+              <Redirect to={`${match.url}/${MODULES_IDS.TASK_LIST}`} />
+            </Route>
+          </Switch>
+        </AppContext.Provider>
+      </RelayEnvironmentProvider>
     </ErrorBoundary>
   );
 };
