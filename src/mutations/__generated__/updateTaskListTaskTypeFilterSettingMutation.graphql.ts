@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
+export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO" | "%future added value";
 export type UpdateTaskListTaskTypeFilterSettingInput = {
     readonly clientMutationId?: string | null;
     readonly taskType?: ReadonlyArray<TaskTypeId | null> | null;

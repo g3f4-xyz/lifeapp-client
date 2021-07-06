@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO";
+export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO" | "%future added value";
 export type UpdateTaskListStatusFilterSettingInput = {
     readonly clientMutationId?: string | null;
     readonly status?: TaskStatus | null;

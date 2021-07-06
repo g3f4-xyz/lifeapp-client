@@ -2,8 +2,8 @@
 
 import { ConcreteRequest } from "relay-runtime";
 type useTaskListPagination$ref = any;
-export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO";
-export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
+export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO" | "%future added value";
+export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO" | "%future added value";
 export type useTaskListQueryVariables = {
     readonly count: number;
     readonly after?: string | null;

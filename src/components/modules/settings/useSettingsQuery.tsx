@@ -1,0 +1,22 @@
+// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+// @ts-ignore
+import graphql from 'babel-plugin-relay/macro';
+import { useQuery } from 'relay-hooks';
+import {
+  useSettingsQuery,
+  useSettingsQueryVariables,
+} from './__generated__/useSettingsQuery.graphql';
+
+const query = graphql`
+  query useSettingsQuery($count: Int!, $after: String) {
+    settings {
+      ...SettingsFragment_data
+    }
+  }
+`;
+
+export default (variables: useSettingsQueryVariables) =>
+  useQuery<useSettingsQuery>({
+    query,
+    variables,
+  });

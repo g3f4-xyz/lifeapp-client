@@ -2,7 +2,7 @@
 
 import { ConcreteRequest } from "relay-runtime";
 type useTaskFragment$ref = any;
-export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
+export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO" | "%future added value";
 export type useTaskQueryVariables = {
     readonly id?: string | null;
     readonly typeId?: TaskTypeId | null;

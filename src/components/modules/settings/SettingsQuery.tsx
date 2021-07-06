@@ -1,42 +1,19 @@
-import graphql from 'babel-plugin-relay/macro';
-import React, { useContext } from 'react';
-import { QueryRenderer } from 'react-relay';
+import React from 'react';
 import { ITEMS_PER_PAGE } from '../../../constans';
-import ErrorBoundary from '../../containers/error-boundary/ErrorBoundary';
 import Loader from '../../display/loader/Loader';
-import { SettingsQuery as ISettingsQuery } from './__generated__/SettingsQuery.graphql';
 import SettingsFragment from './fragment/SettingsFragment';
-import RelayEnvironmentContext from '../../../contexts/RelayEnvironmentContext';
+import useSettingsQuery from './useSettingsQuery';
 
-function SettingsQuery() {
-  const environment = useContext(RelayEnvironmentContext);
+export default function SettingsQuery() {
+  const { props, error } = useSettingsQuery({
+    count: ITEMS_PER_PAGE * 10,
+  });
 
-  return (
-    <ErrorBoundary>
-      <QueryRenderer<ISettingsQuery>
-        variables={{
-          count: ITEMS_PER_PAGE * 10,
-        }}
-        environment={environment}
-        query={graphql`
-          query SettingsQuery($count: Int!, $after: String) {
-            settings {
-              ...SettingsFragment_data
-            }
-          }
-        `}
-        render={response => {
-          if (response.error) {
-            return <div>{JSON.stringify(response.error)}</div>;
-          } else if (response.props && response.props.settings) {
-            return <SettingsFragment data={response.props.settings} />;
-          }
+  if (error) {
+    return <div>{JSON.stringify(error)}</div>;
+  } else if (props) {
+    return <SettingsFragment data={props.settings} />;
+  }
 
-          return <Loader />;
-        }}
-      />
-    </ErrorBoundary>
-  );
+  return <Loader />;
 }
-
-export default SettingsQuery;

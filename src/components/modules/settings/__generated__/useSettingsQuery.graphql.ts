@@ -2,24 +2,24 @@
 
 import { ConcreteRequest } from "relay-runtime";
 type SettingsFragment_data$ref = any;
-export type SettingsQueryVariables = {
+export type useSettingsQueryVariables = {
     readonly count: number;
     readonly after?: string | null;
 };
-export type SettingsQueryResponse = {
+export type useSettingsQueryResponse = {
     readonly settings: {
         readonly " $fragmentRefs": SettingsFragment_data$ref;
     };
 };
-export type SettingsQuery = {
-    readonly response: SettingsQueryResponse;
-    readonly variables: SettingsQueryVariables;
+export type useSettingsQuery = {
+    readonly response: useSettingsQueryResponse;
+    readonly variables: useSettingsQueryVariables;
 };
 
 
 
 /*
-query SettingsQuery(
+query useSettingsQuery(
   $count: Int!
   $after: String
 ) {
@@ -116,7 +116,7 @@ const node: ConcreteRequest = (function () {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "SettingsQuery",
+            "name": "useSettingsQuery",
             "type": "Query",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
@@ -141,7 +141,7 @@ const node: ConcreteRequest = (function () {
         },
         "operation": {
             "kind": "Operation",
-            "name": "SettingsQuery",
+            "name": "useSettingsQuery",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": [
                 {
@@ -346,12 +346,12 @@ const node: ConcreteRequest = (function () {
         },
         "params": {
             "operationKind": "query",
-            "name": "SettingsQuery",
+            "name": "useSettingsQuery",
             "id": null,
-            "text": "query SettingsQuery(\n  $count: Int!\n  $after: String\n) {\n  settings {\n    ...SettingsFragment_data\n    id\n  }\n}\n\nfragment SettingsFragment_data on Settings {\n  ownerId\n  notifications {\n    id\n    general {\n      ...NotificationsGeneralFragment_data\n    }\n    types {\n      ...NotificationsTypesFragment_data\n    }\n    ...SubscriptionsPagination_data\n  }\n}\n\nfragment NotificationsGeneralFragment_data on GeneralNotificationsSettings {\n  show\n  vibrate\n}\n\nfragment NotificationsTypesFragment_data on TypesNotificationsSettings {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n\nfragment SubscriptionsPagination_data on NotificationsSettings {\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...SubscriptionFragment_data\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SubscriptionFragment_data on NotificationSubscription {\n  id\n  userAgent\n  userDeviceType\n}\n",
+            "text": "query useSettingsQuery(\n  $count: Int!\n  $after: String\n) {\n  settings {\n    ...SettingsFragment_data\n    id\n  }\n}\n\nfragment SettingsFragment_data on Settings {\n  ownerId\n  notifications {\n    id\n    general {\n      ...NotificationsGeneralFragment_data\n    }\n    types {\n      ...NotificationsTypesFragment_data\n    }\n    ...SubscriptionsPagination_data\n  }\n}\n\nfragment NotificationsGeneralFragment_data on GeneralNotificationsSettings {\n  show\n  vibrate\n}\n\nfragment NotificationsTypesFragment_data on TypesNotificationsSettings {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n\nfragment SubscriptionsPagination_data on NotificationsSettings {\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...SubscriptionFragment_data\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SubscriptionFragment_data on NotificationSubscription {\n  id\n  userAgent\n  userDeviceType\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = 'a36184561c3b9d6ecdc8bf68a57470fc';
+(node as any).hash = 'bc351913000b7517d5664295dac23cf9';
 export default node;

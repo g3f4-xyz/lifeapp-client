@@ -46,7 +46,12 @@ const Login: FC = () => {
             </Grid>
             <Grid item xs={6}>
               <Paper className={classes.paper}>
-                <Button size="large" onClick={navigateToApp} className={classes.button}>
+                <Button
+                  size="large"
+                  onClick={navigateToApp}
+                  className={classes.button}
+                  disabled={!isAuthenticated}
+                >
                   App
                 </Button>
               </Paper>
