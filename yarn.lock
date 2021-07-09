@@ -10234,16 +10234,6 @@ react-is@^16.6.0, react-is@^16.7.0, react-is@^16.8.1, react-is@^16.8.4:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-17.0.2.tgz#e691d4a8e9c789365655539ab372762b0efb54f0"
   integrity sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==
 
-react-relay@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/react-relay/-/react-relay-6.0.0.tgz#2a54274a471ef801a465704e58f1db91059ad1d3"
-  integrity sha512-F0UO50TNIyfkTaCnKgbniATIWPpaX0ukQ5QPdaRRwL1qxslx90Umi83XaaiHyy1etKVePMZ+DHCd1aV7yw1AKA==
-  dependencies:
-    "@babel/runtime" "^7.0.0"
-    fbjs "^1.0.0"
-    nullthrows "^1.1.0"
-    relay-runtime "6.0.0"
-
 react-resizable@1.x:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/react-resizable/-/react-resizable-1.11.1.tgz#02ca6850afa7a22c1b3e623e64aef71ee252af69"

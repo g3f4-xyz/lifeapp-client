@@ -1,7 +1,6 @@
 import { IconButton, Paper } from '@material-ui/core';
 import { Done } from '@material-ui/icons';
 import React, { FC } from 'react';
-import { Container } from 'react-relay';
 import { useHistory } from 'react-router';
 import { FIELD_TYPE_VALUE_MAP, MODULES_IDS } from '../../../../constans';
 import ChoiceFieldFragment from '../fields/ChoiceFieldFragment';
@@ -14,16 +13,11 @@ import useTaskFragment from './useTaskFragment';
 import useTaskFragmentStyles from './useTaskFragmentStyles';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const FIELD_COMPONENTS_MAP: FIELD_TYPE_VALUE_MAP<Container<TaskFragmentProps & any>> = {
-  // @ts-ignore
+const FIELD_COMPONENTS_MAP: FIELD_TYPE_VALUE_MAP<any> = {
   CHOICE: ChoiceFieldFragment,
-  // @ts-ignore
   SWITCH: SwitchFieldFragment,
-  // @ts-ignore
   SLIDER: SliderFieldFragment,
-  // @ts-ignore
   TEXT: TextFieldFragment,
-  // @ts-ignore
   NESTED: NestedFieldFragment,
 };
 
