@@ -56,7 +56,7 @@ const connectionConfig: ConnectionConfig = {
 };
 
 export type TaskListPaginationFunction = Omit<
-  PaginationFunction,
+  PaginationFunction<useTaskListPagination>,
   'loadMore' | 'refetchConnection'
 > & {
   loadMore(): void;
@@ -66,7 +66,6 @@ export type TaskListPaginationFunction = Omit<
 export default (
   data: useTaskListPagination$ref,
   pageSize = ITEMS_PER_PAGE,
-  onError: (error: Error) => void,
 ): [Omit<useTaskListPagination, ' $refList'>, TaskListPaginationFunction] => {
   const [response, { isLoading, hasMore, loadMore, refetchConnection }] = usePagination(
     query,
@@ -77,14 +76,14 @@ export default (
       return;
     }
 
-    loadMore(connectionConfig, pageSize, onError, {});
+    loadMore(connectionConfig, pageSize);
   };
   const _refetchConnection = () => {
     if (isLoading()) {
       return;
     }
 
-    refetchConnection(connectionConfig, pageSize, onError, {});
+    refetchConnection(connectionConfig, pageSize);
   };
 
   return [

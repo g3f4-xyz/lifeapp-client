@@ -24,4 +24,5 @@ const query = graphql`
 
 export default (
   data: useTaskTypePagination$ref,
-): [Omit<useTaskTypePagination, ' $refType'>, PaginationFunction] => usePagination(query, data);
+): [Omit<useTaskTypePagination, ' $refType'>, PaginationFunction<useTaskTypePagination>] =>
+  usePagination(query, data);

@@ -52,7 +52,7 @@ const connectionConfig: ConnectionConfig = {
 };
 
 export type SubscriptionPaginationFunction = Omit<
-  PaginationFunction,
+  PaginationFunction<useSubscriptionsPagination>,
   'loadMore' | 'refetchConnection'
 > & {
   loadMore(): void;
@@ -62,7 +62,6 @@ export type SubscriptionPaginationFunction = Omit<
 export default (
   data: useSubscriptionsPagination$ref,
   pageSize = ITEMS_PER_PAGE,
-  onError: (error: Error) => void,
 ): [Omit<useSubscriptionsPagination, ' $refList'>, SubscriptionPaginationFunction] => {
   const [response, { isLoading, hasMore, loadMore, refetchConnection }] = usePagination(
     query,
@@ -73,14 +72,14 @@ export default (
       return;
     }
 
-    loadMore(connectionConfig, pageSize, onError, {});
+    loadMore(connectionConfig, pageSize);
   };
   const _refetchConnection = () => {
     if (isLoading()) {
       return;
     }
 
-    refetchConnection(connectionConfig, pageSize, onError, {});
+    refetchConnection(connectionConfig, pageSize);
   };
 
   return [
