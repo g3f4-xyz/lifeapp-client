@@ -1,29 +1,29 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type ChoiceFieldFragmentValue$ref = any;
-export type ChoiceFieldFragmentValue = {
-    readonly id: string | null;
-    readonly " $refType": ChoiceFieldFragmentValue$ref;
+export type useTextFieldFragmentValue$ref = any;
+export type useTextFieldFragmentValue = {
+    readonly text: string | null;
+    readonly " $refType": useTextFieldFragmentValue$ref;
 };
 
 
 
 const node: ReaderFragment = ({
     "kind": "Fragment",
-    "name": "ChoiceFieldFragmentValue",
-    "type": "ChoiceFieldValue",
+    "name": "useTextFieldFragmentValue",
+    "type": "TextFieldValue",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
         {
             "kind": "ScalarField",
             "alias": null,
-            "name": "id",
+            "name": "text",
             "args": null,
             "storageKey": null
         }
     ]
 } as any);
-(node as any).hash = 'de8f44f7cd970cdf5b26e46b60987e58';
+(node as any).hash = '33decd95f675984586ff8b41b8567747';
 export default node;

@@ -1,14 +1,14 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-type SubscriptionFragment_data$ref = any;
+type useSubscriptionFragment$ref = any;
 export type SubscriptionsPagination_data$ref = any;
 export type SubscriptionsPagination_data = {
     readonly subscriptions: {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly id: string;
-                readonly " $fragmentRefs": SubscriptionFragment_data$ref;
+                readonly " $fragmentRefs": useSubscriptionFragment$ref;
             } | null;
         } | null> | null;
     };
@@ -89,7 +89,7 @@ const node: ReaderFragment = ({
                                 },
                                 {
                                     "kind": "FragmentSpread",
-                                    "name": "SubscriptionFragment_data",
+                                    "name": "useSubscriptionFragment",
                                     "args": null
                                 }
                             ]
@@ -132,5 +132,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'a15a113df5388c103d423ccb4bc44283';
+(node as any).hash = '0a67f09de61aac7dcfe84792ea9a9f42';
 export default node;

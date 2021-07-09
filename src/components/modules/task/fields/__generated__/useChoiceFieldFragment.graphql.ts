@@ -2,8 +2,8 @@
 
 import { ReaderFragment } from "relay-runtime";
 export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
-export type ChoiceFieldFragment_data$ref = any;
-export type ChoiceFieldFragment_data = {
+export type useChoiceFieldFragment$ref = any;
+export type useChoiceFieldFragment = {
     readonly id: string;
     readonly fieldId: FieldId;
     readonly meta: {
@@ -20,7 +20,7 @@ export type ChoiceFieldFragment_data = {
     readonly value: {
         readonly id?: string | null;
     };
-    readonly " $refType": ChoiceFieldFragment_data$ref;
+    readonly " $refType": useChoiceFieldFragment$ref;
 };
 
 
@@ -35,7 +35,7 @@ const node: ReaderFragment = (function () {
     } as any);
     return {
         "kind": "Fragment",
-        "name": "ChoiceFieldFragment_data",
+        "name": "useChoiceFieldFragment",
         "type": "Field",
         "metadata": null,
         "argumentDefinitions": [],
@@ -146,5 +146,5 @@ const node: ReaderFragment = (function () {
         ]
     } as any;
 })();
-(node as any).hash = 'ad7a111830af82a1f0673a2da9f4a3af';
+(node as any).hash = '0f1017159be3b9f38d8739a69baa76f9';
 export default node;

@@ -12,7 +12,7 @@ const mutation = graphql`
     saveNotificationsGeneralSetting(input: $input) {
       clientMutationId
       savedGeneral {
-        ...NotificationsGeneralFragment_data
+        ...useNotificationsGeneralFragment
       }
     }
   }

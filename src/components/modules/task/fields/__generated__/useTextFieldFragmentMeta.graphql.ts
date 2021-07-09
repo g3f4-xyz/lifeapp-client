@@ -1,26 +1,26 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type ChoiceFieldFragmentMeta$ref = any;
-export type ChoiceFieldFragmentMeta = {
+export type useTextFieldFragmentMeta$ref = any;
+export type useTextFieldFragmentMeta = {
     readonly fieldType: string | null;
     readonly helperText: string | null;
     readonly label: string | null;
-    readonly defaultValue: string | null;
-    readonly options: ReadonlyArray<{
-        readonly text: string;
-        readonly value: string;
-    }>;
+    readonly inputType: string | null;
+    readonly min: number | null;
+    readonly max: number | null;
+    readonly maxLength: number | null;
+    readonly minLength: number | null;
     readonly required: boolean | null;
-    readonly " $refType": ChoiceFieldFragmentMeta$ref;
+    readonly " $refType": useTextFieldFragmentMeta$ref;
 };
 
 
 
 const node: ReaderFragment = ({
     "kind": "Fragment",
-    "name": "ChoiceFieldFragmentMeta",
-    "type": "ChoiceFieldMeta",
+    "name": "useTextFieldFragmentMeta",
+    "type": "TextFieldMeta",
     "metadata": null,
     "argumentDefinitions": [],
     "selections": [
@@ -48,34 +48,37 @@ const node: ReaderFragment = ({
         {
             "kind": "ScalarField",
             "alias": null,
-            "name": "defaultValue",
+            "name": "inputType",
             "args": null,
             "storageKey": null
         },
         {
-            "kind": "LinkedField",
+            "kind": "ScalarField",
             "alias": null,
-            "name": "options",
-            "storageKey": null,
+            "name": "min",
             "args": null,
-            "concreteType": "FieldMetaOptions",
-            "plural": true,
-            "selections": [
-                {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "text",
-                    "args": null,
-                    "storageKey": null
-                },
-                {
-                    "kind": "ScalarField",
-                    "alias": null,
-                    "name": "value",
-                    "args": null,
-                    "storageKey": null
-                }
-            ]
+            "storageKey": null
+        },
+        {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "max",
+            "args": null,
+            "storageKey": null
+        },
+        {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "maxLength",
+            "args": null,
+            "storageKey": null
+        },
+        {
+            "kind": "ScalarField",
+            "alias": null,
+            "name": "minLength",
+            "args": null,
+            "storageKey": null
         },
         {
             "kind": "ScalarField",
@@ -86,5 +89,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'cb7eda6e689191e9ab6c083ddc6f5c50';
+(node as any).hash = 'df971d4cd0c6bc588ecefa0e4597c2cc';
 export default node;

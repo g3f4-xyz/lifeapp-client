@@ -12,11 +12,11 @@ const query = graphql`
       fieldId
       fieldType
       order
-      ...SliderFieldFragment_data
-      ...SwitchFieldFragment_data
-      ...ChoiceFieldFragment_data
-      ...TextFieldFragment_data
-      ...NestedFieldFragment_data
+      ...useSliderFieldFragment
+      ...useSwitchFieldFragment
+      ...useChoiceFieldFragment
+      ...useTextFieldFragment
+      ...useNestedFieldFragment
     }
   }
 `;

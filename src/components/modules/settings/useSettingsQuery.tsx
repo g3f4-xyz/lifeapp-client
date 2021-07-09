@@ -10,7 +10,7 @@ import {
 const query = graphql`
   query useSettingsQuery($count: Int!, $after: String) {
     settings {
-      ...SettingsFragment_data
+      ...useSettingsFragment
     }
   }
 `;

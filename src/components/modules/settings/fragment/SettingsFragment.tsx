@@ -14,9 +14,7 @@ import {
   Typography,
 } from '@material-ui/core';
 import { DeleteForever, Done, ExpandMore } from '@material-ui/icons';
-import graphql from 'babel-plugin-relay/macro';
 import React, { FC, useCallback, useContext, useState } from 'react';
-import { createFragmentContainer } from 'react-relay';
 import { useHistory } from 'react-router-dom';
 import { MODULES_IDS } from '../../../../constans';
 import cleanApplicationMutation from '../../../../mutations/cleanApplicationMutation';
@@ -26,14 +24,16 @@ import NotificationsGeneralFragment from '../notifications/general/Notifications
 import NotificationsTypesFragment from '../notifications/types/NotificationsTypesFragment';
 import useSettingsFragmentStyles from '../subscriptions/fragment/useSettingsFragmentStyles';
 import SubscriptionsPagination from '../subscriptions/pagination/SubscriptionsPagination';
-import { SettingsFragment_data as SettingsFragmentResponse } from './__generated__/SettingsFragment_data.graphql';
 import RelayEnvironmentContext from '../../../../contexts/RelayEnvironmentContext';
+import useSettingsFragment from './useSettingsFragment';
+import { useSettingsFragment$ref } from './__generated__/useSettingsFragment.graphql';
 
 export interface SettingsFragmentProps {
-  data: SettingsFragmentResponse;
+  data: useSettingsFragment$ref;
 }
 
 const SettingsFragment: FC<SettingsFragmentProps> = props => {
+  const data = useSettingsFragment(props.data);
   const classes = useSettingsFragmentStyles();
   const [cleanApplicationDialogOpen, setCleanApplicationDialogOpen] = useState(false);
   const history = useHistory();
@@ -54,7 +54,7 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
   const handleCleanApplication = async () => {
     const { cleanApplication } = await cleanApplicationMutation(
       {
-        ownerId: props.data.ownerId,
+        ownerId: data.ownerId,
       },
       environment,
     );
@@ -80,7 +80,7 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
     await deleteSubscriptionMutation(
       {
         subscriptionId,
-        parentID: props.data.notifications.id,
+        parentID: data.notifications.id,
       },
       environment,
     );
@@ -94,10 +94,10 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
         </Typography>
         <Grid container spacing={1}>
           <Grid item xs={12} md={6} lg={4}>
-            <NotificationsGeneralFragment data={props.data.notifications.general} />
+            <NotificationsGeneralFragment data={data.notifications.general} />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
-            <NotificationsTypesFragment data={props.data.notifications.types} />
+            <NotificationsTypesFragment data={data.notifications.types} />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <ExpansionPanel className={classes.subscriptionsWrapper}>
@@ -107,7 +107,7 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
               <ExpansionPanelDetails className={classes.subscriptionsPaginationExpansionPanel}>
                 <SubscriptionsPagination
                   className={classes.list}
-                  data={props.data.notifications}
+                  data={data.notifications}
                   onDelete={onDeleteSubscription}
                 />
               </ExpansionPanelDetails>
@@ -175,20 +175,4 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
   );
 };
 
-export default createFragmentContainer<SettingsFragmentProps>(SettingsFragment, {
-  data: graphql`
-    fragment SettingsFragment_data on Settings {
-      ownerId
-      notifications {
-        id
-        general {
-          ...NotificationsGeneralFragment_data
-        }
-        types {
-          ...NotificationsTypesFragment_data
-        }
-        ...SubscriptionsPagination_data
-      }
-    }
-  `,
-});
+export default SettingsFragment;

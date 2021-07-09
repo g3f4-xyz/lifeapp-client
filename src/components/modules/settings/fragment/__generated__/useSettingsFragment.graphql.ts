@@ -1,30 +1,30 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-type NotificationsGeneralFragment_data$ref = any;
-type NotificationsTypesFragment_data$ref = any;
 type SubscriptionsPagination_data$ref = any;
-export type SettingsFragment_data$ref = any;
-export type SettingsFragment_data = {
+type useNotificationsGeneralFragment$ref = any;
+type useNotificationsTypesFragment$ref = any;
+export type useSettingsFragment$ref = any;
+export type useSettingsFragment = {
     readonly ownerId: string;
     readonly notifications: {
         readonly id: string;
         readonly general: {
-            readonly " $fragmentRefs": NotificationsGeneralFragment_data$ref;
+            readonly " $fragmentRefs": useNotificationsGeneralFragment$ref;
         };
         readonly types: {
-            readonly " $fragmentRefs": NotificationsTypesFragment_data$ref;
+            readonly " $fragmentRefs": useNotificationsTypesFragment$ref;
         };
         readonly " $fragmentRefs": SubscriptionsPagination_data$ref;
     };
-    readonly " $refType": SettingsFragment_data$ref;
+    readonly " $refType": useSettingsFragment$ref;
 };
 
 
 
 const node: ReaderFragment = ({
     "kind": "Fragment",
-    "name": "SettingsFragment_data",
+    "name": "useSettingsFragment",
     "type": "Settings",
     "metadata": null,
     "argumentDefinitions": [],
@@ -63,7 +63,7 @@ const node: ReaderFragment = ({
                     "selections": [
                         {
                             "kind": "FragmentSpread",
-                            "name": "NotificationsGeneralFragment_data",
+                            "name": "useNotificationsGeneralFragment",
                             "args": null
                         }
                     ]
@@ -79,7 +79,7 @@ const node: ReaderFragment = ({
                     "selections": [
                         {
                             "kind": "FragmentSpread",
-                            "name": "NotificationsTypesFragment_data",
+                            "name": "useNotificationsTypesFragment",
                             "args": null
                         }
                     ]
@@ -93,5 +93,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'd4f0ed76be24ac709e45ea699bfe19e3';
+(node as any).hash = 'ad6408920933768bb214ab8b695d4f8a';
 export default node;

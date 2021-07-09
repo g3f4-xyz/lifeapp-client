@@ -49,7 +49,7 @@ export default createPaginationContainer<SubscriptionsProps>(
           edges {
             node {
               id
-              ...SubscriptionFragment_data
+              ...useSubscriptionFragment
             }
           }
         }

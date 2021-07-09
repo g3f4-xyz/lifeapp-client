@@ -1,33 +1,30 @@
-import graphql from 'babel-plugin-relay/macro';
 import React, { FC, useContext } from 'react';
-import { createFragmentContainer } from 'react-relay';
 import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Slider from '../../../display/field/Slider';
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { SliderFieldFragment_data } from './__generated__/SliderFieldFragment_data.graphql';
 import RelayEnvironmentContext from '../../../../contexts/RelayEnvironmentContext';
+import useSliderFieldFragment from './useSliderFieldFragment';
+import { useTextFieldFragment$ref } from './__generated__/useTextFieldFragment.graphql';
 
 interface SliderFieldProps {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  data: SliderFieldFragment_data;
+  data: useTextFieldFragment$ref;
   taskId: string;
 }
 
 const SliderField: FC<SliderFieldProps> = props => {
-  const { data } = props;
   const {
+    id,
+    fieldId,
     value: { progress },
     meta: { label, disabled, max, min, step },
-  } = data;
+  } = useSliderFieldFragment(props.data);
   const environment = useContext(RelayEnvironmentContext);
 
   const handleChange = async (progress: number): Promise<void> => {
-    const {
-      taskId,
-      data: { fieldId, id },
-    } = props;
-
-    await updateTaskFieldMutation({ fieldId, value: { progress }, taskId }, { id }, environment);
+    await updateTaskFieldMutation(
+      { fieldId, value: { progress }, taskId: props.taskId },
+      { id },
+      environment,
+    );
   };
 
   return (
@@ -45,35 +42,4 @@ const SliderField: FC<SliderFieldProps> = props => {
   );
 };
 
-graphql`
-  fragment SliderFieldFragmentMeta on SliderFieldMeta {
-    fieldType
-    label
-    disabled
-    required
-    max
-    min
-    step
-  }
-`;
-
-graphql`
-  fragment SliderFieldFragmentValue on SliderFieldValue {
-    progress
-  }
-`;
-
-export default createFragmentContainer<SliderFieldProps>(SliderField, {
-  data: graphql`
-    fragment SliderFieldFragment_data on Field {
-      id
-      fieldId
-      meta {
-        ...SliderFieldFragmentMeta @relay(mask: false)
-      }
-      value {
-        ...SliderFieldFragmentValue @relay(mask: false)
-      }
-    }
-  `,
-});
+export default SliderField;

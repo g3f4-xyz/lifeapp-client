@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-type NotificationsGeneralFragment_data$ref = any;
+type useNotificationsGeneralFragment$ref = any;
 export type SaveNotificationsGeneralSettingInput = {
     readonly clientMutationId?: string | null;
     readonly general?: SaveNotificationsGeneralSettingGeneralInput | null;
@@ -17,7 +17,7 @@ export type saveNotificationsGeneralSettingMutationResponse = {
     readonly saveNotificationsGeneralSetting: {
         readonly clientMutationId: string | null;
         readonly savedGeneral: {
-            readonly " $fragmentRefs": NotificationsGeneralFragment_data$ref;
+            readonly " $fragmentRefs": useNotificationsGeneralFragment$ref;
         } | null;
     };
 };
@@ -35,12 +35,12 @@ mutation saveNotificationsGeneralSettingMutation(
   saveNotificationsGeneralSetting(input: $input) {
     clientMutationId
     savedGeneral {
-      ...NotificationsGeneralFragment_data
+      ...useNotificationsGeneralFragment
     }
   }
 }
 
-fragment NotificationsGeneralFragment_data on GeneralNotificationsSettings {
+fragment useNotificationsGeneralFragment on GeneralNotificationsSettings {
   show
   vibrate
 }
@@ -97,7 +97,7 @@ const node: ConcreteRequest = (function () {
                             "selections": [
                                 {
                                     "kind": "FragmentSpread",
-                                    "name": "NotificationsGeneralFragment_data",
+                                    "name": "useNotificationsGeneralFragment",
                                     "args": null
                                 }
                             ]
@@ -154,10 +154,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "mutation",
             "name": "saveNotificationsGeneralSettingMutation",
             "id": null,
-            "text": "mutation saveNotificationsGeneralSettingMutation(\n  $input: SaveNotificationsGeneralSettingInput!\n) {\n  saveNotificationsGeneralSetting(input: $input) {\n    clientMutationId\n    savedGeneral {\n      ...NotificationsGeneralFragment_data\n    }\n  }\n}\n\nfragment NotificationsGeneralFragment_data on GeneralNotificationsSettings {\n  show\n  vibrate\n}\n",
+            "text": "mutation saveNotificationsGeneralSettingMutation(\n  $input: SaveNotificationsGeneralSettingInput!\n) {\n  saveNotificationsGeneralSetting(input: $input) {\n    clientMutationId\n    savedGeneral {\n      ...useNotificationsGeneralFragment\n    }\n  }\n}\n\nfragment useNotificationsGeneralFragment on GeneralNotificationsSettings {\n  show\n  vibrate\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = 'f7bcfab90b4093a2e30716886303e1e1';
+(node as any).hash = '5230e5030c316f0b82ce7d957e939fb8';
 export default node;

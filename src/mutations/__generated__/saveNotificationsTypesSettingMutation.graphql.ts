@@ -1,7 +1,7 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-type NotificationsTypesFragment_data$ref = any;
+type useNotificationsTypesFragment$ref = any;
 export type SaveNotificationsTypesSettingInput = {
     readonly clientMutationId?: string | null;
     readonly types?: SaveNotificationsTypesSettingTypesInput | null;
@@ -19,7 +19,7 @@ export type saveNotificationsTypesSettingMutationVariables = {
 export type saveNotificationsTypesSettingMutationResponse = {
     readonly saveNotificationsTypesSetting: {
         readonly savedTypes: {
-            readonly " $fragmentRefs": NotificationsTypesFragment_data$ref;
+            readonly " $fragmentRefs": useNotificationsTypesFragment$ref;
         } | null;
     };
 };
@@ -36,12 +36,12 @@ mutation saveNotificationsTypesSettingMutation(
 ) {
   saveNotificationsTypesSetting(input: $input) {
     savedTypes {
-      ...NotificationsTypesFragment_data
+      ...useNotificationsTypesFragment
     }
   }
 }
 
-fragment NotificationsTypesFragment_data on TypesNotificationsSettings {
+fragment useNotificationsTypesFragment on TypesNotificationsSettings {
   events
   goals
   meetings
@@ -94,7 +94,7 @@ const node: ConcreteRequest = (function () {
                             "selections": [
                                 {
                                     "kind": "FragmentSpread",
-                                    "name": "NotificationsTypesFragment_data",
+                                    "name": "useNotificationsTypesFragment",
                                     "args": null
                                 }
                             ]
@@ -171,10 +171,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "mutation",
             "name": "saveNotificationsTypesSettingMutation",
             "id": null,
-            "text": "mutation saveNotificationsTypesSettingMutation(\n  $input: SaveNotificationsTypesSettingInput!\n) {\n  saveNotificationsTypesSetting(input: $input) {\n    savedTypes {\n      ...NotificationsTypesFragment_data\n    }\n  }\n}\n\nfragment NotificationsTypesFragment_data on TypesNotificationsSettings {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n",
+            "text": "mutation saveNotificationsTypesSettingMutation(\n  $input: SaveNotificationsTypesSettingInput!\n) {\n  saveNotificationsTypesSetting(input: $input) {\n    savedTypes {\n      ...useNotificationsTypesFragment\n    }\n  }\n}\n\nfragment useNotificationsTypesFragment on TypesNotificationsSettings {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = 'fa4836ad87b3581145b3ecee5d9049ee';
+(node as any).hash = '1a3024a5066482c1415917ccd74eda80';
 export default node;

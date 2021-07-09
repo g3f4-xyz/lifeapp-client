@@ -11,7 +11,7 @@ const mutation = graphql`
   mutation saveNotificationsTypesSettingMutation($input: SaveNotificationsTypesSettingInput!) {
     saveNotificationsTypesSetting(input: $input) {
       savedTypes {
-        ...NotificationsTypesFragment_data
+        ...useNotificationsTypesFragment
       }
     }
   }

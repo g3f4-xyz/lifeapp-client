@@ -12,11 +12,11 @@ const query = graphql`
     id
     typeId
     fields {
-      ...SliderFieldFragment_data @relay(mask: false)
-      ...SwitchFieldFragment_data @relay(mask: false)
-      ...ChoiceFieldFragment_data @relay(mask: false)
-      ...TextFieldFragment_data @relay(mask: false)
-      ...NestedFieldFragment_data @relay(mask: false)
+      ...useSliderFieldFragment @relay(mask: false)
+      ...useSwitchFieldFragment @relay(mask: false)
+      ...useChoiceFieldFragment @relay(mask: false)
+      ...useTextFieldFragment @relay(mask: false)
+      ...useNestedFieldFragment @relay(mask: false)
     }
   }
 `;

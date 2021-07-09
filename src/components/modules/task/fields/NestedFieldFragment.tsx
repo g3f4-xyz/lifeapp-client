@@ -1,8 +1,6 @@
-import graphql from 'babel-plugin-relay/macro';
 // import immutabilityHelper from 'immutability-helper';
 import React, { FC, Fragment } from 'react';
-import { createFragmentContainer } from 'react-relay';
-// import { FIELD_TYPE } from '../../../../constans';
+import { FieldIdEnum } from '../../../../constans';
 // import {
 //   FieldValueInput,
 // } from "../../../../mutations/__generated__/updateTaskFieldMutation.graphql";
@@ -10,11 +8,6 @@ import { createFragmentContainer } from 'react-relay';
 // import Choice from '../../../display/field/Choice';
 // import Switch from '../../../display/field/Switch';
 // import Text from '../../../display/field/Text';
-import {
-  FieldId,
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  // NestedFieldFragment_data,
-} from './__generated__/NestedFieldFragment_data.graphql';
 
 // interface OwnFieldProps {
 //   // eslint-disable-next-line @typescript-eslint/camelcase
@@ -177,7 +170,7 @@ import {
 export interface NestedFieldContainerProps {
   data: {
     id: string;
-    fieldId: FieldId;
+    fieldId: FieldIdEnum;
     // meta: NestedFieldProps['meta'];
     // value: NestedFieldProps['value'];
   };
@@ -204,109 +197,4 @@ const NestedFieldContainer: FC<NestedFieldContainerProps> = _props => {
   // return <NestedField value={value} meta={meta} onChange={handleChange} />;
 };
 
-graphql`
-  fragment NestedFieldFragmentMeta on NestedFieldMeta {
-    ownMeta {
-      ...NestedFieldFragment
-    }
-    childrenMeta {
-      ...NestedFieldFragment
-    }
-  }
-`;
-
-graphql`
-  fragment NestedFieldFragmentValue on NestedFieldValue {
-    ownValue {
-      __typename
-    }
-  }
-`;
-
-graphql`
-  fragment NestedFieldFragmentSimpleMetasFragment on FieldMeta {
-    ... on TextFieldMeta {
-      label
-        fieldType
-        disabled
-        required
-        helperText
-        minLength
-        maxLength
-        defaultValue
-        inputType
-    }
-    ... on ChoiceFieldMeta {
-      label
-        fieldType
-        disabled
-        required
-        helperText
-        defaultOption
-        options {
-          text
-          value
-        }
-        defaultValue
-    }
-    ... on SwitchFieldMeta {
-      label
-        fieldType
-        disabled
-        required
-        helperText
-    }
-    ... on SliderFieldMeta {
-      label
-        fieldType
-        disabled
-        required
-        helperText
-        min
-        max
-        step
-    }
-  }
-`
-
-graphql`
-  fragment NestedFieldFragment on FieldMeta {
-    ...NestedFieldFragmentSimpleMetasFragment
-    ... on NestedFieldMeta {
-      ownMeta {
-        ...NestedFieldFragmentSimpleMetasFragment
-        ...NestedFieldFragmentEnd
-      }
-      childrenMeta {
-        ...NestedFieldFragmentSimpleMetasFragment
-        ...NestedFieldFragmentEnd
-      }
-    }
-  }
-`
-
-graphql`
-  fragment NestedFieldFragmentEnd on NestedFieldMeta {
-    ownMeta {
-      ...NestedFieldFragmentSimpleMetasFragment
-    }
-    childrenMeta {
-      ...NestedFieldFragmentSimpleMetasFragment
-    }
-  }
-`
-
-export default createFragmentContainer<NestedFieldContainerProps>(NestedFieldContainer, {
-  data: graphql`
-    fragment NestedFieldFragment_data on Field {
-      id
-      fieldId
-      meta {
-        ...NestedFieldFragmentMeta @relay(mask: false)
-      }
-      value {
-        ...NestedFieldFragmentValue @relay(mask: false)
-      }
-    }
-  `,
-});
+export default NestedFieldContainer;

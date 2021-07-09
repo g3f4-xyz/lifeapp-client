@@ -11,24 +11,22 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
-import graphql from 'babel-plugin-relay/macro';
 import React, { ChangeEvent, FC, useContext } from 'react';
-import { createFragmentContainer } from 'react-relay';
 import { TASK_TYPE, TaskTypeEnum } from '../../../../../constans';
 import saveNotificationsTypesSettingMutation from '../../../../../mutations/saveNotificationsTypesSettingMutation';
 import TaskTypeIcon from '../../../../display/task-type-icon/TaskTypeIcon';
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { NotificationsTypesFragment_data } from './__generated__/NotificationsTypesFragment_data.graphql';
 import useNotificationsTypesFragmentStyles from './useNotificationsTypesFragmentStyles';
 import RelayEnvironmentContext from '../../../../../contexts/RelayEnvironmentContext';
+import { useNotificationsTypesFragment$ref } from './__generated__/useNotificationsTypesFragment.graphql';
+import useNotificationsTypesFragment from './useNotificationsTypesFragment';
 
 interface NotificationsTypesProps {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  data: NotificationsTypesFragment_data;
+  data: useNotificationsTypesFragment$ref;
 }
 
 const NotificationsTypes: FC<NotificationsTypesProps> = props => {
-  const { data } = props;
+  const { events, goals, meetings, routines, todos } = useNotificationsTypesFragment(props.data);
+  const types = { events, goals, meetings, routines, todos };
   const classes = useNotificationsTypesFragmentStyles();
   const environment = useContext(RelayEnvironmentContext);
   const getChangeHandler = (key: string) => async (
@@ -38,10 +36,8 @@ const NotificationsTypes: FC<NotificationsTypesProps> = props => {
     await saveNotificationsTypesSettingMutation(
       {
         types: {
-          ...props.data,
-          ...{
-            [key]: checked,
-          },
+          ...types,
+          [key]: checked,
         },
       },
       environment,
@@ -64,7 +60,7 @@ const NotificationsTypes: FC<NotificationsTypesProps> = props => {
               <ListItemSecondaryAction>
                 <Switch
                   onChange={getChangeHandler(`${key.toLowerCase()}s`)}
-                  checked={data[`${key.toLowerCase()}s`]}
+                  checked={types[`${key.toLowerCase()}s`]}
                 />
               </ListItemSecondaryAction>
             </ListItem>
@@ -75,14 +71,4 @@ const NotificationsTypes: FC<NotificationsTypesProps> = props => {
   );
 };
 
-export default createFragmentContainer(NotificationsTypes, {
-  data: graphql`
-    fragment NotificationsTypesFragment_data on TypesNotificationsSettings {
-      events
-      goals
-      meetings
-      routines
-      todos
-    }
-  `,
-});
+export default NotificationsTypes;

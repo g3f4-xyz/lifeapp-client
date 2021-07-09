@@ -2,30 +2,32 @@
 
 import { ReaderFragment } from "relay-runtime";
 export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
-export type SliderFieldFragment_data$ref = any;
-export type SliderFieldFragment_data = {
+export type useTextFieldFragment$ref = any;
+export type useTextFieldFragment = {
     readonly id: string;
     readonly fieldId: FieldId;
     readonly meta: {
         readonly fieldType?: string | null;
+        readonly helperText?: string | null;
         readonly label?: string | null;
-        readonly disabled?: boolean | null;
-        readonly required?: boolean | null;
-        readonly max?: number | null;
+        readonly inputType?: string | null;
         readonly min?: number | null;
-        readonly step?: number | null;
+        readonly max?: number | null;
+        readonly maxLength?: number | null;
+        readonly minLength?: number | null;
+        readonly required?: boolean | null;
     };
     readonly value: {
-        readonly progress?: number | null;
+        readonly text?: string | null;
     };
-    readonly " $refType": SliderFieldFragment_data$ref;
+    readonly " $refType": useTextFieldFragment$ref;
 };
 
 
 
 const node: ReaderFragment = ({
     "kind": "Fragment",
-    "name": "SliderFieldFragment_data",
+    "name": "useTextFieldFragment",
     "type": "Field",
     "metadata": null,
     "argumentDefinitions": [],
@@ -55,12 +57,19 @@ const node: ReaderFragment = ({
             "selections": [
                 {
                     "kind": "InlineFragment",
-                    "type": "SliderFieldMeta",
+                    "type": "TextFieldMeta",
                     "selections": [
                         {
                             "kind": "ScalarField",
                             "alias": null,
                             "name": "fieldType",
+                            "args": null,
+                            "storageKey": null
+                        },
+                        {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "helperText",
                             "args": null,
                             "storageKey": null
                         },
@@ -74,21 +83,7 @@ const node: ReaderFragment = ({
                         {
                             "kind": "ScalarField",
                             "alias": null,
-                            "name": "disabled",
-                            "args": null,
-                            "storageKey": null
-                        },
-                        {
-                            "kind": "ScalarField",
-                            "alias": null,
-                            "name": "required",
-                            "args": null,
-                            "storageKey": null
-                        },
-                        {
-                            "kind": "ScalarField",
-                            "alias": null,
-                            "name": "max",
+                            "name": "inputType",
                             "args": null,
                             "storageKey": null
                         },
@@ -102,7 +97,28 @@ const node: ReaderFragment = ({
                         {
                             "kind": "ScalarField",
                             "alias": null,
-                            "name": "step",
+                            "name": "max",
+                            "args": null,
+                            "storageKey": null
+                        },
+                        {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "maxLength",
+                            "args": null,
+                            "storageKey": null
+                        },
+                        {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "minLength",
+                            "args": null,
+                            "storageKey": null
+                        },
+                        {
+                            "kind": "ScalarField",
+                            "alias": null,
+                            "name": "required",
                             "args": null,
                             "storageKey": null
                         }
@@ -121,12 +137,12 @@ const node: ReaderFragment = ({
             "selections": [
                 {
                     "kind": "InlineFragment",
-                    "type": "SliderFieldValue",
+                    "type": "TextFieldValue",
                     "selections": [
                         {
                             "kind": "ScalarField",
                             "alias": null,
-                            "name": "progress",
+                            "name": "text",
                             "args": null,
                             "storageKey": null
                         }
@@ -136,5 +152,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '649ebd28155e828f83e8c3aac7ff1a43';
+(node as any).hash = 'afb38a205f0fec101b540039bb08a0e7';
 export default node;

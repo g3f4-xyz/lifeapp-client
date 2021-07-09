@@ -39,7 +39,7 @@ fragment SubscriptionsPagination_data on NotificationsSettings {
     edges {
       node {
         id
-        ...SubscriptionFragment_data
+        ...useSubscriptionFragment
         __typename
       }
       cursor
@@ -51,7 +51,7 @@ fragment SubscriptionsPagination_data on NotificationsSettings {
   }
 }
 
-fragment SubscriptionFragment_data on NotificationSubscription {
+fragment useSubscriptionFragment on NotificationSubscription {
   id
   userAgent
   userDeviceType
@@ -259,7 +259,7 @@ const node: ConcreteRequest = (function () {
             "operationKind": "query",
             "name": "SubscriptionsPaginationQuery",
             "id": null,
-            "text": "query SubscriptionsPaginationQuery(\n  $count: Int!\n  $after: String\n) {\n  settings {\n    notifications {\n      ...SubscriptionsPagination_data\n      id\n    }\n    id\n  }\n}\n\nfragment SubscriptionsPagination_data on NotificationsSettings {\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...SubscriptionFragment_data\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment SubscriptionFragment_data on NotificationSubscription {\n  id\n  userAgent\n  userDeviceType\n}\n",
+            "text": "query SubscriptionsPaginationQuery(\n  $count: Int!\n  $after: String\n) {\n  settings {\n    notifications {\n      ...SubscriptionsPagination_data\n      id\n    }\n    id\n  }\n}\n\nfragment SubscriptionsPagination_data on NotificationsSettings {\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...useSubscriptionFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment useSubscriptionFragment on NotificationSubscription {\n  id\n  userAgent\n  userDeviceType\n}\n",
             "metadata": {}
         }
     } as any;

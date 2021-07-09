@@ -1,17 +1,17 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type SliderFieldFragmentValue$ref = any;
-export type SliderFieldFragmentValue = {
+export type useSliderFieldFragmentValue$ref = any;
+export type useSliderFieldFragmentValue = {
     readonly progress: number | null;
-    readonly " $refType": SliderFieldFragmentValue$ref;
+    readonly " $refType": useSliderFieldFragmentValue$ref;
 };
 
 
 
 const node: ReaderFragment = ({
     "kind": "Fragment",
-    "name": "SliderFieldFragmentValue",
+    "name": "useSliderFieldFragmentValue",
     "type": "SliderFieldValue",
     "metadata": null,
     "argumentDefinitions": [],
@@ -25,5 +25,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'cd4d2d4d1ff9a44f2c358669444a0ea3';
+(node as any).hash = '543cc7caa782c2f028b48b38af0c3ed5';
 export default node;

@@ -15,15 +15,13 @@ import {
   Smartphone,
 } from '@material-ui/icons';
 import CloudOffIcon from '@material-ui/icons/CloudOff';
-import graphql from 'babel-plugin-relay/macro';
 import React, { FC, useContext, useState } from 'react';
-import { createFragmentContainer } from 'react-relay';
 import { DEVICES, STATUSES } from '../../../../../constans';
 import testSubscriptionMutation from '../../../../../mutations/testSubscriptionMutation';
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { SubscriptionFragment_data } from './__generated__/SubscriptionFragment_data.graphql';
 import useSubscriptionFragmentStyles from '../pagination/useSubscriptionFragmentStyles';
 import RelayEnvironmentContext from '../../../../../contexts/RelayEnvironmentContext';
+import useSubscriptionFragment from './useSubscriptionFragment';
+import { useSubscriptionFragment$ref } from './__generated__/useSubscriptionFragment.graphql';
 
 const DEVICES_ICONS = {
   [DEVICES.DESKTOP]: Computer,
@@ -32,16 +30,13 @@ const DEVICES_ICONS = {
 };
 
 interface SubscriptionFragmentProps {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  data: SubscriptionFragment_data;
+  data: useSubscriptionFragment$ref;
 
   onDelete(subscriptionId: string): void;
 }
 
 const SubscriptionFragment: FC<SubscriptionFragmentProps> = props => {
-  const {
-    data: { id, userDeviceType, userAgent },
-  } = props;
+  const { id, userDeviceType, userAgent } = useSubscriptionFragment(props.data);
   const classes = useSubscriptionFragmentStyles();
   const [statusCode, setStatusCode] = useState('');
   const environment = useContext(RelayEnvironmentContext);
@@ -88,12 +83,4 @@ const SubscriptionFragment: FC<SubscriptionFragmentProps> = props => {
   );
 };
 
-export default createFragmentContainer<SubscriptionFragmentProps>(SubscriptionFragment, {
-  data: graphql`
-    fragment SubscriptionFragment_data on NotificationSubscription {
-      id
-      userAgent
-      userDeviceType
-    }
-  `,
-});
+export default SubscriptionFragment;

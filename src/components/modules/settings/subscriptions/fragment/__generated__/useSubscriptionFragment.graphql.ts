@@ -1,19 +1,19 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-export type SubscriptionFragment_data$ref = any;
-export type SubscriptionFragment_data = {
+export type useSubscriptionFragment$ref = any;
+export type useSubscriptionFragment = {
     readonly id: string;
     readonly userAgent: string | null;
     readonly userDeviceType: string | null;
-    readonly " $refType": SubscriptionFragment_data$ref;
+    readonly " $refType": useSubscriptionFragment$ref;
 };
 
 
 
 const node: ReaderFragment = ({
     "kind": "Fragment",
-    "name": "SubscriptionFragment_data",
+    "name": "useSubscriptionFragment",
     "type": "NotificationSubscription",
     "metadata": null,
     "argumentDefinitions": [],
@@ -41,5 +41,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = 'f39a0b5923f15f5f7237d8031924a906';
+(node as any).hash = '9a6ce5371f1b25cb0b7f19467b04e393';
 export default node;

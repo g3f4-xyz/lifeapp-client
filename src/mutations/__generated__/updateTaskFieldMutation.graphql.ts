@@ -21,9 +21,6 @@ export type updateTaskFieldMutationResponse = {
         readonly taskId: string;
         readonly updatedValue: {
             readonly id?: string | null;
-            readonly ownValue?: {
-                readonly __typename: string;
-            } | null;
             readonly enabled?: boolean | null;
             readonly progress?: number | null;
             readonly text?: string | null;
@@ -48,11 +45,6 @@ mutation updateTaskFieldMutation(
       __typename
       ... on ChoiceFieldValue {
         id
-      }
-      ... on NestedFieldValue {
-        ownValue {
-          __typename
-        }
       }
       ... on SwitchFieldValue {
         enabled
@@ -107,29 +99,6 @@ const node: ConcreteRequest = (function () {
             }
         ]
     } as any), v5 = ({
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "__typename",
-        "args": null,
-        "storageKey": null
-    } as any), v6 = ({
-        "kind": "InlineFragment",
-        "type": "NestedFieldValue",
-        "selections": [
-            {
-                "kind": "LinkedField",
-                "alias": null,
-                "name": "ownValue",
-                "storageKey": null,
-                "args": null,
-                "concreteType": null,
-                "plural": false,
-                "selections": [
-                    (v5 /*: any*/)
-                ]
-            }
-        ]
-    } as any), v7 = ({
         "kind": "InlineFragment",
         "type": "SwitchFieldValue",
         "selections": [
@@ -141,7 +110,7 @@ const node: ConcreteRequest = (function () {
                 "storageKey": null
             }
         ]
-    } as any), v8 = ({
+    } as any), v6 = ({
         "kind": "InlineFragment",
         "type": "SliderFieldValue",
         "selections": [
@@ -153,7 +122,7 @@ const node: ConcreteRequest = (function () {
                 "storageKey": null
             }
         ]
-    } as any), v9 = ({
+    } as any), v7 = ({
         "kind": "InlineFragment",
         "type": "TextFieldValue",
         "selections": [
@@ -196,10 +165,9 @@ const node: ConcreteRequest = (function () {
                             "plural": false,
                             "selections": [
                                 (v4 /*: any*/),
+                                (v5 /*: any*/),
                                 (v6 /*: any*/),
-                                (v7 /*: any*/),
-                                (v8 /*: any*/),
-                                (v9 /*: any*/)
+                                (v7 /*: any*/)
                             ]
                         }
                     ]
@@ -231,12 +199,17 @@ const node: ConcreteRequest = (function () {
                             "concreteType": null,
                             "plural": false,
                             "selections": [
-                                (v5 /*: any*/),
+                                {
+                                    "kind": "ScalarField",
+                                    "alias": null,
+                                    "name": "__typename",
+                                    "args": null,
+                                    "storageKey": null
+                                },
                                 (v4 /*: any*/),
+                                (v5 /*: any*/),
                                 (v6 /*: any*/),
-                                (v7 /*: any*/),
-                                (v8 /*: any*/),
-                                (v9 /*: any*/)
+                                (v7 /*: any*/)
                             ]
                         }
                     ]
@@ -247,10 +220,10 @@ const node: ConcreteRequest = (function () {
             "operationKind": "mutation",
             "name": "updateTaskFieldMutation",
             "id": null,
-            "text": "mutation updateTaskFieldMutation(\n  $input: UpdateTaskFieldInput!\n) {\n  updateTaskField(input: $input) {\n    fieldId\n    taskId\n    updatedValue {\n      __typename\n      ... on ChoiceFieldValue {\n        id\n      }\n      ... on NestedFieldValue {\n        ownValue {\n          __typename\n        }\n      }\n      ... on SwitchFieldValue {\n        enabled\n      }\n      ... on SliderFieldValue {\n        progress\n      }\n      ... on TextFieldValue {\n        text\n      }\n    }\n  }\n}\n",
+            "text": "mutation updateTaskFieldMutation(\n  $input: UpdateTaskFieldInput!\n) {\n  updateTaskField(input: $input) {\n    fieldId\n    taskId\n    updatedValue {\n      __typename\n      ... on ChoiceFieldValue {\n        id\n      }\n      ... on SwitchFieldValue {\n        enabled\n      }\n      ... on SliderFieldValue {\n        progress\n      }\n      ... on TextFieldValue {\n        text\n      }\n    }\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '652625da9184415be567746c9ed82a3f';
+(node as any).hash = '66871b56f3e3a1a73507e907b060e1ec';
 export default node;

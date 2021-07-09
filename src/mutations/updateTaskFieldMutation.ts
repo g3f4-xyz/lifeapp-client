@@ -13,11 +13,11 @@ const mutation = graphql`
       fieldId
       taskId
       updatedValue {
-        ...ChoiceFieldFragmentValue @relay(mask: false)
-        ...NestedFieldFragmentValue @relay(mask: false)
-        ...SwitchFieldFragmentValue @relay(mask: false)
-        ...SliderFieldFragmentValue @relay(mask: false)
-        ...TextFieldFragmentValue @relay(mask: false)
+        ...useChoiceFieldFragmentValue @relay(mask: false)
+        # ...useNestedFieldFragmentValue @relay(mask: false)
+        ...useSwitchFieldFragmentValue @relay(mask: false)
+        ...useSliderFieldFragmentValue @relay(mask: false)
+        ...useTextFieldFragmentValue @relay(mask: false)
       }
     }
   }
@@ -51,7 +51,6 @@ export default (
         const mutationRecord = store.getRootField('updateTaskField');
         const updatedFieldValue = mutationRecord && mutationRecord.getLinkedRecord('updatedValue');
         const fieldRecord = store.get(id);
-
         if (fieldRecord && updatedFieldValue) {
           fieldRecord.setLinkedRecord(updatedFieldValue, 'value');
         }

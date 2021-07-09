@@ -11,36 +11,31 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ExpandMore, Slideshow, Vibration } from '@material-ui/icons';
-import graphql from 'babel-plugin-relay/macro';
 import React, { ChangeEvent, FC, useContext } from 'react';
-import { createFragmentContainer } from 'react-relay';
 import saveNotificationsGeneralSettingMutation from '../../../../../mutations/saveNotificationsGeneralSettingMutation';
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { NotificationsGeneralFragment_data } from './__generated__/NotificationsGeneralFragment_data.graphql';
 import useNotificationsGeneralFragmentStyles from './useNotificationsGeneralFragmentStyles';
 import RelayEnvironmentContext from '../../../../../contexts/RelayEnvironmentContext';
+import useNotificationsGeneralFragment from './useNotificationsGeneralFragment';
+import { useNotificationsGeneralFragment$ref } from './__generated__/useNotificationsGeneralFragment.graphql';
 
 interface NotificationsGeneralProps {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  data: NotificationsGeneralFragment_data;
+  data: useNotificationsGeneralFragment$ref;
 }
 
 const NotificationsGeneral: FC<NotificationsGeneralProps> = props => {
-  const {
-    data: { show, vibrate },
-  } = props;
+  const { show, vibrate } = useNotificationsGeneralFragment(props.data);
   const classes = useNotificationsGeneralFragmentStyles();
   const environment = useContext(RelayEnvironmentContext);
 
   const handleShowChange = async (
     _: ChangeEvent<HTMLInputElement>,
-    show: boolean,
+    changedShow: boolean,
   ): Promise<void> => {
     await saveNotificationsGeneralSettingMutation(
       {
         general: {
-          ...props.data,
-          show,
+          vibrate,
+          show: changedShow,
         },
       },
       environment,
@@ -49,13 +44,13 @@ const NotificationsGeneral: FC<NotificationsGeneralProps> = props => {
 
   const handleVibrateChange = async (
     _: ChangeEvent<HTMLInputElement>,
-    vibrate: boolean,
+    changedVibrate: boolean,
   ): Promise<void> => {
     await saveNotificationsGeneralSettingMutation(
       {
         general: {
-          ...props.data,
-          vibrate,
+          show,
+          vibrate: changedVibrate,
         },
       },
       environment,
@@ -93,11 +88,4 @@ const NotificationsGeneral: FC<NotificationsGeneralProps> = props => {
   );
 };
 
-export default createFragmentContainer(NotificationsGeneral, {
-  data: graphql`
-    fragment NotificationsGeneralFragment_data on GeneralNotificationsSettings {
-      show
-      vibrate
-    }
-  `,
-});
+export default NotificationsGeneral;

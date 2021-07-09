@@ -1,7 +1,6 @@
 /* tslint:disable */
 
 import { ReaderFragment } from "relay-runtime";
-type NestedFieldFragment$ref = any;
 export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
 export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO" | "%future added value";
 export type useTaskListFragment$ref = any;
@@ -28,21 +27,12 @@ export type useTaskListFragment = {
             readonly inputType?: string | null;
             readonly maxLength?: number | null;
             readonly minLength?: number | null;
-            readonly ownMeta?: {
-                readonly " $fragmentRefs": NestedFieldFragment$ref;
-            } | null;
-            readonly childrenMeta?: ReadonlyArray<{
-                readonly " $fragmentRefs": NestedFieldFragment$ref;
-            }> | null;
         };
         readonly value: {
             readonly progress?: number | null;
             readonly enabled?: boolean | null;
             readonly id?: string | null;
             readonly text?: string | null;
-            readonly ownValue?: {
-                readonly __typename: string;
-            } | null;
         };
     }>;
     readonly " $refType": useTaskListFragment$ref;
@@ -105,13 +95,7 @@ const node: ReaderFragment = (function () {
         "name": "text",
         "args": null,
         "storageKey": null
-    } as any), v9 = [
-        ({
-            "kind": "FragmentSpread",
-            "name": "NestedFieldFragment",
-            "args": null
-        } as any)
-    ];
+    } as any);
     return {
         "kind": "Fragment",
         "name": "useTaskListFragment",
@@ -250,32 +234,6 @@ const node: ReaderFragment = (function () {
                                     },
                                     (v4 /*: any*/)
                                 ]
-                            },
-                            {
-                                "kind": "InlineFragment",
-                                "type": "NestedFieldMeta",
-                                "selections": [
-                                    {
-                                        "kind": "LinkedField",
-                                        "alias": null,
-                                        "name": "ownMeta",
-                                        "storageKey": null,
-                                        "args": null,
-                                        "concreteType": null,
-                                        "plural": false,
-                                        "selections": (v9 /*: any*/)
-                                    },
-                                    {
-                                        "kind": "LinkedField",
-                                        "alias": null,
-                                        "name": "childrenMeta",
-                                        "storageKey": null,
-                                        "args": null,
-                                        "concreteType": null,
-                                        "plural": true,
-                                        "selections": (v9 /*: any*/)
-                                    }
-                                ]
                             }
                         ]
                     },
@@ -327,30 +285,6 @@ const node: ReaderFragment = (function () {
                                 "selections": [
                                     (v8 /*: any*/)
                                 ]
-                            },
-                            {
-                                "kind": "InlineFragment",
-                                "type": "NestedFieldValue",
-                                "selections": [
-                                    {
-                                        "kind": "LinkedField",
-                                        "alias": null,
-                                        "name": "ownValue",
-                                        "storageKey": null,
-                                        "args": null,
-                                        "concreteType": null,
-                                        "plural": false,
-                                        "selections": [
-                                            {
-                                                "kind": "ScalarField",
-                                                "alias": null,
-                                                "name": "__typename",
-                                                "args": null,
-                                                "storageKey": null
-                                            }
-                                        ]
-                                    }
-                                ]
                             }
                         ]
                     }
@@ -359,5 +293,5 @@ const node: ReaderFragment = (function () {
         ]
     } as any;
 })();
-(node as any).hash = 'a22900682a62d05e0fc20a4cc0e31296';
+(node as any).hash = '5ba2847125c3fd50da8ee11949652de1';
 export default node;
