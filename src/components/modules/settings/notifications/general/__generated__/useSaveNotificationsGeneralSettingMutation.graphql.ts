@@ -10,30 +10,28 @@ export type SaveNotificationsGeneralSettingGeneralInput = {
     readonly show: boolean;
     readonly vibrate: boolean;
 };
-export type saveNotificationsGeneralSettingMutationVariables = {
+export type useSaveNotificationsGeneralSettingMutationVariables = {
     readonly input: SaveNotificationsGeneralSettingInput;
 };
-export type saveNotificationsGeneralSettingMutationResponse = {
+export type useSaveNotificationsGeneralSettingMutationResponse = {
     readonly saveNotificationsGeneralSetting: {
-        readonly clientMutationId: string | null;
         readonly savedGeneral: {
             readonly " $fragmentRefs": useNotificationsGeneralFragment$ref;
         } | null;
     };
 };
-export type saveNotificationsGeneralSettingMutation = {
-    readonly response: saveNotificationsGeneralSettingMutationResponse;
-    readonly variables: saveNotificationsGeneralSettingMutationVariables;
+export type useSaveNotificationsGeneralSettingMutation = {
+    readonly response: useSaveNotificationsGeneralSettingMutationResponse;
+    readonly variables: useSaveNotificationsGeneralSettingMutationVariables;
 };
 
 
 
 /*
-mutation saveNotificationsGeneralSettingMutation(
+mutation useSaveNotificationsGeneralSettingMutation(
   $input: SaveNotificationsGeneralSettingInput!
 ) {
   saveNotificationsGeneralSetting(input: $input) {
-    clientMutationId
     savedGeneral {
       ...useNotificationsGeneralFragment
     }
@@ -60,18 +58,12 @@ const node: ConcreteRequest = (function () {
             "name": "input",
             "variableName": "input"
         } as any)
-    ], v2 = ({
-        "kind": "ScalarField",
-        "alias": null,
-        "name": "clientMutationId",
-        "args": null,
-        "storageKey": null
-    } as any);
+    ];
     return {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "saveNotificationsGeneralSettingMutation",
+            "name": "useSaveNotificationsGeneralSettingMutation",
             "type": "Mutation",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
@@ -85,7 +77,6 @@ const node: ConcreteRequest = (function () {
                     "concreteType": "SaveNotificationsGeneralSettingOutput",
                     "plural": false,
                     "selections": [
-                        (v2 /*: any*/),
                         {
                             "kind": "LinkedField",
                             "alias": null,
@@ -108,7 +99,7 @@ const node: ConcreteRequest = (function () {
         },
         "operation": {
             "kind": "Operation",
-            "name": "saveNotificationsGeneralSettingMutation",
+            "name": "useSaveNotificationsGeneralSettingMutation",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": [
                 {
@@ -120,7 +111,6 @@ const node: ConcreteRequest = (function () {
                     "concreteType": "SaveNotificationsGeneralSettingOutput",
                     "plural": false,
                     "selections": [
-                        (v2 /*: any*/),
                         {
                             "kind": "LinkedField",
                             "alias": null,
@@ -152,12 +142,12 @@ const node: ConcreteRequest = (function () {
         },
         "params": {
             "operationKind": "mutation",
-            "name": "saveNotificationsGeneralSettingMutation",
+            "name": "useSaveNotificationsGeneralSettingMutation",
             "id": null,
-            "text": "mutation saveNotificationsGeneralSettingMutation(\n  $input: SaveNotificationsGeneralSettingInput!\n) {\n  saveNotificationsGeneralSetting(input: $input) {\n    clientMutationId\n    savedGeneral {\n      ...useNotificationsGeneralFragment\n    }\n  }\n}\n\nfragment useNotificationsGeneralFragment on GeneralNotificationsSettings {\n  show\n  vibrate\n}\n",
+            "text": "mutation useSaveNotificationsGeneralSettingMutation(\n  $input: SaveNotificationsGeneralSettingInput!\n) {\n  saveNotificationsGeneralSetting(input: $input) {\n    savedGeneral {\n      ...useNotificationsGeneralFragment\n    }\n  }\n}\n\nfragment useNotificationsGeneralFragment on GeneralNotificationsSettings {\n  show\n  vibrate\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '5230e5030c316f0b82ce7d957e939fb8';
+(node as any).hash = 'dd14412dbae95c9372db6d49e6263594';
 export default node;

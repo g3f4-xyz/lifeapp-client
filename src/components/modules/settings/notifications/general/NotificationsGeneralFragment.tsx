@@ -11,12 +11,11 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ExpandMore, Slideshow, Vibration } from '@material-ui/icons';
-import React, { ChangeEvent, FC, useContext } from 'react';
-import saveNotificationsGeneralSettingMutation from '../../../../../mutations/saveNotificationsGeneralSettingMutation';
-import useNotificationsGeneralFragmentStyles from './useNotificationsGeneralFragmentStyles';
-import RelayEnvironmentContext from '../../../../../contexts/RelayEnvironmentContext';
-import useNotificationsGeneralFragment from './useNotificationsGeneralFragment';
+import React, { ChangeEvent, FC } from 'react';
+import useSaveNotificationsGeneralSettingMutation from './useSaveNotificationsGeneralSettingMutation';
 import { useNotificationsGeneralFragment$ref } from './__generated__/useNotificationsGeneralFragment.graphql';
+import useNotificationsGeneralFragment from './useNotificationsGeneralFragment';
+import useNotificationsGeneralFragmentStyles from './useNotificationsGeneralFragmentStyles';
 
 interface NotificationsGeneralProps {
   data: useNotificationsGeneralFragment$ref;
@@ -25,36 +24,30 @@ interface NotificationsGeneralProps {
 const NotificationsGeneral: FC<NotificationsGeneralProps> = props => {
   const { show, vibrate } = useNotificationsGeneralFragment(props.data);
   const classes = useNotificationsGeneralFragmentStyles();
-  const environment = useContext(RelayEnvironmentContext);
+  const saveNotificationsGeneralSettingMutation = useSaveNotificationsGeneralSettingMutation();
 
   const handleShowChange = async (
     _: ChangeEvent<HTMLInputElement>,
     changedShow: boolean,
   ): Promise<void> => {
-    await saveNotificationsGeneralSettingMutation(
-      {
-        general: {
-          vibrate,
-          show: changedShow,
-        },
+    await saveNotificationsGeneralSettingMutation({
+      general: {
+        vibrate,
+        show: changedShow,
       },
-      environment,
-    );
+    });
   };
 
   const handleVibrateChange = async (
     _: ChangeEvent<HTMLInputElement>,
     changedVibrate: boolean,
   ): Promise<void> => {
-    await saveNotificationsGeneralSettingMutation(
-      {
-        general: {
-          show,
-          vibrate: changedVibrate,
-        },
+    await saveNotificationsGeneralSettingMutation({
+      general: {
+        show,
+        vibrate: changedVibrate,
       },
-      environment,
-    );
+    });
   };
 
   return (

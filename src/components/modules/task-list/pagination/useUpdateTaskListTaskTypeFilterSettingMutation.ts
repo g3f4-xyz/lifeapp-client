@@ -1,15 +1,13 @@
 import graphql from 'babel-plugin-relay/macro';
-import { commitMutation } from 'relay-hooks';
-import { Environment, RecordSourceSelectorProxy } from 'relay-runtime';
+import { useMutation } from 'relay-hooks';
+import { RecordSourceSelectorProxy } from 'relay-runtime';
 import {
-  updateTaskListTaskTypeFilterSettingMutation,
   UpdateTaskListTaskTypeFilterSettingInput,
-  updateTaskListTaskTypeFilterSettingMutationResponse,
-} from './__generated__/updateTaskListTaskTypeFilterSettingMutation.graphql';
-import { Primitive } from 'relay-runtime/lib/store/RelayStoreTypes';
+  useUpdateTaskListTaskTypeFilterSettingMutation,
+} from './__generated__/useUpdateTaskListTaskTypeFilterSettingMutation.graphql';
 
 const mutation = graphql`
-  mutation updateTaskListTaskTypeFilterSettingMutation(
+  mutation useUpdateTaskListTaskTypeFilterSettingMutation(
     $input: UpdateTaskListTaskTypeFilterSettingInput!
   ) {
     updateTaskListTaskTypeFilterSetting(input: $input) {
@@ -19,26 +17,20 @@ const mutation = graphql`
   }
 `;
 
-export default (
-  { taskType }: UpdateTaskListTaskTypeFilterSettingInput,
-  { parentID }: { parentID: string },
-  environment: Environment,
-): Promise<updateTaskListTaskTypeFilterSettingMutationResponse> =>
-  new Promise((onCompleted, onError): void => {
-    const variables = { input: { taskType } };
-
-    commitMutation<updateTaskListTaskTypeFilterSettingMutation>(environment, {
-      mutation,
-      variables,
-      onCompleted,
-      onError,
+export default (parentID: string) => {
+  const [mutate] = useMutation<useUpdateTaskListTaskTypeFilterSettingMutation>(mutation);
+  return ({ taskType }: UpdateTaskListTaskTypeFilterSettingInput) =>
+    mutate({
+      variables: { input: { taskType } },
       optimisticUpdater: (proxyStore: RecordSourceSelectorProxy) => {
         const parentRecord = proxyStore.get(parentID);
         const taskListRecord = parentRecord && parentRecord.getLinkedRecord('taskList');
         const filtersRecord = taskListRecord && taskListRecord.getLinkedRecord('filters');
 
         if (filtersRecord) {
-          filtersRecord.setValue(taskType as Primitive[], 'taskType');
+          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
+          // @ts-ignore
+          filtersRecord.setValue(taskType, 'taskType');
         }
       },
       updater: (store: RecordSourceSelectorProxy) => {
@@ -52,4 +44,4 @@ export default (
         }
       },
     });
-  });
+};

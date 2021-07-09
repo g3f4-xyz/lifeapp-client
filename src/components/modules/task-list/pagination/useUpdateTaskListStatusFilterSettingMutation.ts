@@ -1,14 +1,13 @@
 import graphql from 'babel-plugin-relay/macro';
-import { commitMutation } from 'relay-hooks';
-import { Environment, RecordSourceSelectorProxy } from 'relay-runtime';
+import { useMutation } from 'relay-hooks';
+import { RecordSourceSelectorProxy } from 'relay-runtime';
 import {
-  updateTaskListStatusFilterSettingMutation,
   UpdateTaskListStatusFilterSettingInput,
-  updateTaskListStatusFilterSettingMutationResponse,
-} from './__generated__/updateTaskListStatusFilterSettingMutation.graphql';
+  useUpdateTaskListStatusFilterSettingMutation,
+} from './__generated__/useUpdateTaskListStatusFilterSettingMutation.graphql';
 
 const mutation = graphql`
-  mutation updateTaskListStatusFilterSettingMutation(
+  mutation useUpdateTaskListStatusFilterSettingMutation(
     $input: UpdateTaskListStatusFilterSettingInput!
   ) {
     updateTaskListStatusFilterSetting(input: $input) {
@@ -18,19 +17,11 @@ const mutation = graphql`
   }
 `;
 
-export default (
-  { status }: UpdateTaskListStatusFilterSettingInput,
-  { parentID }: { parentID: string },
-  environment: Environment,
-): Promise<updateTaskListStatusFilterSettingMutationResponse> =>
-  new Promise((onCompleted, onError): void => {
-    const variables = { input: { status } };
-
-    commitMutation<updateTaskListStatusFilterSettingMutation>(environment, {
-      mutation,
-      variables,
-      onCompleted,
-      onError,
+export default (parentID: string) => {
+  const [mutate] = useMutation<useUpdateTaskListStatusFilterSettingMutation>(mutation);
+  return ({ status }: UpdateTaskListStatusFilterSettingInput) =>
+    mutate({
+      variables: { input: { status } },
       optimisticUpdater: (proxyStore: RecordSourceSelectorProxy) => {
         const parentRecord = proxyStore.get(parentID);
         const taskListRecord = parentRecord && parentRecord.getLinkedRecord('taskList');
@@ -51,4 +42,4 @@ export default (
         }
       },
     });
-  });
+};

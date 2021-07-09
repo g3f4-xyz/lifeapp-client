@@ -1,14 +1,12 @@
 import graphql from 'babel-plugin-relay/macro';
-import { commitMutation } from 'relay-hooks';
-import { Environment, RecordSourceSelectorProxy } from 'relay-runtime';
+import { useMutation } from 'relay-hooks';
 import {
-  updateTaskFieldMutation,
   UpdateTaskFieldInput,
-  updateTaskFieldMutationResponse,
-} from './__generated__/updateTaskFieldMutation.graphql';
+  useUpdateTaskFieldMutation,
+} from './__generated__/useUpdateTaskFieldMutation.graphql';
 
 const mutation = graphql`
-  mutation updateTaskFieldMutation($input: UpdateTaskFieldInput!) {
+  mutation useUpdateTaskFieldMutation($input: UpdateTaskFieldInput!) {
     updateTaskField(input: $input) {
       fieldId
       taskId
@@ -23,31 +21,23 @@ const mutation = graphql`
   }
 `;
 
-export default (
-  { fieldId, value, taskId }: UpdateTaskFieldInput,
-  { id }: { id: string },
-  environment: Environment,
-): Promise<updateTaskFieldMutationResponse> =>
-  new Promise((onCompleted, onError): void => {
-    const variables = { input: { fieldId, value, taskId } };
-
-    commitMutation<updateTaskFieldMutation>(environment, {
-      mutation,
-      variables,
-      onCompleted,
-      onError,
-      optimisticUpdater: (proxyStore: RecordSourceSelectorProxy) => {
-        const [valueKey] = Object.keys(value);
+export default (id: string) => {
+  const [mutate] = useMutation<useUpdateTaskFieldMutation>(mutation);
+  return (input: UpdateTaskFieldInput) =>
+    mutate({
+      variables: { input },
+      optimisticUpdater(proxyStore) {
+        const [valueKey] = Object.keys(input.value);
         if (valueKey !== 'ownValue') {
           const fieldRecord = proxyStore.get(id);
           const valueRecord = fieldRecord && fieldRecord.getLinkedRecord('value');
 
           if (valueRecord) {
-            valueRecord.setValue(value[valueKey], valueKey);
+            valueRecord.setValue(input.value[valueKey], valueKey);
           }
         }
       },
-      updater: (store: RecordSourceSelectorProxy) => {
+      updater(store) {
         const mutationRecord = store.getRootField('updateTaskField');
         const updatedFieldValue = mutationRecord && mutationRecord.getLinkedRecord('updatedValue');
         const fieldRecord = store.get(id);
@@ -56,4 +46,4 @@ export default (
         }
       },
     });
-  });
+};

@@ -1,9 +1,8 @@
-import React, { FC, useContext } from 'react';
-import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
+import React, { FC } from 'react';
+import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 import Slider from '../../../display/field/Slider';
-import RelayEnvironmentContext from '../../../../contexts/RelayEnvironmentContext';
-import useSliderFieldFragment from './useSliderFieldFragment';
 import { useTextFieldFragment$ref } from './__generated__/useTextFieldFragment.graphql';
+import useSliderFieldFragment from './useSliderFieldFragment';
 
 interface SliderFieldProps {
   data: useTextFieldFragment$ref;
@@ -17,14 +16,10 @@ const SliderField: FC<SliderFieldProps> = props => {
     value: { progress },
     meta: { label, disabled, max, min, step },
   } = useSliderFieldFragment(props.data);
-  const environment = useContext(RelayEnvironmentContext);
+  const mutate = useUpdateTaskFieldMutation(id);
 
   const handleChange = async (progress: number): Promise<void> => {
-    await updateTaskFieldMutation(
-      { fieldId, value: { progress }, taskId: props.taskId },
-      { id },
-      environment,
-    );
+    await mutate({ fieldId, value: { progress }, taskId: props.taskId });
   };
 
   return (

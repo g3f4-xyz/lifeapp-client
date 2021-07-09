@@ -2,14 +2,13 @@ import { Button, IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import MoreIcon from '@material-ui/icons/MoreHoriz';
-import React, { ChangeEvent, FC, Fragment, useCallback, useContext, useState } from 'react';
+import React, { ChangeEvent, FC, Fragment, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { MODULES_IDS, TaskTypeEnum } from '../../../../constans';
-import { TaskStatus } from '../../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
-import deleteTaskMutation from '../../../../mutations/deleteTaskMutation';
-import updateTaskListStatusFilterSettingMutation from '../../../../mutations/updateTaskListStatusFilterSettingMutation';
-import updateTaskListTaskTypeFilterSettingMutation from '../../../../mutations/updateTaskListTaskTypeFilterSettingMutation';
-import updateTaskListTitleFilterSettingMutation from '../../../../mutations/updateTaskListTitleFilterSettingMutation';
+import { ITEMS_PER_PAGE, MODULES_IDS, TaskStatusEnum, TaskTypeEnum } from '../../../../constans';
+import useDeleteTaskMutation from './useDeleteTaskMutation';
+import useUpdateTaskListStatusFilterSettingMutation from './useUpdateTaskListStatusFilterSettingMutation';
+import useUpdateTaskListTaskTypeFilterSettingMutation from './useUpdateTaskListTaskTypeFilterSettingMutation';
+import useUpdateTaskListTitleFilterSettingMutation from './useUpdateTaskListTitleFilterSettingMutation';
 import Loader from '../../../display/loader/Loader';
 import TaskListBar from '../../../display/task-list-bar/TaskListBar';
 import { useTaskListQuery } from '../__generated__/useTaskListQuery.graphql';
@@ -17,7 +16,6 @@ import TaskListFragment from '../fragment/TaskListFragment';
 import { useTaskListPagination$ref } from './__generated__/useTaskListPagination.graphql';
 import useTaskListPagination from './useTaskListPagination';
 import useTaskListPaginationStyles from './useTaskListPaginationStyles';
-import RelayEnvironmentContext from '../../../../contexts/RelayEnvironmentContext';
 
 interface TaskListPaginationProps {
   data: useTaskListPagination$ref;
@@ -31,11 +29,19 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
   const classes = useTaskListPaginationStyles();
   const [data, { hasMore, isLoading, loadMore, refetchConnection }] = useTaskListPagination(
     props.data,
-    8,
+    ITEMS_PER_PAGE,
   );
   const history = useHistory();
-  const environment = useContext(RelayEnvironmentContext);
-
+  const updateTaskListTitleFilterSetting = useUpdateTaskListTitleFilterSettingMutation(
+    props.settingsId,
+  );
+  const updateTaskListTaskTypeFilterSetting = useUpdateTaskListTaskTypeFilterSettingMutation(
+    props.settingsId,
+  );
+  const updateTaskListStatusFilterSetting = useUpdateTaskListStatusFilterSettingMutation(
+    props.settingsId,
+  );
+  const deleteTaskMutation = useDeleteTaskMutation(data.id);
   const handleAdd = useCallback(() => {
     history.push(`/app/${MODULES_IDS.TASK_TYPE_LIST}`);
   }, [history]);
@@ -67,16 +73,12 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
   };
 
   const handleDelete = async (id: string): Promise<void> => {
-    await deleteTaskMutation({ id, parentID: data.id }, environment);
+    await deleteTaskMutation({ id });
   };
 
   const handleFilterByTitle = async (event: ChangeEvent<HTMLInputElement>) => {
     setLoading(true);
-    await updateTaskListTitleFilterSettingMutation(
-      { title: event.target.value },
-      { parentID: props.settingsId },
-      environment,
-    );
+    await updateTaskListTitleFilterSetting({ title: event.target.value });
 
     refetchConnection();
 
@@ -86,13 +88,9 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
   const handleFilterByStatus = async (event: ChangeEvent<HTMLSelectElement>) => {
     setLoading(true);
 
-    await updateTaskListStatusFilterSettingMutation(
-      {
-        status: event.target.value.length > 0 ? (event.target.value as TaskStatus) : null,
-      },
-      { parentID: props.settingsId },
-      environment,
-    );
+    await updateTaskListStatusFilterSetting({
+      status: event.target.value.length > 0 ? (event.target.value as TaskStatusEnum) : null,
+    });
 
     refetchConnection();
 
@@ -105,11 +103,7 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
 
     setLoading(true);
 
-    await updateTaskListTaskTypeFilterSettingMutation(
-      { taskType: updatedTaskTypeFilter },
-      { parentID: props.settingsId },
-      environment,
-    );
+    await updateTaskListTaskTypeFilterSetting({ taskType: updatedTaskTypeFilter });
 
     refetchConnection();
 

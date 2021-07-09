@@ -1,9 +1,8 @@
-import React, { FC, useContext } from 'react';
-import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
+import React, { FC } from 'react';
+import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 import Choice from '../../../display/field/Choice';
-import RelayEnvironmentContext from '../../../../contexts/RelayEnvironmentContext';
-import useChoiceFieldFragment from './useChoiceFieldFragment';
 import { useChoiceFieldFragment$ref } from './__generated__/useChoiceFieldFragment.graphql';
+import useChoiceFieldFragment from './useChoiceFieldFragment';
 
 interface ChoiceFieldProps {
   data: useChoiceFieldFragment$ref;
@@ -17,13 +16,9 @@ const ChoiceField: FC<ChoiceFieldProps> = props => {
     value: { id },
     meta: { options, label, helperText },
   } = useChoiceFieldFragment(props.data);
-  const environment = useContext(RelayEnvironmentContext);
+  const mutate = useUpdateTaskFieldMutation(relayId);
   const handleChange = async (changedId: string): Promise<void> => {
-    await updateTaskFieldMutation(
-      { fieldId, value: { id: changedId }, taskId: props.taskId },
-      { id: relayId },
-      environment,
-    );
+    await mutate({ fieldId, value: { id: changedId }, taskId: props.taskId });
   };
 
   return (

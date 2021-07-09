@@ -11,14 +11,13 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
-import React, { ChangeEvent, FC, useContext } from 'react';
+import React, { ChangeEvent, FC } from 'react';
 import { TASK_TYPE, TaskTypeEnum } from '../../../../../constans';
-import saveNotificationsTypesSettingMutation from '../../../../../mutations/saveNotificationsTypesSettingMutation';
+import useSaveNotificationsTypesSettingMutation from './useSaveNotificationsTypesSettingMutation';
 import TaskTypeIcon from '../../../../display/task-type-icon/TaskTypeIcon';
-import useNotificationsTypesFragmentStyles from './useNotificationsTypesFragmentStyles';
-import RelayEnvironmentContext from '../../../../../contexts/RelayEnvironmentContext';
 import { useNotificationsTypesFragment$ref } from './__generated__/useNotificationsTypesFragment.graphql';
 import useNotificationsTypesFragment from './useNotificationsTypesFragment';
+import useNotificationsTypesFragmentStyles from './useNotificationsTypesFragmentStyles';
 
 interface NotificationsTypesProps {
   data: useNotificationsTypesFragment$ref;
@@ -28,20 +27,17 @@ const NotificationsTypes: FC<NotificationsTypesProps> = props => {
   const { events, goals, meetings, routines, todos } = useNotificationsTypesFragment(props.data);
   const types = { events, goals, meetings, routines, todos };
   const classes = useNotificationsTypesFragmentStyles();
-  const environment = useContext(RelayEnvironmentContext);
+  const saveNotificationsTypesSettingMutation = useSaveNotificationsTypesSettingMutation();
   const getChangeHandler = (key: string) => async (
     _: ChangeEvent<HTMLInputElement>,
     checked: boolean,
   ): Promise<void> => {
-    await saveNotificationsTypesSettingMutation(
-      {
-        types: {
-          ...types,
-          [key]: checked,
-        },
+    await saveNotificationsTypesSettingMutation({
+      types: {
+        ...types,
+        [key]: checked,
       },
-      environment,
-    );
+    });
   };
 
   return (

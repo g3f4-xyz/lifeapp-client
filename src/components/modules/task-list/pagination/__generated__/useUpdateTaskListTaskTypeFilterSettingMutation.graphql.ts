@@ -6,24 +6,24 @@ export type UpdateTaskListTaskTypeFilterSettingInput = {
     readonly clientMutationId?: string | null;
     readonly taskType?: ReadonlyArray<TaskTypeId | null> | null;
 };
-export type updateTaskListTaskTypeFilterSettingMutationVariables = {
+export type useUpdateTaskListTaskTypeFilterSettingMutationVariables = {
     readonly input: UpdateTaskListTaskTypeFilterSettingInput;
 };
-export type updateTaskListTaskTypeFilterSettingMutationResponse = {
+export type useUpdateTaskListTaskTypeFilterSettingMutationResponse = {
     readonly updateTaskListTaskTypeFilterSetting: {
         readonly clientMutationId: string | null;
         readonly taskType: ReadonlyArray<TaskTypeId | null> | null;
     };
 };
-export type updateTaskListTaskTypeFilterSettingMutation = {
-    readonly response: updateTaskListTaskTypeFilterSettingMutationResponse;
-    readonly variables: updateTaskListTaskTypeFilterSettingMutationVariables;
+export type useUpdateTaskListTaskTypeFilterSettingMutation = {
+    readonly response: useUpdateTaskListTaskTypeFilterSettingMutationResponse;
+    readonly variables: useUpdateTaskListTaskTypeFilterSettingMutationVariables;
 };
 
 
 
 /*
-mutation updateTaskListTaskTypeFilterSettingMutation(
+mutation useUpdateTaskListTaskTypeFilterSettingMutation(
   $input: UpdateTaskListTaskTypeFilterSettingInput!
 ) {
   updateTaskListTaskTypeFilterSetting(input: $input) {
@@ -78,7 +78,7 @@ const node: ConcreteRequest = (function () {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "updateTaskListTaskTypeFilterSettingMutation",
+            "name": "useUpdateTaskListTaskTypeFilterSettingMutation",
             "type": "Mutation",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
@@ -86,18 +86,18 @@ const node: ConcreteRequest = (function () {
         },
         "operation": {
             "kind": "Operation",
-            "name": "updateTaskListTaskTypeFilterSettingMutation",
+            "name": "useUpdateTaskListTaskTypeFilterSettingMutation",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
         },
         "params": {
             "operationKind": "mutation",
-            "name": "updateTaskListTaskTypeFilterSettingMutation",
+            "name": "useUpdateTaskListTaskTypeFilterSettingMutation",
             "id": null,
-            "text": "mutation updateTaskListTaskTypeFilterSettingMutation(\n  $input: UpdateTaskListTaskTypeFilterSettingInput!\n) {\n  updateTaskListTaskTypeFilterSetting(input: $input) {\n    clientMutationId\n    taskType\n  }\n}\n",
+            "text": "mutation useUpdateTaskListTaskTypeFilterSettingMutation(\n  $input: UpdateTaskListTaskTypeFilterSettingInput!\n) {\n  updateTaskListTaskTypeFilterSetting(input: $input) {\n    clientMutationId\n    taskType\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '9d3cf3bbc80677c784219cb82743cc7e';
+(node as any).hash = '078a3e296dadcd8b0d3f990448086313';
 export default node;

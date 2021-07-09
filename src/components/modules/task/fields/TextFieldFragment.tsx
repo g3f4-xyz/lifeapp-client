@@ -1,7 +1,6 @@
-import React, { FC, useContext } from 'react';
-import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
+import React, { FC } from 'react';
+import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 import Text from '../../../display/field/Text';
-import RelayEnvironmentContext from '../../../../contexts/RelayEnvironmentContext';
 import { useTextFieldFragment$ref } from './__generated__/useTextFieldFragment.graphql';
 import useTextFieldFragment from './useTextFieldFragment';
 
@@ -17,14 +16,10 @@ const TextField: FC<TextFieldProps> = props => {
     value: { text },
     meta,
   } = useTextFieldFragment(props.data);
+  const mutate = useUpdateTaskFieldMutation(id);
   const { max, maxLength, min, minLength, required, inputType, label, helperText } = meta;
-  const environment = useContext(RelayEnvironmentContext);
-  const handleChange = async (text: string): Promise<void> => {
-    await updateTaskFieldMutation(
-      { fieldId, value: { text }, taskId: props.taskId },
-      { id },
-      environment,
-    );
+  const handleChange = async (text: string) => {
+    await mutate({ fieldId, value: { text }, taskId: props.taskId });
   };
 
   return (

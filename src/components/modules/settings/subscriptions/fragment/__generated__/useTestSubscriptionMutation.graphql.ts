@@ -1,33 +1,33 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type DeleteSubscriptionInput = {
+export type TestSubscriptionInput = {
     readonly clientMutationId?: string | null;
     readonly subscriptionId: string;
 };
-export type deleteSubscriptionMutationVariables = {
-    readonly input: DeleteSubscriptionInput;
+export type useTestSubscriptionMutationVariables = {
+    readonly input: TestSubscriptionInput;
 };
-export type deleteSubscriptionMutationResponse = {
-    readonly deleteSubscription: {
+export type useTestSubscriptionMutationResponse = {
+    readonly testSubscription: {
         readonly clientMutationId: string | null;
-        readonly subscriptionId: string;
+        readonly statusCode: string;
     };
 };
-export type deleteSubscriptionMutation = {
-    readonly response: deleteSubscriptionMutationResponse;
-    readonly variables: deleteSubscriptionMutationVariables;
+export type useTestSubscriptionMutation = {
+    readonly response: useTestSubscriptionMutationResponse;
+    readonly variables: useTestSubscriptionMutationVariables;
 };
 
 
 
 /*
-mutation deleteSubscriptionMutation(
-  $input: DeleteSubscriptionInput!
+mutation useTestSubscriptionMutation(
+  $input: TestSubscriptionInput!
 ) {
-  deleteSubscription(input: $input) {
+  testSubscription(input: $input) {
     clientMutationId
-    subscriptionId
+    statusCode
   }
 }
 */
@@ -37,14 +37,14 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "LocalArgument",
             "name": "input",
-            "type": "DeleteSubscriptionInput!",
+            "type": "TestSubscriptionInput!",
             "defaultValue": null
         } as any)
     ], v1 = [
         ({
             "kind": "LinkedField",
             "alias": null,
-            "name": "deleteSubscription",
+            "name": "testSubscription",
             "storageKey": null,
             "args": [
                 {
@@ -53,7 +53,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "DeleteSubscriptionOutput",
+            "concreteType": "TestSubscriptionOutput",
             "plural": false,
             "selections": [
                 {
@@ -66,7 +66,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "kind": "ScalarField",
                     "alias": null,
-                    "name": "subscriptionId",
+                    "name": "statusCode",
                     "args": null,
                     "storageKey": null
                 }
@@ -77,7 +77,7 @@ const node: ConcreteRequest = (function () {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "deleteSubscriptionMutation",
+            "name": "useTestSubscriptionMutation",
             "type": "Mutation",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
@@ -85,18 +85,18 @@ const node: ConcreteRequest = (function () {
         },
         "operation": {
             "kind": "Operation",
-            "name": "deleteSubscriptionMutation",
+            "name": "useTestSubscriptionMutation",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
         },
         "params": {
             "operationKind": "mutation",
-            "name": "deleteSubscriptionMutation",
+            "name": "useTestSubscriptionMutation",
             "id": null,
-            "text": "mutation deleteSubscriptionMutation(\n  $input: DeleteSubscriptionInput!\n) {\n  deleteSubscription(input: $input) {\n    clientMutationId\n    subscriptionId\n  }\n}\n",
+            "text": "mutation useTestSubscriptionMutation(\n  $input: TestSubscriptionInput!\n) {\n  testSubscription(input: $input) {\n    clientMutationId\n    statusCode\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '49991ffe859e0fa2e66e70f85eece767';
+(node as any).hash = '71dd2c8dc2037e1bd5539ddf59237101';
 export default node;

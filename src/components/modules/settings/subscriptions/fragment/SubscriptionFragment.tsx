@@ -15,13 +15,12 @@ import {
   Smartphone,
 } from '@material-ui/icons';
 import CloudOffIcon from '@material-ui/icons/CloudOff';
-import React, { FC, useContext, useState } from 'react';
+import React, { FC, useState } from 'react';
 import { DEVICES, STATUSES } from '../../../../../constans';
-import testSubscriptionMutation from '../../../../../mutations/testSubscriptionMutation';
+import useTestSubscriptionMutation from './useTestSubscriptionMutation';
 import useSubscriptionFragmentStyles from '../pagination/useSubscriptionFragmentStyles';
-import RelayEnvironmentContext from '../../../../../contexts/RelayEnvironmentContext';
-import useSubscriptionFragment from './useSubscriptionFragment';
 import { useSubscriptionFragment$ref } from './__generated__/useSubscriptionFragment.graphql';
+import useSubscriptionFragment from './useSubscriptionFragment';
 
 const DEVICES_ICONS = {
   [DEVICES.DESKTOP]: Computer,
@@ -39,19 +38,16 @@ const SubscriptionFragment: FC<SubscriptionFragmentProps> = props => {
   const { id, userDeviceType, userAgent } = useSubscriptionFragment(props.data);
   const classes = useSubscriptionFragmentStyles();
   const [statusCode, setStatusCode] = useState('');
-  const environment = useContext(RelayEnvironmentContext);
+  const testSubscriptionMutation = useTestSubscriptionMutation();
 
   const handleDelete = () => {
     props.onDelete(props.data.id);
   };
 
   const handleTest = async () => {
-    const { testSubscription } = await testSubscriptionMutation(
-      {
-        subscriptionId: props.data.id,
-      },
-      environment,
-    );
+    const { testSubscription } = await testSubscriptionMutation({
+      subscriptionId: props.data.id,
+    });
 
     if (testSubscription) {
       setStatusCode(testSubscription.statusCode);

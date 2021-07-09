@@ -1,33 +1,34 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type CleanApplicationInput = {
+export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO" | "%future added value";
+export type UpdateTaskListStatusFilterSettingInput = {
     readonly clientMutationId?: string | null;
-    readonly ownerId?: string | null;
+    readonly status?: TaskStatus | null;
 };
-export type cleanApplicationMutationVariables = {
-    readonly input: CleanApplicationInput;
+export type useUpdateTaskListStatusFilterSettingMutationVariables = {
+    readonly input: UpdateTaskListStatusFilterSettingInput;
 };
-export type cleanApplicationMutationResponse = {
-    readonly cleanApplication: {
+export type useUpdateTaskListStatusFilterSettingMutationResponse = {
+    readonly updateTaskListStatusFilterSetting: {
         readonly clientMutationId: string | null;
-        readonly navigationUrl: string | null;
+        readonly status: TaskStatus | null;
     };
 };
-export type cleanApplicationMutation = {
-    readonly response: cleanApplicationMutationResponse;
-    readonly variables: cleanApplicationMutationVariables;
+export type useUpdateTaskListStatusFilterSettingMutation = {
+    readonly response: useUpdateTaskListStatusFilterSettingMutationResponse;
+    readonly variables: useUpdateTaskListStatusFilterSettingMutationVariables;
 };
 
 
 
 /*
-mutation cleanApplicationMutation(
-  $input: CleanApplicationInput!
+mutation useUpdateTaskListStatusFilterSettingMutation(
+  $input: UpdateTaskListStatusFilterSettingInput!
 ) {
-  cleanApplication(input: $input) {
+  updateTaskListStatusFilterSetting(input: $input) {
     clientMutationId
-    navigationUrl
+    status
   }
 }
 */
@@ -37,14 +38,14 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "LocalArgument",
             "name": "input",
-            "type": "CleanApplicationInput!",
+            "type": "UpdateTaskListStatusFilterSettingInput!",
             "defaultValue": null
         } as any)
     ], v1 = [
         ({
             "kind": "LinkedField",
             "alias": null,
-            "name": "cleanApplication",
+            "name": "updateTaskListStatusFilterSetting",
             "storageKey": null,
             "args": [
                 {
@@ -53,7 +54,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "CleanApplicationOutput",
+            "concreteType": "UpdateTaskListStatusFilterSettingOutput",
             "plural": false,
             "selections": [
                 {
@@ -66,7 +67,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "kind": "ScalarField",
                     "alias": null,
-                    "name": "navigationUrl",
+                    "name": "status",
                     "args": null,
                     "storageKey": null
                 }
@@ -77,7 +78,7 @@ const node: ConcreteRequest = (function () {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "cleanApplicationMutation",
+            "name": "useUpdateTaskListStatusFilterSettingMutation",
             "type": "Mutation",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
@@ -85,18 +86,18 @@ const node: ConcreteRequest = (function () {
         },
         "operation": {
             "kind": "Operation",
-            "name": "cleanApplicationMutation",
+            "name": "useUpdateTaskListStatusFilterSettingMutation",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
         },
         "params": {
             "operationKind": "mutation",
-            "name": "cleanApplicationMutation",
+            "name": "useUpdateTaskListStatusFilterSettingMutation",
             "id": null,
-            "text": "mutation cleanApplicationMutation(\n  $input: CleanApplicationInput!\n) {\n  cleanApplication(input: $input) {\n    clientMutationId\n    navigationUrl\n  }\n}\n",
+            "text": "mutation useUpdateTaskListStatusFilterSettingMutation(\n  $input: UpdateTaskListStatusFilterSettingInput!\n) {\n  updateTaskListStatusFilterSetting(input: $input) {\n    clientMutationId\n    status\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '26609137c182a37ddbb53cebc5cdea1e';
+(node as any).hash = 'fccb693d175f1bd65e1245e7b3c8dd41';
 export default node;

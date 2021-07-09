@@ -9,8 +9,7 @@ import {
 import { ExpandMore, PriorityHigh } from '@material-ui/icons';
 import classNames from 'classnames';
 import React, { FC } from 'react';
-import { FIELD_ID, TaskTypeEnum } from '../../../../constans';
-import { TaskStatus } from '../../../../mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
+import { FIELD_ID, TaskStatusEnum, TaskTypeEnum } from '../../../../constans';
 import StatusIcon from '../../../display/status-icon/StatusIcon';
 import TaskTypeIcon from '../../../display/task-type-icon/TaskTypeIcon';
 import { useTaskListFragment$ref } from './__generated__/useTaskListFragment.graphql';
@@ -38,8 +37,8 @@ const TaskListFragment: FC<TaskListFragmentProps> = props => {
       <ExpansionPanelSummary expandIcon={<ExpandMore />}>
         <div>
           {statusField && statusField.value && (
-            <Tooltip title={`Status: ${statusField.value.id as TaskStatus}`}>
-              <StatusIcon status={statusField.value.id as TaskStatus} />
+            <Tooltip title={`Status: ${statusField.value.id as TaskStatusEnum}`}>
+              <StatusIcon status={statusField.value.id as TaskStatusEnum} />
             </Tooltip>
           )}
           {priorityField && priorityField.value && priorityField.value.enabled && (

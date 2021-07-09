@@ -1,33 +1,33 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type DeleteTaskInput = {
-    readonly id?: string | null;
+export type CleanApplicationInput = {
     readonly clientMutationId?: string | null;
+    readonly ownerId?: string | null;
 };
-export type deleteTaskMutationVariables = {
-    readonly input: DeleteTaskInput;
+export type useCleanApplicationMutationVariables = {
+    readonly input: CleanApplicationInput;
 };
-export type deleteTaskMutationResponse = {
-    readonly deleteTask: {
+export type useCleanApplicationMutationResponse = {
+    readonly cleanApplication: {
         readonly clientMutationId: string | null;
-        readonly deletedTaskId: string;
+        readonly navigationUrl: string | null;
     };
 };
-export type deleteTaskMutation = {
-    readonly response: deleteTaskMutationResponse;
-    readonly variables: deleteTaskMutationVariables;
+export type useCleanApplicationMutation = {
+    readonly response: useCleanApplicationMutationResponse;
+    readonly variables: useCleanApplicationMutationVariables;
 };
 
 
 
 /*
-mutation deleteTaskMutation(
-  $input: DeleteTaskInput!
+mutation useCleanApplicationMutation(
+  $input: CleanApplicationInput!
 ) {
-  deleteTask(input: $input) {
+  cleanApplication(input: $input) {
     clientMutationId
-    deletedTaskId
+    navigationUrl
   }
 }
 */
@@ -37,14 +37,14 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "LocalArgument",
             "name": "input",
-            "type": "DeleteTaskInput!",
+            "type": "CleanApplicationInput!",
             "defaultValue": null
         } as any)
     ], v1 = [
         ({
             "kind": "LinkedField",
             "alias": null,
-            "name": "deleteTask",
+            "name": "cleanApplication",
             "storageKey": null,
             "args": [
                 {
@@ -53,7 +53,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "DeleteTaskOutput",
+            "concreteType": "CleanApplicationOutput",
             "plural": false,
             "selections": [
                 {
@@ -66,7 +66,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "kind": "ScalarField",
                     "alias": null,
-                    "name": "deletedTaskId",
+                    "name": "navigationUrl",
                     "args": null,
                     "storageKey": null
                 }
@@ -77,7 +77,7 @@ const node: ConcreteRequest = (function () {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "deleteTaskMutation",
+            "name": "useCleanApplicationMutation",
             "type": "Mutation",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
@@ -85,18 +85,18 @@ const node: ConcreteRequest = (function () {
         },
         "operation": {
             "kind": "Operation",
-            "name": "deleteTaskMutation",
+            "name": "useCleanApplicationMutation",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
         },
         "params": {
             "operationKind": "mutation",
-            "name": "deleteTaskMutation",
+            "name": "useCleanApplicationMutation",
             "id": null,
-            "text": "mutation deleteTaskMutation(\n  $input: DeleteTaskInput!\n) {\n  deleteTask(input: $input) {\n    clientMutationId\n    deletedTaskId\n  }\n}\n",
+            "text": "mutation useCleanApplicationMutation(\n  $input: CleanApplicationInput!\n) {\n  cleanApplication(input: $input) {\n    clientMutationId\n    navigationUrl\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '3bd030a0546fe2119c2e1e41d985a49e';
+(node as any).hash = 'b43543e3b946f4b01322643fc7a6367d';
 export default node;

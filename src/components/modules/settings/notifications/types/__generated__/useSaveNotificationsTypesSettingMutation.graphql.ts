@@ -13,25 +13,25 @@ export type SaveNotificationsTypesSettingTypesInput = {
     readonly events: boolean;
     readonly routines: boolean;
 };
-export type saveNotificationsTypesSettingMutationVariables = {
+export type useSaveNotificationsTypesSettingMutationVariables = {
     readonly input: SaveNotificationsTypesSettingInput;
 };
-export type saveNotificationsTypesSettingMutationResponse = {
+export type useSaveNotificationsTypesSettingMutationResponse = {
     readonly saveNotificationsTypesSetting: {
         readonly savedTypes: {
             readonly " $fragmentRefs": useNotificationsTypesFragment$ref;
         } | null;
     };
 };
-export type saveNotificationsTypesSettingMutation = {
-    readonly response: saveNotificationsTypesSettingMutationResponse;
-    readonly variables: saveNotificationsTypesSettingMutationVariables;
+export type useSaveNotificationsTypesSettingMutation = {
+    readonly response: useSaveNotificationsTypesSettingMutationResponse;
+    readonly variables: useSaveNotificationsTypesSettingMutationVariables;
 };
 
 
 
 /*
-mutation saveNotificationsTypesSettingMutation(
+mutation useSaveNotificationsTypesSettingMutation(
   $input: SaveNotificationsTypesSettingInput!
 ) {
   saveNotificationsTypesSetting(input: $input) {
@@ -69,7 +69,7 @@ const node: ConcreteRequest = (function () {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "saveNotificationsTypesSettingMutation",
+            "name": "useSaveNotificationsTypesSettingMutation",
             "type": "Mutation",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
@@ -105,7 +105,7 @@ const node: ConcreteRequest = (function () {
         },
         "operation": {
             "kind": "Operation",
-            "name": "saveNotificationsTypesSettingMutation",
+            "name": "useSaveNotificationsTypesSettingMutation",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": [
                 {
@@ -169,12 +169,12 @@ const node: ConcreteRequest = (function () {
         },
         "params": {
             "operationKind": "mutation",
-            "name": "saveNotificationsTypesSettingMutation",
+            "name": "useSaveNotificationsTypesSettingMutation",
             "id": null,
-            "text": "mutation saveNotificationsTypesSettingMutation(\n  $input: SaveNotificationsTypesSettingInput!\n) {\n  saveNotificationsTypesSetting(input: $input) {\n    savedTypes {\n      ...useNotificationsTypesFragment\n    }\n  }\n}\n\nfragment useNotificationsTypesFragment on TypesNotificationsSettings {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n",
+            "text": "mutation useSaveNotificationsTypesSettingMutation(\n  $input: SaveNotificationsTypesSettingInput!\n) {\n  saveNotificationsTypesSetting(input: $input) {\n    savedTypes {\n      ...useNotificationsTypesFragment\n    }\n  }\n}\n\nfragment useNotificationsTypesFragment on TypesNotificationsSettings {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '1a3024a5066482c1415917ccd74eda80';
+(node as any).hash = '4bc57d6bc766747d551b834a633c4f0f';
 export default node;

@@ -1,6 +1,9 @@
-import { FieldId, FieldType } from './components/modules/task/fragment/__generated__/useTaskFragment.graphql';
+import { TaskStatus } from './components/modules/task-list/__generated__/useTaskListQuery.graphql';
+import {
+  FieldId,
+  FieldType,
+} from './components/modules/task/fragment/__generated__/useTaskFragment.graphql';
 import { TaskTypeId } from './components/modules/task-type-list/fragment/__generated__/useTaskTypeFragment.graphql';
-import { TaskStatus } from './mutations/__generated__/updateTaskListStatusFilterSettingMutation.graphql';
 
 export type ExcludeFutureAdded<T> = Omit<T, '%future added value'>;
 export type UnionKeyToValue<U extends string, V = U> = {

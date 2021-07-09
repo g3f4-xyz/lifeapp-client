@@ -12,10 +12,10 @@ export type FieldValueInput = {
     readonly id?: string | null;
     readonly text?: string | null;
 };
-export type updateTaskFieldMutationVariables = {
+export type useUpdateTaskFieldMutationVariables = {
     readonly input: UpdateTaskFieldInput;
 };
-export type updateTaskFieldMutationResponse = {
+export type useUpdateTaskFieldMutationResponse = {
     readonly updateTaskField: {
         readonly fieldId: string;
         readonly taskId: string;
@@ -27,15 +27,15 @@ export type updateTaskFieldMutationResponse = {
         };
     };
 };
-export type updateTaskFieldMutation = {
-    readonly response: updateTaskFieldMutationResponse;
-    readonly variables: updateTaskFieldMutationVariables;
+export type useUpdateTaskFieldMutation = {
+    readonly response: useUpdateTaskFieldMutationResponse;
+    readonly variables: useUpdateTaskFieldMutationVariables;
 };
 
 
 
 /*
-mutation updateTaskFieldMutation(
+mutation useUpdateTaskFieldMutation(
   $input: UpdateTaskFieldInput!
 ) {
   updateTaskField(input: $input) {
@@ -139,7 +139,7 @@ const node: ConcreteRequest = (function () {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "updateTaskFieldMutation",
+            "name": "useUpdateTaskFieldMutation",
             "type": "Mutation",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
@@ -176,7 +176,7 @@ const node: ConcreteRequest = (function () {
         },
         "operation": {
             "kind": "Operation",
-            "name": "updateTaskFieldMutation",
+            "name": "useUpdateTaskFieldMutation",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": [
                 {
@@ -218,12 +218,12 @@ const node: ConcreteRequest = (function () {
         },
         "params": {
             "operationKind": "mutation",
-            "name": "updateTaskFieldMutation",
+            "name": "useUpdateTaskFieldMutation",
             "id": null,
-            "text": "mutation updateTaskFieldMutation(\n  $input: UpdateTaskFieldInput!\n) {\n  updateTaskField(input: $input) {\n    fieldId\n    taskId\n    updatedValue {\n      __typename\n      ... on ChoiceFieldValue {\n        id\n      }\n      ... on SwitchFieldValue {\n        enabled\n      }\n      ... on SliderFieldValue {\n        progress\n      }\n      ... on TextFieldValue {\n        text\n      }\n    }\n  }\n}\n",
+            "text": "mutation useUpdateTaskFieldMutation(\n  $input: UpdateTaskFieldInput!\n) {\n  updateTaskField(input: $input) {\n    fieldId\n    taskId\n    updatedValue {\n      __typename\n      ... on ChoiceFieldValue {\n        id\n      }\n      ... on SwitchFieldValue {\n        enabled\n      }\n      ... on SliderFieldValue {\n        progress\n      }\n      ... on TextFieldValue {\n        text\n      }\n    }\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '66871b56f3e3a1a73507e907b060e1ec';
+(node as any).hash = '1c3ff46c9061e8905ff113275ff576fe';
 export default node;

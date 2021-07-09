@@ -1,33 +1,33 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type TestSubscriptionInput = {
+export type DeleteTaskInput = {
+    readonly id?: string | null;
     readonly clientMutationId?: string | null;
-    readonly subscriptionId: string;
 };
-export type testSubscriptionMutationVariables = {
-    readonly input: TestSubscriptionInput;
+export type useDeleteTaskMutationVariables = {
+    readonly input: DeleteTaskInput;
 };
-export type testSubscriptionMutationResponse = {
-    readonly testSubscription: {
+export type useDeleteTaskMutationResponse = {
+    readonly deleteTask: {
         readonly clientMutationId: string | null;
-        readonly statusCode: string;
+        readonly deletedTaskId: string;
     };
 };
-export type testSubscriptionMutation = {
-    readonly response: testSubscriptionMutationResponse;
-    readonly variables: testSubscriptionMutationVariables;
+export type useDeleteTaskMutation = {
+    readonly response: useDeleteTaskMutationResponse;
+    readonly variables: useDeleteTaskMutationVariables;
 };
 
 
 
 /*
-mutation testSubscriptionMutation(
-  $input: TestSubscriptionInput!
+mutation useDeleteTaskMutation(
+  $input: DeleteTaskInput!
 ) {
-  testSubscription(input: $input) {
+  deleteTask(input: $input) {
     clientMutationId
-    statusCode
+    deletedTaskId
   }
 }
 */
@@ -37,14 +37,14 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "LocalArgument",
             "name": "input",
-            "type": "TestSubscriptionInput!",
+            "type": "DeleteTaskInput!",
             "defaultValue": null
         } as any)
     ], v1 = [
         ({
             "kind": "LinkedField",
             "alias": null,
-            "name": "testSubscription",
+            "name": "deleteTask",
             "storageKey": null,
             "args": [
                 {
@@ -53,7 +53,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "TestSubscriptionOutput",
+            "concreteType": "DeleteTaskOutput",
             "plural": false,
             "selections": [
                 {
@@ -66,7 +66,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "kind": "ScalarField",
                     "alias": null,
-                    "name": "statusCode",
+                    "name": "deletedTaskId",
                     "args": null,
                     "storageKey": null
                 }
@@ -77,7 +77,7 @@ const node: ConcreteRequest = (function () {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "testSubscriptionMutation",
+            "name": "useDeleteTaskMutation",
             "type": "Mutation",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
@@ -85,18 +85,18 @@ const node: ConcreteRequest = (function () {
         },
         "operation": {
             "kind": "Operation",
-            "name": "testSubscriptionMutation",
+            "name": "useDeleteTaskMutation",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
         },
         "params": {
             "operationKind": "mutation",
-            "name": "testSubscriptionMutation",
+            "name": "useDeleteTaskMutation",
             "id": null,
-            "text": "mutation testSubscriptionMutation(\n  $input: TestSubscriptionInput!\n) {\n  testSubscription(input: $input) {\n    clientMutationId\n    statusCode\n  }\n}\n",
+            "text": "mutation useDeleteTaskMutation(\n  $input: DeleteTaskInput!\n) {\n  deleteTask(input: $input) {\n    clientMutationId\n    deletedTaskId\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = '95a52a8f85b003d0d4ee9347f3228758';
+(node as any).hash = 'b5a8d0bd4239cd9338ed9d75d61cfc1c';
 export default node;

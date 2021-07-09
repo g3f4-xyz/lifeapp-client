@@ -1,34 +1,33 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO" | "%future added value";
-export type UpdateTaskListStatusFilterSettingInput = {
+export type DeleteSubscriptionInput = {
     readonly clientMutationId?: string | null;
-    readonly status?: TaskStatus | null;
+    readonly subscriptionId: string;
 };
-export type updateTaskListStatusFilterSettingMutationVariables = {
-    readonly input: UpdateTaskListStatusFilterSettingInput;
+export type useDeleteSubscriptionMutationVariables = {
+    readonly input: DeleteSubscriptionInput;
 };
-export type updateTaskListStatusFilterSettingMutationResponse = {
-    readonly updateTaskListStatusFilterSetting: {
+export type useDeleteSubscriptionMutationResponse = {
+    readonly deleteSubscription: {
         readonly clientMutationId: string | null;
-        readonly status: TaskStatus | null;
+        readonly subscriptionId: string;
     };
 };
-export type updateTaskListStatusFilterSettingMutation = {
-    readonly response: updateTaskListStatusFilterSettingMutationResponse;
-    readonly variables: updateTaskListStatusFilterSettingMutationVariables;
+export type useDeleteSubscriptionMutation = {
+    readonly response: useDeleteSubscriptionMutationResponse;
+    readonly variables: useDeleteSubscriptionMutationVariables;
 };
 
 
 
 /*
-mutation updateTaskListStatusFilterSettingMutation(
-  $input: UpdateTaskListStatusFilterSettingInput!
+mutation useDeleteSubscriptionMutation(
+  $input: DeleteSubscriptionInput!
 ) {
-  updateTaskListStatusFilterSetting(input: $input) {
+  deleteSubscription(input: $input) {
     clientMutationId
-    status
+    subscriptionId
   }
 }
 */
@@ -38,14 +37,14 @@ const node: ConcreteRequest = (function () {
         ({
             "kind": "LocalArgument",
             "name": "input",
-            "type": "UpdateTaskListStatusFilterSettingInput!",
+            "type": "DeleteSubscriptionInput!",
             "defaultValue": null
         } as any)
     ], v1 = [
         ({
             "kind": "LinkedField",
             "alias": null,
-            "name": "updateTaskListStatusFilterSetting",
+            "name": "deleteSubscription",
             "storageKey": null,
             "args": [
                 {
@@ -54,7 +53,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "UpdateTaskListStatusFilterSettingOutput",
+            "concreteType": "DeleteSubscriptionOutput",
             "plural": false,
             "selections": [
                 {
@@ -67,7 +66,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "kind": "ScalarField",
                     "alias": null,
-                    "name": "status",
+                    "name": "subscriptionId",
                     "args": null,
                     "storageKey": null
                 }
@@ -78,7 +77,7 @@ const node: ConcreteRequest = (function () {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "updateTaskListStatusFilterSettingMutation",
+            "name": "useDeleteSubscriptionMutation",
             "type": "Mutation",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
@@ -86,18 +85,18 @@ const node: ConcreteRequest = (function () {
         },
         "operation": {
             "kind": "Operation",
-            "name": "updateTaskListStatusFilterSettingMutation",
+            "name": "useDeleteSubscriptionMutation",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
         },
         "params": {
             "operationKind": "mutation",
-            "name": "updateTaskListStatusFilterSettingMutation",
+            "name": "useDeleteSubscriptionMutation",
             "id": null,
-            "text": "mutation updateTaskListStatusFilterSettingMutation(\n  $input: UpdateTaskListStatusFilterSettingInput!\n) {\n  updateTaskListStatusFilterSetting(input: $input) {\n    clientMutationId\n    status\n  }\n}\n",
+            "text": "mutation useDeleteSubscriptionMutation(\n  $input: DeleteSubscriptionInput!\n) {\n  deleteSubscription(input: $input) {\n    clientMutationId\n    subscriptionId\n  }\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = 'c0c02b61aa2ff3e710267e14de185ab6';
+(node as any).hash = '3a8286adbefea5bcfc9d932d1c18d761';
 export default node;
