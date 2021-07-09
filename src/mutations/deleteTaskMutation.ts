@@ -1,5 +1,6 @@
 import graphql from 'babel-plugin-relay/macro';
-import { commitMutation, DeclarativeMutationConfig } from 'react-relay';
+import { DeclarativeMutationConfig } from 'react-relay';
+import { commitMutation } from 'relay-hooks';
 import {
   deleteTaskMutation,
   DeleteTaskInput,

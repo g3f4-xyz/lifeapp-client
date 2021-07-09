@@ -1,5 +1,5 @@
 import graphql from 'babel-plugin-relay/macro';
-import { commitMutation } from 'react-relay';
+import { commitMutation } from 'relay-hooks';
 import {
   testSubscriptionMutation,
   TestSubscriptionInput,
