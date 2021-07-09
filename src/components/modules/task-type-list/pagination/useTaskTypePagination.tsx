@@ -1,8 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
-import { usePagination } from 'relay-hooks';
-import { PaginationFunction } from 'relay-hooks/lib/useOssFragment';
+import { PaginationFunction, usePagination } from 'relay-hooks';
 import {
   useTaskTypePagination,
   useTaskTypePagination$ref,

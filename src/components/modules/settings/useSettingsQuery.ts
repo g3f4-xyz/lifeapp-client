@@ -16,7 +16,4 @@ const query = graphql`
 `;
 
 export default (variables: useSettingsQueryVariables) =>
-  useQuery<useSettingsQuery>({
-    query,
-    variables,
-  });
+  useQuery<useSettingsQuery>(query, variables, {});

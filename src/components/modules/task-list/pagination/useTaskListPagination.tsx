@@ -1,7 +1,5 @@
 import graphql from 'babel-plugin-relay/macro';
-import { usePagination } from 'relay-hooks';
-import { ConnectionConfig } from 'relay-hooks/lib/FragmentPagination';
-import { PaginationFunction } from 'relay-hooks/lib/useOssFragment';
+import { ConnectionConfig, PaginationFunction, usePagination } from 'relay-hooks';
 import { ITEMS_PER_PAGE } from '../../../../constans';
 import {
   useTaskListPagination,
@@ -68,7 +66,7 @@ export type TaskListPaginationFunction = Omit<
 export default (
   data: useTaskListPagination$ref,
   pageSize = ITEMS_PER_PAGE,
-  onError?: (error: Error) => void,
+  onError: (error: Error) => void,
 ): [Omit<useTaskListPagination, ' $refList'>, TaskListPaginationFunction] => {
   const [response, { isLoading, hasMore, loadMore, refetchConnection }] = usePagination(
     query,

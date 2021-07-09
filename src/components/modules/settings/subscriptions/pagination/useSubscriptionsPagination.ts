@@ -1,12 +1,10 @@
 import graphql from 'babel-plugin-relay/macro';
-import { usePagination } from 'relay-hooks';
-import { ConnectionConfig } from 'relay-hooks/lib/FragmentPagination';
-import { PaginationFunction } from 'relay-hooks/lib/useOssFragment';
+import { ConnectionConfig, PaginationFunction, usePagination } from 'relay-hooks';
+import { ITEMS_PER_PAGE } from '../../../../../constans';
 import {
   useSubscriptionsPagination,
   useSubscriptionsPagination$ref,
 } from './__generated__/useSubscriptionsPagination.graphql';
-import { ITEMS_PER_PAGE } from '../../../../../constans';
 
 const query = graphql`
   fragment useSubscriptionsPagination on NotificationsSettings {
@@ -64,7 +62,7 @@ export type SubscriptionPaginationFunction = Omit<
 export default (
   data: useSubscriptionsPagination$ref,
   pageSize = ITEMS_PER_PAGE,
-  onError?: (error: Error) => void,
+  onError: (error: Error) => void,
 ): [Omit<useSubscriptionsPagination, ' $refList'>, SubscriptionPaginationFunction] => {
   const [response, { isLoading, hasMore, loadMore, refetchConnection }] = usePagination(
     query,

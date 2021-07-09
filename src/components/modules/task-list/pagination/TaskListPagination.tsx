@@ -32,6 +32,7 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
   const [data, { hasMore, isLoading, loadMore, refetchConnection }] = useTaskListPagination(
     props.data,
     8,
+    () => {},
   );
   const history = useHistory();
   const environment = useContext(RelayEnvironmentContext);

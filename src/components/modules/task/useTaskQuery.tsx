@@ -12,8 +12,4 @@ const query = graphql`
   }
 `;
 
-export default (variables: useTaskQueryVariables) =>
-  useQuery<useTaskQuery>({
-    query,
-    variables,
-  });
+export default (variables: useTaskQueryVariables) => useQuery<useTaskQuery>(query, variables, {});

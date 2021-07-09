@@ -18,7 +18,7 @@ const Subscriptions: FC<SubscriptionsProps> = props => {
     {
       subscriptions: { edges },
     },
-  ] = useSubscriptionsPagination(data, 8);
+  ] = useSubscriptionsPagination(data, 8, () => {});
 
   if (!edges) {
     return <Loader />;
