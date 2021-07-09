@@ -2,8 +2,8 @@
 
 import { ReaderFragment } from "relay-runtime";
 type useSubscriptionFragment$ref = any;
-export type SubscriptionsPagination_data$ref = any;
-export type SubscriptionsPagination_data = {
+export type useSubscriptionsPagination$ref = any;
+export type useSubscriptionsPagination = {
     readonly subscriptions: {
         readonly edges: ReadonlyArray<{
             readonly node: {
@@ -12,14 +12,14 @@ export type SubscriptionsPagination_data = {
             } | null;
         } | null> | null;
     };
-    readonly " $refType": SubscriptionsPagination_data$ref;
+    readonly " $refType": useSubscriptionsPagination$ref;
 };
 
 
 
 const node: ReaderFragment = ({
     "kind": "Fragment",
-    "name": "SubscriptionsPagination_data",
+    "name": "useSubscriptionsPagination",
     "type": "NotificationsSettings",
     "metadata": {
         "connection": [
@@ -132,5 +132,5 @@ const node: ReaderFragment = ({
         }
     ]
 } as any);
-(node as any).hash = '0a67f09de61aac7dcfe84792ea9a9f42';
+(node as any).hash = 'a833f72b1c3d8233aade5c28f982c1d2';
 export default node;

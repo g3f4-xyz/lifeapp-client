@@ -11,6 +11,7 @@
     "lint:fix": "eslint './src/**/*.{ts,tsx}' --fix",
     "relay": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript",
     "relay:watch": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript --watch --noFutureProofEnums",
+    "relay:clear": "find . -name __generated__ -exec rm -rf {} \\;",
     "start": "react-scripts start",
     "start:remote": "REACT_APP_GRAPHQL_HOST=https://lifeapp-server.herokuapp.com/graphql react-scripts start",
     "test": "react-scripts test"

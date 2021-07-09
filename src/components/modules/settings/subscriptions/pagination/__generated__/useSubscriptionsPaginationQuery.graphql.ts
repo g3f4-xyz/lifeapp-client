@@ -1,40 +1,40 @@
 /* tslint:disable */
 
 import { ConcreteRequest } from "relay-runtime";
-type SubscriptionsPagination_data$ref = any;
-export type SubscriptionsPaginationQueryVariables = {
+type useSubscriptionsPagination$ref = any;
+export type useSubscriptionsPaginationQueryVariables = {
     readonly count: number;
     readonly after?: string | null;
 };
-export type SubscriptionsPaginationQueryResponse = {
+export type useSubscriptionsPaginationQueryResponse = {
     readonly settings: {
         readonly notifications: {
-            readonly " $fragmentRefs": SubscriptionsPagination_data$ref;
+            readonly " $fragmentRefs": useSubscriptionsPagination$ref;
         };
     };
 };
-export type SubscriptionsPaginationQuery = {
-    readonly response: SubscriptionsPaginationQueryResponse;
-    readonly variables: SubscriptionsPaginationQueryVariables;
+export type useSubscriptionsPaginationQuery = {
+    readonly response: useSubscriptionsPaginationQueryResponse;
+    readonly variables: useSubscriptionsPaginationQueryVariables;
 };
 
 
 
 /*
-query SubscriptionsPaginationQuery(
+query useSubscriptionsPaginationQuery(
   $count: Int!
   $after: String
 ) {
   settings {
     notifications {
-      ...SubscriptionsPagination_data
+      ...useSubscriptionsPagination
       id
     }
     id
   }
 }
 
-fragment SubscriptionsPagination_data on NotificationsSettings {
+fragment useSubscriptionsPagination on NotificationsSettings {
   subscriptions(first: $count, after: $after) {
     edges {
       node {
@@ -94,7 +94,7 @@ const node: ConcreteRequest = (function () {
         "kind": "Request",
         "fragment": {
             "kind": "Fragment",
-            "name": "SubscriptionsPaginationQuery",
+            "name": "useSubscriptionsPaginationQuery",
             "type": "Query",
             "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
@@ -119,7 +119,7 @@ const node: ConcreteRequest = (function () {
                             "selections": [
                                 {
                                     "kind": "FragmentSpread",
-                                    "name": "SubscriptionsPagination_data",
+                                    "name": "useSubscriptionsPagination",
                                     "args": null
                                 }
                             ]
@@ -130,7 +130,7 @@ const node: ConcreteRequest = (function () {
         },
         "operation": {
             "kind": "Operation",
-            "name": "SubscriptionsPaginationQuery",
+            "name": "useSubscriptionsPaginationQuery",
             "argumentDefinitions": (v0 /*: any*/),
             "selections": [
                 {
@@ -257,12 +257,12 @@ const node: ConcreteRequest = (function () {
         },
         "params": {
             "operationKind": "query",
-            "name": "SubscriptionsPaginationQuery",
+            "name": "useSubscriptionsPaginationQuery",
             "id": null,
-            "text": "query SubscriptionsPaginationQuery(\n  $count: Int!\n  $after: String\n) {\n  settings {\n    notifications {\n      ...SubscriptionsPagination_data\n      id\n    }\n    id\n  }\n}\n\nfragment SubscriptionsPagination_data on NotificationsSettings {\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...useSubscriptionFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment useSubscriptionFragment on NotificationSubscription {\n  id\n  userAgent\n  userDeviceType\n}\n",
+            "text": "query useSubscriptionsPaginationQuery(\n  $count: Int!\n  $after: String\n) {\n  settings {\n    notifications {\n      ...useSubscriptionsPagination\n      id\n    }\n    id\n  }\n}\n\nfragment useSubscriptionsPagination on NotificationsSettings {\n  subscriptions(first: $count, after: $after) {\n    edges {\n      node {\n        id\n        ...useSubscriptionFragment\n        __typename\n      }\n      cursor\n    }\n    pageInfo {\n      endCursor\n      hasNextPage\n    }\n  }\n}\n\nfragment useSubscriptionFragment on NotificationSubscription {\n  id\n  userAgent\n  userDeviceType\n}\n",
             "metadata": {}
         }
     } as any;
 })();
-(node as any).hash = 'a9a242e0a4f993d343c1294200996ee1';
+(node as any).hash = 'fba9a96b39b91c837269d29cf95003d3';
 export default node;
