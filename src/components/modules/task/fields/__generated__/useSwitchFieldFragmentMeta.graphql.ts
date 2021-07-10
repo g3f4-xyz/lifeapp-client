@@ -1,53 +1,61 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
-export type useSwitchFieldFragmentMeta$ref = any;
+import { FragmentRefs } from "relay-runtime";
 export type useSwitchFieldFragmentMeta = {
     readonly fieldType: string | null;
     readonly label: string | null;
     readonly disabled: boolean | null;
     readonly required: boolean | null;
-    readonly " $refType": useSwitchFieldFragmentMeta$ref;
+    readonly " $refType": "useSwitchFieldFragmentMeta";
+};
+export type useSwitchFieldFragmentMeta$data = useSwitchFieldFragmentMeta;
+export type useSwitchFieldFragmentMeta$key = {
+    readonly " $data"?: useSwitchFieldFragmentMeta$data;
+    readonly " $fragmentRefs": FragmentRefs<"useSwitchFieldFragmentMeta">;
 };
 
 
 
-const node: ReaderFragment = ({
-    "kind": "Fragment",
-    "name": "useSwitchFieldFragmentMeta",
-    "type": "SwitchFieldMeta",
-    "metadata": null,
+const node: ReaderFragment = {
     "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "useSwitchFieldFragmentMeta",
     "selections": [
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "fieldType",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "label",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "disabled",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "required",
             "args": null,
+            "kind": "ScalarField",
+            "name": "required",
             "storageKey": null
         }
-    ]
-} as any);
+    ],
+    "type": "SwitchFieldMeta",
+    "abstractKey": null
+} as any;
 (node as any).hash = '2a71197eefc18a4403a264a2168c9305';
 export default node;

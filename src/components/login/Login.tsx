@@ -21,8 +21,8 @@ const Login: FC = () => {
     history.push('/app');
   }, [history]);
 
-  const handleLogIn = useCallback(() => {
-    loginWithRedirect().then(() => {});
+  const handleLogIn = useCallback(async () => {
+    await loginWithRedirect();
   }, [loginWithRedirect]);
 
   return (

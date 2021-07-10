@@ -1,8 +1,10 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+import { FragmentRefs } from "relay-runtime";
 export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
-export type useSwitchFieldFragment$ref = any;
 export type useSwitchFieldFragment = {
     readonly id: string;
     readonly fieldId: FieldId;
@@ -15,102 +17,110 @@ export type useSwitchFieldFragment = {
     readonly value: {
         readonly enabled?: boolean | null;
     };
-    readonly " $refType": useSwitchFieldFragment$ref;
+    readonly " $refType": "useSwitchFieldFragment";
+};
+export type useSwitchFieldFragment$data = useSwitchFieldFragment;
+export type useSwitchFieldFragment$key = {
+    readonly " $data"?: useSwitchFieldFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"useSwitchFieldFragment">;
 };
 
 
 
-const node: ReaderFragment = ({
-    "kind": "Fragment",
-    "name": "useSwitchFieldFragment",
-    "type": "Field",
-    "metadata": null,
+const node: ReaderFragment = {
     "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "useSwitchFieldFragment",
     "selections": [
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "id",
-            "args": null,
             "storageKey": null
         },
         {
+            "alias": null,
+            "args": null,
             "kind": "ScalarField",
-            "alias": null,
             "name": "fieldId",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "meta",
-            "storageKey": null,
             "args": null,
             "concreteType": null,
+            "kind": "LinkedField",
+            "name": "meta",
             "plural": false,
             "selections": [
                 {
                     "kind": "InlineFragment",
-                    "type": "SwitchFieldMeta",
                     "selections": [
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "fieldType",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "label",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "disabled",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "required",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "required",
                             "storageKey": null
                         }
-                    ]
+                    ],
+                    "type": "SwitchFieldMeta",
+                    "abstractKey": null
                 }
-            ]
+            ],
+            "storageKey": null
         },
         {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "value",
-            "storageKey": null,
             "args": null,
             "concreteType": null,
+            "kind": "LinkedField",
+            "name": "value",
             "plural": false,
             "selections": [
                 {
                     "kind": "InlineFragment",
-                    "type": "SwitchFieldValue",
                     "selections": [
                         {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "enabled",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "enabled",
                             "storageKey": null
                         }
-                    ]
+                    ],
+                    "type": "SwitchFieldValue",
+                    "abstractKey": null
                 }
-            ]
+            ],
+            "storageKey": null
         }
-    ]
-} as any);
+    ],
+    "type": "Field",
+    "abstractKey": null
+} as any;
 (node as any).hash = 'e4b03c78cf7a04a65bc14d9965be891e';
 export default node;

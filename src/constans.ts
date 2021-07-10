@@ -5,6 +5,7 @@ import {
 } from './components/modules/task/fragment/__generated__/useTaskFragment.graphql';
 import { TaskTypeId } from './components/modules/task-type-list/fragment/__generated__/useTaskTypeFragment.graphql';
 
+// eslint-disable-next-line relay/no-future-added-value
 export type ExcludeFutureAdded<T> = Omit<T, '%future added value'>;
 export type UnionKeyToValue<U extends string, V = U> = {
   [K in U]: V;

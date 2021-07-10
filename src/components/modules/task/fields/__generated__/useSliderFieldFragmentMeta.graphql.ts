@@ -1,7 +1,9 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
-export type useSliderFieldFragmentMeta$ref = any;
+import { FragmentRefs } from "relay-runtime";
 export type useSliderFieldFragmentMeta = {
     readonly fieldType: string | null;
     readonly label: string | null;
@@ -10,68 +12,74 @@ export type useSliderFieldFragmentMeta = {
     readonly max: number | null;
     readonly min: number | null;
     readonly step: number | null;
-    readonly " $refType": useSliderFieldFragmentMeta$ref;
+    readonly " $refType": "useSliderFieldFragmentMeta";
+};
+export type useSliderFieldFragmentMeta$data = useSliderFieldFragmentMeta;
+export type useSliderFieldFragmentMeta$key = {
+    readonly " $data"?: useSliderFieldFragmentMeta$data;
+    readonly " $fragmentRefs": FragmentRefs<"useSliderFieldFragmentMeta">;
 };
 
 
 
-const node: ReaderFragment = ({
-    "kind": "Fragment",
-    "name": "useSliderFieldFragmentMeta",
-    "type": "SliderFieldMeta",
-    "metadata": null,
+const node: ReaderFragment = {
     "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "useSliderFieldFragmentMeta",
     "selections": [
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "fieldType",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "label",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "disabled",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "required",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "max",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "min",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "step",
             "args": null,
+            "kind": "ScalarField",
+            "name": "step",
             "storageKey": null
         }
-    ]
-} as any);
+    ],
+    "type": "SliderFieldMeta",
+    "abstractKey": null
+} as any;
 (node as any).hash = 'ff6c8daa7e46a87fda2f73af78b8a5f6';
 export default node;

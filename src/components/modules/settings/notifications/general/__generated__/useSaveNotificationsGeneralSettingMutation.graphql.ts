@@ -1,22 +1,24 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-type useNotificationsGeneralFragment$ref = any;
+import { FragmentRefs } from "relay-runtime";
 export type SaveNotificationsGeneralSettingInput = {
-    readonly clientMutationId?: string | null;
-    readonly general?: SaveNotificationsGeneralSettingGeneralInput | null;
+    clientMutationId?: string | null;
+    general?: SaveNotificationsGeneralSettingGeneralInput | null;
 };
 export type SaveNotificationsGeneralSettingGeneralInput = {
-    readonly show: boolean;
-    readonly vibrate: boolean;
+    show: boolean;
+    vibrate: boolean;
 };
 export type useSaveNotificationsGeneralSettingMutationVariables = {
-    readonly input: SaveNotificationsGeneralSettingInput;
+    input: SaveNotificationsGeneralSettingInput;
 };
 export type useSaveNotificationsGeneralSettingMutationResponse = {
     readonly saveNotificationsGeneralSetting: {
         readonly savedGeneral: {
-            readonly " $fragmentRefs": useNotificationsGeneralFragment$ref;
+            readonly " $fragmentRefs": FragmentRefs<"useNotificationsGeneralFragment">;
         } | null;
     };
 };
@@ -46,106 +48,107 @@ fragment useNotificationsGeneralFragment on GeneralNotificationsSettings {
 
 const node: ConcreteRequest = (function () {
     var v0 = [
-        ({
+        {
+            "defaultValue": null,
             "kind": "LocalArgument",
-            "name": "input",
-            "type": "SaveNotificationsGeneralSettingInput!",
-            "defaultValue": null
-        } as any)
+            "name": "input"
+        } as any
     ], v1 = [
-        ({
+        {
             "kind": "Variable",
             "name": "input",
             "variableName": "input"
-        } as any)
+        } as any
     ];
     return {
-        "kind": "Request",
         "fragment": {
-            "kind": "Fragment",
-            "name": "useSaveNotificationsGeneralSettingMutation",
-            "type": "Mutation",
-            "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
+            "kind": "Fragment",
+            "metadata": null,
+            "name": "useSaveNotificationsGeneralSettingMutation",
             "selections": [
                 {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "saveNotificationsGeneralSetting",
-                    "storageKey": null,
                     "args": (v1 /*: any*/),
                     "concreteType": "SaveNotificationsGeneralSettingOutput",
+                    "kind": "LinkedField",
+                    "name": "saveNotificationsGeneralSetting",
                     "plural": false,
                     "selections": [
                         {
-                            "kind": "LinkedField",
                             "alias": null,
-                            "name": "savedGeneral",
-                            "storageKey": null,
                             "args": null,
                             "concreteType": "GeneralNotificationsSettings",
+                            "kind": "LinkedField",
+                            "name": "savedGeneral",
                             "plural": false,
                             "selections": [
                                 {
+                                    "args": null,
                                     "kind": "FragmentSpread",
-                                    "name": "useNotificationsGeneralFragment",
-                                    "args": null
+                                    "name": "useNotificationsGeneralFragment"
                                 }
-                            ]
+                            ],
+                            "storageKey": null
                         }
-                    ]
+                    ],
+                    "storageKey": null
                 }
-            ]
+            ],
+            "type": "Mutation",
+            "abstractKey": null
         },
+        "kind": "Request",
         "operation": {
+            "argumentDefinitions": (v0 /*: any*/),
             "kind": "Operation",
             "name": "useSaveNotificationsGeneralSettingMutation",
-            "argumentDefinitions": (v0 /*: any*/),
             "selections": [
                 {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "saveNotificationsGeneralSetting",
-                    "storageKey": null,
                     "args": (v1 /*: any*/),
                     "concreteType": "SaveNotificationsGeneralSettingOutput",
+                    "kind": "LinkedField",
+                    "name": "saveNotificationsGeneralSetting",
                     "plural": false,
                     "selections": [
                         {
-                            "kind": "LinkedField",
                             "alias": null,
-                            "name": "savedGeneral",
-                            "storageKey": null,
                             "args": null,
                             "concreteType": "GeneralNotificationsSettings",
+                            "kind": "LinkedField",
+                            "name": "savedGeneral",
                             "plural": false,
                             "selections": [
                                 {
-                                    "kind": "ScalarField",
                                     "alias": null,
-                                    "name": "show",
                                     "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "show",
                                     "storageKey": null
                                 },
                                 {
-                                    "kind": "ScalarField",
                                     "alias": null,
-                                    "name": "vibrate",
                                     "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "vibrate",
                                     "storageKey": null
                                 }
-                            ]
+                            ],
+                            "storageKey": null
                         }
-                    ]
+                    ],
+                    "storageKey": null
                 }
             ]
         },
         "params": {
-            "operationKind": "mutation",
-            "name": "useSaveNotificationsGeneralSettingMutation",
+            "cacheID": "d2a826afb9d02c8101821814c334d16c",
             "id": null,
-            "text": "mutation useSaveNotificationsGeneralSettingMutation(\n  $input: SaveNotificationsGeneralSettingInput!\n) {\n  saveNotificationsGeneralSetting(input: $input) {\n    savedGeneral {\n      ...useNotificationsGeneralFragment\n    }\n  }\n}\n\nfragment useNotificationsGeneralFragment on GeneralNotificationsSettings {\n  show\n  vibrate\n}\n",
-            "metadata": {}
+            "metadata": {},
+            "name": "useSaveNotificationsGeneralSettingMutation",
+            "operationKind": "mutation",
+            "text": "mutation useSaveNotificationsGeneralSettingMutation(\n  $input: SaveNotificationsGeneralSettingInput!\n) {\n  saveNotificationsGeneralSetting(input: $input) {\n    savedGeneral {\n      ...useNotificationsGeneralFragment\n    }\n  }\n}\n\nfragment useNotificationsGeneralFragment on GeneralNotificationsSettings {\n  show\n  vibrate\n}\n"
         }
     } as any;
 })();

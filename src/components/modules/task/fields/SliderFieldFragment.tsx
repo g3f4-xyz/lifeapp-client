@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
-import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 import Slider from '../../../display/field/Slider';
-import { useTextFieldFragment$ref } from './__generated__/useTextFieldFragment.graphql';
+import { useSliderFieldFragment$key } from './__generated__/useSliderFieldFragment.graphql';
 import useSliderFieldFragment from './useSliderFieldFragment';
+import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 
 interface SliderFieldProps {
-  data: useTextFieldFragment$ref;
+  data: useSliderFieldFragment$key;
   taskId: string;
 }
 
-const SliderField: FC<SliderFieldProps> = props => {
+const SliderField: FC<SliderFieldProps> = (props) => {
   const {
     id,
     fieldId,
@@ -25,9 +25,7 @@ const SliderField: FC<SliderFieldProps> = props => {
   return (
     <Slider
       disabled={disabled || undefined}
-      // @ts-ignore
-      value={progress}
-      // @ts-ignore
+      value={progress as number | number[]}
       label={label}
       max={max || undefined}
       min={min || undefined}

@@ -19,7 +19,7 @@ function urlBase64ToUint8Array(base64String: string) {
 export default async function registerUserSubscription(
   register: ServiceWorkerRegistration,
   options?: { silent: boolean },
-) {
+): Promise<void> {
   try {
     const subscriptionData = await register.pushManager.subscribe({
       userVisibleOnly: true,

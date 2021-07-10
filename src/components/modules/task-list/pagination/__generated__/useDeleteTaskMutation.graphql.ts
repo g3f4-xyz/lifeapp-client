@@ -1,12 +1,14 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type DeleteTaskInput = {
-    readonly id?: string | null;
-    readonly clientMutationId?: string | null;
+    id?: string | null;
+    clientMutationId?: string | null;
 };
 export type useDeleteTaskMutationVariables = {
-    readonly input: DeleteTaskInput;
+    input: DeleteTaskInput;
 };
 export type useDeleteTaskMutationResponse = {
     readonly deleteTask: {
@@ -34,18 +36,14 @@ mutation useDeleteTaskMutation(
 
 const node: ConcreteRequest = (function () {
     var v0 = [
-        ({
+        {
+            "defaultValue": null,
             "kind": "LocalArgument",
-            "name": "input",
-            "type": "DeleteTaskInput!",
-            "defaultValue": null
-        } as any)
+            "name": "input"
+        } as any
     ], v1 = [
-        ({
-            "kind": "LinkedField",
+        {
             "alias": null,
-            "name": "deleteTask",
-            "storageKey": null,
             "args": [
                 {
                     "kind": "Variable",
@@ -54,47 +52,52 @@ const node: ConcreteRequest = (function () {
                 }
             ],
             "concreteType": "DeleteTaskOutput",
+            "kind": "LinkedField",
+            "name": "deleteTask",
             "plural": false,
             "selections": [
                 {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "clientMutationId",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "clientMutationId",
                     "storageKey": null
                 },
                 {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "deletedTaskId",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "deletedTaskId",
                     "storageKey": null
                 }
-            ]
-        } as any)
+            ],
+            "storageKey": null
+        } as any
     ];
     return {
-        "kind": "Request",
         "fragment": {
-            "kind": "Fragment",
-            "name": "useDeleteTaskMutation",
-            "type": "Mutation",
-            "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
-            "selections": (v1 /*: any*/)
+            "kind": "Fragment",
+            "metadata": null,
+            "name": "useDeleteTaskMutation",
+            "selections": (v1 /*: any*/),
+            "type": "Mutation",
+            "abstractKey": null
         },
+        "kind": "Request",
         "operation": {
+            "argumentDefinitions": (v0 /*: any*/),
             "kind": "Operation",
             "name": "useDeleteTaskMutation",
-            "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
         },
         "params": {
-            "operationKind": "mutation",
-            "name": "useDeleteTaskMutation",
+            "cacheID": "82c7f17691e7bc8f353df69f5a4758b7",
             "id": null,
-            "text": "mutation useDeleteTaskMutation(\n  $input: DeleteTaskInput!\n) {\n  deleteTask(input: $input) {\n    clientMutationId\n    deletedTaskId\n  }\n}\n",
-            "metadata": {}
+            "metadata": {},
+            "name": "useDeleteTaskMutation",
+            "operationKind": "mutation",
+            "text": "mutation useDeleteTaskMutation(\n  $input: DeleteTaskInput!\n) {\n  deleteTask(input: $input) {\n    clientMutationId\n    deletedTaskId\n  }\n}\n"
         }
     } as any;
 })();

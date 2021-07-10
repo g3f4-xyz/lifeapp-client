@@ -1,8 +1,9 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
-type useTaskListFragment$ref = any;
-export type useTaskListPagination$ref = any;
+import { FragmentRefs } from "relay-runtime";
 export type useTaskListPagination = {
     readonly id: string;
     readonly list: {
@@ -10,7 +11,7 @@ export type useTaskListPagination = {
             readonly cursor: string | null;
             readonly node: {
                 readonly id: string;
-                readonly " $fragmentRefs": useTaskListFragment$ref;
+                readonly " $fragmentRefs": FragmentRefs<"useTaskListFragment">;
             } | null;
         } | null> | null;
         readonly pageInfo: {
@@ -18,23 +19,36 @@ export type useTaskListPagination = {
             readonly endCursor: string | null;
         } | null;
     };
-    readonly " $refType": useTaskListPagination$ref;
+    readonly " $refType": "useTaskListPagination";
+};
+export type useTaskListPagination$data = useTaskListPagination;
+export type useTaskListPagination$key = {
+    readonly " $data"?: useTaskListPagination$data;
+    readonly " $fragmentRefs": FragmentRefs<"useTaskListPagination">;
 };
 
 
 
 const node: ReaderFragment = (function () {
-    var v0 = ({
-        "kind": "ScalarField",
+    var v0 = {
         "alias": null,
-        "name": "id",
         "args": null,
+        "kind": "ScalarField",
+        "name": "id",
         "storageKey": null
-    } as any);
+    } as any;
     return {
+        "argumentDefinitions": [
+            {
+                "kind": "RootArgument",
+                "name": "after"
+            },
+            {
+                "kind": "RootArgument",
+                "name": "count"
+            }
+        ],
         "kind": "Fragment",
-        "name": "useTaskListPagination",
-        "type": "Tasks",
         "metadata": {
             "connection": [
                 {
@@ -47,99 +61,90 @@ const node: ReaderFragment = (function () {
                 }
             ]
         },
-        "argumentDefinitions": [
-            {
-                "kind": "RootArgument",
-                "name": "count",
-                "type": "Int"
-            },
-            {
-                "kind": "RootArgument",
-                "name": "after",
-                "type": "String"
-            }
-        ],
+        "name": "useTaskListPagination",
         "selections": [
             (v0 /*: any*/),
             {
-                "kind": "LinkedField",
                 "alias": "list",
-                "name": "__TaskConnection_list_connection",
-                "storageKey": null,
                 "args": null,
                 "concreteType": "TaskConnection_list",
+                "kind": "LinkedField",
+                "name": "__TaskConnection_list_connection",
                 "plural": false,
                 "selections": [
                     {
-                        "kind": "LinkedField",
                         "alias": null,
-                        "name": "edges",
-                        "storageKey": null,
                         "args": null,
                         "concreteType": "TaskConnection_listEdge",
+                        "kind": "LinkedField",
+                        "name": "edges",
                         "plural": true,
                         "selections": [
                             {
-                                "kind": "ScalarField",
                                 "alias": null,
-                                "name": "cursor",
                                 "args": null,
+                                "kind": "ScalarField",
+                                "name": "cursor",
                                 "storageKey": null
                             },
                             {
-                                "kind": "LinkedField",
                                 "alias": null,
-                                "name": "node",
-                                "storageKey": null,
                                 "args": null,
                                 "concreteType": "Task",
+                                "kind": "LinkedField",
+                                "name": "node",
                                 "plural": false,
                                 "selections": [
                                     (v0 /*: any*/),
                                     {
-                                        "kind": "ScalarField",
                                         "alias": null,
-                                        "name": "__typename",
                                         "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "__typename",
                                         "storageKey": null
                                     },
                                     {
+                                        "args": null,
                                         "kind": "FragmentSpread",
-                                        "name": "useTaskListFragment",
-                                        "args": null
+                                        "name": "useTaskListFragment"
                                     }
-                                ]
+                                ],
+                                "storageKey": null
                             }
-                        ]
+                        ],
+                        "storageKey": null
                     },
                     {
-                        "kind": "LinkedField",
                         "alias": null,
-                        "name": "pageInfo",
-                        "storageKey": null,
                         "args": null,
                         "concreteType": "PageInfo",
+                        "kind": "LinkedField",
+                        "name": "pageInfo",
                         "plural": false,
                         "selections": [
                             {
-                                "kind": "ScalarField",
                                 "alias": null,
-                                "name": "hasNextPage",
                                 "args": null,
+                                "kind": "ScalarField",
+                                "name": "hasNextPage",
                                 "storageKey": null
                             },
                             {
-                                "kind": "ScalarField",
                                 "alias": null,
-                                "name": "endCursor",
                                 "args": null,
+                                "kind": "ScalarField",
+                                "name": "endCursor",
                                 "storageKey": null
                             }
-                        ]
+                        ],
+                        "storageKey": null
                     }
-                ]
+                ],
+                "storageKey": null
             }
-        ]
+        ],
+        "type": "Tasks",
+        "abstractKey": null
     } as any;
 })();
 (node as any).hash = '4cf5d13981a851338ba6ff2aac6c43aa';

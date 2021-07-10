@@ -3,7 +3,7 @@ import { ConnectionConfig, PaginationFunction, usePagination } from 'relay-hooks
 import { ITEMS_PER_PAGE } from '../../../../../constans';
 import {
   useSubscriptionsPagination,
-  useSubscriptionsPagination$ref,
+  useSubscriptionsPagination$key,
 } from './__generated__/useSubscriptionsPagination.graphql';
 
 const query = graphql`
@@ -60,7 +60,7 @@ export type SubscriptionPaginationFunction = Omit<
 };
 
 export default (
-  data: useSubscriptionsPagination$ref,
+  data: useSubscriptionsPagination$key,
   pageSize = ITEMS_PER_PAGE,
 ): [Omit<useSubscriptionsPagination, ' $refList'>, SubscriptionPaginationFunction] => {
   const [response, { isLoading, hasMore, loadMore, refetchConnection }] = usePagination(

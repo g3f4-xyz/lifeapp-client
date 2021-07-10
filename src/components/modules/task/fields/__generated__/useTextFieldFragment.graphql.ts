@@ -1,8 +1,10 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+import { FragmentRefs } from "relay-runtime";
 export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
-export type useTextFieldFragment$ref = any;
 export type useTextFieldFragment = {
     readonly id: string;
     readonly fieldId: FieldId;
@@ -20,137 +22,145 @@ export type useTextFieldFragment = {
     readonly value: {
         readonly text?: string | null;
     };
-    readonly " $refType": useTextFieldFragment$ref;
+    readonly " $refType": "useTextFieldFragment";
+};
+export type useTextFieldFragment$data = useTextFieldFragment;
+export type useTextFieldFragment$key = {
+    readonly " $data"?: useTextFieldFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"useTextFieldFragment">;
 };
 
 
 
-const node: ReaderFragment = ({
-    "kind": "Fragment",
-    "name": "useTextFieldFragment",
-    "type": "Field",
-    "metadata": null,
+const node: ReaderFragment = {
     "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "useTextFieldFragment",
     "selections": [
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "id",
-            "args": null,
             "storageKey": null
         },
         {
+            "alias": null,
+            "args": null,
             "kind": "ScalarField",
-            "alias": null,
             "name": "fieldId",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "meta",
-            "storageKey": null,
             "args": null,
             "concreteType": null,
+            "kind": "LinkedField",
+            "name": "meta",
             "plural": false,
             "selections": [
                 {
                     "kind": "InlineFragment",
-                    "type": "TextFieldMeta",
                     "selections": [
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "fieldType",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "helperText",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "label",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "inputType",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "min",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "max",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "maxLength",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "minLength",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "required",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "required",
                             "storageKey": null
                         }
-                    ]
+                    ],
+                    "type": "TextFieldMeta",
+                    "abstractKey": null
                 }
-            ]
+            ],
+            "storageKey": null
         },
         {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "value",
-            "storageKey": null,
             "args": null,
             "concreteType": null,
+            "kind": "LinkedField",
+            "name": "value",
             "plural": false,
             "selections": [
                 {
                     "kind": "InlineFragment",
-                    "type": "TextFieldValue",
                     "selections": [
                         {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "text",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "text",
                             "storageKey": null
                         }
-                    ]
+                    ],
+                    "type": "TextFieldValue",
+                    "abstractKey": null
                 }
-            ]
+            ],
+            "storageKey": null
         }
-    ]
-} as any);
+    ],
+    "type": "Field",
+    "abstractKey": null
+} as any;
 (node as any).hash = 'afb38a205f0fec101b540039bb08a0e7';
 export default node;

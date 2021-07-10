@@ -19,7 +19,7 @@ import React, { FC, useState } from 'react';
 import { DEVICES, STATUSES } from '../../../../../constans';
 import useTestSubscriptionMutation from './useTestSubscriptionMutation';
 import useSubscriptionFragmentStyles from '../pagination/useSubscriptionFragmentStyles';
-import { useSubscriptionFragment$ref } from './__generated__/useSubscriptionFragment.graphql';
+import { useSubscriptionFragment$key } from './__generated__/useSubscriptionFragment.graphql';
 import useSubscriptionFragment from './useSubscriptionFragment';
 
 const DEVICES_ICONS = {
@@ -29,24 +29,24 @@ const DEVICES_ICONS = {
 };
 
 interface SubscriptionFragmentProps {
-  data: useSubscriptionFragment$ref;
+  data: useSubscriptionFragment$key;
 
   onDelete(subscriptionId: string): void;
 }
 
-const SubscriptionFragment: FC<SubscriptionFragmentProps> = props => {
+const SubscriptionFragment: FC<SubscriptionFragmentProps> = (props) => {
   const { id, userDeviceType, userAgent } = useSubscriptionFragment(props.data);
   const classes = useSubscriptionFragmentStyles();
   const [statusCode, setStatusCode] = useState('');
   const testSubscriptionMutation = useTestSubscriptionMutation();
 
   const handleDelete = () => {
-    props.onDelete(props.data.id);
+    props.onDelete(id);
   };
 
   const handleTest = async () => {
     const { testSubscription } = await testSubscriptionMutation({
-      subscriptionId: props.data.id,
+      subscriptionId: id,
     });
 
     if (testSubscription) {

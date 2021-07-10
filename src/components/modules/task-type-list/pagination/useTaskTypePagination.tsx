@@ -2,7 +2,7 @@ import graphql from 'babel-plugin-relay/macro';
 import { PaginationFunction, usePagination } from 'relay-hooks';
 import {
   useTaskTypePagination,
-  useTaskTypePagination$ref,
+  useTaskTypePagination$key,
 } from './__generated__/useTaskTypePagination.graphql';
 
 const query = graphql`
@@ -21,6 +21,6 @@ const query = graphql`
 `;
 
 export default (
-  data: useTaskTypePagination$ref,
+  data: useTaskTypePagination$key,
 ): [Omit<useTaskTypePagination, ' $refType'>, PaginationFunction<useTaskTypePagination>] =>
   usePagination(query, data);

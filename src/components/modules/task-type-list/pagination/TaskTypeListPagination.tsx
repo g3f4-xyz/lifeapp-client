@@ -6,15 +6,15 @@ import { useHistory } from 'react-router';
 import { MODULES_IDS } from '../../../../constans';
 import Loader from '../../../display/loader/Loader';
 import TaskTypeFragment from '../fragment/TaskTypeFragment';
-import { useTaskTypePagination$ref } from './__generated__/useTaskTypePagination.graphql';
+import { useTaskTypePagination$key } from './__generated__/useTaskTypePagination.graphql';
 import useTaskTypeListPaginationStyles from './useTaskTypeListPaginationStyles';
 import useTaskTypePagination from './useTaskTypePagination';
 
 interface TaskTypeListProps {
-  data: useTaskTypePagination$ref;
+  data: useTaskTypePagination$key;
 }
 
-const TaskTypeList: FC<TaskTypeListProps> = props => {
+const TaskTypeList: FC<TaskTypeListProps> = (props) => {
   const classes = useTaskTypeListPaginationStyles();
   const [
     {
@@ -34,15 +34,15 @@ const TaskTypeList: FC<TaskTypeListProps> = props => {
 
   // #TODO dlaczego ta tablica jest nullowalna w schemie?
   const taskTypes = [...(edges || [])]
-    .map(edge => edge && edge.node)
+    .map((edge) => edge && edge.node)
     .sort((nodeA, nodeB) => (nodeA && nodeB ? nodeA.order - nodeB.order : 0));
 
   return (
     <Fragment>
       <Grid className={classes.container} container>
-        {taskTypes.map((data, index) => (
-          <TaskTypeFragment key={data ? data.id : index} data={data} />
-        ))}
+        {taskTypes.map(
+          (data, index) => data && <TaskTypeFragment key={data ? data.id : index} data={data} />,
+        )}
       </Grid>
       <IconButton className={classes.doneButton} color="primary" onClick={handleDone}>
         <Done className={classes.doneButtonIcon} />

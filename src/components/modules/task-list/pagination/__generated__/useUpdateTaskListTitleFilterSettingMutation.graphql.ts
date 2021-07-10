@@ -1,12 +1,14 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type UpdateTaskListTitleFilterSettingInput = {
-    readonly clientMutationId?: string | null;
-    readonly title?: string | null;
+    clientMutationId?: string | null;
+    title?: string | null;
 };
 export type useUpdateTaskListTitleFilterSettingMutationVariables = {
-    readonly input: UpdateTaskListTitleFilterSettingInput;
+    input: UpdateTaskListTitleFilterSettingInput;
 };
 export type useUpdateTaskListTitleFilterSettingMutationResponse = {
     readonly updateTaskListTitleFilterSetting: {
@@ -34,18 +36,14 @@ mutation useUpdateTaskListTitleFilterSettingMutation(
 
 const node: ConcreteRequest = (function () {
     var v0 = [
-        ({
+        {
+            "defaultValue": null,
             "kind": "LocalArgument",
-            "name": "input",
-            "type": "UpdateTaskListTitleFilterSettingInput!",
-            "defaultValue": null
-        } as any)
+            "name": "input"
+        } as any
     ], v1 = [
-        ({
-            "kind": "LinkedField",
+        {
             "alias": null,
-            "name": "updateTaskListTitleFilterSetting",
-            "storageKey": null,
             "args": [
                 {
                     "kind": "Variable",
@@ -54,47 +52,52 @@ const node: ConcreteRequest = (function () {
                 }
             ],
             "concreteType": "UpdateTaskListTitleFilterSettingOutput",
+            "kind": "LinkedField",
+            "name": "updateTaskListTitleFilterSetting",
             "plural": false,
             "selections": [
                 {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "clientMutationId",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "clientMutationId",
                     "storageKey": null
                 },
                 {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "title",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "title",
                     "storageKey": null
                 }
-            ]
-        } as any)
+            ],
+            "storageKey": null
+        } as any
     ];
     return {
-        "kind": "Request",
         "fragment": {
-            "kind": "Fragment",
-            "name": "useUpdateTaskListTitleFilterSettingMutation",
-            "type": "Mutation",
-            "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
-            "selections": (v1 /*: any*/)
+            "kind": "Fragment",
+            "metadata": null,
+            "name": "useUpdateTaskListTitleFilterSettingMutation",
+            "selections": (v1 /*: any*/),
+            "type": "Mutation",
+            "abstractKey": null
         },
+        "kind": "Request",
         "operation": {
+            "argumentDefinitions": (v0 /*: any*/),
             "kind": "Operation",
             "name": "useUpdateTaskListTitleFilterSettingMutation",
-            "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
         },
         "params": {
-            "operationKind": "mutation",
-            "name": "useUpdateTaskListTitleFilterSettingMutation",
+            "cacheID": "fe11ac7f1e3080eee8f1beba374598dc",
             "id": null,
-            "text": "mutation useUpdateTaskListTitleFilterSettingMutation(\n  $input: UpdateTaskListTitleFilterSettingInput!\n) {\n  updateTaskListTitleFilterSetting(input: $input) {\n    clientMutationId\n    title\n  }\n}\n",
-            "metadata": {}
+            "metadata": {},
+            "name": "useUpdateTaskListTitleFilterSettingMutation",
+            "operationKind": "mutation",
+            "text": "mutation useUpdateTaskListTitleFilterSettingMutation(\n  $input: UpdateTaskListTitleFilterSettingInput!\n) {\n  updateTaskListTitleFilterSetting(input: $input) {\n    clientMutationId\n    title\n  }\n}\n"
         }
     } as any;
 })();

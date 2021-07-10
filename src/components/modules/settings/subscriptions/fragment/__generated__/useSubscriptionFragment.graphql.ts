@@ -1,45 +1,53 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
-export type useSubscriptionFragment$ref = any;
+import { FragmentRefs } from "relay-runtime";
 export type useSubscriptionFragment = {
     readonly id: string;
     readonly userAgent: string | null;
     readonly userDeviceType: string | null;
-    readonly " $refType": useSubscriptionFragment$ref;
+    readonly " $refType": "useSubscriptionFragment";
+};
+export type useSubscriptionFragment$data = useSubscriptionFragment;
+export type useSubscriptionFragment$key = {
+    readonly " $data"?: useSubscriptionFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"useSubscriptionFragment">;
 };
 
 
 
-const node: ReaderFragment = ({
-    "kind": "Fragment",
-    "name": "useSubscriptionFragment",
-    "type": "NotificationSubscription",
-    "metadata": null,
+const node: ReaderFragment = {
     "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "useSubscriptionFragment",
     "selections": [
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "id",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "userAgent",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "userDeviceType",
             "args": null,
+            "kind": "ScalarField",
+            "name": "userDeviceType",
             "storageKey": null
         }
-    ]
-} as any);
+    ],
+    "type": "NotificationSubscription",
+    "abstractKey": null
+} as any;
 (node as any).hash = '9a6ce5371f1b25cb0b7f19467b04e393';
 export default node;

@@ -2,7 +2,7 @@ import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from 'relay-hooks';
 import {
   useTaskListFragment,
-  useTaskListFragment$ref,
+  useTaskListFragment$key,
 } from './__generated__/useTaskListFragment.graphql';
 
 const query = graphql`
@@ -19,5 +19,5 @@ const query = graphql`
   }
 `;
 
-export default (data: useTaskListFragment$ref): Omit<useTaskListFragment, ' $refList'> =>
+export default (data: useTaskListFragment$key): Omit<useTaskListFragment, ' $refList'> =>
   useFragment(query, data);

@@ -1,14 +1,11 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
-type useChoiceFieldFragment$ref = any;
-type useNestedFieldFragment$ref = any;
-type useSliderFieldFragment$ref = any;
-type useSwitchFieldFragment$ref = any;
-type useTextFieldFragment$ref = any;
+import { FragmentRefs } from "relay-runtime";
 export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
 export type FieldType = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
-export type useTaskFragment$ref = any;
 export type useTaskFragment = {
     readonly id: string;
     readonly fields: ReadonlyArray<{
@@ -16,92 +13,98 @@ export type useTaskFragment = {
         readonly fieldId: FieldId;
         readonly fieldType: FieldType;
         readonly order: number;
-        readonly " $fragmentRefs": useSliderFieldFragment$ref & useSwitchFieldFragment$ref & useChoiceFieldFragment$ref & useTextFieldFragment$ref & useNestedFieldFragment$ref;
+        readonly " $fragmentRefs": FragmentRefs<"useSliderFieldFragment" | "useSwitchFieldFragment" | "useChoiceFieldFragment" | "useTextFieldFragment" | "useNestedFieldFragment">;
     }>;
-    readonly " $refType": useTaskFragment$ref;
+    readonly " $refType": "useTaskFragment";
+};
+export type useTaskFragment$data = useTaskFragment;
+export type useTaskFragment$key = {
+    readonly " $data"?: useTaskFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"useTaskFragment">;
 };
 
 
 
-const node: ReaderFragment = ({
-    "kind": "Fragment",
-    "name": "useTaskFragment",
-    "type": "Task",
-    "metadata": null,
+const node: ReaderFragment = {
     "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "useTaskFragment",
     "selections": [
         {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "id",
             "args": null,
+            "kind": "ScalarField",
+            "name": "id",
             "storageKey": null
         },
         {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "fields",
-            "storageKey": null,
             "args": null,
             "concreteType": "Field",
+            "kind": "LinkedField",
+            "name": "fields",
             "plural": true,
             "selections": [
                 {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "__typename",
-                    "args": null,
                     "storageKey": null
                 },
                 {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "fieldId",
-                    "args": null,
                     "storageKey": null
                 },
                 {
-                    "kind": "ScalarField",
                     "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
                     "name": "fieldType",
-                    "args": null,
                     "storageKey": null
                 },
                 {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "order",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "order",
                     "storageKey": null
                 },
                 {
+                    "args": null,
                     "kind": "FragmentSpread",
-                    "name": "useSliderFieldFragment",
-                    "args": null
+                    "name": "useSliderFieldFragment"
                 },
                 {
+                    "args": null,
                     "kind": "FragmentSpread",
-                    "name": "useSwitchFieldFragment",
-                    "args": null
+                    "name": "useSwitchFieldFragment"
                 },
                 {
+                    "args": null,
                     "kind": "FragmentSpread",
-                    "name": "useChoiceFieldFragment",
-                    "args": null
+                    "name": "useChoiceFieldFragment"
                 },
                 {
+                    "args": null,
                     "kind": "FragmentSpread",
-                    "name": "useTextFieldFragment",
-                    "args": null
+                    "name": "useTextFieldFragment"
                 },
                 {
+                    "args": null,
                     "kind": "FragmentSpread",
-                    "name": "useNestedFieldFragment",
-                    "args": null
+                    "name": "useNestedFieldFragment"
                 }
-            ]
+            ],
+            "storageKey": null
         }
-    ]
-} as any);
+    ],
+    "type": "Task",
+    "abstractKey": null
+} as any;
 (node as any).hash = 'bacca25c4bce07cec934d0111ca02799';
 export default node;

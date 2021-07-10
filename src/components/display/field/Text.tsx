@@ -18,7 +18,10 @@ interface TextProps {
   onChange(value?: string): void;
 }
 
-const formatInputValue = (value?: string | null, inputType?: string | null): string | undefined | null => {
+const formatInputValue = (
+  value?: string | null,
+  inputType?: string | null,
+): string | undefined | null => {
   if (value && inputType === 'datetime-local') {
     return formatToTimeZone(value, DATE_TIME_FORMAT, {
       timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
@@ -38,7 +41,7 @@ const parseInputValue = (value?: string, inputType?: string | null): string | un
   return value;
 };
 
-const Text: FC<TextProps> = props => {
+const Text: FC<TextProps> = (props) => {
   const { value, max, maxLength, min, minLength, required, inputType, label, helperText } = props;
 
   const handleChange = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
@@ -51,7 +54,7 @@ const Text: FC<TextProps> = props => {
     <FieldContainer>
       <TextField
         label={label}
-        required={required as (boolean | undefined)}
+        required={required as boolean | undefined}
         InputLabelProps={{ shrink: true }}
         inputProps={{ type: inputType, max, maxLength, min, minLength }}
         helperText={helperText}

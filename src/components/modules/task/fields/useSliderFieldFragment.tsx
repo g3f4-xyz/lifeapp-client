@@ -2,7 +2,7 @@ import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from 'relay-hooks';
 import {
   useSliderFieldFragment,
-  useSliderFieldFragment$ref,
+  useSliderFieldFragment$key,
 } from './__generated__/useSliderFieldFragment.graphql';
 
 graphql`
@@ -36,5 +36,5 @@ const query = graphql`
   }
 `;
 
-export default (data: useSliderFieldFragment$ref): Omit<useSliderFieldFragment, ' $refType'> =>
-  useFragment(query, data);
+export default (data: useSliderFieldFragment$key): useSliderFieldFragment =>
+  useFragment<useSliderFieldFragment$key>(query, data);

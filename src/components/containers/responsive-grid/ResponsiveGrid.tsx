@@ -33,7 +33,7 @@ function saveToLS(key: string, value: Layouts) {
   }
 }
 
-const ResponsiveGrid: FC = props => {
+const ResponsiveGrid: FC = (props) => {
   const { children } = props;
   const [layouts, setLayouts] = useState(JSON.parse(JSON.stringify(getFromLS('layouts') || {})));
 
@@ -80,7 +80,7 @@ export interface ResponsiveGridItemProps {
   onRemove(moduleId: string): void;
 }
 
-export const ResponsiveGridItem: FC<ResponsiveGridItemProps> = props => {
+export const ResponsiveGridItem: FC<ResponsiveGridItemProps> = (props) => {
   const { children, path, fixed, onRemove } = props;
   const history = useHistory();
   const classes = useResponsiveGridStyles();

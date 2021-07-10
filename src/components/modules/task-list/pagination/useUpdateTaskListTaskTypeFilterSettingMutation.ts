@@ -28,8 +28,6 @@ export default (parentID: string) => {
         const filtersRecord = taskListRecord && taskListRecord.getLinkedRecord('filters');
 
         if (filtersRecord) {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-          // @ts-ignore
           filtersRecord.setValue(taskType, 'taskType');
         }
       },

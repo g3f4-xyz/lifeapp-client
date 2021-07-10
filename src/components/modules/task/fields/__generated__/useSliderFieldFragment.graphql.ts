@@ -1,8 +1,10 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
+import { FragmentRefs } from "relay-runtime";
 export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
-export type useSliderFieldFragment$ref = any;
 export type useSliderFieldFragment = {
     readonly id: string;
     readonly fieldId: FieldId;
@@ -18,123 +20,131 @@ export type useSliderFieldFragment = {
     readonly value: {
         readonly progress?: number | null;
     };
-    readonly " $refType": useSliderFieldFragment$ref;
+    readonly " $refType": "useSliderFieldFragment";
+};
+export type useSliderFieldFragment$data = useSliderFieldFragment;
+export type useSliderFieldFragment$key = {
+    readonly " $data"?: useSliderFieldFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"useSliderFieldFragment">;
 };
 
 
 
-const node: ReaderFragment = ({
-    "kind": "Fragment",
-    "name": "useSliderFieldFragment",
-    "type": "Field",
-    "metadata": null,
+const node: ReaderFragment = {
     "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "useSliderFieldFragment",
     "selections": [
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "id",
-            "args": null,
             "storageKey": null
         },
         {
+            "alias": null,
+            "args": null,
             "kind": "ScalarField",
-            "alias": null,
             "name": "fieldId",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "meta",
-            "storageKey": null,
             "args": null,
             "concreteType": null,
+            "kind": "LinkedField",
+            "name": "meta",
             "plural": false,
             "selections": [
                 {
                     "kind": "InlineFragment",
-                    "type": "SliderFieldMeta",
                     "selections": [
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "fieldType",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "label",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "disabled",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "required",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "max",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
                             "name": "min",
-                            "args": null,
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "step",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "step",
                             "storageKey": null
                         }
-                    ]
+                    ],
+                    "type": "SliderFieldMeta",
+                    "abstractKey": null
                 }
-            ]
+            ],
+            "storageKey": null
         },
         {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "value",
-            "storageKey": null,
             "args": null,
             "concreteType": null,
+            "kind": "LinkedField",
+            "name": "value",
             "plural": false,
             "selections": [
                 {
                     "kind": "InlineFragment",
-                    "type": "SliderFieldValue",
                     "selections": [
                         {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "progress",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "progress",
                             "storageKey": null
                         }
-                    ]
+                    ],
+                    "type": "SliderFieldValue",
+                    "abstractKey": null
                 }
-            ]
+            ],
+            "storageKey": null
         }
-    ]
-} as any);
+    ],
+    "type": "Field",
+    "abstractKey": null
+} as any;
 (node as any).hash = '6ad7fe5160933034d2e93f3c492d7902';
 export default node;

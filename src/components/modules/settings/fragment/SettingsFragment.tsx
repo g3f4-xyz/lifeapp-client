@@ -24,14 +24,14 @@ import NotificationsGeneralFragment from '../notifications/general/Notifications
 import NotificationsTypesFragment from '../notifications/types/NotificationsTypesFragment';
 import useSettingsFragmentStyles from '../subscriptions/fragment/useSettingsFragmentStyles';
 import SubscriptionsPagination from '../subscriptions/pagination/SubscriptionsPagination';
-import { useSettingsFragment$ref } from './__generated__/useSettingsFragment.graphql';
+import { useSettingsFragment$key } from './__generated__/useSettingsFragment.graphql';
 import useSettingsFragment from './useSettingsFragment';
 
 export interface SettingsFragmentProps {
-  data: useSettingsFragment$ref;
+  data: useSettingsFragment$key;
 }
 
-const SettingsFragment: FC<SettingsFragmentProps> = props => {
+const SettingsFragment: FC<SettingsFragmentProps> = (props) => {
   const data = useSettingsFragment(props.data);
   const classes = useSettingsFragmentStyles();
   const [cleanApplicationDialogOpen, setCleanApplicationDialogOpen] = useState(false);

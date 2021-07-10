@@ -3,7 +3,7 @@ import { ConnectionConfig, PaginationFunction, usePagination } from 'relay-hooks
 import { ITEMS_PER_PAGE } from '../../../../constans';
 import {
   useTaskListPagination,
-  useTaskListPagination$ref,
+  useTaskListPagination$key,
 } from './__generated__/useTaskListPagination.graphql';
 
 const query = graphql`
@@ -64,7 +64,7 @@ export type TaskListPaginationFunction = Omit<
 };
 
 export default (
-  data: useTaskListPagination$ref,
+  data: useTaskListPagination$key,
   pageSize = ITEMS_PER_PAGE,
 ): [Omit<useTaskListPagination, ' $refList'>, TaskListPaginationFunction] => {
   const [response, { isLoading, hasMore, loadMore, refetchConnection }] = usePagination(

@@ -2,7 +2,7 @@ import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from 'relay-hooks';
 import {
   useTextFieldFragment,
-  useTextFieldFragment$ref,
+  useTextFieldFragment$key,
 } from './__generated__/useTextFieldFragment.graphql';
 
 graphql`
@@ -38,5 +38,5 @@ const query = graphql`
   }
 `;
 
-export default (data: useTextFieldFragment$ref): Omit<useTextFieldFragment, ' $refType'> =>
+export default (data: useTextFieldFragment$key): Omit<useTextFieldFragment, ' $refType'> =>
   useFragment(query, data);

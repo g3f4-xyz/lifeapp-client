@@ -1,26 +1,40 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
-type useSubscriptionFragment$ref = any;
-export type useSubscriptionsPagination$ref = any;
+import { FragmentRefs } from "relay-runtime";
 export type useSubscriptionsPagination = {
     readonly subscriptions: {
         readonly edges: ReadonlyArray<{
             readonly node: {
                 readonly id: string;
-                readonly " $fragmentRefs": useSubscriptionFragment$ref;
+                readonly " $fragmentRefs": FragmentRefs<"useSubscriptionFragment">;
             } | null;
         } | null> | null;
     };
-    readonly " $refType": useSubscriptionsPagination$ref;
+    readonly " $refType": "useSubscriptionsPagination";
+};
+export type useSubscriptionsPagination$data = useSubscriptionsPagination;
+export type useSubscriptionsPagination$key = {
+    readonly " $data"?: useSubscriptionsPagination$data;
+    readonly " $fragmentRefs": FragmentRefs<"useSubscriptionsPagination">;
 };
 
 
 
-const node: ReaderFragment = ({
+const node: ReaderFragment = {
+    "argumentDefinitions": [
+        {
+            "kind": "RootArgument",
+            "name": "after"
+        },
+        {
+            "kind": "RootArgument",
+            "name": "count"
+        }
+    ],
     "kind": "Fragment",
-    "name": "useSubscriptionsPagination",
-    "type": "NotificationsSettings",
     "metadata": {
         "connection": [
             {
@@ -33,104 +47,95 @@ const node: ReaderFragment = ({
             }
         ]
     },
-    "argumentDefinitions": [
-        {
-            "kind": "RootArgument",
-            "name": "count",
-            "type": "Int"
-        },
-        {
-            "kind": "RootArgument",
-            "name": "after",
-            "type": "String"
-        }
-    ],
+    "name": "useSubscriptionsPagination",
     "selections": [
         {
-            "kind": "LinkedField",
             "alias": "subscriptions",
-            "name": "__Notifications_subscriptions_connection",
-            "storageKey": null,
             "args": null,
             "concreteType": "NotificationSubscriptionConnection",
+            "kind": "LinkedField",
+            "name": "__Notifications_subscriptions_connection",
             "plural": false,
             "selections": [
                 {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "edges",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "NotificationSubscriptionConnectionEdge",
+                    "kind": "LinkedField",
+                    "name": "edges",
                     "plural": true,
                     "selections": [
                         {
-                            "kind": "LinkedField",
                             "alias": null,
-                            "name": "node",
-                            "storageKey": null,
                             "args": null,
                             "concreteType": "NotificationSubscription",
+                            "kind": "LinkedField",
+                            "name": "node",
                             "plural": false,
                             "selections": [
                                 {
-                                    "kind": "ScalarField",
                                     "alias": null,
+                                    "args": null,
+                                    "kind": "ScalarField",
                                     "name": "id",
-                                    "args": null,
                                     "storageKey": null
                                 },
                                 {
-                                    "kind": "ScalarField",
                                     "alias": null,
-                                    "name": "__typename",
                                     "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "__typename",
                                     "storageKey": null
                                 },
                                 {
+                                    "args": null,
                                     "kind": "FragmentSpread",
-                                    "name": "useSubscriptionFragment",
-                                    "args": null
+                                    "name": "useSubscriptionFragment"
                                 }
-                            ]
+                            ],
+                            "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "cursor",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "cursor",
                             "storageKey": null
                         }
-                    ]
+                    ],
+                    "storageKey": null
                 },
                 {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "pageInfo",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "PageInfo",
+                    "kind": "LinkedField",
+                    "name": "pageInfo",
                     "plural": false,
                     "selections": [
                         {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "endCursor",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "endCursor",
                             "storageKey": null
                         },
                         {
-                            "kind": "ScalarField",
                             "alias": null,
-                            "name": "hasNextPage",
                             "args": null,
+                            "kind": "ScalarField",
+                            "name": "hasNextPage",
                             "storageKey": null
                         }
-                    ]
+                    ],
+                    "storageKey": null
                 }
-            ]
+            ],
+            "storageKey": null
         }
-    ]
-} as any);
+    ],
+    "type": "NotificationsSettings",
+    "abstractKey": null
+} as any;
 (node as any).hash = 'a833f72b1c3d8233aade5c28f982c1d2';
 export default node;

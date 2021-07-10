@@ -13,17 +13,17 @@ import Loader from '../../../display/loader/Loader';
 import TaskListBar from '../../../display/task-list-bar/TaskListBar';
 import { useTaskListQuery } from '../__generated__/useTaskListQuery.graphql';
 import TaskListFragment from '../fragment/TaskListFragment';
-import { useTaskListPagination$ref } from './__generated__/useTaskListPagination.graphql';
+import { useTaskListPagination$key } from './__generated__/useTaskListPagination.graphql';
 import useTaskListPagination from './useTaskListPagination';
 import useTaskListPaginationStyles from './useTaskListPaginationStyles';
 
 interface TaskListPaginationProps {
-  data: useTaskListPagination$ref;
+  data: useTaskListPagination$key;
   settings: useTaskListQuery['response']['settings']['taskList'];
   settingsId: string;
 }
 
-const TaskListPagination: FC<TaskListPaginationProps> = props => {
+const TaskListPagination: FC<TaskListPaginationProps> = (props) => {
   const { settings } = props;
   const [loading, setLoading] = useState(false);
   const classes = useTaskListPaginationStyles();
@@ -63,7 +63,7 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
       return [...taskType, filter];
     }
 
-    return taskType.filter(activeFilter => activeFilter !== filter);
+    return taskType.filter((activeFilter) => activeFilter !== filter);
   };
 
   const handleMore = () => {
@@ -132,7 +132,7 @@ const TaskListPagination: FC<TaskListPaginationProps> = props => {
         <Fragment>
           <Grid container spacing={1}>
             {edges.map(
-              edge =>
+              (edge) =>
                 edge &&
                 edge.node && (
                   <Grid key={edge.node.id} item xs={12} sm={12} md={6} lg={4} xl={3}>

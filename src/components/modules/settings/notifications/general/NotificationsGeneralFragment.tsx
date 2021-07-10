@@ -13,15 +13,15 @@ import {
 import { ExpandMore, Slideshow, Vibration } from '@material-ui/icons';
 import React, { ChangeEvent, FC } from 'react';
 import useSaveNotificationsGeneralSettingMutation from './useSaveNotificationsGeneralSettingMutation';
-import { useNotificationsGeneralFragment$ref } from './__generated__/useNotificationsGeneralFragment.graphql';
+import { useNotificationsGeneralFragment$key } from './__generated__/useNotificationsGeneralFragment.graphql';
 import useNotificationsGeneralFragment from './useNotificationsGeneralFragment';
 import useNotificationsGeneralFragmentStyles from './useNotificationsGeneralFragmentStyles';
 
 interface NotificationsGeneralProps {
-  data: useNotificationsGeneralFragment$ref;
+  data: useNotificationsGeneralFragment$key;
 }
 
-const NotificationsGeneral: FC<NotificationsGeneralProps> = props => {
+const NotificationsGeneral: FC<NotificationsGeneralProps> = (props) => {
   const { show, vibrate } = useNotificationsGeneralFragment(props.data);
   const classes = useNotificationsGeneralFragmentStyles();
   const saveNotificationsGeneralSettingMutation = useSaveNotificationsGeneralSettingMutation();

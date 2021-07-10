@@ -1,13 +1,15 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO" | "%future added value";
 export type UpdateTaskListStatusFilterSettingInput = {
-    readonly clientMutationId?: string | null;
-    readonly status?: TaskStatus | null;
+    clientMutationId?: string | null;
+    status?: TaskStatus | null;
 };
 export type useUpdateTaskListStatusFilterSettingMutationVariables = {
-    readonly input: UpdateTaskListStatusFilterSettingInput;
+    input: UpdateTaskListStatusFilterSettingInput;
 };
 export type useUpdateTaskListStatusFilterSettingMutationResponse = {
     readonly updateTaskListStatusFilterSetting: {
@@ -35,18 +37,14 @@ mutation useUpdateTaskListStatusFilterSettingMutation(
 
 const node: ConcreteRequest = (function () {
     var v0 = [
-        ({
+        {
+            "defaultValue": null,
             "kind": "LocalArgument",
-            "name": "input",
-            "type": "UpdateTaskListStatusFilterSettingInput!",
-            "defaultValue": null
-        } as any)
+            "name": "input"
+        } as any
     ], v1 = [
-        ({
-            "kind": "LinkedField",
+        {
             "alias": null,
-            "name": "updateTaskListStatusFilterSetting",
-            "storageKey": null,
             "args": [
                 {
                     "kind": "Variable",
@@ -55,47 +53,52 @@ const node: ConcreteRequest = (function () {
                 }
             ],
             "concreteType": "UpdateTaskListStatusFilterSettingOutput",
+            "kind": "LinkedField",
+            "name": "updateTaskListStatusFilterSetting",
             "plural": false,
             "selections": [
                 {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "clientMutationId",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "clientMutationId",
                     "storageKey": null
                 },
                 {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "status",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "status",
                     "storageKey": null
                 }
-            ]
-        } as any)
+            ],
+            "storageKey": null
+        } as any
     ];
     return {
-        "kind": "Request",
         "fragment": {
-            "kind": "Fragment",
-            "name": "useUpdateTaskListStatusFilterSettingMutation",
-            "type": "Mutation",
-            "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
-            "selections": (v1 /*: any*/)
+            "kind": "Fragment",
+            "metadata": null,
+            "name": "useUpdateTaskListStatusFilterSettingMutation",
+            "selections": (v1 /*: any*/),
+            "type": "Mutation",
+            "abstractKey": null
         },
+        "kind": "Request",
         "operation": {
+            "argumentDefinitions": (v0 /*: any*/),
             "kind": "Operation",
             "name": "useUpdateTaskListStatusFilterSettingMutation",
-            "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
         },
         "params": {
-            "operationKind": "mutation",
-            "name": "useUpdateTaskListStatusFilterSettingMutation",
+            "cacheID": "1d9653e5435c3e741c6f3adca77828b4",
             "id": null,
-            "text": "mutation useUpdateTaskListStatusFilterSettingMutation(\n  $input: UpdateTaskListStatusFilterSettingInput!\n) {\n  updateTaskListStatusFilterSetting(input: $input) {\n    clientMutationId\n    status\n  }\n}\n",
-            "metadata": {}
+            "metadata": {},
+            "name": "useUpdateTaskListStatusFilterSettingMutation",
+            "operationKind": "mutation",
+            "text": "mutation useUpdateTaskListStatusFilterSettingMutation(\n  $input: UpdateTaskListStatusFilterSettingInput!\n) {\n  updateTaskListStatusFilterSetting(input: $input) {\n    clientMutationId\n    status\n  }\n}\n"
         }
     } as any;
 })();

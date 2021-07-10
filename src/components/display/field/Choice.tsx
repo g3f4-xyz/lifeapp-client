@@ -12,7 +12,7 @@ interface ChoiceProps {
   onChange(value: string): void;
 }
 
-const Choice: FC<ChoiceProps> = props => {
+const Choice: FC<ChoiceProps> = (props) => {
   const { label, value, helperText, options } = props;
 
   if (!options) {
@@ -28,7 +28,7 @@ const Choice: FC<ChoiceProps> = props => {
       {label && <InputLabel>{label}</InputLabel>}
       <Select value={value} onChange={handleChange}>
         {options.map(
-          option =>
+          (option) =>
             option && (
               <MenuItem key={option.value} value={option.value}>
                 {option.text}

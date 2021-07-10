@@ -11,7 +11,7 @@ export interface TaskProps {
   taskType?: TaskTypeEnum;
 }
 
-const Task: FC<TaskProps> = ownProps => {
+const Task: FC<TaskProps> = (ownProps) => {
   const params = useParams();
   const { addTaskParam } = useContext(AppContext);
   const firstParam = params[0];

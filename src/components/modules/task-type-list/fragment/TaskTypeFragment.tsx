@@ -1,19 +1,21 @@
 import { IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import { AddCircle, InfoOutlined } from '@material-ui/icons';
-import React, { FC, useCallback, useState } from 'react';
+import React, { ReactElement, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { MODULES_IDS } from '../../../../constans';
 import TaskTypeIcon from '../../../display/task-type-icon/TaskTypeIcon';
-import { useTaskTypePagination$ref } from '../pagination/__generated__/useTaskTypePagination.graphql';
+import { useTaskTypeFragment$key } from './__generated__/useTaskTypeFragment.graphql';
 import useTaskTypeFragment from './useTaskTypeFragment';
 import useTaskTypeFragmentStyles from './useTaskTypeFragmentStyles';
 
 interface TaskTypeFragmentProps {
-  data: useTaskTypePagination$ref;
+  data: useTaskTypeFragment$key;
 }
 
-const TaskTypeFragment: FC<TaskTypeFragmentProps> = props => {
+export default function TaskTypeFragment(
+  props: TaskTypeFragmentProps,
+): ReactElement<TaskTypeFragmentProps> {
   const { data } = props;
   const classes = useTaskTypeFragmentStyles();
   const [info, setInfo] = useState(false);
@@ -24,7 +26,7 @@ const TaskTypeFragment: FC<TaskTypeFragmentProps> = props => {
     history.push(`/app/${MODULES_IDS.TASK}/${typeId}/`);
   }, [typeId, history]);
   const handleInfo = useCallback(() => {
-    setInfo(value => !value);
+    setInfo((value) => !value);
   }, [setInfo]);
 
   return (
@@ -47,6 +49,4 @@ const TaskTypeFragment: FC<TaskTypeFragmentProps> = props => {
       </div>
     </Grid>
   );
-};
-
-export default TaskTypeFragment;
+}

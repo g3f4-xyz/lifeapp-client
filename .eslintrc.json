@@ -4,7 +4,6 @@
     "plugin:react/recommended",
     "plugin:relay/recommended",
     "plugin:@typescript-eslint/recommended",
-    "prettier/@typescript-eslint",
     "plugin:prettier/recommended"
   ],
   "plugins": ["react", "relay", "@typescript-eslint", "prettier"],
@@ -16,9 +15,11 @@
   "rules": {
     "prettier/prettier": ["error", { "singleQuote": true }],
     "@typescript-eslint/explicit-function-return-type": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "react/prop-types": "off",
     "relay/generated-flow-types": "off",
-    "relay/unused-fields": "off"
+    "relay/unused-fields": "off",
+    "relay/must-colocate-fragment-spreads": "off"
   },
   "settings": {
     "react": {

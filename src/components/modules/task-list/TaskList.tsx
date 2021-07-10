@@ -11,7 +11,7 @@ const TaskList: FC = () => {
 
   if (error) {
     return <div>{JSON.stringify(error)}</div>;
-  } else if (props) {
+  } else if (props && props.tasks && props.settings && props.settings) {
     return (
       <TaskListPagination
         data={props.tasks}

@@ -1,7 +1,9 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
-export type useTextFieldFragmentMeta$ref = any;
+import { FragmentRefs } from "relay-runtime";
 export type useTextFieldFragmentMeta = {
     readonly fieldType: string | null;
     readonly helperText: string | null;
@@ -12,82 +14,88 @@ export type useTextFieldFragmentMeta = {
     readonly maxLength: number | null;
     readonly minLength: number | null;
     readonly required: boolean | null;
-    readonly " $refType": useTextFieldFragmentMeta$ref;
+    readonly " $refType": "useTextFieldFragmentMeta";
+};
+export type useTextFieldFragmentMeta$data = useTextFieldFragmentMeta;
+export type useTextFieldFragmentMeta$key = {
+    readonly " $data"?: useTextFieldFragmentMeta$data;
+    readonly " $fragmentRefs": FragmentRefs<"useTextFieldFragmentMeta">;
 };
 
 
 
-const node: ReaderFragment = ({
-    "kind": "Fragment",
-    "name": "useTextFieldFragmentMeta",
-    "type": "TextFieldMeta",
-    "metadata": null,
+const node: ReaderFragment = {
     "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "useTextFieldFragmentMeta",
     "selections": [
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "fieldType",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "helperText",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "label",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "inputType",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "min",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "max",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "maxLength",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "minLength",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "required",
             "args": null,
+            "kind": "ScalarField",
+            "name": "required",
             "storageKey": null
         }
-    ]
-} as any);
+    ],
+    "type": "TextFieldMeta",
+    "abstractKey": null
+} as any;
 (node as any).hash = 'df971d4cd0c6bc588ecefa0e4597c2cc';
 export default node;

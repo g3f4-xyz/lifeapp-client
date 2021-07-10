@@ -177,7 +177,7 @@ export interface NestedFieldContainerProps {
   taskId: string;
 }
 
-const NestedFieldContainer: FC<NestedFieldContainerProps> = _props => {
+const NestedFieldContainer: FC<NestedFieldContainerProps> = () => {
   return <Fragment></Fragment>;
   // const { data } = props;
   // const { meta, value } = data;

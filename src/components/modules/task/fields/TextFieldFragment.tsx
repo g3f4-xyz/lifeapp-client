@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 import Text from '../../../display/field/Text';
-import { useTextFieldFragment$ref } from './__generated__/useTextFieldFragment.graphql';
+import { useTextFieldFragment$key } from './__generated__/useTextFieldFragment.graphql';
 import useTextFieldFragment from './useTextFieldFragment';
 
 interface TextFieldProps {
-  data: useTextFieldFragment$ref;
+  data: useTextFieldFragment$key;
   taskId: string;
 }
 
-const TextField: FC<TextFieldProps> = props => {
+const TextField: FC<TextFieldProps> = (props) => {
   const {
     id,
     fieldId,

@@ -1,12 +1,14 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type TestSubscriptionInput = {
-    readonly clientMutationId?: string | null;
-    readonly subscriptionId: string;
+    clientMutationId?: string | null;
+    subscriptionId: string;
 };
 export type useTestSubscriptionMutationVariables = {
-    readonly input: TestSubscriptionInput;
+    input: TestSubscriptionInput;
 };
 export type useTestSubscriptionMutationResponse = {
     readonly testSubscription: {
@@ -34,18 +36,14 @@ mutation useTestSubscriptionMutation(
 
 const node: ConcreteRequest = (function () {
     var v0 = [
-        ({
+        {
+            "defaultValue": null,
             "kind": "LocalArgument",
-            "name": "input",
-            "type": "TestSubscriptionInput!",
-            "defaultValue": null
-        } as any)
+            "name": "input"
+        } as any
     ], v1 = [
-        ({
-            "kind": "LinkedField",
+        {
             "alias": null,
-            "name": "testSubscription",
-            "storageKey": null,
             "args": [
                 {
                     "kind": "Variable",
@@ -54,47 +52,52 @@ const node: ConcreteRequest = (function () {
                 }
             ],
             "concreteType": "TestSubscriptionOutput",
+            "kind": "LinkedField",
+            "name": "testSubscription",
             "plural": false,
             "selections": [
                 {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "clientMutationId",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "clientMutationId",
                     "storageKey": null
                 },
                 {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "statusCode",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "statusCode",
                     "storageKey": null
                 }
-            ]
-        } as any)
+            ],
+            "storageKey": null
+        } as any
     ];
     return {
-        "kind": "Request",
         "fragment": {
-            "kind": "Fragment",
-            "name": "useTestSubscriptionMutation",
-            "type": "Mutation",
-            "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
-            "selections": (v1 /*: any*/)
+            "kind": "Fragment",
+            "metadata": null,
+            "name": "useTestSubscriptionMutation",
+            "selections": (v1 /*: any*/),
+            "type": "Mutation",
+            "abstractKey": null
         },
+        "kind": "Request",
         "operation": {
+            "argumentDefinitions": (v0 /*: any*/),
             "kind": "Operation",
             "name": "useTestSubscriptionMutation",
-            "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
         },
         "params": {
-            "operationKind": "mutation",
-            "name": "useTestSubscriptionMutation",
+            "cacheID": "0745e7b9a47e5b2a029d5bc7fad8f295",
             "id": null,
-            "text": "mutation useTestSubscriptionMutation(\n  $input: TestSubscriptionInput!\n) {\n  testSubscription(input: $input) {\n    clientMutationId\n    statusCode\n  }\n}\n",
-            "metadata": {}
+            "metadata": {},
+            "name": "useTestSubscriptionMutation",
+            "operationKind": "mutation",
+            "text": "mutation useTestSubscriptionMutation(\n  $input: TestSubscriptionInput!\n) {\n  testSubscription(input: $input) {\n    clientMutationId\n    statusCode\n  }\n}\n"
         }
     } as any;
 })();

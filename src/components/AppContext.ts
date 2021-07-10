@@ -22,10 +22,10 @@ const AppContext = createContext<AppContextProps>({
     openedTasksParams: [],
   },
 
-  addTaskParam(_taskParams: TaskParams): void {
+  addTaskParam(): void {
     return;
   },
-  removeTaskParam(_taskParams: TaskParams): void {
+  removeTaskParam(): void {
     return;
   },
 });

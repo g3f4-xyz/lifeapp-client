@@ -1,12 +1,14 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type DeleteSubscriptionInput = {
-    readonly clientMutationId?: string | null;
-    readonly subscriptionId: string;
+    clientMutationId?: string | null;
+    subscriptionId: string;
 };
 export type useDeleteSubscriptionMutationVariables = {
-    readonly input: DeleteSubscriptionInput;
+    input: DeleteSubscriptionInput;
 };
 export type useDeleteSubscriptionMutationResponse = {
     readonly deleteSubscription: {
@@ -34,18 +36,14 @@ mutation useDeleteSubscriptionMutation(
 
 const node: ConcreteRequest = (function () {
     var v0 = [
-        ({
+        {
+            "defaultValue": null,
             "kind": "LocalArgument",
-            "name": "input",
-            "type": "DeleteSubscriptionInput!",
-            "defaultValue": null
-        } as any)
+            "name": "input"
+        } as any
     ], v1 = [
-        ({
-            "kind": "LinkedField",
+        {
             "alias": null,
-            "name": "deleteSubscription",
-            "storageKey": null,
             "args": [
                 {
                     "kind": "Variable",
@@ -54,47 +52,52 @@ const node: ConcreteRequest = (function () {
                 }
             ],
             "concreteType": "DeleteSubscriptionOutput",
+            "kind": "LinkedField",
+            "name": "deleteSubscription",
             "plural": false,
             "selections": [
                 {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "clientMutationId",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "clientMutationId",
                     "storageKey": null
                 },
                 {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "subscriptionId",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "subscriptionId",
                     "storageKey": null
                 }
-            ]
-        } as any)
+            ],
+            "storageKey": null
+        } as any
     ];
     return {
-        "kind": "Request",
         "fragment": {
-            "kind": "Fragment",
-            "name": "useDeleteSubscriptionMutation",
-            "type": "Mutation",
-            "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
-            "selections": (v1 /*: any*/)
+            "kind": "Fragment",
+            "metadata": null,
+            "name": "useDeleteSubscriptionMutation",
+            "selections": (v1 /*: any*/),
+            "type": "Mutation",
+            "abstractKey": null
         },
+        "kind": "Request",
         "operation": {
+            "argumentDefinitions": (v0 /*: any*/),
             "kind": "Operation",
             "name": "useDeleteSubscriptionMutation",
-            "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
         },
         "params": {
-            "operationKind": "mutation",
-            "name": "useDeleteSubscriptionMutation",
+            "cacheID": "bc61f7f980be06ffd39d2cbcff0334fe",
             "id": null,
-            "text": "mutation useDeleteSubscriptionMutation(\n  $input: DeleteSubscriptionInput!\n) {\n  deleteSubscription(input: $input) {\n    clientMutationId\n    subscriptionId\n  }\n}\n",
-            "metadata": {}
+            "metadata": {},
+            "name": "useDeleteSubscriptionMutation",
+            "operationKind": "mutation",
+            "text": "mutation useDeleteSubscriptionMutation(\n  $input: DeleteSubscriptionInput!\n) {\n  deleteSubscription(input: $input) {\n    clientMutationId\n    subscriptionId\n  }\n}\n"
         }
     } as any;
 })();

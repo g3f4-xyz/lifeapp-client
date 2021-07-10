@@ -18,13 +18,13 @@ export interface TaskTypeIconProps {
   type: TaskTypeEnum | null;
 }
 
-const TaskTypeIcon: FC<TaskTypeIconProps> = props => {
+const TaskTypeIcon: FC<TaskTypeIconProps> = (props) => {
   const { className, type } = props;
   const classes = useTaskTypeIconStyles();
   const Icon = type ? ICONS[type] : null;
 
   if (Icon === null) {
-    return null
+    return null;
   }
 
   return <Icon className={classNames(classes.icon, className)} />;

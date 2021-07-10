@@ -1,12 +1,14 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
 export type CleanApplicationInput = {
-    readonly clientMutationId?: string | null;
-    readonly ownerId?: string | null;
+    clientMutationId?: string | null;
+    ownerId?: string | null;
 };
 export type useCleanApplicationMutationVariables = {
-    readonly input: CleanApplicationInput;
+    input: CleanApplicationInput;
 };
 export type useCleanApplicationMutationResponse = {
     readonly cleanApplication: {
@@ -34,18 +36,14 @@ mutation useCleanApplicationMutation(
 
 const node: ConcreteRequest = (function () {
     var v0 = [
-        ({
+        {
+            "defaultValue": null,
             "kind": "LocalArgument",
-            "name": "input",
-            "type": "CleanApplicationInput!",
-            "defaultValue": null
-        } as any)
+            "name": "input"
+        } as any
     ], v1 = [
-        ({
-            "kind": "LinkedField",
+        {
             "alias": null,
-            "name": "cleanApplication",
-            "storageKey": null,
             "args": [
                 {
                     "kind": "Variable",
@@ -54,47 +52,52 @@ const node: ConcreteRequest = (function () {
                 }
             ],
             "concreteType": "CleanApplicationOutput",
+            "kind": "LinkedField",
+            "name": "cleanApplication",
             "plural": false,
             "selections": [
                 {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "clientMutationId",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "clientMutationId",
                     "storageKey": null
                 },
                 {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "navigationUrl",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "navigationUrl",
                     "storageKey": null
                 }
-            ]
-        } as any)
+            ],
+            "storageKey": null
+        } as any
     ];
     return {
-        "kind": "Request",
         "fragment": {
-            "kind": "Fragment",
-            "name": "useCleanApplicationMutation",
-            "type": "Mutation",
-            "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
-            "selections": (v1 /*: any*/)
+            "kind": "Fragment",
+            "metadata": null,
+            "name": "useCleanApplicationMutation",
+            "selections": (v1 /*: any*/),
+            "type": "Mutation",
+            "abstractKey": null
         },
+        "kind": "Request",
         "operation": {
+            "argumentDefinitions": (v0 /*: any*/),
             "kind": "Operation",
             "name": "useCleanApplicationMutation",
-            "argumentDefinitions": (v0 /*: any*/),
             "selections": (v1 /*: any*/)
         },
         "params": {
-            "operationKind": "mutation",
-            "name": "useCleanApplicationMutation",
+            "cacheID": "579e0a86ffd5da35b286769ebb4e51df",
             "id": null,
-            "text": "mutation useCleanApplicationMutation(\n  $input: CleanApplicationInput!\n) {\n  cleanApplication(input: $input) {\n    clientMutationId\n    navigationUrl\n  }\n}\n",
-            "metadata": {}
+            "metadata": {},
+            "name": "useCleanApplicationMutation",
+            "operationKind": "mutation",
+            "text": "mutation useCleanApplicationMutation(\n  $input: CleanApplicationInput!\n) {\n  cleanApplication(input: $input) {\n    clientMutationId\n    navigationUrl\n  }\n}\n"
         }
     } as any;
 })();

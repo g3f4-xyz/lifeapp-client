@@ -1,15 +1,17 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-type useTaskFragment$ref = any;
+import { FragmentRefs } from "relay-runtime";
 export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO" | "%future added value";
 export type useTaskQueryVariables = {
-    readonly id?: string | null;
-    readonly typeId?: TaskTypeId | null;
+    id?: string | null;
+    typeId?: TaskTypeId | null;
 };
 export type useTaskQueryResponse = {
     readonly task: {
-        readonly " $fragmentRefs": useTaskFragment$ref;
+        readonly " $fragmentRefs": FragmentRefs<"useTaskFragment">;
     };
 };
 export type useTaskQuery = {
@@ -30,19 +32,34 @@ query useTaskQuery(
   }
 }
 
-fragment useTaskFragment on Task {
+fragment useChoiceFieldFragment on Field {
   id
-  fields {
+  fieldId
+  meta {
     __typename
-    fieldId
-    fieldType
-    order
-    ...useSliderFieldFragment
-    ...useSwitchFieldFragment
-    ...useChoiceFieldFragment
-    ...useTextFieldFragment
-    ...useNestedFieldFragment
+    ... on ChoiceFieldMeta {
+      fieldType
+      helperText
+      label
+      defaultValue
+      options {
+        text
+        value
+      }
+      required
+    }
   }
+  value {
+    __typename
+    ... on ChoiceFieldValue {
+      id
+    }
+  }
+}
+
+fragment useNestedFieldFragment on Field {
+  id
+  fieldId
 }
 
 fragment useSliderFieldFragment on Field {
@@ -88,28 +105,18 @@ fragment useSwitchFieldFragment on Field {
   }
 }
 
-fragment useChoiceFieldFragment on Field {
+fragment useTaskFragment on Task {
   id
-  fieldId
-  meta {
+  fields {
     __typename
-    ... on ChoiceFieldMeta {
-      fieldType
-      helperText
-      label
-      defaultValue
-      options {
-        text
-        value
-      }
-      required
-    }
-  }
-  value {
-    __typename
-    ... on ChoiceFieldValue {
-      id
-    }
+    fieldId
+    fieldType
+    order
+    ...useSliderFieldFragment
+    ...useSwitchFieldFragment
+    ...useChoiceFieldFragment
+    ...useTextFieldFragment
+    ...useNestedFieldFragment
   }
 }
 
@@ -137,180 +144,170 @@ fragment useTextFieldFragment on Field {
     }
   }
 }
-
-fragment useNestedFieldFragment on Field {
-  id
-  fieldId
-}
 */
 
 const node: ConcreteRequest = (function () {
     var v0 = [
-        ({
+        {
+            "defaultValue": null,
             "kind": "LocalArgument",
-            "name": "id",
-            "type": "ID",
-            "defaultValue": null
-        } as any),
-        ({
+            "name": "id"
+        } as any,
+        {
+            "defaultValue": null,
             "kind": "LocalArgument",
-            "name": "typeId",
-            "type": "TaskTypeId",
-            "defaultValue": null
-        } as any)
+            "name": "typeId"
+        } as any
     ], v1 = [
-        ({
+        {
             "kind": "Variable",
             "name": "id",
             "variableName": "id"
-        } as any),
-        ({
+        } as any,
+        {
             "kind": "Variable",
             "name": "typeId",
             "variableName": "typeId"
-        } as any)
-    ], v2 = ({
-        "kind": "ScalarField",
+        } as any
+    ], v2 = {
         "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "id",
-        "args": null,
         "storageKey": null
-    } as any), v3 = ({
-        "kind": "ScalarField",
+    } as any, v3 = {
         "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "__typename",
-        "args": null,
         "storageKey": null
-    } as any), v4 = ({
-        "kind": "ScalarField",
+    } as any, v4 = {
         "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "fieldType",
-        "args": null,
         "storageKey": null
-    } as any), v5 = ({
-        "kind": "ScalarField",
+    } as any, v5 = {
         "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "label",
-        "args": null,
         "storageKey": null
-    } as any), v6 = ({
-        "kind": "ScalarField",
+    } as any, v6 = {
         "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "disabled",
-        "args": null,
         "storageKey": null
-    } as any), v7 = ({
-        "kind": "ScalarField",
+    } as any, v7 = {
         "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "required",
-        "args": null,
         "storageKey": null
-    } as any), v8 = ({
-        "kind": "ScalarField",
+    } as any, v8 = {
         "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "max",
-        "args": null,
         "storageKey": null
-    } as any), v9 = ({
-        "kind": "ScalarField",
+    } as any, v9 = {
         "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "min",
-        "args": null,
         "storageKey": null
-    } as any), v10 = ({
-        "kind": "ScalarField",
+    } as any, v10 = {
         "alias": null,
+        "args": null,
+        "kind": "ScalarField",
         "name": "helperText",
-        "args": null,
         "storageKey": null
-    } as any), v11 = ({
-        "kind": "ScalarField",
+    } as any, v11 = {
         "alias": null,
-        "name": "text",
         "args": null,
+        "kind": "ScalarField",
+        "name": "text",
         "storageKey": null
-    } as any);
+    } as any;
     return {
-        "kind": "Request",
         "fragment": {
-            "kind": "Fragment",
-            "name": "useTaskQuery",
-            "type": "Query",
-            "metadata": null,
             "argumentDefinitions": (v0 /*: any*/),
+            "kind": "Fragment",
+            "metadata": null,
+            "name": "useTaskQuery",
             "selections": [
                 {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "task",
-                    "storageKey": null,
                     "args": (v1 /*: any*/),
                     "concreteType": "Task",
+                    "kind": "LinkedField",
+                    "name": "task",
                     "plural": false,
                     "selections": [
                         {
+                            "args": null,
                             "kind": "FragmentSpread",
-                            "name": "useTaskFragment",
-                            "args": null
+                            "name": "useTaskFragment"
                         }
-                    ]
+                    ],
+                    "storageKey": null
                 }
-            ]
+            ],
+            "type": "Query",
+            "abstractKey": null
         },
+        "kind": "Request",
         "operation": {
+            "argumentDefinitions": (v0 /*: any*/),
             "kind": "Operation",
             "name": "useTaskQuery",
-            "argumentDefinitions": (v0 /*: any*/),
             "selections": [
                 {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "task",
-                    "storageKey": null,
                     "args": (v1 /*: any*/),
                     "concreteType": "Task",
+                    "kind": "LinkedField",
+                    "name": "task",
                     "plural": false,
                     "selections": [
                         (v2 /*: any*/),
                         {
-                            "kind": "LinkedField",
                             "alias": null,
-                            "name": "fields",
-                            "storageKey": null,
                             "args": null,
                             "concreteType": "Field",
+                            "kind": "LinkedField",
+                            "name": "fields",
                             "plural": true,
                             "selections": [
                                 (v3 /*: any*/),
                                 {
-                                    "kind": "ScalarField",
                                     "alias": null,
-                                    "name": "fieldId",
                                     "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "fieldId",
                                     "storageKey": null
                                 },
                                 (v4 /*: any*/),
                                 {
-                                    "kind": "ScalarField",
                                     "alias": null,
-                                    "name": "order",
                                     "args": null,
+                                    "kind": "ScalarField",
+                                    "name": "order",
                                     "storageKey": null
                                 },
                                 (v2 /*: any*/),
                                 {
-                                    "kind": "LinkedField",
                                     "alias": null,
-                                    "name": "meta",
-                                    "storageKey": null,
                                     "args": null,
                                     "concreteType": null,
+                                    "kind": "LinkedField",
+                                    "name": "meta",
                                     "plural": false,
                                     "selections": [
                                         (v3 /*: any*/),
                                         {
                                             "kind": "InlineFragment",
-                                            "type": "SliderFieldMeta",
                                             "selections": [
                                                 (v4 /*: any*/),
                                                 (v5 /*: any*/),
@@ -319,159 +316,172 @@ const node: ConcreteRequest = (function () {
                                                 (v8 /*: any*/),
                                                 (v9 /*: any*/),
                                                 {
-                                                    "kind": "ScalarField",
                                                     "alias": null,
-                                                    "name": "step",
                                                     "args": null,
+                                                    "kind": "ScalarField",
+                                                    "name": "step",
                                                     "storageKey": null
                                                 }
-                                            ]
+                                            ],
+                                            "type": "SliderFieldMeta",
+                                            "abstractKey": null
                                         },
                                         {
                                             "kind": "InlineFragment",
-                                            "type": "SwitchFieldMeta",
                                             "selections": [
                                                 (v4 /*: any*/),
                                                 (v5 /*: any*/),
                                                 (v6 /*: any*/),
                                                 (v7 /*: any*/)
-                                            ]
+                                            ],
+                                            "type": "SwitchFieldMeta",
+                                            "abstractKey": null
                                         },
                                         {
                                             "kind": "InlineFragment",
-                                            "type": "ChoiceFieldMeta",
                                             "selections": [
                                                 (v4 /*: any*/),
                                                 (v10 /*: any*/),
                                                 (v5 /*: any*/),
                                                 {
-                                                    "kind": "ScalarField",
                                                     "alias": null,
-                                                    "name": "defaultValue",
                                                     "args": null,
+                                                    "kind": "ScalarField",
+                                                    "name": "defaultValue",
                                                     "storageKey": null
                                                 },
                                                 {
-                                                    "kind": "LinkedField",
                                                     "alias": null,
-                                                    "name": "options",
-                                                    "storageKey": null,
                                                     "args": null,
                                                     "concreteType": "FieldMetaOptions",
+                                                    "kind": "LinkedField",
+                                                    "name": "options",
                                                     "plural": true,
                                                     "selections": [
                                                         (v11 /*: any*/),
                                                         {
-                                                            "kind": "ScalarField",
                                                             "alias": null,
-                                                            "name": "value",
                                                             "args": null,
+                                                            "kind": "ScalarField",
+                                                            "name": "value",
                                                             "storageKey": null
                                                         }
-                                                    ]
+                                                    ],
+                                                    "storageKey": null
                                                 },
                                                 (v7 /*: any*/)
-                                            ]
+                                            ],
+                                            "type": "ChoiceFieldMeta",
+                                            "abstractKey": null
                                         },
                                         {
                                             "kind": "InlineFragment",
-                                            "type": "TextFieldMeta",
                                             "selections": [
                                                 (v4 /*: any*/),
                                                 (v10 /*: any*/),
                                                 (v5 /*: any*/),
                                                 {
-                                                    "kind": "ScalarField",
                                                     "alias": null,
-                                                    "name": "inputType",
                                                     "args": null,
+                                                    "kind": "ScalarField",
+                                                    "name": "inputType",
                                                     "storageKey": null
                                                 },
                                                 (v9 /*: any*/),
                                                 (v8 /*: any*/),
                                                 {
-                                                    "kind": "ScalarField",
                                                     "alias": null,
-                                                    "name": "maxLength",
                                                     "args": null,
+                                                    "kind": "ScalarField",
+                                                    "name": "maxLength",
                                                     "storageKey": null
                                                 },
                                                 {
-                                                    "kind": "ScalarField",
                                                     "alias": null,
-                                                    "name": "minLength",
                                                     "args": null,
+                                                    "kind": "ScalarField",
+                                                    "name": "minLength",
                                                     "storageKey": null
                                                 },
                                                 (v7 /*: any*/)
-                                            ]
+                                            ],
+                                            "type": "TextFieldMeta",
+                                            "abstractKey": null
                                         }
-                                    ]
+                                    ],
+                                    "storageKey": null
                                 },
                                 {
-                                    "kind": "LinkedField",
                                     "alias": null,
-                                    "name": "value",
-                                    "storageKey": null,
                                     "args": null,
                                     "concreteType": null,
+                                    "kind": "LinkedField",
+                                    "name": "value",
                                     "plural": false,
                                     "selections": [
                                         (v3 /*: any*/),
                                         {
                                             "kind": "InlineFragment",
-                                            "type": "SliderFieldValue",
                                             "selections": [
                                                 {
-                                                    "kind": "ScalarField",
                                                     "alias": null,
+                                                    "args": null,
+                                                    "kind": "ScalarField",
                                                     "name": "progress",
-                                                    "args": null,
                                                     "storageKey": null
                                                 }
-                                            ]
+                                            ],
+                                            "type": "SliderFieldValue",
+                                            "abstractKey": null
                                         },
                                         {
                                             "kind": "InlineFragment",
-                                            "type": "SwitchFieldValue",
                                             "selections": [
                                                 {
-                                                    "kind": "ScalarField",
                                                     "alias": null,
-                                                    "name": "enabled",
                                                     "args": null,
+                                                    "kind": "ScalarField",
+                                                    "name": "enabled",
                                                     "storageKey": null
                                                 }
-                                            ]
+                                            ],
+                                            "type": "SwitchFieldValue",
+                                            "abstractKey": null
                                         },
                                         {
                                             "kind": "InlineFragment",
-                                            "type": "ChoiceFieldValue",
                                             "selections": [
                                                 (v2 /*: any*/)
-                                            ]
+                                            ],
+                                            "type": "ChoiceFieldValue",
+                                            "abstractKey": null
                                         },
                                         {
                                             "kind": "InlineFragment",
-                                            "type": "TextFieldValue",
                                             "selections": [
                                                 (v11 /*: any*/)
-                                            ]
+                                            ],
+                                            "type": "TextFieldValue",
+                                            "abstractKey": null
                                         }
-                                    ]
+                                    ],
+                                    "storageKey": null
                                 }
-                            ]
+                            ],
+                            "storageKey": null
                         }
-                    ]
+                    ],
+                    "storageKey": null
                 }
             ]
         },
         "params": {
-            "operationKind": "query",
-            "name": "useTaskQuery",
+            "cacheID": "ce78620fcbb29c6968967d2ffe992c3f",
             "id": null,
-            "text": "query useTaskQuery(\n  $id: ID\n  $typeId: TaskTypeId\n) {\n  task(id: $id, typeId: $typeId) {\n    ...useTaskFragment\n    id\n  }\n}\n\nfragment useTaskFragment on Task {\n  id\n  fields {\n    __typename\n    fieldId\n    fieldType\n    order\n    ...useSliderFieldFragment\n    ...useSwitchFieldFragment\n    ...useChoiceFieldFragment\n    ...useTextFieldFragment\n    ...useNestedFieldFragment\n  }\n}\n\nfragment useSliderFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on SliderFieldMeta {\n      fieldType\n      label\n      disabled\n      required\n      max\n      min\n      step\n    }\n  }\n  value {\n    __typename\n    ... on SliderFieldValue {\n      progress\n    }\n  }\n}\n\nfragment useSwitchFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on SwitchFieldMeta {\n      fieldType\n      label\n      disabled\n      required\n    }\n  }\n  value {\n    __typename\n    ... on SwitchFieldValue {\n      enabled\n    }\n  }\n}\n\nfragment useChoiceFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on ChoiceFieldMeta {\n      fieldType\n      helperText\n      label\n      defaultValue\n      options {\n        text\n        value\n      }\n      required\n    }\n  }\n  value {\n    __typename\n    ... on ChoiceFieldValue {\n      id\n    }\n  }\n}\n\nfragment useTextFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on TextFieldMeta {\n      fieldType\n      helperText\n      label\n      inputType\n      min\n      max\n      maxLength\n      minLength\n      required\n    }\n  }\n  value {\n    __typename\n    ... on TextFieldValue {\n      text\n    }\n  }\n}\n\nfragment useNestedFieldFragment on Field {\n  id\n  fieldId\n}\n",
-            "metadata": {}
+            "metadata": {},
+            "name": "useTaskQuery",
+            "operationKind": "query",
+            "text": "query useTaskQuery(\n  $id: ID\n  $typeId: TaskTypeId\n) {\n  task(id: $id, typeId: $typeId) {\n    ...useTaskFragment\n    id\n  }\n}\n\nfragment useChoiceFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on ChoiceFieldMeta {\n      fieldType\n      helperText\n      label\n      defaultValue\n      options {\n        text\n        value\n      }\n      required\n    }\n  }\n  value {\n    __typename\n    ... on ChoiceFieldValue {\n      id\n    }\n  }\n}\n\nfragment useNestedFieldFragment on Field {\n  id\n  fieldId\n}\n\nfragment useSliderFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on SliderFieldMeta {\n      fieldType\n      label\n      disabled\n      required\n      max\n      min\n      step\n    }\n  }\n  value {\n    __typename\n    ... on SliderFieldValue {\n      progress\n    }\n  }\n}\n\nfragment useSwitchFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on SwitchFieldMeta {\n      fieldType\n      label\n      disabled\n      required\n    }\n  }\n  value {\n    __typename\n    ... on SwitchFieldValue {\n      enabled\n    }\n  }\n}\n\nfragment useTaskFragment on Task {\n  id\n  fields {\n    __typename\n    fieldId\n    fieldType\n    order\n    ...useSliderFieldFragment\n    ...useSwitchFieldFragment\n    ...useChoiceFieldFragment\n    ...useTextFieldFragment\n    ...useNestedFieldFragment\n  }\n}\n\nfragment useTextFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on TextFieldMeta {\n      fieldType\n      helperText\n      label\n      inputType\n      min\n      max\n      maxLength\n      minLength\n      required\n    }\n  }\n  value {\n    __typename\n    ... on TextFieldValue {\n      text\n    }\n  }\n}\n"
         }
     } as any;
 })();

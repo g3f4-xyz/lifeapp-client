@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 import Switch from '../../../display/field/Switch';
-import { useSwitchFieldFragment$ref } from './__generated__/useSwitchFieldFragment.graphql';
+import { useSwitchFieldFragment$key } from './__generated__/useSwitchFieldFragment.graphql';
 import useSwitchFieldFragment from './useSwitchFieldFragment';
 
 interface SwitchFieldProps {
-  data: useSwitchFieldFragment$ref;
+  data: useSwitchFieldFragment$key;
   taskId: string;
 }
 
-const SwitchField: FC<SwitchFieldProps> = props => {
+const SwitchField: FC<SwitchFieldProps> = (props) => {
   const {
     id,
     fieldId,

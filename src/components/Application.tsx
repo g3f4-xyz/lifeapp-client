@@ -29,14 +29,14 @@ const Application: FC = () => {
         openedTasksParams.findIndex(({ taskId }) => taskId === taskParams.taskId) >= 0;
 
       if (!duplicate) {
-        setOpenedTasksParams(prev => [...prev, taskParams]);
+        setOpenedTasksParams((prev) => [...prev, taskParams]);
       }
     },
     [openedTasksParams, setOpenedTasksParams],
   );
   const removeTaskParam = useCallback(
     (taskParams: TaskParams) => {
-      setOpenedTasksParams(prev => prev.filter(params => params.taskId === taskParams.taskId));
+      setOpenedTasksParams((prev) => prev.filter((params) => params.taskId === taskParams.taskId));
     },
     [setOpenedTasksParams],
   );
@@ -46,7 +46,7 @@ const Application: FC = () => {
 
     if (firstPart === 'task') {
       const filtered = openedTasksParams.filter(
-        params => !(params.taskId === thirdPart && params.taskType === secondPart),
+        (params) => !(params.taskId === thirdPart && params.taskType === secondPart),
       );
 
       setOpenedTasksParams(filtered);
@@ -61,10 +61,16 @@ const Application: FC = () => {
         >
           <AppMenu />
           <Switch>
-            <Route path={`${match.url}/${MODULES_IDS.TASK_LIST}`} component={TaskList} />
-            <Route path={`${match.url}/${MODULES_IDS.TASK_TYPE_LIST}`} component={TaskTypeList} />
-            <Route path={`${match.url}/${MODULES_IDS.SETTINGS}`} component={SettingsQuery} />
-            <Route path={`${match.url}/${MODULES_IDS.TASK}/*`} component={Task} />
+            <Route path={`${match.url}/${MODULES_IDS.TASK_LIST}`.toString()} component={TaskList} />
+            <Route
+              path={`${match.url}/${MODULES_IDS.TASK_TYPE_LIST}`.toString()}
+              component={TaskTypeList}
+            />
+            <Route
+              path={`${match.url}/${MODULES_IDS.SETTINGS}`.toString()}
+              component={SettingsQuery}
+            />
+            <Route path={`${match.url}/${MODULES_IDS.TASK}/*`.toString()} component={Task} />
             <Route
               path={`${match.url}/dashboard`}
               component={() => (
@@ -90,7 +96,7 @@ const Application: FC = () => {
                   >
                     <SettingsQuery />
                   </ResponsiveGridItem>
-                  {openedTasksParams.map(params => (
+                  {openedTasksParams.map((params) => (
                     <ResponsiveGridItem
                       key={params.taskId || params.taskType}
                       path={`${match.url}/task/${params.taskType}/${params.taskId}`}

@@ -15,30 +15,29 @@ import React, { ChangeEvent, FC } from 'react';
 import { TASK_TYPE, TaskTypeEnum } from '../../../../../constans';
 import useSaveNotificationsTypesSettingMutation from './useSaveNotificationsTypesSettingMutation';
 import TaskTypeIcon from '../../../../display/task-type-icon/TaskTypeIcon';
-import { useNotificationsTypesFragment$ref } from './__generated__/useNotificationsTypesFragment.graphql';
+import { useNotificationsTypesFragment$key } from './__generated__/useNotificationsTypesFragment.graphql';
 import useNotificationsTypesFragment from './useNotificationsTypesFragment';
 import useNotificationsTypesFragmentStyles from './useNotificationsTypesFragmentStyles';
 
 interface NotificationsTypesProps {
-  data: useNotificationsTypesFragment$ref;
+  data: useNotificationsTypesFragment$key;
 }
 
-const NotificationsTypes: FC<NotificationsTypesProps> = props => {
+const NotificationsTypes: FC<NotificationsTypesProps> = (props) => {
   const { events, goals, meetings, routines, todos } = useNotificationsTypesFragment(props.data);
   const types = { events, goals, meetings, routines, todos };
   const classes = useNotificationsTypesFragmentStyles();
   const saveNotificationsTypesSettingMutation = useSaveNotificationsTypesSettingMutation();
-  const getChangeHandler = (key: string) => async (
-    _: ChangeEvent<HTMLInputElement>,
-    checked: boolean,
-  ): Promise<void> => {
-    await saveNotificationsTypesSettingMutation({
-      types: {
-        ...types,
-        [key]: checked,
-      },
-    });
-  };
+  const getChangeHandler =
+    (key: string) =>
+    async (_: ChangeEvent<HTMLInputElement>, checked: boolean): Promise<void> => {
+      await saveNotificationsTypesSettingMutation({
+        types: {
+          ...types,
+          [key]: checked,
+        },
+      });
+    };
 
   return (
     <ExpansionPanel className={classes.wrapper}>
@@ -47,7 +46,7 @@ const NotificationsTypes: FC<NotificationsTypesProps> = props => {
       </ExpansionPanelSummary>
       <ExpansionPanelDetails>
         <List className={classes.list}>
-          {Object.keys(TASK_TYPE).map(key => (
+          {Object.keys(TASK_TYPE).map((key) => (
             <ListItem key={key}>
               <ListItemIcon>
                 <TaskTypeIcon type={key as TaskTypeEnum} />

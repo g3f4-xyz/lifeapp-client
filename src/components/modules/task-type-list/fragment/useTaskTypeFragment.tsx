@@ -1,9 +1,6 @@
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from 'relay-hooks';
-import {
-  useTaskTypeFragment,
-  useTaskTypeFragment$ref,
-} from './__generated__/useTaskTypeFragment.graphql';
+import { useTaskTypeFragment$key } from './__generated__/useTaskTypeFragment.graphql';
 
 const query = graphql`
   fragment useTaskTypeFragment on TaskType {
@@ -14,5 +11,4 @@ const query = graphql`
   }
 `;
 
-export default (data: useTaskTypeFragment$ref): Omit<useTaskTypeFragment, ' $refType'> =>
-  useFragment(query, data);
+export default (data: useTaskTypeFragment$key) => useFragment<useTaskTypeFragment$key>(query, data);

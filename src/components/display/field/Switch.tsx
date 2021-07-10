@@ -11,7 +11,7 @@ export interface SwitchProps {
   onChange(value: boolean): void;
 }
 
-const Switch: FC<SwitchProps> = props => {
+const Switch: FC<SwitchProps> = (props) => {
   const { checked, disabled, label } = props;
 
   const handleChange = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
@@ -23,9 +23,8 @@ const Switch: FC<SwitchProps> = props => {
       <FormControlLabel
         control={
           <MaterialSwitch
-            // @ts-ignore
-            checked={checked}
-            disabled={disabled as (boolean | undefined)}
+            checked={checked as boolean}
+            disabled={disabled as boolean | undefined}
             value={checked}
             onChange={handleChange}
           />

@@ -18,7 +18,7 @@ export interface TaskListBarProps {
   onFilterByStatus(event: ChangeEvent<HTMLSelectElement>): void;
 }
 
-const TaskListBar: FC<TaskListBarProps> = props => {
+const TaskListBar: FC<TaskListBarProps> = (props) => {
   const { settings, onFilterByTitle, onFilterByType, onFilterByStatus } = props;
   const {
     filters: { title, taskType, status },
@@ -55,14 +55,14 @@ const TaskListBar: FC<TaskListBarProps> = props => {
               input={<Input id="status-filter" />}
             >
               <option value="" />
-              {Object.keys(TASK_STATUSES).map(value => (
+              {Object.keys(TASK_STATUSES).map((value) => (
                 <option key={value} value={value}>
                   {value}
                 </option>
               ))}
             </NativeSelect>
           </FormControl>
-          {Object.keys(TASK_TYPE).map(key => (
+          {Object.keys(TASK_TYPE).map((key) => (
             <FormControlLabel
               key={key}
               control={

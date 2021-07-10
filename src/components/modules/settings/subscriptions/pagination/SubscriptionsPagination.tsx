@@ -2,17 +2,17 @@ import { List } from '@material-ui/core';
 import React, { FC } from 'react';
 import Loader from '../../../../display/loader/Loader';
 import SubscriptionFragment from '../fragment/SubscriptionFragment';
-import { useSubscriptionsPagination$ref } from './__generated__/useSubscriptionsPagination.graphql';
+import { useSubscriptionsPagination$key } from './__generated__/useSubscriptionsPagination.graphql';
 import useSubscriptionsPagination from './useSubscriptionsPagination';
 
 interface SubscriptionsProps {
   className?: string;
-  data: useSubscriptionsPagination$ref;
+  data: useSubscriptionsPagination$key;
 
   onDelete(subscriptionId: string): void;
 }
 
-const Subscriptions: FC<SubscriptionsProps> = props => {
+const Subscriptions: FC<SubscriptionsProps> = (props) => {
   const { className, data, onDelete } = props;
   const [
     {

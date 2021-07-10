@@ -1,97 +1,102 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
-type useNotificationsGeneralFragment$ref = any;
-type useNotificationsTypesFragment$ref = any;
-type useSubscriptionsPagination$ref = any;
-export type useSettingsFragment$ref = any;
+import { FragmentRefs } from "relay-runtime";
 export type useSettingsFragment = {
     readonly ownerId: string;
     readonly notifications: {
         readonly id: string;
         readonly general: {
-            readonly " $fragmentRefs": useNotificationsGeneralFragment$ref;
+            readonly " $fragmentRefs": FragmentRefs<"useNotificationsGeneralFragment">;
         };
         readonly types: {
-            readonly " $fragmentRefs": useNotificationsTypesFragment$ref;
+            readonly " $fragmentRefs": FragmentRefs<"useNotificationsTypesFragment">;
         };
-        readonly " $fragmentRefs": useSubscriptionsPagination$ref;
+        readonly " $fragmentRefs": FragmentRefs<"useSubscriptionsPagination">;
     };
-    readonly " $refType": useSettingsFragment$ref;
+    readonly " $refType": "useSettingsFragment";
+};
+export type useSettingsFragment$data = useSettingsFragment;
+export type useSettingsFragment$key = {
+    readonly " $data"?: useSettingsFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"useSettingsFragment">;
 };
 
 
 
-const node: ReaderFragment = ({
-    "kind": "Fragment",
-    "name": "useSettingsFragment",
-    "type": "Settings",
-    "metadata": null,
+const node: ReaderFragment = {
     "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "useSettingsFragment",
     "selections": [
         {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "ownerId",
             "args": null,
+            "kind": "ScalarField",
+            "name": "ownerId",
             "storageKey": null
         },
         {
-            "kind": "LinkedField",
             "alias": null,
-            "name": "notifications",
-            "storageKey": null,
             "args": null,
             "concreteType": "NotificationsSettings",
+            "kind": "LinkedField",
+            "name": "notifications",
             "plural": false,
             "selections": [
                 {
-                    "kind": "ScalarField",
                     "alias": null,
-                    "name": "id",
                     "args": null,
+                    "kind": "ScalarField",
+                    "name": "id",
                     "storageKey": null
                 },
                 {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "general",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "GeneralNotificationsSettings",
+                    "kind": "LinkedField",
+                    "name": "general",
                     "plural": false,
                     "selections": [
                         {
+                            "args": null,
                             "kind": "FragmentSpread",
-                            "name": "useNotificationsGeneralFragment",
-                            "args": null
+                            "name": "useNotificationsGeneralFragment"
                         }
-                    ]
+                    ],
+                    "storageKey": null
                 },
                 {
-                    "kind": "LinkedField",
                     "alias": null,
-                    "name": "types",
-                    "storageKey": null,
                     "args": null,
                     "concreteType": "TypesNotificationsSettings",
+                    "kind": "LinkedField",
+                    "name": "types",
                     "plural": false,
                     "selections": [
                         {
+                            "args": null,
                             "kind": "FragmentSpread",
-                            "name": "useNotificationsTypesFragment",
-                            "args": null
+                            "name": "useNotificationsTypesFragment"
                         }
-                    ]
+                    ],
+                    "storageKey": null
                 },
                 {
+                    "args": null,
                     "kind": "FragmentSpread",
-                    "name": "useSubscriptionsPagination",
-                    "args": null
+                    "name": "useSubscriptionsPagination"
                 }
-            ]
+            ],
+            "storageKey": null
         }
-    ]
-} as any);
+    ],
+    "type": "Settings",
+    "abstractKey": null
+} as any;
 (node as any).hash = 'ed8027093aac31e486ae722c869fbace';
 export default node;

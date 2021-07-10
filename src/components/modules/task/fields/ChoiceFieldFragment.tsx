@@ -1,15 +1,15 @@
 import React, { FC } from 'react';
 import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 import Choice from '../../../display/field/Choice';
-import { useChoiceFieldFragment$ref } from './__generated__/useChoiceFieldFragment.graphql';
+import { useChoiceFieldFragment$key } from './__generated__/useChoiceFieldFragment.graphql';
 import useChoiceFieldFragment from './useChoiceFieldFragment';
 
 interface ChoiceFieldProps {
-  data: useChoiceFieldFragment$ref;
+  data: useChoiceFieldFragment$key;
   taskId: string;
 }
 
-const ChoiceField: FC<ChoiceFieldProps> = props => {
+const ChoiceField: FC<ChoiceFieldProps> = (props) => {
   const {
     id: relayId,
     fieldId,
