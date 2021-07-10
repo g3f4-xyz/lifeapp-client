@@ -7,19 +7,21 @@ import {
 } from './__generated__/useTaskListPagination.graphql';
 
 const query = graphql`
-  fragment useTaskListPagination on Tasks {
-    id
-    list(first: $count, after: $after) @connection(key: "TaskConnection_list") {
-      edges {
-        cursor
-        node {
-          id
-          ...useTaskListFragment
+  fragment useTaskListPagination on Query {
+    tasks {
+      id
+      list(first: $count, after: $after) @connection(key: "TaskConnection_list") {
+        edges {
+          cursor
+          node {
+            id
+            ...useTaskListFragment
+          }
         }
-      }
-      pageInfo {
-        hasNextPage
-        endCursor
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
       }
     }
   }
@@ -48,9 +50,7 @@ const connectionConfig: ConnectionConfig = {
     # Pagination query to be fetched upon calling 'loadMore'.
     # Notice that we re-use our fragment, and the shape of this query matches our fragment spec.
     query useTaskListPaginationQuery($count: Int!, $after: String) {
-      tasks {
-        ...useTaskListPagination
-      }
+      ...useTaskListPagination
     }
   `,
 };

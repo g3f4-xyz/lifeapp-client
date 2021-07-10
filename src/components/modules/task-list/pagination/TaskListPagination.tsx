@@ -27,7 +27,7 @@ const TaskListPagination: FC<TaskListPaginationProps> = (props) => {
   const { settings } = props;
   const [loading, setLoading] = useState(false);
   const classes = useTaskListPaginationStyles();
-  const [data, { hasMore, isLoading, loadMore, refetchConnection }] = useTaskListPagination(
+  const [{ tasks }, { hasMore, isLoading, loadMore, refetchConnection }] = useTaskListPagination(
     props.data,
     ITEMS_PER_PAGE,
   );
@@ -41,7 +41,7 @@ const TaskListPagination: FC<TaskListPaginationProps> = (props) => {
   const updateTaskListStatusFilterSetting = useUpdateTaskListStatusFilterSettingMutation(
     props.settingsId,
   );
-  const deleteTaskMutation = useDeleteTaskMutation(data.id);
+  const deleteTaskMutation = useDeleteTaskMutation(tasks ? tasks.id : '');
   const handleAdd = useCallback(() => {
     history.push(`/app/${MODULES_IDS.TASK_TYPE_LIST}`);
   }, [history]);
@@ -110,13 +110,13 @@ const TaskListPagination: FC<TaskListPaginationProps> = (props) => {
     setLoading(false);
   };
 
-  if (!data || !data.list || !data.list.edges) {
+  if (!tasks || !tasks.list || !tasks.list.edges) {
     return <Loader />;
   }
 
   const {
     list: { edges },
-  } = data;
+  } = tasks;
 
   return (
     <Fragment>

@@ -9,9 +9,7 @@ export type useTaskListPaginationQueryVariables = {
     after?: string | null;
 };
 export type useTaskListPaginationQueryResponse = {
-    readonly tasks: {
-        readonly " $fragmentRefs": FragmentRefs<"useTaskListPagination">;
-    } | null;
+    readonly " $fragmentRefs": FragmentRefs<"useTaskListPagination">;
 };
 export type useTaskListPaginationQuery = {
     readonly response: useTaskListPaginationQueryResponse;
@@ -25,10 +23,7 @@ query useTaskListPaginationQuery(
   $count: Int!
   $after: String
 ) {
-  tasks {
-    ...useTaskListPagination
-    id
-  }
+  ...useTaskListPagination
 }
 
 fragment useTaskListFragment on Task {
@@ -95,20 +90,22 @@ fragment useTaskListFragment on Task {
   }
 }
 
-fragment useTaskListPagination on Tasks {
-  id
-  list(first: $count, after: $after) {
-    edges {
-      cursor
-      node {
-        id
-        ...useTaskListFragment
-        __typename
+fragment useTaskListPagination on Query {
+  tasks {
+    id
+    list(first: $count, after: $after) {
+      edges {
+        cursor
+        node {
+          id
+          ...useTaskListFragment
+          __typename
+        }
       }
-    }
-    pageInfo {
-      hasNextPage
-      endCursor
+      pageInfo {
+        hasNextPage
+        endCursor
+      }
     }
   }
 }
@@ -206,20 +203,9 @@ const node: ConcreteRequest = (function () {
             "name": "useTaskListPaginationQuery",
             "selections": [
                 {
-                    "alias": null,
                     "args": null,
-                    "concreteType": "Tasks",
-                    "kind": "LinkedField",
-                    "name": "tasks",
-                    "plural": false,
-                    "selections": [
-                        {
-                            "args": null,
-                            "kind": "FragmentSpread",
-                            "name": "useTaskListPagination"
-                        }
-                    ],
-                    "storageKey": null
+                    "kind": "FragmentSpread",
+                    "name": "useTaskListPagination"
                 }
             ],
             "type": "Query",
@@ -521,14 +507,14 @@ const node: ConcreteRequest = (function () {
             ]
         },
         "params": {
-            "cacheID": "4cdb972175ff32640d940c243da3a746",
+            "cacheID": "c1f409ff0de5c4206751674bf834a7f6",
             "id": null,
             "metadata": {},
             "name": "useTaskListPaginationQuery",
             "operationKind": "query",
-            "text": "query useTaskListPaginationQuery(\n  $count: Int!\n  $after: String\n) {\n  tasks {\n    ...useTaskListPagination\n    id\n  }\n}\n\nfragment useTaskListFragment on Task {\n  id\n  typeId\n  fields {\n    id\n    fieldId\n    meta {\n      __typename\n      ... on SliderFieldMeta {\n        fieldType\n        label\n        disabled\n        required\n        max\n        min\n        step\n      }\n      ... on SwitchFieldMeta {\n        fieldType\n        label\n        disabled\n        required\n      }\n      ... on ChoiceFieldMeta {\n        fieldType\n        helperText\n        label\n        defaultValue\n        options {\n          text\n          value\n        }\n        required\n      }\n      ... on TextFieldMeta {\n        fieldType\n        helperText\n        label\n        inputType\n        min\n        max\n        maxLength\n        minLength\n        required\n      }\n    }\n    value {\n      __typename\n      ... on SliderFieldValue {\n        progress\n      }\n      ... on SwitchFieldValue {\n        enabled\n      }\n      ... on ChoiceFieldValue {\n        id\n      }\n      ... on TextFieldValue {\n        text\n      }\n    }\n  }\n}\n\nfragment useTaskListPagination on Tasks {\n  id\n  list(first: $count, after: $after) {\n    edges {\n      cursor\n      node {\n        id\n        ...useTaskListFragment\n        __typename\n      }\n    }\n    pageInfo {\n      hasNextPage\n      endCursor\n    }\n  }\n}\n"
+            "text": "query useTaskListPaginationQuery(\n  $count: Int!\n  $after: String\n) {\n  ...useTaskListPagination\n}\n\nfragment useTaskListFragment on Task {\n  id\n  typeId\n  fields {\n    id\n    fieldId\n    meta {\n      __typename\n      ... on SliderFieldMeta {\n        fieldType\n        label\n        disabled\n        required\n        max\n        min\n        step\n      }\n      ... on SwitchFieldMeta {\n        fieldType\n        label\n        disabled\n        required\n      }\n      ... on ChoiceFieldMeta {\n        fieldType\n        helperText\n        label\n        defaultValue\n        options {\n          text\n          value\n        }\n        required\n      }\n      ... on TextFieldMeta {\n        fieldType\n        helperText\n        label\n        inputType\n        min\n        max\n        maxLength\n        minLength\n        required\n      }\n    }\n    value {\n      __typename\n      ... on SliderFieldValue {\n        progress\n      }\n      ... on SwitchFieldValue {\n        enabled\n      }\n      ... on ChoiceFieldValue {\n        id\n      }\n      ... on TextFieldValue {\n        text\n      }\n    }\n  }\n}\n\nfragment useTaskListPagination on Query {\n  tasks {\n    id\n    list(first: $count, after: $after) {\n      edges {\n        cursor\n        node {\n          id\n          ...useTaskListFragment\n          __typename\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n}\n"
         }
     } as any;
 })();
-(node as any).hash = '64b5b0b9167691dd06bd6155576001f4';
+(node as any).hash = '10ec46ed37e93fa31a64d2dca5e9adc4';
 export default node;

@@ -7,9 +7,7 @@ import {
 
 const query = graphql`
   query useTaskListQuery($count: Int!, $after: String) {
-    tasks {
-      ...useTaskListPagination
-    }
+    ...useTaskListPagination
     settings {
       id
       taskList {

@@ -5,20 +5,22 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type useTaskListPagination = {
-    readonly id: string;
-    readonly list: {
-        readonly edges: ReadonlyArray<{
-            readonly cursor: string | null;
-            readonly node: {
-                readonly id: string;
-                readonly " $fragmentRefs": FragmentRefs<"useTaskListFragment">;
+    readonly tasks: {
+        readonly id: string;
+        readonly list: {
+            readonly edges: ReadonlyArray<{
+                readonly cursor: string | null;
+                readonly node: {
+                    readonly id: string;
+                    readonly " $fragmentRefs": FragmentRefs<"useTaskListFragment">;
+                } | null;
+            } | null> | null;
+            readonly pageInfo: {
+                readonly hasNextPage: boolean;
+                readonly endCursor: string | null;
             } | null;
-        } | null> | null;
-        readonly pageInfo: {
-            readonly hasNextPage: boolean;
-            readonly endCursor: string | null;
-        } | null;
-    };
+        };
+    } | null;
     readonly " $refType": "useTaskListPagination";
 };
 export type useTaskListPagination$data = useTaskListPagination;
@@ -56,6 +58,7 @@ const node: ReaderFragment = (function () {
                     "cursor": "after",
                     "direction": "forward",
                     "path": [
+                        "tasks",
                         "list"
                     ]
                 }
@@ -63,77 +66,88 @@ const node: ReaderFragment = (function () {
         },
         "name": "useTaskListPagination",
         "selections": [
-            (v0 /*: any*/),
             {
-                "alias": "list",
+                "alias": null,
                 "args": null,
-                "concreteType": "TaskConnection_list",
+                "concreteType": "Tasks",
                 "kind": "LinkedField",
-                "name": "__TaskConnection_list_connection",
+                "name": "tasks",
                 "plural": false,
                 "selections": [
+                    (v0 /*: any*/),
                     {
-                        "alias": null,
+                        "alias": "list",
                         "args": null,
-                        "concreteType": "TaskConnection_listEdge",
+                        "concreteType": "TaskConnection_list",
                         "kind": "LinkedField",
-                        "name": "edges",
-                        "plural": true,
-                        "selections": [
-                            {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "cursor",
-                                "storageKey": null
-                            },
-                            {
-                                "alias": null,
-                                "args": null,
-                                "concreteType": "Task",
-                                "kind": "LinkedField",
-                                "name": "node",
-                                "plural": false,
-                                "selections": [
-                                    (v0 /*: any*/),
-                                    {
-                                        "alias": null,
-                                        "args": null,
-                                        "kind": "ScalarField",
-                                        "name": "__typename",
-                                        "storageKey": null
-                                    },
-                                    {
-                                        "args": null,
-                                        "kind": "FragmentSpread",
-                                        "name": "useTaskListFragment"
-                                    }
-                                ],
-                                "storageKey": null
-                            }
-                        ],
-                        "storageKey": null
-                    },
-                    {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "PageInfo",
-                        "kind": "LinkedField",
-                        "name": "pageInfo",
+                        "name": "__TaskConnection_list_connection",
                         "plural": false,
                         "selections": [
                             {
                                 "alias": null,
                                 "args": null,
-                                "kind": "ScalarField",
-                                "name": "hasNextPage",
+                                "concreteType": "TaskConnection_listEdge",
+                                "kind": "LinkedField",
+                                "name": "edges",
+                                "plural": true,
+                                "selections": [
+                                    {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "cursor",
+                                        "storageKey": null
+                                    },
+                                    {
+                                        "alias": null,
+                                        "args": null,
+                                        "concreteType": "Task",
+                                        "kind": "LinkedField",
+                                        "name": "node",
+                                        "plural": false,
+                                        "selections": [
+                                            (v0 /*: any*/),
+                                            {
+                                                "alias": null,
+                                                "args": null,
+                                                "kind": "ScalarField",
+                                                "name": "__typename",
+                                                "storageKey": null
+                                            },
+                                            {
+                                                "args": null,
+                                                "kind": "FragmentSpread",
+                                                "name": "useTaskListFragment"
+                                            }
+                                        ],
+                                        "storageKey": null
+                                    }
+                                ],
                                 "storageKey": null
                             },
                             {
                                 "alias": null,
                                 "args": null,
-                                "kind": "ScalarField",
-                                "name": "endCursor",
+                                "concreteType": "PageInfo",
+                                "kind": "LinkedField",
+                                "name": "pageInfo",
+                                "plural": false,
+                                "selections": [
+                                    {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "hasNextPage",
+                                        "storageKey": null
+                                    },
+                                    {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "endCursor",
+                                        "storageKey": null
+                                    }
+                                ],
                                 "storageKey": null
                             }
                         ],
@@ -143,9 +157,9 @@ const node: ReaderFragment = (function () {
                 "storageKey": null
             }
         ],
-        "type": "Tasks",
+        "type": "Query",
         "abstractKey": null
     } as any;
 })();
-(node as any).hash = '4cf5d13981a851338ba6ff2aac6c43aa';
+(node as any).hash = '8b85e54e3ca78ddaa148304496b78666';
 export default node;
