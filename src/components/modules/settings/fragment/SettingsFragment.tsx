@@ -17,15 +17,15 @@ import { DeleteForever, Done, ExpandMore } from '@material-ui/icons';
 import React, { FC, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { MODULES_IDS } from '../../../../constans';
+import SubscriptionsList from '../subscriptions/list/SubscriptionsList';
 import useCleanApplicationMutation from './useCleanApplicationMutation';
 import useDeleteSubscriptionMutation from './useDeleteSubscriptionMutation';
 import registerUserSubscription from '../../../../service-worker/registerUserSubscription';
 import NotificationsGeneralFragment from '../notifications/general/NotificationsGeneralFragment';
 import NotificationsTypesFragment from '../notifications/types/NotificationsTypesFragment';
-import useSettingsFragmentStyles from '../subscriptions/fragment/useSettingsFragmentStyles';
-import SubscriptionsPagination from '../subscriptions/pagination/SubscriptionsPagination';
 import { useSettingsFragment$key } from './__generated__/useSettingsFragment.graphql';
 import useSettingsFragment from './useSettingsFragment';
+import useSettingsStyles from './useSettingsStyles';
 
 export interface SettingsFragmentProps {
   data: useSettingsFragment$key;
@@ -33,7 +33,7 @@ export interface SettingsFragmentProps {
 
 const SettingsFragment: FC<SettingsFragmentProps> = (props) => {
   const data = useSettingsFragment(props.data);
-  const classes = useSettingsFragmentStyles();
+  const classes = useSettingsStyles();
   const [cleanApplicationDialogOpen, setCleanApplicationDialogOpen] = useState(false);
   const history = useHistory();
   const deleteSubscriptionMutation = useDeleteSubscriptionMutation(data.notifications.id);
@@ -98,7 +98,7 @@ const SettingsFragment: FC<SettingsFragmentProps> = (props) => {
                 <Typography>Subscriptions</Typography>
               </ExpansionPanelSummary>
               <ExpansionPanelDetails className={classes.subscriptionsPaginationExpansionPanel}>
-                <SubscriptionsPagination
+                <SubscriptionsList
                   className={classes.list}
                   data={data.notifications}
                   onDelete={onDeleteSubscription}

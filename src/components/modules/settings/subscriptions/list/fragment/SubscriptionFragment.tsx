@@ -16,9 +16,9 @@ import {
 } from '@material-ui/icons';
 import CloudOffIcon from '@material-ui/icons/CloudOff';
 import React, { FC, useState } from 'react';
-import { DEVICES, STATUSES } from '../../../../../constans';
+import { DEVICES, STATUSES } from '../../../../../../constans';
+import useSubscriptionsFragmentStyles from './useSubscriptionsFragmentStyles';
 import useTestSubscriptionMutation from './useTestSubscriptionMutation';
-import useSubscriptionFragmentStyles from '../pagination/useSubscriptionFragmentStyles';
 import { useSubscriptionFragment$key } from './__generated__/useSubscriptionFragment.graphql';
 import useSubscriptionFragment from './useSubscriptionFragment';
 
@@ -36,7 +36,7 @@ interface SubscriptionFragmentProps {
 
 const SubscriptionFragment: FC<SubscriptionFragmentProps> = (props) => {
   const { id, userDeviceType, userAgent } = useSubscriptionFragment(props.data);
-  const classes = useSubscriptionFragmentStyles();
+  const classes = useSubscriptionsFragmentStyles();
   const [statusCode, setStatusCode] = useState('');
   const testSubscriptionMutation = useTestSubscriptionMutation();
 

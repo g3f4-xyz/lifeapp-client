@@ -6,7 +6,7 @@ import {
 } from './__generated__/useSettingsQuery.graphql';
 
 const query = graphql`
-  query useSettingsQuery($count: Int!, $after: String) {
+  query useSettingsQuery {
     settings {
       ...useSettingsFragment
     }

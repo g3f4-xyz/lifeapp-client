@@ -16,7 +16,7 @@ const query = graphql`
       types {
         ...useNotificationsTypesFragment
       }
-      ...useSubscriptionsPagination
+      ...useSubscriptionsListFragment
     }
   }
 `;

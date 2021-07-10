@@ -6,9 +6,9 @@ import {
 } from './__generated__/useTaskTypeListQuery.graphql';
 
 const query = graphql`
-  query useTaskTypeListQuery($count: Int!, $after: String) {
+  query useTaskTypeListQuery {
     taskTypes {
-      ...useTaskTypePagination
+      ...useTaskTypeListFragment
     }
   }
 `;

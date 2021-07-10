@@ -11,4 +11,4 @@ const query = graphql`
   }
 `;
 
-export default (data: useTaskTypeFragment$key) => useFragment<useTaskTypeFragment$key>(query, data);
+export default (data: useTaskTypeFragment$key) => useFragment(query, data);

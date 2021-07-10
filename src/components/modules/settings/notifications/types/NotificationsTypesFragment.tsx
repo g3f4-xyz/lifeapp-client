@@ -13,9 +13,9 @@ import {
 import { ExpandMore } from '@material-ui/icons';
 import React, { ChangeEvent, FC } from 'react';
 import { TASK_TYPE, TaskTypeEnum } from '../../../../../constans';
+import { useNotificationsTypesFragment$key } from './__generated__/useNotificationsTypesFragment.graphql';
 import useSaveNotificationsTypesSettingMutation from './useSaveNotificationsTypesSettingMutation';
 import TaskTypeIcon from '../../../../display/task-type-icon/TaskTypeIcon';
-import { useNotificationsTypesFragment$key } from './__generated__/useNotificationsTypesFragment.graphql';
 import useNotificationsTypesFragment from './useNotificationsTypesFragment';
 import useNotificationsTypesFragmentStyles from './useNotificationsTypesFragmentStyles';
 
