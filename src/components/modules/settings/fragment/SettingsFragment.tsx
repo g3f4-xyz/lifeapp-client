@@ -5,9 +5,9 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Grid,
   IconButton,
   Paper,
@@ -93,18 +93,18 @@ const SettingsFragment: FC<SettingsFragmentProps> = (props) => {
             <NotificationsTypesFragment data={data.notifications.types} />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
-            <ExpansionPanel className={classes.subscriptionsWrapper}>
-              <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+            <Accordion className={classes.subscriptionsWrapper}>
+              <AccordionSummary expandIcon={<ExpandMore />}>
                 <Typography>Subscriptions</Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails className={classes.subscriptionsPaginationExpansionPanel}>
+              </AccordionSummary>
+              <AccordionDetails className={classes.subscriptionsPaginationExpansionPanel}>
                 <SubscriptionsList
                   className={classes.list}
                   data={data.notifications}
                   onDelete={onDeleteSubscription}
                 />
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
+              </AccordionDetails>
+            </Accordion>
           </Grid>
         </Grid>
         {Notification.permission === 'granted' && (

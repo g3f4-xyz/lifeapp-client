@@ -1,7 +1,7 @@
 import {
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   List,
   ListItem,
   ListItemIcon,
@@ -51,11 +51,11 @@ const NotificationsGeneral: FC<NotificationsGeneralProps> = (props) => {
   };
 
   return (
-    <ExpansionPanel className={classes.wrapper}>
-      <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+    <Accordion className={classes.wrapper}>
+      <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography>General</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      </AccordionSummary>
+      <AccordionDetails>
         <List className={classes.list}>
           <ListItem>
             <ListItemIcon>
@@ -76,8 +76,8 @@ const NotificationsGeneral: FC<NotificationsGeneralProps> = (props) => {
             </ListItemSecondaryAction>
           </ListItem>
         </List>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

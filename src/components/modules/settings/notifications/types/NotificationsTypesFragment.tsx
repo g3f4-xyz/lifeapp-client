@@ -1,7 +1,7 @@
 import {
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   List,
   ListItem,
   ListItemIcon,
@@ -40,11 +40,11 @@ const NotificationsTypes: FC<NotificationsTypesProps> = (props) => {
     };
 
   return (
-    <ExpansionPanel className={classes.wrapper}>
-      <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+    <Accordion className={classes.wrapper}>
+      <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography>Types</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      </AccordionSummary>
+      <AccordionDetails>
         <List className={classes.list}>
           {Object.keys(TASK_TYPE).map((key) => (
             <ListItem key={key}>
@@ -61,8 +61,8 @@ const NotificationsTypes: FC<NotificationsTypesProps> = (props) => {
             </ListItem>
           ))}
         </List>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 

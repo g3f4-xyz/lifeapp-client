@@ -1,8 +1,8 @@
 import {
   Button,
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Tooltip,
   Typography,
 } from '@material-ui/core';
@@ -33,12 +33,14 @@ const TaskListFragment: FC<TaskListFragmentProps> = (props) => {
   const classes = useTaskListFragmentStyles();
 
   return (
-    <ExpansionPanel>
-      <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+    <Accordion>
+      <AccordionSummary expandIcon={<ExpandMore />}>
         <div>
           {statusField && statusField.value && (
             <Tooltip title={`Status: ${statusField.value.id as TaskStatusEnum}`}>
-              <StatusIcon status={statusField.value.id as TaskStatusEnum} />
+              <span ref={null}>
+                <StatusIcon status={statusField.value.id as TaskStatusEnum} />
+              </span>
             </Tooltip>
           )}
           {priorityField && priorityField.value && priorityField.value.enabled && (
@@ -51,15 +53,15 @@ const TaskListFragment: FC<TaskListFragmentProps> = (props) => {
           {titleField && titleField.value && titleField.value.text}
         </Typography>
         <TaskTypeIcon type={typeId} className={classes.taskTypeIcon} />
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails className={classes.content}>
+      </AccordionSummary>
+      <AccordionDetails className={classes.content}>
         <div>{noteField && noteField.value && noteField.value.text}</div>
         <div className={classes.actions}>
           <Button onClick={() => onEdit(typeId, id)}>Edit</Button>
           <Button onClick={() => onDelete(id)}>Delete</Button>
         </div>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 
