@@ -1,7 +1,7 @@
-import React from "react";
-import { ITEMS_PER_PAGE } from "../../../constans";
-import TaskListPagination from "./pagination/TaskListPagination";
-import useTaskListQuery from "./useTaskListQuery";
+import React from 'react';
+import { ITEMS_PER_PAGE } from '../../../constans';
+import TaskListPagination from './pagination/TaskListPagination';
+import useTaskListQuery from './useTaskListQuery';
 
 export default function TaskList() {
   const data = useTaskListQuery({

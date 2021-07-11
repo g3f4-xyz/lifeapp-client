@@ -1,6 +1,9 @@
-import graphql from "babel-plugin-relay/macro";
-import { useLazyLoadQuery } from "react-relay";
-import { useTaskListQuery, useTaskListQueryVariables } from "./__generated__/useTaskListQuery.graphql";
+import graphql from 'babel-plugin-relay/macro';
+import { useLazyLoadQuery } from 'react-relay';
+import {
+  useTaskListQuery,
+  useTaskListQueryVariables,
+} from './__generated__/useTaskListQuery.graphql';
 
 const query = graphql`
   query useTaskListQuery {

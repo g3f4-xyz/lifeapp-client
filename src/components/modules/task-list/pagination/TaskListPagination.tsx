@@ -66,7 +66,7 @@ export default function TaskListPagination(props: TaskListPaginationProps) {
       return [...taskType, filter];
     }
 
-    return taskType.filter(activeFilter => activeFilter !== filter);
+    return taskType.filter((activeFilter) => activeFilter !== filter);
   };
 
   const handleMore = () => {
@@ -135,7 +135,7 @@ export default function TaskListPagination(props: TaskListPaginationProps) {
         <Fragment>
           <Grid container spacing={1}>
             {edges.map(
-              edge =>
+              (edge) =>
                 edge &&
                 edge.node && (
                   <Grid key={edge.node.id} item xs={12} sm={12} md={6} lg={4} xl={3}>

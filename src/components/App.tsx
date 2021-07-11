@@ -1,9 +1,9 @@
-import { useAuth0 } from "@auth0/auth0-react";
-import React, { useEffect, useState } from "react";
-import { Redirect, Route } from "react-router-dom";
-import Auth0TokenContext from "./Auth0TokenContext";
-import ErrorBoundary from "./containers/error-boundary/ErrorBoundary";
-import Loader from "./display/loader/Loader";
+import { useAuth0 } from '@auth0/auth0-react';
+import React, { useEffect, useState } from 'react';
+import { Redirect, Route } from 'react-router-dom';
+import Auth0TokenContext from './Auth0TokenContext';
+import ErrorBoundary from './containers/error-boundary/ErrorBoundary';
+import Loader from './display/loader/Loader';
 
 const Application = React.lazy(() => import('./Application'));
 const Login = React.lazy(() => import('./modules/login/Login'));

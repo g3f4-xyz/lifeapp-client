@@ -89,4 +89,3 @@ export type TaskTypeEnum = TaskTypeId;
 export type TaskStatusEnum = TaskStatus;
 
 export const DATE_TIME_FORMAT = `YYYY-MM-DDTHH:mm`;
-

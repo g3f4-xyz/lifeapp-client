@@ -7,8 +7,9 @@ import { useAuth0 } from '@auth0/auth0-react';
 
 const AppMenu: FC = () => {
   const history = useHistory();
-  const [anchorEl, setAnchorEl] =
-    useState<MouseEvent<HTMLButtonElement>['currentTarget'] | null>(null);
+  const [anchorEl, setAnchorEl] = useState<MouseEvent<HTMLButtonElement>['currentTarget'] | null>(
+    null,
+  );
   const { isExact: gridView } = useRouteMatch('/dashboard') || {};
   const { logout } = useAuth0();
   const handleClick = (event: MouseEvent<HTMLButtonElement>): void => {

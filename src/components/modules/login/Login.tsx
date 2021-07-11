@@ -1,18 +1,18 @@
+import { useAuth0 } from '@auth0/auth0-react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
-import React, { FC, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
 import useLoginStyles from './useLoginStyles';
-import { useAuth0 } from '@auth0/auth0-react';
 
 interface UserInfo {
   picture: string;
   name: string;
 }
 
-const Login: FC = () => {
+export default function Login() {
   const classes = useLoginStyles();
   const history = useHistory();
   const { user, isAuthenticated, loginWithRedirect } = useAuth0<UserInfo>();
@@ -61,6 +61,4 @@ const Login: FC = () => {
       </div>
     </div>
   );
-};
-
-export default Login;
+}
