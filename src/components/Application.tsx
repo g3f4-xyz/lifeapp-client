@@ -1,17 +1,17 @@
-import React, { FC, useCallback, useContext, useState } from 'react';
-import { useRouteMatch } from 'react-router-dom';
-import { Redirect, Route, Switch } from 'react-router-dom';
-import { MODULES_IDS } from '../constans';
-import AppContext, { TaskParams } from './AppContext';
-import ErrorBoundary from './containers/error-boundary/ErrorBoundary';
-import ResponsiveGrid, { ResponsiveGridItem } from './containers/responsive-grid/ResponsiveGrid';
-import AppMenu from './display/app-menu/AppMenu';
-import SettingsQuery from './modules/settings/SettingsQuery';
-import TaskList from './modules/task-list/TaskList';
-import TaskTypeList from './modules/task-type-list/TaskTypeList';
-import Task from './modules/task/Task';
-import { RelayEnvironmentProvider } from 'relay-hooks';
-import RelayEnvironmentContext from '../contexts/RelayEnvironmentContext';
+import React, { FC, useCallback, useContext, useState } from "react";
+import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom";
+import { RelayEnvironmentProvider } from "relay-hooks";
+import { MODULES_IDS } from "../constans";
+import createRelayEnvironment from "../createRelayEnvironment";
+import AppContext, { TaskParams } from "./AppContext";
+import Auth0TokenContext from "./Auth0TokenContext";
+import ErrorBoundary from "./containers/error-boundary/ErrorBoundary";
+import ResponsiveGrid, { ResponsiveGridItem } from "./containers/responsive-grid/ResponsiveGrid";
+import AppMenu from "./display/app-menu/AppMenu";
+import SettingsQuery from "./modules/settings/SettingsQuery";
+import TaskList from "./modules/task-list/TaskList";
+import TaskTypeList from "./modules/task-type-list/TaskTypeList";
+import Task from "./modules/task/Task";
 
 const Application: FC = () => {
   const [openedTasksParams, setOpenedTasksParams] = useState<TaskParams[]>([]);
@@ -21,7 +21,8 @@ const Application: FC = () => {
     path: '',
     url: '',
   };
-  const environment = useContext(RelayEnvironmentContext);
+  const token = useContext(Auth0TokenContext)
+  const environment = createRelayEnvironment(token);
 
   const addTaskParam = useCallback(
     (taskParams: TaskParams) => {
