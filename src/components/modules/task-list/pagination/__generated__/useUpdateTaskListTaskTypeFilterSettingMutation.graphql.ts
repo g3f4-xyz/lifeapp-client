@@ -3,7 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO" | "%future added value";
+export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
 export type UpdateTaskListTaskTypeFilterSettingInput = {
     clientMutationId?: string | null;
     taskType?: Array<TaskTypeId | null> | null;

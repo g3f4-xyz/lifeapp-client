@@ -3,7 +3,7 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO" | "%future added value";
+export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO";
 export type UpdateTaskListStatusFilterSettingInput = {
     clientMutationId?: string | null;
     status?: TaskStatus | null;

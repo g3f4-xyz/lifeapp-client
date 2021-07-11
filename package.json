@@ -1,6 +1,6 @@
 {
   "name": "lifeapp-client",
-  "version": "2.3.0",
+  "version": "3.0.0",
   "homepage": "https://g3f4-xyz.github.io/lifeapp-client/",
   "license": "MIT",
   "scripts": {
@@ -9,8 +9,8 @@
     "get:remote:schema": "fetch-graphql-schema https://lifeapp-server.herokuapp.com/graphql -o graphql.schema.json",
     "lint": "eslint './src/**/*.{ts,tsx}'",
     "lint:fix": "eslint './src/**/*.{ts,tsx}' --fix",
-    "relay": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript",
-    "relay:watch": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript --watch --noFutureProofEnums",
+    "relay": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript --noFutureProofEnums",
+    "relay:watch": "relay-compiler --src ./src --schema ./graphql.schema.json --language typescript --noFutureProofEnums --watch",
     "relay:clear": "find . -name __generated__ -exec rm -rf {} \\;",
     "start": "react-scripts start",
     "start:remote": "REACT_APP_GRAPHQL_HOST=https://lifeapp-server.herokuapp.com/graphql react-scripts start",
@@ -63,8 +63,5 @@
     "fetch-graphql-schema": "^0.2.1",
     "prettier": "2.3.0",
     "relay-config": "11.0.2"
-  },
-  "babelMacros": {
-    "relay": {}
   }
 }

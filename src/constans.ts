@@ -5,8 +5,6 @@ import {
 } from './components/modules/task/fragment/__generated__/useTaskFragment.graphql';
 import { TaskTypeId } from './components/modules/task-type-list/fragment/__generated__/useTaskTypeFragment.graphql';
 
-// eslint-disable-next-line relay/no-future-added-value
-export type ExcludeFutureAdded<T> = Omit<T, '%future added value'>;
 export type UnionKeyToValue<U extends string, V = U> = {
   [K in U]: V;
 };
@@ -26,7 +24,7 @@ export const MODULES_IDS: { [key: string]: MODULE } = {
   TASK_TYPE_LIST: 'taskTypeList',
 };
 
-export const FIELD_ID: ExcludeFutureAdded<UnionKeyToValue<FieldId>> = {
+export const FIELD_ID: UnionKeyToValue<FieldId> = {
   TITLE: 'TITLE',
   PRIORITY: 'PRIORITY',
   PROGRESS: 'PROGRESS',
@@ -43,7 +41,7 @@ export const FIELD_ID: ExcludeFutureAdded<UnionKeyToValue<FieldId>> = {
   NOTIFICATION: 'NOTIFICATION',
 };
 
-export const FIELD_TYPE: ExcludeFutureAdded<UnionKeyToValue<FieldType>> = {
+export const FIELD_TYPE: UnionKeyToValue<FieldType> = {
   CHOICE: 'CHOICE',
   SLIDER: 'SLIDER',
   SWITCH: 'SWITCH',
@@ -69,7 +67,7 @@ export const STATUSES: { [key: string]: STATUS } = {
   NOT_REGISTERED: '410',
 };
 
-export const TASK_TYPE: ExcludeFutureAdded<UnionKeyToValue<TaskTypeId>> = {
+export const TASK_TYPE: UnionKeyToValue<TaskTypeId> = {
   EVENT: 'EVENT',
   GOAL: 'GOAL',
   MEETING: 'MEETING',
@@ -79,7 +77,7 @@ export const TASK_TYPE: ExcludeFutureAdded<UnionKeyToValue<TaskTypeId>> = {
 
 export type TASK_TYPE_VALUE_MAP<V> = KEYOF_TYPE_VALUE_MAP<typeof TASK_TYPE, V>;
 
-export const TASK_STATUSES: ExcludeFutureAdded<UnionKeyToValue<TaskStatus>> = {
+export const TASK_STATUSES: UnionKeyToValue<TaskStatus> = {
   TODO: 'TODO',
   IN_PROGRESS: 'IN_PROGRESS',
   DONE: 'DONE',
@@ -92,8 +90,3 @@ export type TaskStatusEnum = TaskStatus;
 
 export const DATE_TIME_FORMAT = `YYYY-MM-DDTHH:mm`;
 
-// eslint-disable-next-line no-undef
-export const HOST = process.env.REACT_APP_GRAPHQL_HOST
-  ? // eslint-disable-next-line no-undef
-    process.env.REACT_APP_GRAPHQL_HOST.slice(0, -8)
-  : '';

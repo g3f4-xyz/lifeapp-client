@@ -4,8 +4,8 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO" | "%future added value";
-export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO" | "%future added value";
+export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO";
+export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
 export type useTaskListQueryVariables = {};
 export type useTaskListQueryResponse = {
     readonly settings: {
