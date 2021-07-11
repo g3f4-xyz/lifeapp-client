@@ -25,6 +25,7 @@ export default function App() {
 function AppContent() {
   const [token, setToken] = useState('unauthorised');
   const { getAccessTokenSilently } = useAuth0();
+
   useEffect(() => {
     getAccessTokenSilently().then((accessToken) => {
       setToken(accessToken);

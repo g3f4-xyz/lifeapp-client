@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useContext, useState } from 'react';
+import React, { useCallback, useContext, useState } from 'react';
 import { Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { RelayEnvironmentProvider } from 'relay-hooks';
 import { MODULES_IDS } from '../constans';
@@ -13,7 +13,7 @@ import TaskList from './modules/task-list/TaskList';
 import TaskTypeList from './modules/task-type-list/TaskTypeList';
 import Task from './modules/task/Task';
 
-const Application: FC = () => {
+export default function Application() {
   const [openedTasksParams, setOpenedTasksParams] = useState<TaskParams[]>([]);
   const match = useRouteMatch() || {
     params: '',
@@ -23,7 +23,6 @@ const Application: FC = () => {
   };
   const token = useContext(Auth0TokenContext);
   const environment = createRelayEnvironment(token);
-
   const addTaskParam = useCallback(
     (taskParams: TaskParams) => {
       const duplicate =
@@ -117,6 +116,4 @@ const Application: FC = () => {
       </RelayEnvironmentProvider>
     </ErrorBoundary>
   );
-};
-
-export default Application;
+}

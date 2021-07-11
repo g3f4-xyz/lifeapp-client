@@ -27,6 +27,7 @@ try {
   if (Notification.permission === 'granted') {
     setTimeout(async () => {
       const registration = await navigator.serviceWorker.ready;
+
       console.info(['navigator.serviceWorker.ready'], registration);
       await registerUserSubscription(registration, { silent: true });
     }, 3000);
@@ -38,11 +39,9 @@ try {
 const onRedirectCallback = (appState: AppState) => {
   history.push(appState && appState.returnTo ? appState.returnTo : window.location.pathname);
 };
-
 // Please see https://auth0.github.io/auth0-react/interfaces/auth0provideroptions.html
 // for a full list of the available properties on the provider
 const config = getConfig();
-
 const providerConfig = {
   domain: config.domain,
   clientId: config.clientId,

@@ -16,6 +16,7 @@ const mutation = graphql`
 
 export default () => {
   const [mutate] = useMutation<useTestSubscriptionMutation>(mutation);
+
   return ({ subscriptionId }: TestSubscriptionInput) =>
     mutate({
       variables: { input: { subscriptionId } },

@@ -15,7 +15,6 @@ const AppMenu: FC = () => {
   const handleClick = (event: MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };

@@ -28,6 +28,7 @@ export default (parentID: string) => {
       deletedIDFieldName: 'subscriptionId',
     },
   ];
+
   return (input: DeleteSubscriptionInput) =>
     mutate({
       variables: { input },

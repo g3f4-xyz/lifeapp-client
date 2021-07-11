@@ -23,11 +23,13 @@ const mutation = graphql`
 
 export default (id: string) => {
   const [mutate] = useMutation<useUpdateTaskFieldMutation>(mutation);
+
   return (input: UpdateTaskFieldInput) =>
     mutate({
       variables: { input },
       optimisticUpdater(proxyStore) {
         const [valueKey] = Object.keys(input.value);
+
         if (valueKey !== 'ownValue') {
           const fieldRecord = proxyStore.get(id);
           const valueRecord = fieldRecord && fieldRecord.getLinkedRecord('value');
@@ -41,6 +43,7 @@ export default (id: string) => {
         const mutationRecord = store.getRootField('updateTaskField');
         const updatedFieldValue = mutationRecord && mutationRecord.getLinkedRecord('updatedValue');
         const fieldRecord = store.get(id);
+
         if (fieldRecord && updatedFieldValue) {
           fieldRecord.setLinkedRecord(updatedFieldValue, 'value');
         }

@@ -39,11 +39,9 @@ const SubscriptionFragment: FC<SubscriptionFragmentProps> = (props) => {
   const classes = useSubscriptionsFragmentStyles();
   const [statusCode, setStatusCode] = useState('');
   const testSubscriptionMutation = useTestSubscriptionMutation();
-
   const handleDelete = () => {
     props.onDelete(id);
   };
-
   const handleTest = async () => {
     const { testSubscription } = await testSubscriptionMutation({
       subscriptionId: id,
@@ -53,7 +51,6 @@ const SubscriptionFragment: FC<SubscriptionFragmentProps> = (props) => {
       setStatusCode(testSubscription.statusCode);
     }
   };
-
   const UserDeviceTypeIcon = userDeviceType
     ? DEVICES_ICONS[userDeviceType]
     : DEVICES_ICONS[DEVICES.OTHER];

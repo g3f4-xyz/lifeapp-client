@@ -25,7 +25,6 @@ const NotificationsGeneral: FC<NotificationsGeneralProps> = (props) => {
   const { show, vibrate } = useNotificationsGeneralFragment(props.data);
   const classes = useNotificationsGeneralFragmentStyles();
   const saveNotificationsGeneralSettingMutation = useSaveNotificationsGeneralSettingMutation();
-
   const handleShowChange = async (
     _: ChangeEvent<HTMLInputElement>,
     changedShow: boolean,
@@ -37,7 +36,6 @@ const NotificationsGeneral: FC<NotificationsGeneralProps> = (props) => {
       },
     });
   };
-
   const handleVibrateChange = async (
     _: ChangeEvent<HTMLInputElement>,
     changedVibrate: boolean,

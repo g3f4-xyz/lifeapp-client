@@ -19,6 +19,7 @@ const mutation = graphql`
 
 export default (parentID: string) => {
   const [mutate] = useMutation<useUpdateTaskListTaskTypeFilterSettingMutation>(mutation);
+
   return ({ taskType }: UpdateTaskListTaskTypeFilterSettingInput) =>
     mutate({
       variables: { input: { taskType } },

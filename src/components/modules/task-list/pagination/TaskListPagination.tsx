@@ -54,7 +54,6 @@ export default function TaskListPagination(props: TaskListPaginationProps) {
     },
     [history],
   );
-
   const updateTaskTypeFilter = (checked: boolean, filter: TaskTypeEnum): TaskTypeEnum[] => {
     const {
       settings: {
@@ -68,17 +67,14 @@ export default function TaskListPagination(props: TaskListPaginationProps) {
 
     return taskType.filter((activeFilter) => activeFilter !== filter);
   };
-
   const handleMore = () => {
     if (!isLoading) {
       loadMore();
     }
   };
-
   const handleDelete = async (id: string): Promise<void> => {
     await deleteTaskMutation({ id });
   };
-
   const handleFilterByTitle = async (event: ChangeEvent<HTMLInputElement>) => {
     setLoading(true);
     await updateTaskListTitleFilterSetting({ title: event.target.value });
@@ -87,7 +83,6 @@ export default function TaskListPagination(props: TaskListPaginationProps) {
 
     setLoading(false);
   };
-
   const handleFilterByStatus = async (event: ChangeEvent<HTMLSelectElement>) => {
     setLoading(true);
 
@@ -99,7 +94,6 @@ export default function TaskListPagination(props: TaskListPaginationProps) {
 
     setLoading(false);
   };
-
   const handleFilterByTaskType = async (event: ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = event.target;
     const updatedTaskTypeFilter = updateTaskTypeFilter(checked, value as TaskTypeEnum);

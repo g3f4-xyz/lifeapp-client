@@ -28,7 +28,6 @@ interface TaskFragmentProps {
 const TaskFragment: FC<TaskFragmentProps> = (props) => {
   const { data } = props;
   const history = useHistory();
-
   const handleDone = () => {
     history.push(`/app/${MODULES_IDS.TASK_LIST}`);
   };

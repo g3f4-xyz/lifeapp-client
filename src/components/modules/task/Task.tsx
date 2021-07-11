@@ -15,13 +15,11 @@ export default function Task(ownProps: TaskProps) {
   const params = useParams();
   const { addTaskParam } = useContext(AppContext);
   const firstParam = params[0];
-
   const [taskType, taskId] = firstParam ? firstParam.split('/') : [];
   const { data, error } = useTaskQuery({
     id: ownProps.taskId || taskId.length > 0 ? taskId : null,
     typeId: ownProps.taskType || taskType,
   });
-
   const saveParams = useCallback(() => {
     addTaskParam({
       taskId,

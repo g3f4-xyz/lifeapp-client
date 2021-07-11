@@ -17,11 +17,9 @@ export default function TaskTypeList(props: TaskTypeListProps) {
   const classes = useTaskTypeListStyles();
   const { list } = useTaskTypeListFragment(props.data);
   const history = useHistory();
-
   const handleDone = useCallback(() => {
     history.push(`/app/${MODULES_IDS.TASK_LIST}`);
   }, [history]);
-
   const taskTypes = [...list].sort((nodeA, nodeB) =>
     nodeA && nodeB ? nodeA.order - nodeB.order : 0,
   );

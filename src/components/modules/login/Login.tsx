@@ -16,11 +16,9 @@ export default function Login() {
   const classes = useLoginStyles();
   const history = useHistory();
   const { user, isAuthenticated, loginWithRedirect } = useAuth0<UserInfo>();
-
   const navigateToApp = useCallback(() => {
     history.push('/app');
   }, [history]);
-
   const handleLogIn = useCallback(async () => {
     await loginWithRedirect();
   }, [loginWithRedirect]);

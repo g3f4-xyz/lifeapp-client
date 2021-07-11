@@ -17,7 +17,6 @@ const SliderField: FC<SliderFieldProps> = (props) => {
     meta: { label, disabled, max, min, step },
   } = useSliderFieldFragment(props.data);
   const mutate = useUpdateTaskFieldMutation(id);
-
   const handleChange = async (progress: number): Promise<void> => {
     await mutate({ fieldId, value: { progress }, taskId: props.taskId });
   };

@@ -17,7 +17,6 @@ const SwitchField: FC<SwitchFieldProps> = (props) => {
     meta: { label, disabled },
   } = useSwitchFieldFragment(props.data);
   const mutate = useUpdateTaskFieldMutation(id);
-
   const handleChange = async (enabled: boolean): Promise<void> => {
     await mutate({ fieldId, value: { enabled }, taskId: props.taskId });
   };

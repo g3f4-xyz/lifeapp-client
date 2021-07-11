@@ -31,6 +31,7 @@ export default (parentID: string) => {
       deletedIDFieldName: 'deletedTaskId',
     },
   ];
+
   return (input: DeleteTaskInput) =>
     mutate({
       variables: { input },

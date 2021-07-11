@@ -38,19 +38,15 @@ const SettingsFragment: FC<SettingsFragmentProps> = (props) => {
   const history = useHistory();
   const deleteSubscriptionMutation = useDeleteSubscriptionMutation(data.notifications.id);
   const cleanApplicationMutation = useCleanApplicationMutation();
-
   const handleDone = useCallback(() => {
     history.push(`/app/${MODULES_IDS.TASK_LIST}`);
   }, [history]);
-
   const handleCleanApplicationDialogClose = () => {
     setCleanApplicationDialogOpen(false);
   };
-
   const handleCleanApplicationDialogOpen = () => {
     setCleanApplicationDialogOpen(true);
   };
-
   const handleCleanApplication = async () => {
     const { cleanApplication } = await cleanApplicationMutation({
       ownerId: data.ownerId,
@@ -59,7 +55,6 @@ const SettingsFragment: FC<SettingsFragmentProps> = (props) => {
     window.location.href =
       cleanApplication && cleanApplication.navigationUrl ? cleanApplication.navigationUrl : '';
   };
-
   const handleActivateNotifications = async () => {
     try {
       const registration = await navigator.serviceWorker.ready;
@@ -72,7 +67,6 @@ const SettingsFragment: FC<SettingsFragmentProps> = (props) => {
       // this.forceUpdate();
     }
   };
-
   const onDeleteSubscription = async (subscriptionId: string) => {
     await deleteSubscriptionMutation({
       subscriptionId,

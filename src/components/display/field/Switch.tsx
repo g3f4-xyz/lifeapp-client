@@ -13,7 +13,6 @@ export interface SwitchProps {
 
 const Switch: FC<SwitchProps> = (props) => {
   const { checked, disabled, label } = props;
-
   const handleChange = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
     props.onChange(event.target.checked);
   };

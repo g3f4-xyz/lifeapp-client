@@ -13,7 +13,6 @@ interface SliderProps
 
 const Slider: FC<SliderProps> = (props) => {
   const { max, min, step, value, disabled, label } = props;
-
   const handleChange = async (
     _event: React.ChangeEvent<HTMLInputElement>,
     value?: number | number[],

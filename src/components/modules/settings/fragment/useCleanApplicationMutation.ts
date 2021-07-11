@@ -16,6 +16,7 @@ const mutation = graphql`
 
 export default () => {
   const [mutate] = useMutation<useCleanApplicationMutation>(mutation);
+
   return ({ ownerId }: CleanApplicationInput) =>
     mutate({
       variables: { input: { ownerId } },

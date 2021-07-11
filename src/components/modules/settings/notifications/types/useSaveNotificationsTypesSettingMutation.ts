@@ -17,6 +17,7 @@ const mutation = graphql`
 
 export default () => {
   const [mutate] = useMutation<useSaveNotificationsTypesSettingMutation>(mutation);
+
   return ({ types }: SaveNotificationsTypesSettingInput) =>
     mutate({
       variables: { input: { types } },

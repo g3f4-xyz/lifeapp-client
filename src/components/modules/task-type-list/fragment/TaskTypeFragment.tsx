@@ -21,7 +21,6 @@ export default function TaskTypeFragment(
   const [info, setInfo] = useState(false);
   const { label, description, typeId } = useTaskTypeFragment(data);
   const history = useHistory();
-
   const handleAdd = useCallback(() => {
     history.push(`/app/${MODULES_IDS.TASK}/${typeId}/`);
   }, [typeId, history]);

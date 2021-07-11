@@ -30,7 +30,6 @@ const formatInputValue = (
 
   return value;
 };
-
 const parseInputValue = (value?: string, inputType?: string | null): string | undefined => {
   if (value && inputType === 'datetime-local') {
     return convertToTimeZone(value, {
@@ -40,10 +39,8 @@ const parseInputValue = (value?: string, inputType?: string | null): string | un
 
   return value;
 };
-
 const Text: FC<TextProps> = (props) => {
   const { value, max, maxLength, min, minLength, required, inputType, label, helperText } = props;
-
   const handleChange = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
     const parsedValue = parseInputValue(event.target.value, inputType);
 

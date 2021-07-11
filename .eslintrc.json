@@ -18,7 +18,15 @@
     "react/prop-types": "off",
     "relay/generated-flow-types": "off",
     "relay/unused-fields": "off",
-    "relay/must-colocate-fragment-spreads": "off"
+    "relay/must-colocate-fragment-spreads": "off",
+    "padding-line-between-statements": ["error",
+      { "blankLine": "always", "prev": "*", "next": "multiline-block-like" },
+      { "blankLine": "always", "prev": "multiline-block-like", "next": "*" },
+      { "blankLine": "always", "prev": "*", "next": ["const", "let"] },
+      { "blankLine": "always", "prev": ["const", "let"], "next": "*" },
+      { "blankLine": "never", "prev": ["const", "let"], "next": ["const", "let"] },
+      { "blankLine": "always", "prev": "*", "next": "return" }
+    ]
   },
   "settings": {
     "react": {

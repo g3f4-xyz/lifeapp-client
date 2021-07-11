@@ -31,7 +31,6 @@ export default function (token: string): Environment {
         return json;
       });
   };
-
   const network = Network.create(fetchQuery);
   const source = new RecordSource();
   const store = new Store(source);
