@@ -7,7 +7,7 @@ import Loader from './display/loader/Loader';
 import createRelayEnvironment from '../createRelayEnvironment';
 
 const Application = React.lazy(() => import('./Application'));
-const Login = React.lazy(() => import('./login/Login'));
+const Login = React.lazy(() => import('./modules/login/Login'));
 
 export default function App() {
   const { isLoading, error } = useAuth0();
