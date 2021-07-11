@@ -5,12 +5,12 @@ import TaskTypeListList from './list/TaskTypeListList';
 import useTaskTypeQuery from './useTaskTypeListQuery';
 
 const TaskTypeList: FC = () => {
-  const { props, error } = useTaskTypeQuery({ count: ITEMS_PER_PAGE });
+  const { data, error } = useTaskTypeQuery({ count: ITEMS_PER_PAGE });
 
   if (error) {
     return <div>{JSON.stringify(error)}</div>;
-  } else if (props && props.taskTypes) {
-    return <TaskTypeListList data={props.taskTypes} />;
+  } else if (data && data.taskTypes) {
+    return <TaskTypeListList data={data.taskTypes} />;
   }
 
   return <Loader />;

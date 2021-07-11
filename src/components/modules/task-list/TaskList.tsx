@@ -5,18 +5,18 @@ import TaskListPagination from './pagination/TaskListPagination';
 import useTaskListQuery from './useTaskListQuery';
 
 export default function TaskList() {
-  const { props, error } = useTaskListQuery({
+  const { data, error } = useTaskListQuery({
     count: ITEMS_PER_PAGE,
   });
 
   if (error) {
     return <div>{JSON.stringify(error)}</div>;
-  } else if (props && props.settings && props.settings) {
+  } else if (data && data.settings && data.settings) {
     return (
       <TaskListPagination
-        data={props}
-        settings={props.settings.taskList}
-        settingsId={props.settings.id}
+        data={data}
+        settings={data.settings.taskList}
+        settingsId={data.settings.id}
       />
     );
   }

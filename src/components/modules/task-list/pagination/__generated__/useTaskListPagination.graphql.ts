@@ -32,7 +32,10 @@ export type useTaskListPagination$key = {
 
 
 const node: ReaderFragment = (function () {
-    var v0 = {
+    var v0 = [
+        "tasks",
+        "list"
+    ], v1 = {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
@@ -42,12 +45,14 @@ const node: ReaderFragment = (function () {
     return {
         "argumentDefinitions": [
             {
-                "kind": "RootArgument",
-                "name": "after"
+                "defaultValue": 10,
+                "kind": "LocalArgument",
+                "name": "count"
             },
             {
-                "kind": "RootArgument",
-                "name": "count"
+                "defaultValue": null,
+                "kind": "LocalArgument",
+                "name": "cursor"
             }
         ],
         "kind": "Fragment",
@@ -55,14 +60,23 @@ const node: ReaderFragment = (function () {
             "connection": [
                 {
                     "count": "count",
-                    "cursor": "after",
+                    "cursor": "cursor",
                     "direction": "forward",
-                    "path": [
-                        "tasks",
-                        "list"
-                    ]
+                    "path": (v0 /*: any*/)
                 }
-            ]
+            ],
+            "refetch": {
+                "connection": {
+                    "forward": {
+                        "count": "count",
+                        "cursor": "cursor"
+                    },
+                    "backward": null,
+                    "path": (v0 /*: any*/)
+                },
+                "fragmentPathInResult": [],
+                "operation": require('./TaskListPaginationRefetchQuery.graphql.ts')
+            }
         },
         "name": "useTaskListPagination",
         "selections": [
@@ -74,7 +88,7 @@ const node: ReaderFragment = (function () {
                 "name": "tasks",
                 "plural": false,
                 "selections": [
-                    (v0 /*: any*/),
+                    (v1 /*: any*/),
                     {
                         "alias": "list",
                         "args": null,
@@ -106,7 +120,7 @@ const node: ReaderFragment = (function () {
                                         "name": "node",
                                         "plural": false,
                                         "selections": [
-                                            (v0 /*: any*/),
+                                            (v1 /*: any*/),
                                             {
                                                 "alias": null,
                                                 "args": null,
@@ -161,5 +175,5 @@ const node: ReaderFragment = (function () {
         "abstractKey": null
     } as any;
 })();
-(node as any).hash = '8b85e54e3ca78ddaa148304496b78666';
+(node as any).hash = 'b828664532301d7df323880d0e7ade56';
 export default node;

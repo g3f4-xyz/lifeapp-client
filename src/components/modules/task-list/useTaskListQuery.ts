@@ -6,7 +6,7 @@ import {
 } from './__generated__/useTaskListQuery.graphql';
 
 const query = graphql`
-  query useTaskListQuery($count: Int!, $after: String) {
+  query useTaskListQuery {
     ...useTaskListPagination
     settings {
       id

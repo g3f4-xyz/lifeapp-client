@@ -5,14 +5,14 @@ import SettingsFragment from './fragment/SettingsFragment';
 import useSettingsQuery from './useSettingsQuery';
 
 export default function SettingsQuery() {
-  const { props, error } = useSettingsQuery({
+  const { data, error } = useSettingsQuery({
     count: ITEMS_PER_PAGE * 10,
   });
 
   if (error) {
     return <div>{JSON.stringify(error)}</div>;
-  } else if (props) {
-    return <SettingsFragment data={props.settings} />;
+  } else if (data) {
+    return <SettingsFragment data={data.settings} />;
   }
 
   return <Loader />;

@@ -4,26 +4,26 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type useTaskListPaginationQueryVariables = {
-    count: number;
-    after?: string | null;
+export type TaskListPaginationRefetchQueryVariables = {
+    count?: number | null;
+    cursor?: string | null;
 };
-export type useTaskListPaginationQueryResponse = {
+export type TaskListPaginationRefetchQueryResponse = {
     readonly " $fragmentRefs": FragmentRefs<"useTaskListPagination">;
 };
-export type useTaskListPaginationQuery = {
-    readonly response: useTaskListPaginationQueryResponse;
-    readonly variables: useTaskListPaginationQueryVariables;
+export type TaskListPaginationRefetchQuery = {
+    readonly response: TaskListPaginationRefetchQueryResponse;
+    readonly variables: TaskListPaginationRefetchQueryVariables;
 };
 
 
 
 /*
-query useTaskListPaginationQuery(
-  $count: Int!
-  $after: String
+query TaskListPaginationRefetchQuery(
+  $count: Int = 10
+  $cursor: String
 ) {
-  ...useTaskListPagination
+  ...useTaskListPagination_1G22uz
 }
 
 fragment useTaskListFragment on Task {
@@ -90,10 +90,10 @@ fragment useTaskListFragment on Task {
   }
 }
 
-fragment useTaskListPagination on Query {
+fragment useTaskListPagination_1G22uz on Query {
   tasks {
     id
-    list(first: $count, after: $after) {
+    list(first: $count, after: $cursor) {
       edges {
         cursor
         node {
@@ -112,80 +112,83 @@ fragment useTaskListPagination on Query {
 */
 
 const node: ConcreteRequest = (function () {
-    var v0 = {
-        "defaultValue": null,
-        "kind": "LocalArgument",
-        "name": "after"
-    } as any, v1 = {
-        "defaultValue": null,
-        "kind": "LocalArgument",
-        "name": "count"
-    } as any, v2 = {
+    var v0 = [
+        {
+            "defaultValue": 10,
+            "kind": "LocalArgument",
+            "name": "count"
+        } as any,
+        {
+            "defaultValue": null,
+            "kind": "LocalArgument",
+            "name": "cursor"
+        } as any
+    ], v1 = {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
         "name": "id",
         "storageKey": null
-    } as any, v3 = [
+    } as any, v2 = [
         {
             "kind": "Variable",
             "name": "after",
-            "variableName": "after"
+            "variableName": "cursor"
         } as any,
         {
             "kind": "Variable",
             "name": "first",
             "variableName": "count"
         } as any
-    ], v4 = {
+    ], v3 = {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
         "name": "__typename",
         "storageKey": null
-    } as any, v5 = {
+    } as any, v4 = {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
         "name": "fieldType",
         "storageKey": null
-    } as any, v6 = {
+    } as any, v5 = {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
         "name": "label",
         "storageKey": null
-    } as any, v7 = {
+    } as any, v6 = {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
         "name": "disabled",
         "storageKey": null
-    } as any, v8 = {
+    } as any, v7 = {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
         "name": "required",
         "storageKey": null
-    } as any, v9 = {
+    } as any, v8 = {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
         "name": "max",
         "storageKey": null
-    } as any, v10 = {
+    } as any, v9 = {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
         "name": "min",
         "storageKey": null
-    } as any, v11 = {
+    } as any, v10 = {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
         "name": "helperText",
         "storageKey": null
-    } as any, v12 = {
+    } as any, v11 = {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
@@ -194,16 +197,24 @@ const node: ConcreteRequest = (function () {
     } as any;
     return {
         "fragment": {
-            "argumentDefinitions": [
-                (v0 /*: any*/),
-                (v1 /*: any*/)
-            ],
+            "argumentDefinitions": (v0 /*: any*/),
             "kind": "Fragment",
             "metadata": null,
-            "name": "useTaskListPaginationQuery",
+            "name": "TaskListPaginationRefetchQuery",
             "selections": [
                 {
-                    "args": null,
+                    "args": [
+                        {
+                            "kind": "Variable",
+                            "name": "count",
+                            "variableName": "count"
+                        },
+                        {
+                            "kind": "Variable",
+                            "name": "cursor",
+                            "variableName": "cursor"
+                        }
+                    ],
                     "kind": "FragmentSpread",
                     "name": "useTaskListPagination"
                 }
@@ -213,12 +224,9 @@ const node: ConcreteRequest = (function () {
         },
         "kind": "Request",
         "operation": {
-            "argumentDefinitions": [
-                (v1 /*: any*/),
-                (v0 /*: any*/)
-            ],
+            "argumentDefinitions": (v0 /*: any*/),
             "kind": "Operation",
-            "name": "useTaskListPaginationQuery",
+            "name": "TaskListPaginationRefetchQuery",
             "selections": [
                 {
                     "alias": null,
@@ -228,10 +236,10 @@ const node: ConcreteRequest = (function () {
                     "name": "tasks",
                     "plural": false,
                     "selections": [
-                        (v2 /*: any*/),
+                        (v1 /*: any*/),
                         {
                             "alias": null,
-                            "args": (v3 /*: any*/),
+                            "args": (v2 /*: any*/),
                             "concreteType": "TaskConnection_list",
                             "kind": "LinkedField",
                             "name": "list",
@@ -260,7 +268,7 @@ const node: ConcreteRequest = (function () {
                                             "name": "node",
                                             "plural": false,
                                             "selections": [
-                                                (v2 /*: any*/),
+                                                (v1 /*: any*/),
                                                 {
                                                     "alias": null,
                                                     "args": null,
@@ -276,7 +284,7 @@ const node: ConcreteRequest = (function () {
                                                     "name": "fields",
                                                     "plural": true,
                                                     "selections": [
-                                                        (v2 /*: any*/),
+                                                        (v1 /*: any*/),
                                                         {
                                                             "alias": null,
                                                             "args": null,
@@ -292,16 +300,16 @@ const node: ConcreteRequest = (function () {
                                                             "name": "meta",
                                                             "plural": false,
                                                             "selections": [
-                                                                (v4 /*: any*/),
+                                                                (v3 /*: any*/),
                                                                 {
                                                                     "kind": "InlineFragment",
                                                                     "selections": [
+                                                                        (v4 /*: any*/),
                                                                         (v5 /*: any*/),
                                                                         (v6 /*: any*/),
                                                                         (v7 /*: any*/),
                                                                         (v8 /*: any*/),
                                                                         (v9 /*: any*/),
-                                                                        (v10 /*: any*/),
                                                                         {
                                                                             "alias": null,
                                                                             "args": null,
@@ -316,10 +324,10 @@ const node: ConcreteRequest = (function () {
                                                                 {
                                                                     "kind": "InlineFragment",
                                                                     "selections": [
+                                                                        (v4 /*: any*/),
                                                                         (v5 /*: any*/),
                                                                         (v6 /*: any*/),
-                                                                        (v7 /*: any*/),
-                                                                        (v8 /*: any*/)
+                                                                        (v7 /*: any*/)
                                                                     ],
                                                                     "type": "SwitchFieldMeta",
                                                                     "abstractKey": null
@@ -327,9 +335,9 @@ const node: ConcreteRequest = (function () {
                                                                 {
                                                                     "kind": "InlineFragment",
                                                                     "selections": [
+                                                                        (v4 /*: any*/),
+                                                                        (v10 /*: any*/),
                                                                         (v5 /*: any*/),
-                                                                        (v11 /*: any*/),
-                                                                        (v6 /*: any*/),
                                                                         {
                                                                             "alias": null,
                                                                             "args": null,
@@ -345,7 +353,7 @@ const node: ConcreteRequest = (function () {
                                                                             "name": "options",
                                                                             "plural": true,
                                                                             "selections": [
-                                                                                (v12 /*: any*/),
+                                                                                (v11 /*: any*/),
                                                                                 {
                                                                                     "alias": null,
                                                                                     "args": null,
@@ -356,7 +364,7 @@ const node: ConcreteRequest = (function () {
                                                                             ],
                                                                             "storageKey": null
                                                                         },
-                                                                        (v8 /*: any*/)
+                                                                        (v7 /*: any*/)
                                                                     ],
                                                                     "type": "ChoiceFieldMeta",
                                                                     "abstractKey": null
@@ -364,9 +372,9 @@ const node: ConcreteRequest = (function () {
                                                                 {
                                                                     "kind": "InlineFragment",
                                                                     "selections": [
+                                                                        (v4 /*: any*/),
+                                                                        (v10 /*: any*/),
                                                                         (v5 /*: any*/),
-                                                                        (v11 /*: any*/),
-                                                                        (v6 /*: any*/),
                                                                         {
                                                                             "alias": null,
                                                                             "args": null,
@@ -374,8 +382,8 @@ const node: ConcreteRequest = (function () {
                                                                             "name": "inputType",
                                                                             "storageKey": null
                                                                         },
-                                                                        (v10 /*: any*/),
                                                                         (v9 /*: any*/),
+                                                                        (v8 /*: any*/),
                                                                         {
                                                                             "alias": null,
                                                                             "args": null,
@@ -390,7 +398,7 @@ const node: ConcreteRequest = (function () {
                                                                             "name": "minLength",
                                                                             "storageKey": null
                                                                         },
-                                                                        (v8 /*: any*/)
+                                                                        (v7 /*: any*/)
                                                                     ],
                                                                     "type": "TextFieldMeta",
                                                                     "abstractKey": null
@@ -406,7 +414,7 @@ const node: ConcreteRequest = (function () {
                                                             "name": "value",
                                                             "plural": false,
                                                             "selections": [
-                                                                (v4 /*: any*/),
+                                                                (v3 /*: any*/),
                                                                 {
                                                                     "kind": "InlineFragment",
                                                                     "selections": [
@@ -438,7 +446,7 @@ const node: ConcreteRequest = (function () {
                                                                 {
                                                                     "kind": "InlineFragment",
                                                                     "selections": [
-                                                                        (v2 /*: any*/)
+                                                                        (v1 /*: any*/)
                                                                     ],
                                                                     "type": "ChoiceFieldValue",
                                                                     "abstractKey": null
@@ -446,7 +454,7 @@ const node: ConcreteRequest = (function () {
                                                                 {
                                                                     "kind": "InlineFragment",
                                                                     "selections": [
-                                                                        (v12 /*: any*/)
+                                                                        (v11 /*: any*/)
                                                                     ],
                                                                     "type": "TextFieldValue",
                                                                     "abstractKey": null
@@ -457,7 +465,7 @@ const node: ConcreteRequest = (function () {
                                                     ],
                                                     "storageKey": null
                                                 },
-                                                (v4 /*: any*/)
+                                                (v3 /*: any*/)
                                             ],
                                             "storageKey": null
                                         }
@@ -494,7 +502,7 @@ const node: ConcreteRequest = (function () {
                         },
                         {
                             "alias": null,
-                            "args": (v3 /*: any*/),
+                            "args": (v2 /*: any*/),
                             "filters": null,
                             "handle": "connection",
                             "key": "TaskConnection_list",
@@ -507,14 +515,14 @@ const node: ConcreteRequest = (function () {
             ]
         },
         "params": {
-            "cacheID": "c1f409ff0de5c4206751674bf834a7f6",
+            "cacheID": "c60311df35949d563d5c9188e151fa8d",
             "id": null,
             "metadata": {},
-            "name": "useTaskListPaginationQuery",
+            "name": "TaskListPaginationRefetchQuery",
             "operationKind": "query",
-            "text": "query useTaskListPaginationQuery(\n  $count: Int!\n  $after: String\n) {\n  ...useTaskListPagination\n}\n\nfragment useTaskListFragment on Task {\n  id\n  typeId\n  fields {\n    id\n    fieldId\n    meta {\n      __typename\n      ... on SliderFieldMeta {\n        fieldType\n        label\n        disabled\n        required\n        max\n        min\n        step\n      }\n      ... on SwitchFieldMeta {\n        fieldType\n        label\n        disabled\n        required\n      }\n      ... on ChoiceFieldMeta {\n        fieldType\n        helperText\n        label\n        defaultValue\n        options {\n          text\n          value\n        }\n        required\n      }\n      ... on TextFieldMeta {\n        fieldType\n        helperText\n        label\n        inputType\n        min\n        max\n        maxLength\n        minLength\n        required\n      }\n    }\n    value {\n      __typename\n      ... on SliderFieldValue {\n        progress\n      }\n      ... on SwitchFieldValue {\n        enabled\n      }\n      ... on ChoiceFieldValue {\n        id\n      }\n      ... on TextFieldValue {\n        text\n      }\n    }\n  }\n}\n\nfragment useTaskListPagination on Query {\n  tasks {\n    id\n    list(first: $count, after: $after) {\n      edges {\n        cursor\n        node {\n          id\n          ...useTaskListFragment\n          __typename\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n}\n"
+            "text": "query TaskListPaginationRefetchQuery(\n  $count: Int = 10\n  $cursor: String\n) {\n  ...useTaskListPagination_1G22uz\n}\n\nfragment useTaskListFragment on Task {\n  id\n  typeId\n  fields {\n    id\n    fieldId\n    meta {\n      __typename\n      ... on SliderFieldMeta {\n        fieldType\n        label\n        disabled\n        required\n        max\n        min\n        step\n      }\n      ... on SwitchFieldMeta {\n        fieldType\n        label\n        disabled\n        required\n      }\n      ... on ChoiceFieldMeta {\n        fieldType\n        helperText\n        label\n        defaultValue\n        options {\n          text\n          value\n        }\n        required\n      }\n      ... on TextFieldMeta {\n        fieldType\n        helperText\n        label\n        inputType\n        min\n        max\n        maxLength\n        minLength\n        required\n      }\n    }\n    value {\n      __typename\n      ... on SliderFieldValue {\n        progress\n      }\n      ... on SwitchFieldValue {\n        enabled\n      }\n      ... on ChoiceFieldValue {\n        id\n      }\n      ... on TextFieldValue {\n        text\n      }\n    }\n  }\n}\n\nfragment useTaskListPagination_1G22uz on Query {\n  tasks {\n    id\n    list(first: $count, after: $cursor) {\n      edges {\n        cursor\n        node {\n          id\n          ...useTaskListFragment\n          __typename\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n}\n"
         }
     } as any;
 })();
-(node as any).hash = '10ec46ed37e93fa31a64d2dca5e9adc4';
+(node as any).hash = 'b828664532301d7df323880d0e7ade56';
 export default node;

@@ -2,20 +2,20 @@ import { Button, IconButton } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import MoreIcon from '@material-ui/icons/MoreHoriz';
-import React, { ChangeEvent, FC, Fragment, useCallback, useState } from 'react';
+import React, { ChangeEvent, Fragment, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { ITEMS_PER_PAGE, MODULES_IDS, TaskStatusEnum, TaskTypeEnum } from '../../../../constans';
-import useDeleteTaskMutation from './useDeleteTaskMutation';
-import useUpdateTaskListStatusFilterSettingMutation from './useUpdateTaskListStatusFilterSettingMutation';
-import useUpdateTaskListTaskTypeFilterSettingMutation from './useUpdateTaskListTaskTypeFilterSettingMutation';
-import useUpdateTaskListTitleFilterSettingMutation from './useUpdateTaskListTitleFilterSettingMutation';
 import Loader from '../../../display/loader/Loader';
 import TaskListBar from '../../../display/task-list-bar/TaskListBar';
 import { useTaskListQuery } from '../__generated__/useTaskListQuery.graphql';
 import TaskListFragment from '../fragment/TaskListFragment';
 import { useTaskListPagination$key } from './__generated__/useTaskListPagination.graphql';
+import useDeleteTaskMutation from './useDeleteTaskMutation';
 import useTaskListPagination from './useTaskListPagination';
 import useTaskListPaginationStyles from './useTaskListPaginationStyles';
+import useUpdateTaskListStatusFilterSettingMutation from './useUpdateTaskListStatusFilterSettingMutation';
+import useUpdateTaskListTaskTypeFilterSettingMutation from './useUpdateTaskListTaskTypeFilterSettingMutation';
+import useUpdateTaskListTitleFilterSettingMutation from './useUpdateTaskListTitleFilterSettingMutation';
 
 interface TaskListPaginationProps {
   data: useTaskListPagination$key;
@@ -23,14 +23,17 @@ interface TaskListPaginationProps {
   settingsId: string;
 }
 
-const TaskListPagination: FC<TaskListPaginationProps> = (props) => {
+export default function TaskListPagination(props: TaskListPaginationProps) {
   const { settings } = props;
   const [loading, setLoading] = useState(false);
   const classes = useTaskListPaginationStyles();
-  const [{ tasks }, { hasMore, isLoading, loadMore, refetchConnection }] = useTaskListPagination(
-    props.data,
-    ITEMS_PER_PAGE,
-  );
+  const {
+    response: { tasks },
+    hasMore,
+    isLoading,
+    loadMore,
+    refetchConnection,
+  } = useTaskListPagination(props.data, ITEMS_PER_PAGE);
   const history = useHistory();
   const updateTaskListTitleFilterSetting = useUpdateTaskListTitleFilterSettingMutation(
     props.settingsId,
@@ -63,11 +66,11 @@ const TaskListPagination: FC<TaskListPaginationProps> = (props) => {
       return [...taskType, filter];
     }
 
-    return taskType.filter((activeFilter) => activeFilter !== filter);
+    return taskType.filter(activeFilter => activeFilter !== filter);
   };
 
   const handleMore = () => {
-    if (!isLoading()) {
+    if (!isLoading) {
       loadMore();
     }
   };
@@ -132,7 +135,7 @@ const TaskListPagination: FC<TaskListPaginationProps> = (props) => {
         <Fragment>
           <Grid container spacing={1}>
             {edges.map(
-              (edge) =>
+              edge =>
                 edge &&
                 edge.node && (
                   <Grid key={edge.node.id} item xs={12} sm={12} md={6} lg={4} xl={3}>
@@ -158,6 +161,4 @@ const TaskListPagination: FC<TaskListPaginationProps> = (props) => {
       )}
     </Fragment>
   );
-};
-
-export default TaskListPagination;
+}
