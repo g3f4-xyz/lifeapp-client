@@ -2,30 +2,22 @@ import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from 'relay-hooks';
 import { useSwitchFieldFragment$key } from './__generated__/useSwitchFieldFragment.graphql';
 
-graphql`
-  fragment useSwitchFieldFragmentMeta on SwitchFieldMeta {
-    fieldType
-    label
-    disabled
-    required
-  }
-`;
-
-graphql`
-  fragment useSwitchFieldFragmentValue on SwitchFieldValue {
-    enabled
-  }
-`;
-
 const query = graphql`
   fragment useSwitchFieldFragment on Field {
     id
     fieldId
     meta {
-      ...useSwitchFieldFragmentMeta @relay(mask: false)
+      ... on SwitchFieldMeta {
+        fieldType
+        label
+        disabled
+        required
+      }
     }
     value {
-      ...useSwitchFieldFragmentValue @relay(mask: false)
+      ... on SwitchFieldValue {
+        enabled
+      }
     }
   }
 `;

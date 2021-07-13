@@ -11,11 +11,18 @@ const mutation = graphql`
       fieldId
       taskId
       updatedValue {
-        ...useChoiceFieldFragmentValue @relay(mask: false)
-        # ...useNestedFieldFragmentValue @relay(mask: false)
-        ...useSwitchFieldFragmentValue @relay(mask: false)
-        ...useSliderFieldFragmentValue @relay(mask: false)
-        ...useTextFieldFragmentValue @relay(mask: false)
+        ... on SliderFieldValue {
+          progress
+        }
+        ... on SwitchFieldValue {
+          enabled
+        }
+        ... on ChoiceFieldValue {
+          id
+        }
+        ... on TextFieldValue {
+          text
+        }
       }
     }
   }

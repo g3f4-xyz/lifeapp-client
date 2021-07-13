@@ -5,33 +5,25 @@ import {
   useSliderFieldFragment$key,
 } from './__generated__/useSliderFieldFragment.graphql';
 
-graphql`
-  fragment useSliderFieldFragmentMeta on SliderFieldMeta {
-    fieldType
-    label
-    disabled
-    required
-    max
-    min
-    step
-  }
-`;
-
-graphql`
-  fragment useSliderFieldFragmentValue on SliderFieldValue {
-    progress
-  }
-`;
-
 const query = graphql`
   fragment useSliderFieldFragment on Field {
     id
     fieldId
     meta {
-      ...useSliderFieldFragmentMeta @relay(mask: false)
+      ... on SliderFieldMeta {
+        fieldType
+        label
+        disabled
+        required
+        max
+        min
+        step
+      }
     }
     value {
-      ...useSliderFieldFragmentValue @relay(mask: false)
+      ... on SliderFieldValue {
+        progress
+      }
     }
   }
 `;

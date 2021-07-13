@@ -9,10 +9,18 @@ const query = graphql`
     fields {
       fieldId
       value {
-        ...useSliderFieldFragmentValue @relay(mask: false)
-        ...useSwitchFieldFragmentValue @relay(mask: false)
-        ...useChoiceFieldFragmentValue @relay(mask: false)
-        ...useTextFieldFragmentValue @relay(mask: false)
+        ... on SliderFieldValue {
+          progress
+        }
+        ... on SwitchFieldValue {
+          enabled
+        }
+        ... on ChoiceFieldValue {
+          id
+        }
+        ... on TextFieldValue {
+          text
+        }
       }
     }
   }
