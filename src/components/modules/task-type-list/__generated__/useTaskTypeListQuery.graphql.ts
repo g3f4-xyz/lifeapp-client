@@ -8,7 +8,7 @@ export type useTaskTypeListQueryVariables = {};
 export type useTaskTypeListQueryResponse = {
     readonly taskTypes: {
         readonly " $fragmentRefs": FragmentRefs<"useTaskTypeListFragment">;
-    } | null;
+    };
 };
 export type useTaskTypeListQuery = {
     readonly response: useTaskTypeListQueryResponse;

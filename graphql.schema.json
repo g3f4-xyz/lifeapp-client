@@ -1708,9 +1708,13 @@
                 }
               ],
               "type": {
-                "kind": "OBJECT",
-                "name": "Tasks",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Tasks",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -1720,9 +1724,13 @@
               "description": "",
               "args": [],
               "type": {
-                "kind": "OBJECT",
-                "name": "TaskTypes",
-                "ofType": null
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "TaskTypes",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null

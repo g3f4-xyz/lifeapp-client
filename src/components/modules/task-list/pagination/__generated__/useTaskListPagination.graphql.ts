@@ -20,7 +20,7 @@ export type useTaskListPagination = {
                 readonly endCursor: string | null;
             } | null;
         };
-    } | null;
+    };
     readonly " $refType": "useTaskListPagination";
 };
 export type useTaskListPagination$data = useTaskListPagination;
