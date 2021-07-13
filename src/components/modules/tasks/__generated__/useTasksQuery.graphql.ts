@@ -4,45 +4,23 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO";
-export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
-export type useTaskListQueryVariables = {};
-export type useTaskListQueryResponse = {
-    readonly settings: {
-        readonly id: string;
-        readonly taskList: {
-            readonly filters: {
-                readonly title: string | null;
-                readonly taskType: ReadonlyArray<TaskTypeId>;
-                readonly status: TaskStatus | null;
-            };
-        };
-    };
+export type useTasksQueryVariables = {};
+export type useTasksQueryResponse = {
     readonly " $fragmentRefs": FragmentRefs<"useTaskListPagination">;
 };
-export type useTaskListQuery = {
-    readonly response: useTaskListQueryResponse;
-    readonly variables: useTaskListQueryVariables;
+export type useTasksQuery = {
+    readonly response: useTasksQueryResponse;
+    readonly variables: useTasksQueryVariables;
 };
 
 
 
 /*
-query useTaskListQuery {
+query useTasksQuery {
   ...useTaskListPagination
-  settings {
-    id
-    taskList {
-      filters {
-        title
-        taskType
-        status
-      }
-    }
-  }
 }
 
-fragment useTaskListFragment on Task {
+fragment useTaskListItemFragment on Task {
   id
   typeId
   fields {
@@ -73,13 +51,23 @@ fragment useTaskListPagination on Query {
         cursor
         node {
           id
-          ...useTaskListFragment
+          ...useTaskListItemFragment
           __typename
         }
       }
       pageInfo {
         hasNextPage
         endCursor
+      }
+    }
+  }
+  settings {
+    id
+    taskList {
+      filters {
+        title
+        taskType
+        status
       }
     }
   }
@@ -93,67 +81,13 @@ const node: ConcreteRequest = (function () {
         "kind": "ScalarField",
         "name": "id",
         "storageKey": null
-    } as any, v1 = {
-        "alias": null,
-        "args": null,
-        "concreteType": "Settings",
-        "kind": "LinkedField",
-        "name": "settings",
-        "plural": false,
-        "selections": [
-            (v0 /*: any*/),
-            {
-                "alias": null,
-                "args": null,
-                "concreteType": "TaskListSettings",
-                "kind": "LinkedField",
-                "name": "taskList",
-                "plural": false,
-                "selections": [
-                    {
-                        "alias": null,
-                        "args": null,
-                        "concreteType": "FiltersTaskListSettings",
-                        "kind": "LinkedField",
-                        "name": "filters",
-                        "plural": false,
-                        "selections": [
-                            {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "title",
-                                "storageKey": null
-                            },
-                            {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "taskType",
-                                "storageKey": null
-                            },
-                            {
-                                "alias": null,
-                                "args": null,
-                                "kind": "ScalarField",
-                                "name": "status",
-                                "storageKey": null
-                            }
-                        ],
-                        "storageKey": null
-                    }
-                ],
-                "storageKey": null
-            }
-        ],
-        "storageKey": null
-    } as any, v2 = [
+    } as any, v1 = [
         {
             "kind": "Literal",
             "name": "first",
             "value": 10
         } as any
-    ], v3 = {
+    ], v2 = {
         "alias": null,
         "args": null,
         "kind": "ScalarField",
@@ -165,9 +99,8 @@ const node: ConcreteRequest = (function () {
             "argumentDefinitions": [],
             "kind": "Fragment",
             "metadata": null,
-            "name": "useTaskListQuery",
+            "name": "useTasksQuery",
             "selections": [
-                (v1 /*: any*/),
                 {
                     "args": null,
                     "kind": "FragmentSpread",
@@ -181,7 +114,7 @@ const node: ConcreteRequest = (function () {
         "operation": {
             "argumentDefinitions": [],
             "kind": "Operation",
-            "name": "useTaskListQuery",
+            "name": "useTasksQuery",
             "selections": [
                 {
                     "alias": null,
@@ -194,7 +127,7 @@ const node: ConcreteRequest = (function () {
                         (v0 /*: any*/),
                         {
                             "alias": null,
-                            "args": (v2 /*: any*/),
+                            "args": (v1 /*: any*/),
                             "concreteType": "TaskConnection_list",
                             "kind": "LinkedField",
                             "name": "list",
@@ -254,7 +187,7 @@ const node: ConcreteRequest = (function () {
                                                             "name": "value",
                                                             "plural": false,
                                                             "selections": [
-                                                                (v3 /*: any*/),
+                                                                (v2 /*: any*/),
                                                                 {
                                                                     "kind": "InlineFragment",
                                                                     "selections": [
@@ -311,7 +244,7 @@ const node: ConcreteRequest = (function () {
                                                     ],
                                                     "storageKey": null
                                                 },
-                                                (v3 /*: any*/)
+                                                (v2 /*: any*/)
                                             ],
                                             "storageKey": null
                                         }
@@ -348,7 +281,7 @@ const node: ConcreteRequest = (function () {
                         },
                         {
                             "alias": null,
-                            "args": (v2 /*: any*/),
+                            "args": (v1 /*: any*/),
                             "filters": null,
                             "handle": "connection",
                             "key": "TaskConnection_list",
@@ -358,18 +291,72 @@ const node: ConcreteRequest = (function () {
                     ],
                     "storageKey": null
                 },
-                (v1 /*: any*/)
+                {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Settings",
+                    "kind": "LinkedField",
+                    "name": "settings",
+                    "plural": false,
+                    "selections": [
+                        (v0 /*: any*/),
+                        {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "TaskListSettings",
+                            "kind": "LinkedField",
+                            "name": "taskList",
+                            "plural": false,
+                            "selections": [
+                                {
+                                    "alias": null,
+                                    "args": null,
+                                    "concreteType": "FiltersTaskListSettings",
+                                    "kind": "LinkedField",
+                                    "name": "filters",
+                                    "plural": false,
+                                    "selections": [
+                                        {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "title",
+                                            "storageKey": null
+                                        },
+                                        {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "taskType",
+                                            "storageKey": null
+                                        },
+                                        {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "status",
+                                            "storageKey": null
+                                        }
+                                    ],
+                                    "storageKey": null
+                                }
+                            ],
+                            "storageKey": null
+                        }
+                    ],
+                    "storageKey": null
+                }
             ]
         },
         "params": {
-            "cacheID": "eab9cdc4323cc5d4d557eb2e0fbe2cd7",
+            "cacheID": "15325b1abec93f428831eb13aaad0d64",
             "id": null,
             "metadata": {},
-            "name": "useTaskListQuery",
+            "name": "useTasksQuery",
             "operationKind": "query",
-            "text": "query useTaskListQuery {\n  ...useTaskListPagination\n  settings {\n    id\n    taskList {\n      filters {\n        title\n        taskType\n        status\n      }\n    }\n  }\n}\n\nfragment useTaskListFragment on Task {\n  id\n  typeId\n  fields {\n    fieldId\n    value {\n      __typename\n      ... on SliderFieldValue {\n        progress\n      }\n      ... on SwitchFieldValue {\n        enabled\n      }\n      ... on ChoiceFieldValue {\n        id\n      }\n      ... on TextFieldValue {\n        text\n      }\n    }\n  }\n}\n\nfragment useTaskListPagination on Query {\n  tasks {\n    id\n    list(first: 10) {\n      edges {\n        cursor\n        node {\n          id\n          ...useTaskListFragment\n          __typename\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n}\n"
+            "text": "query useTasksQuery {\n  ...useTaskListPagination\n}\n\nfragment useTaskListItemFragment on Task {\n  id\n  typeId\n  fields {\n    fieldId\n    value {\n      __typename\n      ... on SliderFieldValue {\n        progress\n      }\n      ... on SwitchFieldValue {\n        enabled\n      }\n      ... on ChoiceFieldValue {\n        id\n      }\n      ... on TextFieldValue {\n        text\n      }\n    }\n  }\n}\n\nfragment useTaskListPagination on Query {\n  tasks {\n    id\n    list(first: 10) {\n      edges {\n        cursor\n        node {\n          id\n          ...useTaskListItemFragment\n          __typename\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n  settings {\n    id\n    taskList {\n      filters {\n        title\n        taskType\n        status\n      }\n    }\n  }\n}\n"
         }
     } as any;
 })();
-(node as any).hash = '593fc42bcd00c32b10ada998970594f7';
+(node as any).hash = 'd2128c440682a999886ca9605aa002a4';
 export default node;

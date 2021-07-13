@@ -26,7 +26,7 @@ query TaskListPaginationRefetchQuery(
   ...useTaskListPagination_1G22uz
 }
 
-fragment useTaskListFragment on Task {
+fragment useTaskListItemFragment on Task {
   id
   typeId
   fields {
@@ -57,13 +57,23 @@ fragment useTaskListPagination_1G22uz on Query {
         cursor
         node {
           id
-          ...useTaskListFragment
+          ...useTaskListItemFragment
           __typename
         }
       }
       pageInfo {
         hasNextPage
         endCursor
+      }
+    }
+  }
+  settings {
+    id
+    taskList {
+      filters {
+        title
+        taskType
+        status
       }
     }
   }
@@ -313,18 +323,73 @@ const node: ConcreteRequest = (function () {
                         }
                     ],
                     "storageKey": null
+                },
+                {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "Settings",
+                    "kind": "LinkedField",
+                    "name": "settings",
+                    "plural": false,
+                    "selections": [
+                        (v1 /*: any*/),
+                        {
+                            "alias": null,
+                            "args": null,
+                            "concreteType": "TaskListSettings",
+                            "kind": "LinkedField",
+                            "name": "taskList",
+                            "plural": false,
+                            "selections": [
+                                {
+                                    "alias": null,
+                                    "args": null,
+                                    "concreteType": "FiltersTaskListSettings",
+                                    "kind": "LinkedField",
+                                    "name": "filters",
+                                    "plural": false,
+                                    "selections": [
+                                        {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "title",
+                                            "storageKey": null
+                                        },
+                                        {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "taskType",
+                                            "storageKey": null
+                                        },
+                                        {
+                                            "alias": null,
+                                            "args": null,
+                                            "kind": "ScalarField",
+                                            "name": "status",
+                                            "storageKey": null
+                                        }
+                                    ],
+                                    "storageKey": null
+                                }
+                            ],
+                            "storageKey": null
+                        }
+                    ],
+                    "storageKey": null
                 }
             ]
         },
         "params": {
-            "cacheID": "8891fe2fadc4b1b7e66294587649c1b7",
+            "cacheID": "965933f2e91cecd50f18bbc8643cab09",
             "id": null,
             "metadata": {},
             "name": "TaskListPaginationRefetchQuery",
             "operationKind": "query",
-            "text": "query TaskListPaginationRefetchQuery(\n  $count: Int = 10\n  $cursor: String\n) {\n  ...useTaskListPagination_1G22uz\n}\n\nfragment useTaskListFragment on Task {\n  id\n  typeId\n  fields {\n    fieldId\n    value {\n      __typename\n      ... on SliderFieldValue {\n        progress\n      }\n      ... on SwitchFieldValue {\n        enabled\n      }\n      ... on ChoiceFieldValue {\n        id\n      }\n      ... on TextFieldValue {\n        text\n      }\n    }\n  }\n}\n\nfragment useTaskListPagination_1G22uz on Query {\n  tasks {\n    id\n    list(first: $count, after: $cursor) {\n      edges {\n        cursor\n        node {\n          id\n          ...useTaskListFragment\n          __typename\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n}\n"
+            "text": "query TaskListPaginationRefetchQuery(\n  $count: Int = 10\n  $cursor: String\n) {\n  ...useTaskListPagination_1G22uz\n}\n\nfragment useTaskListItemFragment on Task {\n  id\n  typeId\n  fields {\n    fieldId\n    value {\n      __typename\n      ... on SliderFieldValue {\n        progress\n      }\n      ... on SwitchFieldValue {\n        enabled\n      }\n      ... on ChoiceFieldValue {\n        id\n      }\n      ... on TextFieldValue {\n        text\n      }\n    }\n  }\n}\n\nfragment useTaskListPagination_1G22uz on Query {\n  tasks {\n    id\n    list(first: $count, after: $cursor) {\n      edges {\n        cursor\n        node {\n          id\n          ...useTaskListItemFragment\n          __typename\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n  settings {\n    id\n    taskList {\n      filters {\n        title\n        taskType\n        status\n      }\n    }\n  }\n}\n"
         }
     } as any;
 })();
-(node as any).hash = 'b828664532301d7df323880d0e7ade56';
+(node as any).hash = '9d8c0d25cf7c98f7065429a67e62aa36';
 export default node;

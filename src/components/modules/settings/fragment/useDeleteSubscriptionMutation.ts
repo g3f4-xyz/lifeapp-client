@@ -1,7 +1,7 @@
 import graphql from 'babel-plugin-relay/macro';
 import { DeclarativeMutationConfig } from 'relay-runtime';
 import { useMutation } from 'relay-hooks';
-import { useDeleteTaskMutation } from '../../task-list/pagination/__generated__/useDeleteTaskMutation.graphql';
+import { useDeleteTaskMutation } from '../../tasks/list/__generated__/useDeleteTaskMutation.graphql';
 import { DeleteSubscriptionInput } from './__generated__/useDeleteSubscriptionMutation.graphql';
 
 const mutation = graphql`

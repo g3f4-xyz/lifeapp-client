@@ -1,9 +1,9 @@
-import { TaskStatus } from './components/modules/task-list/__generated__/useTaskListQuery.graphql';
+import { TaskTypeId } from './components/modules/task-type-list/fragment/__generated__/useTaskTypeFragment.graphql';
 import {
   FieldId,
   FieldType,
 } from './components/modules/task/fragment/__generated__/useTaskFragment.graphql';
-import { TaskTypeId } from './components/modules/task-type-list/fragment/__generated__/useTaskTypeFragment.graphql';
+import { TaskStatus } from './components/modules/tasks/list/__generated__/useTaskListPagination.graphql';
 
 export type UnionKeyToValue<U extends string, V = U> = {
   [K in U]: V;
@@ -77,7 +77,7 @@ export const TASK_TYPE: UnionKeyToValue<TaskTypeId> = {
 
 export type TASK_TYPE_VALUE_MAP<V> = KEYOF_TYPE_VALUE_MAP<typeof TASK_TYPE, V>;
 
-export const TASK_STATUSES: UnionKeyToValue<TaskStatus> = {
+export const TASK_STATUSES: UnionKeyToValue<TaskStatusEnum> = {
   TODO: 'TODO',
   IN_PROGRESS: 'IN_PROGRESS',
   DONE: 'DONE',

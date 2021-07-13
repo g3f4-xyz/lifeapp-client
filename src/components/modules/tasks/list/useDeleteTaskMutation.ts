@@ -9,8 +9,6 @@ import {
 const mutation = graphql`
   mutation useDeleteTaskMutation($input: DeleteTaskInput!) {
     deleteTask(input: $input) {
-      # Aktualnie serwer zwraca null przez co za pewne nie działa jakiś mechanizm relay
-      clientMutationId
       deletedTaskId
     }
   }

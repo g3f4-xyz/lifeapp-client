@@ -14,12 +14,22 @@ const query = graphql`
           cursor
           node {
             id
-            ...useTaskListFragment
+            ...useTaskListItemFragment
           }
         }
         pageInfo {
           hasNextPage
           endCursor
+        }
+      }
+    }
+    settings {
+      id
+      taskList {
+        filters {
+          title
+          taskType
+          status
         }
       }
     }

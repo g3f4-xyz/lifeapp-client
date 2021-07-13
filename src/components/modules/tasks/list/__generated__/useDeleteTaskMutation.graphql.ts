@@ -12,7 +12,6 @@ export type useDeleteTaskMutationVariables = {
 };
 export type useDeleteTaskMutationResponse = {
     readonly deleteTask: {
-        readonly clientMutationId: string | null;
         readonly deletedTaskId: string;
     };
 };
@@ -28,7 +27,6 @@ mutation useDeleteTaskMutation(
   $input: DeleteTaskInput!
 ) {
   deleteTask(input: $input) {
-    clientMutationId
     deletedTaskId
   }
 }
@@ -60,13 +58,6 @@ const node: ConcreteRequest = (function () {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "clientMutationId",
-                    "storageKey": null
-                },
-                {
-                    "alias": null,
-                    "args": null,
-                    "kind": "ScalarField",
                     "name": "deletedTaskId",
                     "storageKey": null
                 }
@@ -92,14 +83,14 @@ const node: ConcreteRequest = (function () {
             "selections": (v1 /*: any*/)
         },
         "params": {
-            "cacheID": "82c7f17691e7bc8f353df69f5a4758b7",
+            "cacheID": "045ef93c1245f9e1e68d8196f4cb2680",
             "id": null,
             "metadata": {},
             "name": "useDeleteTaskMutation",
             "operationKind": "mutation",
-            "text": "mutation useDeleteTaskMutation(\n  $input: DeleteTaskInput!\n) {\n  deleteTask(input: $input) {\n    clientMutationId\n    deletedTaskId\n  }\n}\n"
+            "text": "mutation useDeleteTaskMutation(\n  $input: DeleteTaskInput!\n) {\n  deleteTask(input: $input) {\n    deletedTaskId\n  }\n}\n"
         }
     } as any;
 })();
-(node as any).hash = 'b5a8d0bd4239cd9338ed9d75d61cfc1c';
+(node as any).hash = 'c5b42ef5f467aa1a0b7994a62b19f994';
 export default node;

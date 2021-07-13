@@ -7,11 +7,11 @@ import Toolbar from '@material-ui/core/Toolbar';
 import SearchIcon from '@material-ui/icons/Search';
 import React, { ChangeEvent, FC } from 'react';
 import { TASK_STATUSES, TASK_TYPE, TaskTypeEnum } from '../../../constans';
-import { useTaskListQuery } from '../../modules/task-list/__generated__/useTaskListQuery.graphql';
+import { useTaskListPagination } from '../../modules/tasks/list/__generated__/useTaskListPagination.graphql';
 import useTaskListBarStyles from './useTaskListBarStyles';
 
 export interface TaskListBarProps {
-  settings: useTaskListQuery['response']['settings']['taskList'];
+  taskListSettings: useTaskListPagination['settings']['taskList'];
 
   onFilterByTitle(event: ChangeEvent<HTMLInputElement>): void;
   onFilterByType(event: ChangeEvent<HTMLInputElement>): void;
@@ -19,10 +19,10 @@ export interface TaskListBarProps {
 }
 
 const TaskListBar: FC<TaskListBarProps> = (props) => {
-  const { settings, onFilterByTitle, onFilterByType, onFilterByStatus } = props;
+  const { taskListSettings, onFilterByTitle, onFilterByType, onFilterByStatus } = props;
   const {
     filters: { title, taskType, status },
-  } = settings;
+  } = taskListSettings;
   const classes = useTaskListBarStyles();
 
   return (

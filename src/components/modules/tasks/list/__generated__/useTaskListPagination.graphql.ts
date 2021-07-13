@@ -4,6 +4,8 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
+export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO";
+export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
 export type useTaskListPagination = {
     readonly tasks: {
         readonly id: string;
@@ -12,13 +14,23 @@ export type useTaskListPagination = {
                 readonly cursor: string | null;
                 readonly node: {
                     readonly id: string;
-                    readonly " $fragmentRefs": FragmentRefs<"useTaskListFragment">;
+                    readonly " $fragmentRefs": FragmentRefs<"useTaskListItemFragment">;
                 } | null;
             } | null> | null;
             readonly pageInfo: {
                 readonly hasNextPage: boolean;
                 readonly endCursor: string | null;
             } | null;
+        };
+    };
+    readonly settings: {
+        readonly id: string;
+        readonly taskList: {
+            readonly filters: {
+                readonly title: string | null;
+                readonly taskType: ReadonlyArray<TaskTypeId>;
+                readonly status: TaskStatus | null;
+            };
         };
     };
     readonly " $refType": "useTaskListPagination";
@@ -131,7 +143,7 @@ const node: ReaderFragment = (function () {
                                             {
                                                 "args": null,
                                                 "kind": "FragmentSpread",
-                                                "name": "useTaskListFragment"
+                                                "name": "useTaskListItemFragment"
                                             }
                                         ],
                                         "storageKey": null
@@ -169,11 +181,66 @@ const node: ReaderFragment = (function () {
                     }
                 ],
                 "storageKey": null
+            },
+            {
+                "alias": null,
+                "args": null,
+                "concreteType": "Settings",
+                "kind": "LinkedField",
+                "name": "settings",
+                "plural": false,
+                "selections": [
+                    (v1 /*: any*/),
+                    {
+                        "alias": null,
+                        "args": null,
+                        "concreteType": "TaskListSettings",
+                        "kind": "LinkedField",
+                        "name": "taskList",
+                        "plural": false,
+                        "selections": [
+                            {
+                                "alias": null,
+                                "args": null,
+                                "concreteType": "FiltersTaskListSettings",
+                                "kind": "LinkedField",
+                                "name": "filters",
+                                "plural": false,
+                                "selections": [
+                                    {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "title",
+                                        "storageKey": null
+                                    },
+                                    {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "taskType",
+                                        "storageKey": null
+                                    },
+                                    {
+                                        "alias": null,
+                                        "args": null,
+                                        "kind": "ScalarField",
+                                        "name": "status",
+                                        "storageKey": null
+                                    }
+                                ],
+                                "storageKey": null
+                            }
+                        ],
+                        "storageKey": null
+                    }
+                ],
+                "storageKey": null
             }
         ],
         "type": "Query",
         "abstractKey": null
     } as any;
 })();
-(node as any).hash = 'b828664532301d7df323880d0e7ade56';
+(node as any).hash = '9d8c0d25cf7c98f7065429a67e62aa36';
 export default node;

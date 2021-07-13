@@ -9,28 +9,28 @@ import {
 import { ExpandMore, PriorityHigh } from '@material-ui/icons';
 import classNames from 'classnames';
 import React, { FC } from 'react';
-import { FIELD_ID, TaskStatusEnum, TaskTypeEnum } from '../../../../constans';
-import StatusIcon from '../../../display/status-icon/StatusIcon';
-import TaskTypeIcon from '../../../display/task-type-icon/TaskTypeIcon';
-import { useTaskListFragment$key } from './__generated__/useTaskListFragment.graphql';
-import useTaskListFragment from './useTaskListFragment';
-import useTaskListFragmentStyles from './useTaskListFragmentStyles';
+import { FIELD_ID, TaskStatusEnum, TaskTypeEnum } from '../../../../../constans';
+import StatusIcon from '../../../../display/status-icon/StatusIcon';
+import TaskTypeIcon from '../../../../display/task-type-icon/TaskTypeIcon';
+import { useTaskListItemFragment$key } from './__generated__/useTaskListItemFragment.graphql';
+import useTaskListItemFragment from './useTaskListItemFragment';
+import useTaskListItemStyles from './useTaskListItemStyles';
 
 export interface TaskListFragmentProps {
-  data: useTaskListFragment$key;
+  data: useTaskListItemFragment$key;
 
   onDelete(id: string): void;
   onEdit(typeId: TaskTypeEnum, taskId: string): void;
 }
 
-const TaskListFragment: FC<TaskListFragmentProps> = (props) => {
+const TaskListItem: FC<TaskListFragmentProps> = (props) => {
   const { data, onDelete, onEdit } = props;
-  const { id, typeId, fields } = useTaskListFragment(data);
+  const { id, typeId, fields } = useTaskListItemFragment(data);
   const titleField = fields.find((field) => field.fieldId === FIELD_ID.TITLE);
   const noteField = fields.find((field) => field.fieldId === FIELD_ID.NOTE);
   const priorityField = fields.find((field) => field.fieldId === FIELD_ID.PRIORITY);
   const statusField = fields.find((field) => field.fieldId === FIELD_ID.STATUS);
-  const classes = useTaskListFragmentStyles();
+  const classes = useTaskListItemStyles();
 
   return (
     <Accordion>
@@ -65,4 +65,4 @@ const TaskListFragment: FC<TaskListFragmentProps> = (props) => {
   );
 };
 
-export default TaskListFragment;
+export default TaskListItem;

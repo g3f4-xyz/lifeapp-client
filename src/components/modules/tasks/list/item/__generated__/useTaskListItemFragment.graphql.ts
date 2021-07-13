@@ -6,7 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
 export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
-export type useTaskListFragment = {
+export type useTaskListItemFragment = {
     readonly id: string;
     readonly typeId: TaskTypeId;
     readonly fields: ReadonlyArray<{
@@ -18,12 +18,12 @@ export type useTaskListFragment = {
             readonly text?: string | null;
         };
     }>;
-    readonly " $refType": "useTaskListFragment";
+    readonly " $refType": "useTaskListItemFragment";
 };
-export type useTaskListFragment$data = useTaskListFragment;
-export type useTaskListFragment$key = {
-    readonly " $data"?: useTaskListFragment$data;
-    readonly " $fragmentRefs": FragmentRefs<"useTaskListFragment">;
+export type useTaskListItemFragment$data = useTaskListItemFragment;
+export type useTaskListItemFragment$key = {
+    readonly " $data"?: useTaskListItemFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"useTaskListItemFragment">;
 };
 
 
@@ -40,7 +40,7 @@ const node: ReaderFragment = (function () {
         "argumentDefinitions": [],
         "kind": "Fragment",
         "metadata": null,
-        "name": "useTaskListFragment",
+        "name": "useTaskListItemFragment",
         "selections": [
             (v0 /*: any*/),
             {
@@ -134,5 +134,5 @@ const node: ReaderFragment = (function () {
         "abstractKey": null
     } as any;
 })();
-(node as any).hash = 'dd06a8af0e466927e3a1c1912d88ead4';
+(node as any).hash = '3f593f4f9a9e5efe7e2f9b58ebfadbba';
 export default node;

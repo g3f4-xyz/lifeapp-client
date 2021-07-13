@@ -9,7 +9,7 @@ import ErrorBoundary from './containers/error-boundary/ErrorBoundary';
 import ResponsiveGrid, { ResponsiveGridItem } from './containers/responsive-grid/ResponsiveGrid';
 import AppMenu from './display/app-menu/AppMenu';
 import SettingsQuery from './modules/settings/SettingsQuery';
-import TaskList from './modules/task-list/TaskList';
+import Tasks from './modules/tasks/Tasks';
 import TaskTypeList from './modules/task-type-list/TaskTypeList';
 import Task from './modules/task/Task';
 
@@ -61,7 +61,7 @@ export default function Application() {
         >
           <AppMenu />
           <Switch>
-            <Route path={`${match.url}/${MODULES_IDS.TASK_LIST}`.toString()} component={TaskList} />
+            <Route path={`${match.url}/${MODULES_IDS.TASK_LIST}`.toString()} component={Tasks} />
             <Route
               path={`${match.url}/${MODULES_IDS.TASK_TYPE_LIST}`.toString()}
               component={TaskTypeList}
@@ -80,7 +80,7 @@ export default function Application() {
                     onRemove={removeGridItem}
                     fixed
                   >
-                    <TaskList />
+                    <Tasks />
                   </ResponsiveGridItem>
                   <ResponsiveGridItem
                     path={`${match.url}/${MODULES_IDS.TASK_TYPE_LIST}`}
