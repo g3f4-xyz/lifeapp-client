@@ -1,15 +1,10 @@
-import React, { FC } from 'react';
-import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
+import React from 'react';
 import Choice from '../../../display/field/Choice';
 import { useChoiceFieldFragment$key } from './__generated__/useChoiceFieldFragment.graphql';
 import useChoiceFieldFragment from './useChoiceFieldFragment';
+import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 
-interface ChoiceFieldProps {
-  data: useChoiceFieldFragment$key;
-  taskId: string;
-}
-
-const ChoiceField: FC<ChoiceFieldProps> = (props) => {
+export default function ChoiceField(props: { data: useChoiceFieldFragment$key; taskId: string }) {
   const {
     id: relayId,
     fieldId,
@@ -30,6 +25,4 @@ const ChoiceField: FC<ChoiceFieldProps> = (props) => {
       onChange={handleChange}
     />
   );
-};
-
-export default ChoiceField;
+}

@@ -11,19 +11,15 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ExpandMore, Slideshow, Vibration } from '@material-ui/icons';
-import React, { ChangeEvent, FC } from 'react';
-import useSaveNotificationsGeneralSettingMutation from './useSaveNotificationsGeneralSettingMutation';
+import React, { ChangeEvent } from 'react';
 import { useNotificationsGeneralFragment$key } from './__generated__/useNotificationsGeneralFragment.graphql';
 import useNotificationsGeneralFragment from './useNotificationsGeneralFragment';
-import useNotificationsGeneralFragmentStyles from './useNotificationsGeneralFragmentStyles';
+import useNotificationsGeneralStyles from './useNotificationsGeneralStyles';
+import useSaveNotificationsGeneralSettingMutation from './useSaveNotificationsGeneralSettingMutation';
 
-interface NotificationsGeneralProps {
-  data: useNotificationsGeneralFragment$key;
-}
-
-const NotificationsGeneral: FC<NotificationsGeneralProps> = (props) => {
+export default function NotificationsGeneral(props: { data: useNotificationsGeneralFragment$key }) {
   const { show, vibrate } = useNotificationsGeneralFragment(props.data);
-  const classes = useNotificationsGeneralFragmentStyles();
+  const classes = useNotificationsGeneralStyles();
   const saveNotificationsGeneralSettingMutation = useSaveNotificationsGeneralSettingMutation();
   const handleShowChange = async (
     _: ChangeEvent<HTMLInputElement>,
@@ -77,6 +73,4 @@ const NotificationsGeneral: FC<NotificationsGeneralProps> = (props) => {
       </AccordionDetails>
     </Accordion>
   );
-};
-
-export default NotificationsGeneral;
+}

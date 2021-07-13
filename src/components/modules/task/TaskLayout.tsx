@@ -1,16 +1,16 @@
 import { IconButton, Paper } from '@material-ui/core';
 import { Done } from '@material-ui/icons';
-import React, { FC } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router';
-import { FIELD_TYPE_VALUE_MAP, MODULES_IDS } from '../../../../constans';
-import ChoiceFieldFragment from '../fields/ChoiceFieldFragment';
-import NestedFieldFragment from '../fields/NestedFieldFragment';
-import SliderFieldFragment from '../fields/SliderFieldFragment';
-import SwitchFieldFragment from '../fields/SwitchFieldFragment';
-import TextFieldFragment from '../fields/TextFieldFragment';
+import { FIELD_TYPE_VALUE_MAP, MODULES_IDS } from '../../../constans';
 import { useTaskFragment$key } from './__generated__/useTaskFragment.graphql';
+import ChoiceFieldFragment from './fields/ChoiceFieldFragment';
+import NestedFieldFragment from './fields/NestedFieldFragment';
+import SliderFieldFragment from './fields/SliderFieldFragment';
+import SwitchFieldFragment from './fields/SwitchFieldFragment';
+import TextFieldFragment from './fields/TextFieldFragment';
 import useTaskFragment from './useTaskFragment';
-import useTaskFragmentStyles from './useTaskFragmentStyles';
+import useTaskStyles from './useTaskStyles';
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 const FIELD_COMPONENTS_MAP: FIELD_TYPE_VALUE_MAP<any> = {
@@ -21,17 +21,17 @@ const FIELD_COMPONENTS_MAP: FIELD_TYPE_VALUE_MAP<any> = {
   NESTED: NestedFieldFragment,
 };
 
-interface TaskFragmentProps {
+interface TaskProps {
   data: useTaskFragment$key;
 }
 
-const TaskFragment: FC<TaskFragmentProps> = (props) => {
+export default function TaskLayout(props: TaskProps) {
   const { data } = props;
   const history = useHistory();
   const handleDone = () => {
     history.push(`/app/${MODULES_IDS.TASK_LIST}`);
   };
-  const classes = useTaskFragmentStyles();
+  const classes = useTaskStyles();
   const { fields, id } = useTaskFragment(data);
   const orders = new Set(fields.map((field) => field.order).sort());
 
@@ -55,6 +55,4 @@ const TaskFragment: FC<TaskFragmentProps> = (props) => {
       </IconButton>
     </div>
   );
-};
-
-export default TaskFragment;
+}

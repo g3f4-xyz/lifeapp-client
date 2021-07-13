@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 import { TaskTypeEnum } from '../../../constans';
 import AppContext from '../../AppContext';
 import Loader from '../../display/loader/Loader';
-import TaskFragment from './fragment/TaskFragment';
+import TaskLayout from './TaskLayout';
 import useTaskQuery from './useTaskQuery';
 
 export interface TaskProps {
@@ -41,7 +41,7 @@ export default function Task(ownProps: TaskProps) {
   if (error) {
     return <div>{JSON.stringify(error)}</div>;
   } else if (data && data.task) {
-    return <TaskFragment data={data.task} />;
+    return <TaskLayout data={data.task} />;
   }
 
   return <Loader />;

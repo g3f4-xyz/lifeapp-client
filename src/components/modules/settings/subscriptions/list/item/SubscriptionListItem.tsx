@@ -15,12 +15,12 @@ import {
   Smartphone,
 } from '@material-ui/icons';
 import CloudOffIcon from '@material-ui/icons/CloudOff';
-import React, { FC, useState } from 'react';
+import React, { useState } from 'react';
 import { DEVICES, STATUSES } from '../../../../../../constans';
-import useSubscriptionsFragmentStyles from './useSubscriptionsFragmentStyles';
+import { useSubscriptionListItemFragment$key } from './__generated__/useSubscriptionListItemFragment.graphql';
+import useSubscriptionListItemFragment from './useSubscriptionListItemFragment';
+import useSubscriptionListItemStyles from './useSubscriptionListItemStyles';
 import useTestSubscriptionMutation from './useTestSubscriptionMutation';
-import { useSubscriptionFragment$key } from './__generated__/useSubscriptionFragment.graphql';
-import useSubscriptionFragment from './useSubscriptionFragment';
 
 const DEVICES_ICONS = {
   [DEVICES.DESKTOP]: Computer,
@@ -28,15 +28,13 @@ const DEVICES_ICONS = {
   [DEVICES.OTHER]: DevicesOther,
 };
 
-interface SubscriptionFragmentProps {
-  data: useSubscriptionFragment$key;
+function SubscriptionListItem(props: {
+  data: useSubscriptionListItemFragment$key;
 
   onDelete(subscriptionId: string): void;
-}
-
-const SubscriptionFragment: FC<SubscriptionFragmentProps> = (props) => {
-  const { id, userDeviceType, userAgent } = useSubscriptionFragment(props.data);
-  const classes = useSubscriptionsFragmentStyles();
+}) {
+  const { id, userDeviceType, userAgent } = useSubscriptionListItemFragment(props.data);
+  const classes = useSubscriptionListItemStyles();
   const [statusCode, setStatusCode] = useState('');
   const testSubscriptionMutation = useTestSubscriptionMutation();
   const handleDelete = () => {
@@ -74,6 +72,6 @@ const SubscriptionFragment: FC<SubscriptionFragmentProps> = (props) => {
       </ListItemSecondaryAction>
     </ListItem>
   );
-};
+}
 
-export default SubscriptionFragment;
+export default SubscriptionListItem;

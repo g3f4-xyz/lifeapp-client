@@ -1,37 +1,33 @@
 import {
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Button,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
-  Accordion,
-  AccordionDetails,
-  AccordionSummary,
   Grid,
   IconButton,
   Paper,
   Typography,
 } from '@material-ui/core';
 import { DeleteForever, Done, ExpandMore } from '@material-ui/icons';
-import React, { FC, useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { MODULES_IDS } from '../../../../constans';
-import SubscriptionsList from '../subscriptions/list/SubscriptionsList';
+import { MODULES_IDS } from '../../../constans';
+import registerUserSubscription from '../../../service-worker/registerUserSubscription';
+import { useSettingsFragment$key } from './__generated__/useSettingsFragment.graphql';
+import NotificationsGeneral from './notifications/general/NotificationsGeneral';
+import NotificationsTypes from './notifications/types/NotificationsTypes';
+import SubscriptionList from './subscriptions/list/SubscriptionList';
 import useCleanApplicationMutation from './useCleanApplicationMutation';
 import useDeleteSubscriptionMutation from './useDeleteSubscriptionMutation';
-import registerUserSubscription from '../../../../service-worker/registerUserSubscription';
-import NotificationsGeneralFragment from '../notifications/general/NotificationsGeneralFragment';
-import NotificationsTypesFragment from '../notifications/types/NotificationsTypesFragment';
-import { useSettingsFragment$key } from './__generated__/useSettingsFragment.graphql';
 import useSettingsFragment from './useSettingsFragment';
 import useSettingsStyles from './useSettingsStyles';
 
-export interface SettingsFragmentProps {
-  data: useSettingsFragment$key;
-}
-
-const SettingsFragment: FC<SettingsFragmentProps> = (props) => {
+export default function SettingsLayout(props: { data: useSettingsFragment$key }) {
   const data = useSettingsFragment(props.data);
   const classes = useSettingsStyles();
   const [cleanApplicationDialogOpen, setCleanApplicationDialogOpen] = useState(false);
@@ -81,10 +77,10 @@ const SettingsFragment: FC<SettingsFragmentProps> = (props) => {
         </Typography>
         <Grid container spacing={1}>
           <Grid item xs={12} md={6} lg={4}>
-            <NotificationsGeneralFragment data={data.notifications.general} />
+            <NotificationsGeneral data={data.notifications.general} />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
-            <NotificationsTypesFragment data={data.notifications.types} />
+            <NotificationsTypes data={data.notifications.types} />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <Accordion className={classes.subscriptionsWrapper}>
@@ -92,7 +88,7 @@ const SettingsFragment: FC<SettingsFragmentProps> = (props) => {
                 <Typography>Subscriptions</Typography>
               </AccordionSummary>
               <AccordionDetails className={classes.subscriptionsPaginationExpansionPanel}>
-                <SubscriptionsList
+                <SubscriptionList
                   className={classes.list}
                   data={data.notifications}
                   onDelete={onDeleteSubscription}
@@ -160,6 +156,4 @@ const SettingsFragment: FC<SettingsFragmentProps> = (props) => {
       </IconButton>
     </div>
   );
-};
-
-export default SettingsFragment;
+}

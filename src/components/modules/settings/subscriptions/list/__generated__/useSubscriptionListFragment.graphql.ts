@@ -4,17 +4,17 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type useSubscriptionsListFragment = {
+export type useSubscriptionListFragment = {
     readonly subscriptions: ReadonlyArray<{
         readonly id: string;
-        readonly " $fragmentRefs": FragmentRefs<"useSubscriptionFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"useSubscriptionListItemFragment">;
     }>;
-    readonly " $refType": "useSubscriptionsListFragment";
+    readonly " $refType": "useSubscriptionListFragment";
 };
-export type useSubscriptionsListFragment$data = useSubscriptionsListFragment;
-export type useSubscriptionsListFragment$key = {
-    readonly " $data"?: useSubscriptionsListFragment$data;
-    readonly " $fragmentRefs": FragmentRefs<"useSubscriptionsListFragment">;
+export type useSubscriptionListFragment$data = useSubscriptionListFragment;
+export type useSubscriptionListFragment$key = {
+    readonly " $data"?: useSubscriptionListFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"useSubscriptionListFragment">;
 };
 
 
@@ -23,7 +23,7 @@ const node: ReaderFragment = {
     "argumentDefinitions": [],
     "kind": "Fragment",
     "metadata": null,
-    "name": "useSubscriptionsListFragment",
+    "name": "useSubscriptionListFragment",
     "selections": [
         {
             "alias": null,
@@ -43,7 +43,7 @@ const node: ReaderFragment = {
                 {
                     "args": null,
                     "kind": "FragmentSpread",
-                    "name": "useSubscriptionFragment"
+                    "name": "useSubscriptionListItemFragment"
                 }
             ],
             "storageKey": null
@@ -52,5 +52,5 @@ const node: ReaderFragment = {
     "type": "NotificationsSettings",
     "abstractKey": null
 } as any;
-(node as any).hash = 'b9421f3705e32a5a78e9002fbe1b54ad';
+(node as any).hash = '8cc91f0115cf316a7c677547e9ffc121';
 export default node;

@@ -1,15 +1,10 @@
-import React, { FC } from 'react';
+import React from 'react';
 import Slider from '../../../display/field/Slider';
 import { useSliderFieldFragment$key } from './__generated__/useSliderFieldFragment.graphql';
 import useSliderFieldFragment from './useSliderFieldFragment';
 import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 
-interface SliderFieldProps {
-  data: useSliderFieldFragment$key;
-  taskId: string;
-}
-
-const SliderField: FC<SliderFieldProps> = (props) => {
+export default function SliderField(props: { data: useSliderFieldFragment$key; taskId: string }) {
   const {
     id,
     fieldId,
@@ -32,6 +27,4 @@ const SliderField: FC<SliderFieldProps> = (props) => {
       onChange={handleChange}
     />
   );
-};
-
-export default SliderField;
+}

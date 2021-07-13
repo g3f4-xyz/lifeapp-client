@@ -3,21 +3,19 @@ import Grid from '@material-ui/core/Grid';
 import { AddCircle, InfoOutlined } from '@material-ui/icons';
 import React, { ReactElement, useCallback, useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { MODULES_IDS } from '../../../../constans';
-import TaskTypeIcon from '../../../display/task-type-icon/TaskTypeIcon';
+import { MODULES_IDS } from '../../../../../constans';
+import TaskTypeIcon from '../../../../display/task-type-icon/TaskTypeIcon';
 import { useTaskTypeFragment$key } from './__generated__/useTaskTypeFragment.graphql';
 import useTaskTypeFragment from './useTaskTypeFragment';
-import useTaskTypeFragmentStyles from './useTaskTypeFragmentStyles';
+import useTaskTypeItemStyles from './useTaskTypeItemStyles';
 
-interface TaskTypeFragmentProps {
+interface TaskTypeItemProps {
   data: useTaskTypeFragment$key;
 }
 
-export default function TaskTypeFragment(
-  props: TaskTypeFragmentProps,
-): ReactElement<TaskTypeFragmentProps> {
+export default function TaskTypeItem(props: TaskTypeItemProps): ReactElement<TaskTypeItemProps> {
   const { data } = props;
-  const classes = useTaskTypeFragmentStyles();
+  const classes = useTaskTypeItemStyles();
   const [info, setInfo] = useState(false);
   const { label, description, typeId } = useTaskTypeFragment(data);
   const history = useHistory();

@@ -48,21 +48,21 @@ fragment useSettingsFragment on Settings {
     types {
       ...useNotificationsTypesFragment
     }
-    ...useSubscriptionsListFragment
+    ...useSubscriptionListFragment
   }
 }
 
-fragment useSubscriptionFragment on NotificationSubscription {
+fragment useSubscriptionListFragment on NotificationsSettings {
+  subscriptions {
+    id
+    ...useSubscriptionListItemFragment
+  }
+}
+
+fragment useSubscriptionListItemFragment on NotificationSubscription {
   id
   userAgent
   userDeviceType
-}
-
-fragment useSubscriptionsListFragment on NotificationsSettings {
-  subscriptions {
-    id
-    ...useSubscriptionFragment
-  }
 }
 */
 
@@ -238,12 +238,12 @@ const node: ConcreteRequest = (function () {
             ]
         },
         "params": {
-            "cacheID": "13d622fec632be4fd71ffbe43319ad2b",
+            "cacheID": "fc0185508f27b10473416c9761fb68a6",
             "id": null,
             "metadata": {},
             "name": "useSettingsQuery",
             "operationKind": "query",
-            "text": "query useSettingsQuery {\n  settings {\n    ...useSettingsFragment\n    id\n  }\n}\n\nfragment useNotificationsGeneralFragment on GeneralNotificationsSettings {\n  show\n  vibrate\n}\n\nfragment useNotificationsTypesFragment on TypesNotificationsSettings {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n\nfragment useSettingsFragment on Settings {\n  ownerId\n  notifications {\n    id\n    general {\n      ...useNotificationsGeneralFragment\n    }\n    types {\n      ...useNotificationsTypesFragment\n    }\n    ...useSubscriptionsListFragment\n  }\n}\n\nfragment useSubscriptionFragment on NotificationSubscription {\n  id\n  userAgent\n  userDeviceType\n}\n\nfragment useSubscriptionsListFragment on NotificationsSettings {\n  subscriptions {\n    id\n    ...useSubscriptionFragment\n  }\n}\n"
+            "text": "query useSettingsQuery {\n  settings {\n    ...useSettingsFragment\n    id\n  }\n}\n\nfragment useNotificationsGeneralFragment on GeneralNotificationsSettings {\n  show\n  vibrate\n}\n\nfragment useNotificationsTypesFragment on TypesNotificationsSettings {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n\nfragment useSettingsFragment on Settings {\n  ownerId\n  notifications {\n    id\n    general {\n      ...useNotificationsGeneralFragment\n    }\n    types {\n      ...useNotificationsTypesFragment\n    }\n    ...useSubscriptionListFragment\n  }\n}\n\nfragment useSubscriptionListFragment on NotificationsSettings {\n  subscriptions {\n    id\n    ...useSubscriptionListItemFragment\n  }\n}\n\nfragment useSubscriptionListItemFragment on NotificationSubscription {\n  id\n  userAgent\n  userDeviceType\n}\n"
         }
     } as any;
 })();

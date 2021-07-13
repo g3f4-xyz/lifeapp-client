@@ -1,15 +1,10 @@
-import React, { FC } from 'react';
-import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
+import React from 'react';
 import Switch from '../../../display/field/Switch';
 import { useSwitchFieldFragment$key } from './__generated__/useSwitchFieldFragment.graphql';
 import useSwitchFieldFragment from './useSwitchFieldFragment';
+import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 
-interface SwitchFieldProps {
-  data: useSwitchFieldFragment$key;
-  taskId: string;
-}
-
-const SwitchField: FC<SwitchFieldProps> = (props) => {
+export default function SwitchField(props: { data: useSwitchFieldFragment$key; taskId: string }) {
   const {
     id,
     fieldId,
@@ -22,6 +17,4 @@ const SwitchField: FC<SwitchFieldProps> = (props) => {
   };
 
   return <Switch disabled={disabled} checked={enabled} label={label} onChange={handleChange} />;
-};
-
-export default SwitchField;
+}

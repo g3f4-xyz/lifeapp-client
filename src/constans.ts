@@ -1,8 +1,8 @@
-import { TaskTypeId } from './components/modules/task-type-list/fragment/__generated__/useTaskTypeFragment.graphql';
+import { TaskTypeId } from './components/modules/task-types/list/item/__generated__/useTaskTypeFragment.graphql';
 import {
   FieldId,
   FieldType,
-} from './components/modules/task/fragment/__generated__/useTaskFragment.graphql';
+} from './components/modules/task/__generated__/useTaskFragment.graphql';
 import { TaskStatus } from './components/modules/tasks/list/__generated__/useTaskListPagination.graphql';
 
 export type UnionKeyToValue<U extends string, V = U> = {

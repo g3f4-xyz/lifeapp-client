@@ -4,21 +4,21 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type useTaskTypeListQueryVariables = {};
-export type useTaskTypeListQueryResponse = {
+export type useTaskTypesQueryVariables = {};
+export type useTaskTypesQueryResponse = {
     readonly taskTypes: {
         readonly " $fragmentRefs": FragmentRefs<"useTaskTypeListFragment">;
     };
 };
-export type useTaskTypeListQuery = {
-    readonly response: useTaskTypeListQueryResponse;
-    readonly variables: useTaskTypeListQueryVariables;
+export type useTaskTypesQuery = {
+    readonly response: useTaskTypesQueryResponse;
+    readonly variables: useTaskTypesQueryVariables;
 };
 
 
 
 /*
-query useTaskTypeListQuery {
+query useTaskTypesQuery {
   taskTypes {
     ...useTaskTypeListFragment
     id
@@ -55,7 +55,7 @@ const node: ConcreteRequest = (function () {
             "argumentDefinitions": [],
             "kind": "Fragment",
             "metadata": null,
-            "name": "useTaskTypeListQuery",
+            "name": "useTaskTypesQuery",
             "selections": [
                 {
                     "alias": null,
@@ -81,7 +81,7 @@ const node: ConcreteRequest = (function () {
         "operation": {
             "argumentDefinitions": [],
             "kind": "Operation",
-            "name": "useTaskTypeListQuery",
+            "name": "useTaskTypesQuery",
             "selections": [
                 {
                     "alias": null,
@@ -138,14 +138,14 @@ const node: ConcreteRequest = (function () {
             ]
         },
         "params": {
-            "cacheID": "b325bfb1ce6df56bad14af6e253ad15e",
+            "cacheID": "078c70ffc2c8d3fa0e016d9627b700f3",
             "id": null,
             "metadata": {},
-            "name": "useTaskTypeListQuery",
+            "name": "useTaskTypesQuery",
             "operationKind": "query",
-            "text": "query useTaskTypeListQuery {\n  taskTypes {\n    ...useTaskTypeListFragment\n    id\n  }\n}\n\nfragment useTaskTypeFragment on TaskType {\n  id\n  typeId\n  label\n  description\n}\n\nfragment useTaskTypeListFragment on TaskTypes {\n  id\n  list {\n    id\n    order\n    ...useTaskTypeFragment\n  }\n}\n"
+            "text": "query useTaskTypesQuery {\n  taskTypes {\n    ...useTaskTypeListFragment\n    id\n  }\n}\n\nfragment useTaskTypeFragment on TaskType {\n  id\n  typeId\n  label\n  description\n}\n\nfragment useTaskTypeListFragment on TaskTypes {\n  id\n  list {\n    id\n    order\n    ...useTaskTypeFragment\n  }\n}\n"
         }
     } as any;
 })();
-(node as any).hash = 'cf01fd1f0a1fb6d63779871b83bc3686';
+(node as any).hash = 'b3383999cd90d22fd3d46d5f0f5dcb75';
 export default node;

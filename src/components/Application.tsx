@@ -8,10 +8,10 @@ import Auth0TokenContext from './Auth0TokenContext';
 import ErrorBoundary from './containers/error-boundary/ErrorBoundary';
 import ResponsiveGrid, { ResponsiveGridItem } from './containers/responsive-grid/ResponsiveGrid';
 import AppMenu from './display/app-menu/AppMenu';
-import SettingsQuery from './modules/settings/SettingsQuery';
-import Tasks from './modules/tasks/Tasks';
-import TaskTypeList from './modules/task-type-list/TaskTypeList';
+import Settings from './modules/settings/Settings';
+import TaskTypes from './modules/task-types/TaskTypes';
 import Task from './modules/task/Task';
+import Tasks from './modules/tasks/Tasks';
 
 export default function Application() {
   const [openedTasksParams, setOpenedTasksParams] = useState<TaskParams[]>([]);
@@ -64,12 +64,9 @@ export default function Application() {
             <Route path={`${match.url}/${MODULES_IDS.TASK_LIST}`.toString()} component={Tasks} />
             <Route
               path={`${match.url}/${MODULES_IDS.TASK_TYPE_LIST}`.toString()}
-              component={TaskTypeList}
+              component={TaskTypes}
             />
-            <Route
-              path={`${match.url}/${MODULES_IDS.SETTINGS}`.toString()}
-              component={SettingsQuery}
-            />
+            <Route path={`${match.url}/${MODULES_IDS.SETTINGS}`.toString()} component={Settings} />
             <Route path={`${match.url}/${MODULES_IDS.TASK}/*`.toString()} component={Task} />
             <Route
               path={`${match.url}/dashboard`}
@@ -87,14 +84,14 @@ export default function Application() {
                     onRemove={removeGridItem}
                     fixed
                   >
-                    <TaskTypeList />
+                    <TaskTypes />
                   </ResponsiveGridItem>
                   <ResponsiveGridItem
                     path={`${match.url}/${MODULES_IDS.SETTINGS}`}
                     onRemove={removeGridItem}
                     fixed
                   >
-                    <SettingsQuery />
+                    <Settings />
                   </ResponsiveGridItem>
                   {openedTasksParams.map((params) => (
                     <ResponsiveGridItem

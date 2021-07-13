@@ -1,15 +1,10 @@
-import React, { FC } from 'react';
-import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
+import React from 'react';
 import Text from '../../../display/field/Text';
 import { useTextFieldFragment$key } from './__generated__/useTextFieldFragment.graphql';
 import useTextFieldFragment from './useTextFieldFragment';
+import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 
-interface TextFieldProps {
-  data: useTextFieldFragment$key;
-  taskId: string;
-}
-
-const TextField: FC<TextFieldProps> = (props) => {
+export default function TextField(props: { data: useTextFieldFragment$key; taskId: string }) {
   const {
     id,
     fieldId,
@@ -36,6 +31,4 @@ const TextField: FC<TextFieldProps> = (props) => {
       onChange={handleChange}
     />
   );
-};
-
-export default TextField;
+}

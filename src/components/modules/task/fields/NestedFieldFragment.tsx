@@ -1,5 +1,5 @@
 // import immutabilityHelper from 'immutability-helper';
-import React, { FC, Fragment } from 'react';
+import React from 'react';
 import { FieldIdEnum } from '../../../../constans';
 // import {
 //   FieldValueInput,
@@ -177,8 +177,8 @@ export interface NestedFieldContainerProps {
   taskId: string;
 }
 
-const NestedFieldContainer: FC<NestedFieldContainerProps> = () => {
-  return <Fragment></Fragment>;
+export default function NestedFieldContainer() {
+  return <></>;
   // const { data } = props;
   // const { meta, value } = data;
   //
@@ -195,6 +195,4 @@ const NestedFieldContainer: FC<NestedFieldContainerProps> = () => {
   // };
   //
   // return <NestedField value={value} meta={meta} onChange={handleChange} />;
-};
-
-export default NestedFieldContainer;
+}

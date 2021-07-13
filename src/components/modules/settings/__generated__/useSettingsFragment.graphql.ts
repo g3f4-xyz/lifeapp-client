@@ -14,7 +14,7 @@ export type useSettingsFragment = {
         readonly types: {
             readonly " $fragmentRefs": FragmentRefs<"useNotificationsTypesFragment">;
         };
-        readonly " $fragmentRefs": FragmentRefs<"useSubscriptionsListFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"useSubscriptionListFragment">;
     };
     readonly " $refType": "useSettingsFragment";
 };
@@ -89,7 +89,7 @@ const node: ReaderFragment = {
                 {
                     "args": null,
                     "kind": "FragmentSpread",
-                    "name": "useSubscriptionsListFragment"
+                    "name": "useSubscriptionListFragment"
                 }
             ],
             "storageKey": null
@@ -98,5 +98,5 @@ const node: ReaderFragment = {
     "type": "Settings",
     "abstractKey": null
 } as any;
-(node as any).hash = '6036bb54eb1cf1402dc9fea91193f1bc';
+(node as any).hash = 'aa9f47ee8e165d2a8484f45d9207fde5';
 export default node;
