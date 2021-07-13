@@ -1,9 +1,6 @@
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from 'relay-hooks';
-import {
-  useChoiceFieldFragment,
-  useChoiceFieldFragment$key,
-} from './__generated__/useChoiceFieldFragment.graphql';
+import { useChoiceFieldFragment$key } from './__generated__/useChoiceFieldFragment.graphql';
 
 graphql`
   fragment useChoiceFieldFragmentMeta on ChoiceFieldMeta {
@@ -38,5 +35,4 @@ const query = graphql`
   }
 `;
 
-export default (data: useChoiceFieldFragment$key): Omit<useChoiceFieldFragment, ' $refType'> =>
-  useFragment(query, data);
+export default (data: useChoiceFieldFragment$key) => useFragment(query, data);
