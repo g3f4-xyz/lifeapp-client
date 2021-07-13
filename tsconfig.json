@@ -16,7 +16,7 @@
       "es2017.object"
     ],
     "allowJs": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "sourceMap": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
@@ -28,7 +28,8 @@
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": [
     "src"

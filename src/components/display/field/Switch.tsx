@@ -3,17 +3,16 @@ import React, { ChangeEvent, FC } from 'react';
 import FieldContainer from '../../containers/field-container/FieldContainer';
 
 export interface SwitchProps {
-  checked?: boolean;
+  checked?: boolean | null;
   disabled?: boolean | null;
-  label?: string;
+  label?: string | null;
   required?: boolean;
 
   onChange(value: boolean): void;
 }
 
-const Switch: FC<SwitchProps> = props => {
+const Switch: FC<SwitchProps> = (props) => {
   const { checked, disabled, label } = props;
-
   const handleChange = async (event: ChangeEvent<HTMLInputElement>): Promise<void> => {
     props.onChange(event.target.checked);
   };
@@ -23,8 +22,8 @@ const Switch: FC<SwitchProps> = props => {
       <FormControlLabel
         control={
           <MaterialSwitch
-            checked={checked}
-            disabled={disabled as (boolean | undefined)}
+            checked={checked as boolean}
+            disabled={disabled as boolean | undefined}
             value={checked}
             onChange={handleChange}
           />

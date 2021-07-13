@@ -4,15 +4,15 @@ import FieldContainer from '../../containers/field-container/FieldContainer';
 
 interface ChoiceProps {
   value?: string;
-  label?: string;
-  helperText?: string;
-  required?: boolean;
-  options: ReadonlyArray<{ readonly text: string; readonly value: string } | null> | undefined;
+  label?: string | null;
+  helperText?: string | null;
+  required?: boolean | null;
+  options?: ReadonlyArray<{ readonly text: string; readonly value: string }>;
 
   onChange(value: string): void;
 }
 
-const Choice: FC<ChoiceProps> = props => {
+const Choice: FC<ChoiceProps> = (props) => {
   const { label, value, helperText, options } = props;
 
   if (!options) {
@@ -28,7 +28,7 @@ const Choice: FC<ChoiceProps> = props => {
       {label && <InputLabel>{label}</InputLabel>}
       <Select value={value} onChange={handleChange}>
         {options.map(
-          option =>
+          (option) =>
             option && (
               <MenuItem key={option.value} value={option.value}>
                 {option.text}

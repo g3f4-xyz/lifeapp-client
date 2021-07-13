@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { TaskTypeEnum } from '../../../constans';
 import AppContext from '../../AppContext';
@@ -11,17 +11,15 @@ export interface TaskProps {
   taskType?: TaskTypeEnum;
 }
 
-const Task: FC<TaskProps> = ownProps => {
+export default function Task(ownProps: TaskProps) {
   const params = useParams();
   const { addTaskParam } = useContext(AppContext);
   const firstParam = params[0];
-
   const [taskType, taskId] = firstParam ? firstParam.split('/') : [];
-  const { props, error } = useTaskQuery({
-    id: ownProps.taskId || taskId,
-    type: ownProps.taskType || taskType,
+  const { data, error } = useTaskQuery({
+    id: ownProps.taskId || taskId.length > 0 ? taskId : null,
+    typeId: ownProps.taskType || taskType,
   });
-
   const saveParams = useCallback(() => {
     addTaskParam({
       taskId,
@@ -42,11 +40,9 @@ const Task: FC<TaskProps> = ownProps => {
 
   if (error) {
     return <div>{JSON.stringify(error)}</div>;
-  } else if (props && props.app.task) {
-    return <TaskFragment data={props.app.task} />;
+  } else if (data && data.task) {
+    return <TaskFragment data={data.task} />;
   }
 
   return <Loader />;
-};
-
-export default Task;
+}

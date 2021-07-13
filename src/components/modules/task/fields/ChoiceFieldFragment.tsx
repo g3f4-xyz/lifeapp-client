@@ -1,30 +1,24 @@
-import graphql from 'babel-plugin-relay/macro';
 import React, { FC } from 'react';
-import { createFragmentContainer } from 'react-relay';
-import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
+import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 import Choice from '../../../display/field/Choice';
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { ChoiceFieldFragment_data } from './__generated__/ChoiceFieldFragment_data.graphql';
+import { useChoiceFieldFragment$key } from './__generated__/useChoiceFieldFragment.graphql';
+import useChoiceFieldFragment from './useChoiceFieldFragment';
 
 interface ChoiceFieldProps {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  data: ChoiceFieldFragment_data;
+  data: useChoiceFieldFragment$key;
   taskId: string;
 }
 
-const ChoiceField: FC<ChoiceFieldProps> = props => {
-  const { data } = props;
+const ChoiceField: FC<ChoiceFieldProps> = (props) => {
   const {
+    id: relayId,
+    fieldId,
     value: { id },
     meta: { options, label, helperText },
-  } = data;
+  } = useChoiceFieldFragment(props.data);
+  const mutate = useUpdateTaskFieldMutation(relayId);
   const handleChange = async (changedId: string): Promise<void> => {
-    const {
-      taskId,
-      data: { fieldId, id },
-    } = props;
-
-    await updateTaskFieldMutation({ fieldId, value: { id: changedId }, taskId }, { id });
+    await mutate({ fieldId, value: { id: changedId }, taskId: props.taskId });
   };
 
   return (
@@ -38,37 +32,4 @@ const ChoiceField: FC<ChoiceFieldProps> = props => {
   );
 };
 
-graphql`
-  fragment ChoiceFieldFragmentMeta on ChoiceMetaType {
-    fieldType
-    helperText
-    label
-    defaultValue
-    options {
-      text
-      value
-    }
-    required
-  }
-`;
-
-graphql`
-  fragment ChoiceFieldFragmentValue on ChoiceValueType {
-    id
-  }
-`;
-
-export default createFragmentContainer<ChoiceFieldProps>(ChoiceField, {
-  data: graphql`
-    fragment ChoiceFieldFragment_data on ChoiceFieldType {
-      id
-      fieldId
-      meta {
-        ...ChoiceFieldFragmentMeta @relay(mask: false)
-      }
-      value {
-        ...ChoiceFieldFragmentValue @relay(mask: false)
-      }
-    }
-  `,
-});
+export default ChoiceField;

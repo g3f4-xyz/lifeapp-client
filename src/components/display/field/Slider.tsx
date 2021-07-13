@@ -5,18 +5,17 @@ import FieldContainer from '../../containers/field-container/FieldContainer';
 
 interface SliderProps
   extends Pick<MaterialSliderProps, 'max' | 'min' | 'step' | 'value' | 'disabled'> {
-  label?: string;
+  label?: string | null;
   required?: boolean;
 
   onChange(value: number): void;
 }
 
-const Slider: FC<SliderProps> = props => {
+const Slider: FC<SliderProps> = (props) => {
   const { max, min, step, value, disabled, label } = props;
-
   const handleChange = async (
-    _event: React.ChangeEvent<{}>,
-    value: number | number[],
+    _event: React.ChangeEvent<HTMLInputElement>,
+    value?: number | number[],
   ): Promise<void> => {
     props.onChange(value as number);
   };
@@ -31,6 +30,8 @@ const Slider: FC<SliderProps> = props => {
         min={min}
         step={step}
         disabled={disabled}
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         onChange={handleChange}
       />
     </FieldContainer>

@@ -1,37 +1,30 @@
-import graphql from 'babel-plugin-relay/macro';
 import React, { FC } from 'react';
-import { createFragmentContainer } from 'react-relay';
-import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
 import Slider from '../../../display/field/Slider';
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { SliderFieldFragment_data } from './__generated__/SliderFieldFragment_data.graphql';
+import { useSliderFieldFragment$key } from './__generated__/useSliderFieldFragment.graphql';
+import useSliderFieldFragment from './useSliderFieldFragment';
+import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 
 interface SliderFieldProps {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  data: SliderFieldFragment_data;
+  data: useSliderFieldFragment$key;
   taskId: string;
 }
 
-const SliderField: FC<SliderFieldProps> = props => {
-  const { data } = props;
+const SliderField: FC<SliderFieldProps> = (props) => {
   const {
+    id,
+    fieldId,
     value: { progress },
     meta: { label, disabled, max, min, step },
-  } = data;
-
+  } = useSliderFieldFragment(props.data);
+  const mutate = useUpdateTaskFieldMutation(id);
   const handleChange = async (progress: number): Promise<void> => {
-    const {
-      taskId,
-      data: { fieldId, id },
-    } = props;
-
-    await updateTaskFieldMutation({ fieldId, value: { progress }, taskId }, { id });
+    await mutate({ fieldId, value: { progress }, taskId: props.taskId });
   };
 
   return (
     <Slider
       disabled={disabled || undefined}
-      value={progress}
+      value={progress as number | number[]}
       label={label}
       max={max || undefined}
       min={min || undefined}
@@ -41,35 +34,4 @@ const SliderField: FC<SliderFieldProps> = props => {
   );
 };
 
-graphql`
-  fragment SliderFieldFragmentMeta on SliderMetaType {
-    fieldType
-    label
-    disabled
-    required
-    max
-    min
-    step
-  }
-`;
-
-graphql`
-  fragment SliderFieldFragmentValue on SliderValueType {
-    progress
-  }
-`;
-
-export default createFragmentContainer<SliderFieldProps>(SliderField, {
-  data: graphql`
-    fragment SliderFieldFragment_data on SliderFieldType {
-      id
-      fieldId
-      meta {
-        ...SliderFieldFragmentMeta @relay(mask: false)
-      }
-      value {
-        ...SliderFieldFragmentValue @relay(mask: false)
-      }
-    }
-  `,
-});
+export default SliderField;

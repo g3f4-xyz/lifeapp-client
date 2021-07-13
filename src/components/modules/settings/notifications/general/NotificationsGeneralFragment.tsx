@@ -1,7 +1,7 @@
 import {
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   List,
   ListItem,
   ListItemIcon,
@@ -11,55 +11,49 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ExpandMore, Slideshow, Vibration } from '@material-ui/icons';
-import graphql from 'babel-plugin-relay/macro';
 import React, { ChangeEvent, FC } from 'react';
-import { createFragmentContainer } from 'react-relay';
-import saveNotificationsGeneralSettingMutation from '../../../../../mutations/saveNotificationsGeneralSettingMutation';
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { NotificationsGeneralFragment_data } from './__generated__/NotificationsGeneralFragment_data.graphql';
+import useSaveNotificationsGeneralSettingMutation from './useSaveNotificationsGeneralSettingMutation';
+import { useNotificationsGeneralFragment$key } from './__generated__/useNotificationsGeneralFragment.graphql';
+import useNotificationsGeneralFragment from './useNotificationsGeneralFragment';
 import useNotificationsGeneralFragmentStyles from './useNotificationsGeneralFragmentStyles';
 
 interface NotificationsGeneralProps {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  data: NotificationsGeneralFragment_data;
+  data: useNotificationsGeneralFragment$key;
 }
 
-const NotificationsGeneral: FC<NotificationsGeneralProps> = props => {
-  const {
-    data: { show, vibrate },
-  } = props;
+const NotificationsGeneral: FC<NotificationsGeneralProps> = (props) => {
+  const { show, vibrate } = useNotificationsGeneralFragment(props.data);
   const classes = useNotificationsGeneralFragmentStyles();
-
+  const saveNotificationsGeneralSettingMutation = useSaveNotificationsGeneralSettingMutation();
   const handleShowChange = async (
     _: ChangeEvent<HTMLInputElement>,
-    show: boolean,
+    changedShow: boolean,
   ): Promise<void> => {
     await saveNotificationsGeneralSettingMutation({
       general: {
-        ...props.data,
-        show,
+        vibrate,
+        show: changedShow,
       },
     });
   };
-
   const handleVibrateChange = async (
     _: ChangeEvent<HTMLInputElement>,
-    vibrate: boolean,
+    changedVibrate: boolean,
   ): Promise<void> => {
     await saveNotificationsGeneralSettingMutation({
       general: {
-        ...props.data,
-        vibrate,
+        show,
+        vibrate: changedVibrate,
       },
     });
   };
 
   return (
-    <ExpansionPanel className={classes.wrapper}>
-      <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+    <Accordion className={classes.wrapper}>
+      <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography>General</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      </AccordionSummary>
+      <AccordionDetails>
         <List className={classes.list}>
           <ListItem>
             <ListItemIcon>
@@ -80,16 +74,9 @@ const NotificationsGeneral: FC<NotificationsGeneralProps> = props => {
             </ListItemSecondaryAction>
           </ListItem>
         </List>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 
-export default createFragmentContainer(NotificationsGeneral, {
-  data: graphql`
-    fragment NotificationsGeneralFragment_data on NotificationsGeneralSettingType {
-      show
-      vibrate
-    }
-  `,
-});
+export default NotificationsGeneral;

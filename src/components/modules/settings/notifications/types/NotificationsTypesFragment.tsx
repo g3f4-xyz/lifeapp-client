@@ -1,7 +1,7 @@
 import {
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   List,
   ListItem,
   ListItemIcon,
@@ -11,46 +11,42 @@ import {
   Typography,
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
-import graphql from 'babel-plugin-relay/macro';
 import React, { ChangeEvent, FC } from 'react';
-import { createFragmentContainer } from 'react-relay';
 import { TASK_TYPE, TaskTypeEnum } from '../../../../../constans';
-import saveNotificationsTypesSettingMutation from '../../../../../mutations/saveNotificationsTypesSettingMutation';
+import { useNotificationsTypesFragment$key } from './__generated__/useNotificationsTypesFragment.graphql';
+import useSaveNotificationsTypesSettingMutation from './useSaveNotificationsTypesSettingMutation';
 import TaskTypeIcon from '../../../../display/task-type-icon/TaskTypeIcon';
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { NotificationsTypesFragment_data } from './__generated__/NotificationsTypesFragment_data.graphql';
+import useNotificationsTypesFragment from './useNotificationsTypesFragment';
 import useNotificationsTypesFragmentStyles from './useNotificationsTypesFragmentStyles';
 
 interface NotificationsTypesProps {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  data: NotificationsTypesFragment_data;
+  data: useNotificationsTypesFragment$key;
 }
 
-const NotificationsTypes: FC<NotificationsTypesProps> = props => {
-  const { data } = props;
+const NotificationsTypes: FC<NotificationsTypesProps> = (props) => {
+  const { events, goals, meetings, routines, todos } = useNotificationsTypesFragment(props.data);
+  const types = { events, goals, meetings, routines, todos };
   const classes = useNotificationsTypesFragmentStyles();
-  const getChangeHandler = (key: string) => async (
-    _: ChangeEvent<HTMLInputElement>,
-    checked: boolean,
-  ): Promise<void> => {
-    await saveNotificationsTypesSettingMutation({
-      types: {
-        ...props.data,
-        ...{
+  const saveNotificationsTypesSettingMutation = useSaveNotificationsTypesSettingMutation();
+  const getChangeHandler =
+    (key: string) =>
+    async (_: ChangeEvent<HTMLInputElement>, checked: boolean): Promise<void> => {
+      await saveNotificationsTypesSettingMutation({
+        types: {
+          ...types,
           [key]: checked,
         },
-      },
-    });
-  };
+      });
+    };
 
   return (
-    <ExpansionPanel className={classes.wrapper}>
-      <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+    <Accordion className={classes.wrapper}>
+      <AccordionSummary expandIcon={<ExpandMore />}>
         <Typography>Types</Typography>
-      </ExpansionPanelSummary>
-      <ExpansionPanelDetails>
+      </AccordionSummary>
+      <AccordionDetails>
         <List className={classes.list}>
-          {Object.keys(TASK_TYPE).map(key => (
+          {Object.keys(TASK_TYPE).map((key) => (
             <ListItem key={key}>
               <ListItemIcon>
                 <TaskTypeIcon type={key as TaskTypeEnum} />
@@ -59,25 +55,15 @@ const NotificationsTypes: FC<NotificationsTypesProps> = props => {
               <ListItemSecondaryAction>
                 <Switch
                   onChange={getChangeHandler(`${key.toLowerCase()}s`)}
-                  checked={data[`${key.toLowerCase()}s`]}
+                  checked={types[`${key.toLowerCase()}s`]}
                 />
               </ListItemSecondaryAction>
             </ListItem>
           ))}
         </List>
-      </ExpansionPanelDetails>
-    </ExpansionPanel>
+      </AccordionDetails>
+    </Accordion>
   );
 };
 
-export default createFragmentContainer(NotificationsTypes, {
-  data: graphql`
-    fragment NotificationsTypesFragment_data on NotificationsTypesSettingType {
-      events
-      goals
-      meetings
-      routines
-      todos
-    }
-  `,
-});
+export default NotificationsTypes;

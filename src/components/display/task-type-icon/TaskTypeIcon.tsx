@@ -15,13 +15,17 @@ const ICONS: TASK_TYPE_VALUE_MAP<React.ComponentType<SvgIconProps>> = {
 
 export interface TaskTypeIconProps {
   className?: string;
-  type: TaskTypeEnum;
+  type: TaskTypeEnum | null;
 }
 
-const TaskTypeIcon: FC<TaskTypeIconProps> = props => {
+const TaskTypeIcon: FC<TaskTypeIconProps> = (props) => {
   const { className, type } = props;
   const classes = useTaskTypeIconStyles();
-  const Icon = ICONS[type];
+  const Icon = type ? ICONS[type] : null;
+
+  if (Icon === null) {
+    return null;
+  }
 
   return <Icon className={classNames(classes.icon, className)} />;
 };

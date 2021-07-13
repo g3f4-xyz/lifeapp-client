@@ -1,25 +1,23 @@
-// eslint-disable-next-line @typescript-eslint/ban-ts-ignore
-// @ts-ignore
 import graphql from 'babel-plugin-relay/macro';
 import { useFragment } from 'relay-hooks';
 import {
   useTaskListFragment,
-  useTaskListFragment$ref,
+  useTaskListFragment$key,
 } from './__generated__/useTaskListFragment.graphql';
 
 const query = graphql`
-  fragment useTaskListFragment on TaskType {
+  fragment useTaskListFragment on Task {
     id
-    taskType
+    typeId
     fields {
-      ...SliderFieldFragment_data @relay(mask: false)
-      ...SwitchFieldFragment_data @relay(mask: false)
-      ...ChoiceFieldFragment_data @relay(mask: false)
-      ...TextFieldFragment_data @relay(mask: false)
-      ...NestedFieldFragment_data @relay(mask: false)
+      ...useSliderFieldFragment @relay(mask: false)
+      ...useSwitchFieldFragment @relay(mask: false)
+      ...useChoiceFieldFragment @relay(mask: false)
+      ...useTextFieldFragment @relay(mask: false)
+      ...useNestedFieldFragment @relay(mask: false)
     }
   }
 `;
 
-export default (data: useTaskListFragment$ref): Omit<useTaskListFragment, ' $refList'> =>
+export default (data: useTaskListFragment$key): Omit<useTaskListFragment, ' $refList'> =>
   useFragment(query, data);

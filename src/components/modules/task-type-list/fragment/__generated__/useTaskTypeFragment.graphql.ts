@@ -1,54 +1,62 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
-export type TaskTypeEnum = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO" | "%future added value";
-export type useTaskTypeFragment$ref = any;
+import { FragmentRefs } from "relay-runtime";
+export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
 export type useTaskTypeFragment = {
     readonly id: string;
-    readonly typeId: TaskTypeEnum;
-    readonly label: string;
-    readonly description: string;
-    readonly " $refType": useTaskTypeFragment$ref;
+    readonly typeId: TaskTypeId | null;
+    readonly label: string | null;
+    readonly description: string | null;
+    readonly " $refType": "useTaskTypeFragment";
+};
+export type useTaskTypeFragment$data = useTaskTypeFragment;
+export type useTaskTypeFragment$key = {
+    readonly " $data"?: useTaskTypeFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"useTaskTypeFragment">;
 };
 
 
 
-const node: ReaderFragment = ({
-    "kind": "Fragment",
-    "name": "useTaskTypeFragment",
-    "type": "TaskTypeType",
-    "metadata": null,
+const node: ReaderFragment = {
     "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "useTaskTypeFragment",
     "selections": [
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "id",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "typeId",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
+            "args": null,
+            "kind": "ScalarField",
             "name": "label",
-            "args": null,
             "storageKey": null
         },
         {
-            "kind": "ScalarField",
             "alias": null,
-            "name": "description",
             "args": null,
+            "kind": "ScalarField",
+            "name": "description",
             "storageKey": null
         }
-    ]
-} as any);
-(node as any).hash = '406265357a2eb26cbdac9e1009cfbcb9';
+    ],
+    "type": "TaskType",
+    "abstractKey": null
+} as any;
+(node as any).hash = 'eb870fd7838b7dd406c970c73d51c783';
 export default node;

@@ -1,32 +1,25 @@
-import graphql from 'babel-plugin-relay/macro';
 import React, { FC } from 'react';
-import { createFragmentContainer } from 'react-relay';
-import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
+import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 import Text from '../../../display/field/Text';
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { TextFieldFragment_data } from './__generated__/TextFieldFragment_data.graphql';
+import { useTextFieldFragment$key } from './__generated__/useTextFieldFragment.graphql';
+import useTextFieldFragment from './useTextFieldFragment';
 
 interface TextFieldProps {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  data: TextFieldFragment_data;
+  data: useTextFieldFragment$key;
   taskId: string;
 }
 
-const TextField: FC<TextFieldProps> = props => {
-  const { data } = props;
+const TextField: FC<TextFieldProps> = (props) => {
   const {
+    id,
+    fieldId,
     value: { text },
     meta,
-  } = data;
+  } = useTextFieldFragment(props.data);
+  const mutate = useUpdateTaskFieldMutation(id);
   const { max, maxLength, min, minLength, required, inputType, label, helperText } = meta;
-
-  const handleChange = async (text: string): Promise<void> => {
-    const {
-      taskId,
-      data: { fieldId, id },
-    } = props;
-
-    await updateTaskFieldMutation({ fieldId, value: { text }, taskId }, { id });
+  const handleChange = async (text: string) => {
+    await mutate({ fieldId, value: { text }, taskId: props.taskId });
   };
 
   return (
@@ -45,38 +38,4 @@ const TextField: FC<TextFieldProps> = props => {
   );
 };
 
-// tslint:disable-next-line:no-unused-expression
-graphql`
-  fragment TextFieldFragmentMeta on TextMetaType {
-    fieldType
-    helperText
-    label
-    inputType
-    min
-    max
-    maxLength
-    minLength
-    required
-  }
-`;
-// tslint:disable-next-line:no-unused-expression
-graphql`
-  fragment TextFieldFragmentValue on TextValueType {
-    text
-  }
-`;
-
-export default createFragmentContainer<TextFieldProps>(TextField, {
-  data: graphql`
-    fragment TextFieldFragment_data on TextFieldType {
-      id
-      fieldId
-      meta {
-        ...TextFieldFragmentMeta @relay(mask: false)
-      }
-      value {
-        ...TextFieldFragmentValue @relay(mask: false)
-      }
-    }
-  `,
-});
+export default TextField;

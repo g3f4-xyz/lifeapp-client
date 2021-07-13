@@ -5,59 +5,56 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  ExpansionPanel,
-  ExpansionPanelDetails,
-  ExpansionPanelSummary,
+  Accordion,
+  AccordionDetails,
+  AccordionSummary,
   Grid,
   IconButton,
   Paper,
   Typography,
 } from '@material-ui/core';
 import { DeleteForever, Done, ExpandMore } from '@material-ui/icons';
-import graphql from 'babel-plugin-relay/macro';
 import React, { FC, useCallback, useState } from 'react';
-import { createFragmentContainer } from 'react-relay';
 import { useHistory } from 'react-router-dom';
 import { MODULES_IDS } from '../../../../constans';
-import cleanApplicationMutation from '../../../../mutations/cleanApplicationMutation';
-import deleteSubscriptionMutation from '../../../../mutations/deleteSubscriptionMutation';
+import SubscriptionsList from '../subscriptions/list/SubscriptionsList';
+import useCleanApplicationMutation from './useCleanApplicationMutation';
+import useDeleteSubscriptionMutation from './useDeleteSubscriptionMutation';
 import registerUserSubscription from '../../../../service-worker/registerUserSubscription';
 import NotificationsGeneralFragment from '../notifications/general/NotificationsGeneralFragment';
 import NotificationsTypesFragment from '../notifications/types/NotificationsTypesFragment';
-import useSettingsFragmentStyles from '../subscriptions/fragment/useSettingsFragmentStyles';
-import SubscriptionsPagination from '../subscriptions/pagination/SubscriptionsPagination';
-import { SettingsFragment_data as SettingsFragmentResponse } from './__generated__/SettingsFragment_data.graphql';
+import { useSettingsFragment$key } from './__generated__/useSettingsFragment.graphql';
+import useSettingsFragment from './useSettingsFragment';
+import useSettingsStyles from './useSettingsStyles';
 
 export interface SettingsFragmentProps {
-  data: SettingsFragmentResponse;
+  data: useSettingsFragment$key;
 }
 
-const SettingsFragment: FC<SettingsFragmentProps> = props => {
-  const classes = useSettingsFragmentStyles();
+const SettingsFragment: FC<SettingsFragmentProps> = (props) => {
+  const data = useSettingsFragment(props.data);
+  const classes = useSettingsStyles();
   const [cleanApplicationDialogOpen, setCleanApplicationDialogOpen] = useState(false);
   const history = useHistory();
-
+  const deleteSubscriptionMutation = useDeleteSubscriptionMutation(data.notifications.id);
+  const cleanApplicationMutation = useCleanApplicationMutation();
   const handleDone = useCallback(() => {
     history.push(`/app/${MODULES_IDS.TASK_LIST}`);
   }, [history]);
-
   const handleCleanApplicationDialogClose = () => {
     setCleanApplicationDialogOpen(false);
   };
-
   const handleCleanApplicationDialogOpen = () => {
     setCleanApplicationDialogOpen(true);
   };
-
   const handleCleanApplication = async () => {
     const { cleanApplication } = await cleanApplicationMutation({
-      ownerId: props.data.ownerId,
+      ownerId: data.ownerId,
     });
 
     window.location.href =
       cleanApplication && cleanApplication.navigationUrl ? cleanApplication.navigationUrl : '';
   };
-
   const handleActivateNotifications = async () => {
     try {
       const registration = await navigator.serviceWorker.ready;
@@ -70,11 +67,9 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
       // this.forceUpdate();
     }
   };
-
   const onDeleteSubscription = async (subscriptionId: string) => {
     await deleteSubscriptionMutation({
       subscriptionId,
-      parentID: props.data.notifications.id,
     });
   };
 
@@ -86,24 +81,24 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
         </Typography>
         <Grid container spacing={1}>
           <Grid item xs={12} md={6} lg={4}>
-            <NotificationsGeneralFragment data={props.data.notifications.general} />
+            <NotificationsGeneralFragment data={data.notifications.general} />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
-            <NotificationsTypesFragment data={props.data.notifications.types} />
+            <NotificationsTypesFragment data={data.notifications.types} />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
-            <ExpansionPanel className={classes.subscriptionsWrapper}>
-              <ExpansionPanelSummary expandIcon={<ExpandMore />}>
+            <Accordion className={classes.subscriptionsWrapper}>
+              <AccordionSummary expandIcon={<ExpandMore />}>
                 <Typography>Subscriptions</Typography>
-              </ExpansionPanelSummary>
-              <ExpansionPanelDetails className={classes.subscriptionsPaginationExpansionPanel}>
-                <SubscriptionsPagination
+              </AccordionSummary>
+              <AccordionDetails className={classes.subscriptionsPaginationExpansionPanel}>
+                <SubscriptionsList
                   className={classes.list}
-                  data={props.data.notifications}
+                  data={data.notifications}
                   onDelete={onDeleteSubscription}
                 />
-              </ExpansionPanelDetails>
-            </ExpansionPanel>
+              </AccordionDetails>
+            </Accordion>
           </Grid>
         </Grid>
         {Notification.permission === 'granted' && (
@@ -167,21 +162,4 @@ const SettingsFragment: FC<SettingsFragmentProps> = props => {
   );
 };
 
-export default createFragmentContainer<SettingsFragmentProps>(SettingsFragment, {
-  data: graphql`
-    fragment SettingsFragment_data on SettingsType {
-      id
-      ownerId
-      notifications {
-        id
-        general {
-          ...NotificationsGeneralFragment_data
-        }
-        types {
-          ...NotificationsTypesFragment_data
-        }
-        ...SubscriptionsPagination_data
-      }
-    }
-  `,
-});
+export default SettingsFragment;

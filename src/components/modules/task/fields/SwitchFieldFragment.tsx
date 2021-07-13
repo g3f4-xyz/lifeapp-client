@@ -1,62 +1,27 @@
-import graphql from 'babel-plugin-relay/macro';
 import React, { FC } from 'react';
-import { createFragmentContainer } from 'react-relay';
-import updateTaskFieldMutation from '../../../../mutations/updateTaskFieldMutation';
+import useUpdateTaskFieldMutation from './useUpdateTaskFieldMutation';
 import Switch from '../../../display/field/Switch';
-// eslint-disable-next-line @typescript-eslint/camelcase
-import { SwitchFieldFragment_data } from './__generated__/SwitchFieldFragment_data.graphql';
+import { useSwitchFieldFragment$key } from './__generated__/useSwitchFieldFragment.graphql';
+import useSwitchFieldFragment from './useSwitchFieldFragment';
 
 interface SwitchFieldProps {
-  // eslint-disable-next-line @typescript-eslint/camelcase
-  data: SwitchFieldFragment_data;
+  data: useSwitchFieldFragment$key;
   taskId: string;
 }
 
-const SwitchField: FC<SwitchFieldProps> = props => {
-  const { data } = props;
+const SwitchField: FC<SwitchFieldProps> = (props) => {
   const {
+    id,
+    fieldId,
     value: { enabled },
     meta: { label, disabled },
-  } = data;
-
+  } = useSwitchFieldFragment(props.data);
+  const mutate = useUpdateTaskFieldMutation(id);
   const handleChange = async (enabled: boolean): Promise<void> => {
-    const {
-      taskId,
-      data: { fieldId, id },
-    } = props;
-
-    await updateTaskFieldMutation({ fieldId, value: { enabled }, taskId }, { id });
+    await mutate({ fieldId, value: { enabled }, taskId: props.taskId });
   };
 
   return <Switch disabled={disabled} checked={enabled} label={label} onChange={handleChange} />;
 };
 
-graphql`
-  fragment SwitchFieldFragmentMeta on SwitchMetaType {
-    fieldType
-    label
-    disabled
-    required
-  }
-`;
-
-graphql`
-  fragment SwitchFieldFragmentValue on SwitchValueType {
-    enabled
-  }
-`;
-
-export default createFragmentContainer<SwitchFieldProps>(SwitchField, {
-  data: graphql`
-    fragment SwitchFieldFragment_data on SwitchFieldType {
-      id
-      fieldId
-      meta {
-        ...SwitchFieldFragmentMeta @relay(mask: false)
-      }
-      value {
-        ...SwitchFieldFragmentValue @relay(mask: false)
-      }
-    }
-  `,
-});
+export default SwitchField;

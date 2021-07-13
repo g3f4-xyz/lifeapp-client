@@ -1,136 +1,110 @@
 /* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 
 import { ReaderFragment } from "relay-runtime";
-type ChoiceFieldFragment_data$ref = any;
-type NestedFieldFragment_data$ref = any;
-type SliderFieldFragment_data$ref = any;
-type SwitchFieldFragment_data$ref = any;
-type TextFieldFragment_data$ref = any;
-export type FieldIdEnum = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE" | "%future added value";
-export type FieldTypeEnum = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT" | "%future added value";
-export type useTaskFragment$ref = any;
+import { FragmentRefs } from "relay-runtime";
+export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
+export type FieldType = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
 export type useTaskFragment = {
     readonly id: string;
     readonly fields: ReadonlyArray<{
         readonly __typename: string;
-        readonly fieldId?: FieldIdEnum;
-        readonly fieldType?: FieldTypeEnum;
-        readonly order?: number;
-        readonly " $fragmentRefs": SliderFieldFragment_data$ref & SwitchFieldFragment_data$ref & ChoiceFieldFragment_data$ref & TextFieldFragment_data$ref & NestedFieldFragment_data$ref;
+        readonly fieldId: FieldId;
+        readonly fieldType: FieldType;
+        readonly order: number;
+        readonly " $fragmentRefs": FragmentRefs<"useSliderFieldFragment" | "useSwitchFieldFragment" | "useChoiceFieldFragment" | "useTextFieldFragment" | "useNestedFieldFragment">;
     }>;
-    readonly " $refType": useTaskFragment$ref;
+    readonly " $refType": "useTaskFragment";
+};
+export type useTaskFragment$data = useTaskFragment;
+export type useTaskFragment$key = {
+    readonly " $data"?: useTaskFragment$data;
+    readonly " $fragmentRefs": FragmentRefs<"useTaskFragment">;
 };
 
 
 
-const node: ReaderFragment = (function () {
-    var v0 = [
-        ({
-            "kind": "ScalarField",
+const node: ReaderFragment = {
+    "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "useTaskFragment",
+    "selections": [
+        {
             "alias": null,
-            "name": "fieldId",
             "args": null,
-            "storageKey": null
-        } as any),
-        ({
             "kind": "ScalarField",
-            "alias": null,
-            "name": "fieldType",
-            "args": null,
+            "name": "id",
             "storageKey": null
-        } as any),
-        ({
-            "kind": "ScalarField",
+        },
+        {
             "alias": null,
-            "name": "order",
             "args": null,
+            "concreteType": "Field",
+            "kind": "LinkedField",
+            "name": "fields",
+            "plural": true,
+            "selections": [
+                {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "__typename",
+                    "storageKey": null
+                },
+                {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "fieldId",
+                    "storageKey": null
+                },
+                {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "fieldType",
+                    "storageKey": null
+                },
+                {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "order",
+                    "storageKey": null
+                },
+                {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "useSliderFieldFragment"
+                },
+                {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "useSwitchFieldFragment"
+                },
+                {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "useChoiceFieldFragment"
+                },
+                {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "useTextFieldFragment"
+                },
+                {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "useNestedFieldFragment"
+                }
+            ],
             "storageKey": null
-        } as any)
-    ];
-    return {
-        "kind": "Fragment",
-        "name": "useTaskFragment",
-        "type": "TaskType",
-        "metadata": null,
-        "argumentDefinitions": [],
-        "selections": [
-            {
-                "kind": "ScalarField",
-                "alias": null,
-                "name": "id",
-                "args": null,
-                "storageKey": null
-            },
-            {
-                "kind": "LinkedField",
-                "alias": null,
-                "name": "fields",
-                "storageKey": null,
-                "args": null,
-                "concreteType": null,
-                "plural": true,
-                "selections": [
-                    {
-                        "kind": "ScalarField",
-                        "alias": null,
-                        "name": "__typename",
-                        "args": null,
-                        "storageKey": null
-                    },
-                    {
-                        "kind": "InlineFragment",
-                        "type": "ChoiceFieldType",
-                        "selections": (v0 /*: any*/)
-                    },
-                    {
-                        "kind": "InlineFragment",
-                        "type": "SwitchFieldType",
-                        "selections": (v0 /*: any*/)
-                    },
-                    {
-                        "kind": "InlineFragment",
-                        "type": "SliderFieldType",
-                        "selections": (v0 /*: any*/)
-                    },
-                    {
-                        "kind": "InlineFragment",
-                        "type": "NestedFieldType",
-                        "selections": (v0 /*: any*/)
-                    },
-                    {
-                        "kind": "InlineFragment",
-                        "type": "TextFieldType",
-                        "selections": (v0 /*: any*/)
-                    },
-                    {
-                        "kind": "FragmentSpread",
-                        "name": "SliderFieldFragment_data",
-                        "args": null
-                    },
-                    {
-                        "kind": "FragmentSpread",
-                        "name": "SwitchFieldFragment_data",
-                        "args": null
-                    },
-                    {
-                        "kind": "FragmentSpread",
-                        "name": "ChoiceFieldFragment_data",
-                        "args": null
-                    },
-                    {
-                        "kind": "FragmentSpread",
-                        "name": "TextFieldFragment_data",
-                        "args": null
-                    },
-                    {
-                        "kind": "FragmentSpread",
-                        "name": "NestedFieldFragment_data",
-                        "args": null
-                    }
-                ]
-            }
-        ]
-    } as any;
-})();
-(node as any).hash = '530ae61e2de5f5a2c286623ddc04ca36';
+        }
+    ],
+    "type": "Task",
+    "abstractKey": null
+} as any;
+(node as any).hash = 'bacca25c4bce07cec934d0111ca02799';
 export default node;

@@ -3,6 +3,7 @@ import { MoreVert } from '@material-ui/icons';
 import React, { FC, MouseEvent, useState } from 'react';
 import { useHistory, useRouteMatch } from 'react-router-dom';
 import { MODULES_IDS } from '../../../constans';
+import { useAuth0 } from '@auth0/auth0-react';
 
 const AppMenu: FC = () => {
   const history = useHistory();
@@ -10,20 +11,20 @@ const AppMenu: FC = () => {
     null,
   );
   const { isExact: gridView } = useRouteMatch('/dashboard') || {};
-
+  const { logout } = useAuth0();
   const handleClick = (event: MouseEvent<HTMLButtonElement>): void => {
     setAnchorEl(event.currentTarget);
   };
-
   const handleClose = () => {
     setAnchorEl(null);
   };
-
   const actions = [
     {
       label: 'Log out',
       action: () => {
-        history.push('/login');
+        logout({
+          returnTo: window.location.origin,
+        });
       },
     },
     {
