@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
-import Loader from './components/display/loader/Loader';
+import Loader from './display/loader/Loader';
 import { Auth0Provider, AppState } from '@auth0/auth0-react';
 import './index.css';
 import history from './utils/history';
@@ -9,7 +9,7 @@ import registerUserSubscription from './service-worker/registerUserSubscription'
 import assetsServiceWorker from './service-worker/serviceWorkerManager';
 import { getConfig } from './config';
 
-const App = React.lazy(() => import('./components/App'));
+const App = React.lazy(() => import('./App'));
 
 assetsServiceWorker.register({
   onUpdate(registration) {
