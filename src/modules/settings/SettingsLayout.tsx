@@ -77,10 +77,16 @@ export default function SettingsLayout(props: { data: useSettingsFragment$key })
         </Typography>
         <Grid container spacing={1}>
           <Grid item xs={12} md={6} lg={4}>
-            <NotificationsGeneral data={data.notifications.general} />
+            <NotificationsGeneral
+              data={data.notifications.general}
+              notificationsRecordId={data.notifications.id}
+            />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
-            <NotificationsTypes data={data.notifications.types} />
+            <NotificationsTypes
+              data={data.notifications.types}
+              notificationsRecordId={data.notifications.id}
+            />
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <Accordion className={classes.subscriptionsWrapper}>

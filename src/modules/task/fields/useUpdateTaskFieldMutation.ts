@@ -1,5 +1,6 @@
 import graphql from 'babel-plugin-relay/macro';
 import { useMutation } from 'relay-hooks';
+import mutationUpdaterWithParent from '../../../utils/relay/mutationUpdaterWithParentId';
 import {
   UpdateTaskFieldInput,
   useUpdateTaskFieldMutation,
@@ -28,7 +29,7 @@ const mutation = graphql`
   }
 `;
 
-export default (id: string) => {
+export default (parentRecordId: string) => {
   const [mutate] = useMutation<useUpdateTaskFieldMutation>(mutation);
 
   return (input: UpdateTaskFieldInput) =>
@@ -38,7 +39,7 @@ export default (id: string) => {
         const [valueKey] = Object.keys(input.value);
 
         if (valueKey !== 'ownValue') {
-          const fieldRecord = proxyStore.get(id);
+          const fieldRecord = proxyStore.get(parentRecordId);
           const valueRecord = fieldRecord && fieldRecord.getLinkedRecord('value');
 
           if (valueRecord) {
@@ -46,14 +47,11 @@ export default (id: string) => {
           }
         }
       },
-      updater(store) {
-        const mutationRecord = store.getRootField('updateTaskField');
-        const updatedFieldValue = mutationRecord && mutationRecord.getLinkedRecord('updatedValue');
-        const fieldRecord = store.get(id);
-
-        if (fieldRecord && updatedFieldValue) {
-          fieldRecord.setLinkedRecord(updatedFieldValue, 'value');
-        }
-      },
+      updater: mutationUpdaterWithParent({
+        parentRecordId,
+        storeRecordKey: 'value',
+        responseKey: 'updatedValue',
+        mutationName: 'updateTaskField',
+      }),
     });
 };

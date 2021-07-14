@@ -1,5 +1,6 @@
 import graphql from 'babel-plugin-relay/macro';
 import { useMutation } from 'relay-hooks';
+import mutationUpdaterWithParent from '../../../../utils/relay/mutationUpdaterWithParentId';
 import {
   SaveNotificationsGeneralSettingInput,
   useSaveNotificationsGeneralSettingMutation,
@@ -17,11 +18,17 @@ const mutation = graphql`
   }
 `;
 
-export default () => {
+export default (parentRecordId: string) => {
   const [mutate] = useMutation<useSaveNotificationsGeneralSettingMutation>(mutation);
 
   return ({ general }: SaveNotificationsGeneralSettingInput) =>
     mutate({
       variables: { input: { general } },
+      updater: mutationUpdaterWithParent({
+        parentRecordId,
+        storeRecordKey: 'general',
+        responseKey: 'savedGeneral',
+        mutationName: 'saveNotificationsGeneralSetting',
+      }),
     });
 };

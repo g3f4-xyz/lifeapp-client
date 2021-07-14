@@ -17,10 +17,15 @@ import useNotificationsGeneralFragment from './useNotificationsGeneralFragment';
 import useNotificationsGeneralStyles from './useNotificationsGeneralStyles';
 import useSaveNotificationsGeneralSettingMutation from './useSaveNotificationsGeneralSettingMutation';
 
-export default function NotificationsGeneral(props: { data: useNotificationsGeneralFragment$key }) {
+export default function NotificationsGeneral(props: {
+  data: useNotificationsGeneralFragment$key;
+  notificationsRecordId: string;
+}) {
   const { show, vibrate } = useNotificationsGeneralFragment(props.data);
   const classes = useNotificationsGeneralStyles();
-  const saveNotificationsGeneralSettingMutation = useSaveNotificationsGeneralSettingMutation();
+  const saveNotificationsGeneralSettingMutation = useSaveNotificationsGeneralSettingMutation(
+    props.notificationsRecordId,
+  );
   const handleShowChange = async (
     _: ChangeEvent<HTMLInputElement>,
     changedShow: boolean,

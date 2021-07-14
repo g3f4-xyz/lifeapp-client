@@ -19,11 +19,16 @@ import useNotificationsTypesFragment from './useNotificationsTypesFragment';
 import useNotificationsTypesStyles from './useNotificationsTypesStyles';
 import useSaveNotificationsTypesSettingMutation from './useSaveNotificationsTypesSettingMutation';
 
-export default function NotificationsTypes(props: { data: useNotificationsTypesFragment$key }) {
+export default function NotificationsTypes(props: {
+  data: useNotificationsTypesFragment$key;
+  notificationsRecordId: string;
+}) {
   const { events, goals, meetings, routines, todos } = useNotificationsTypesFragment(props.data);
   const types = { events, goals, meetings, routines, todos };
   const classes = useNotificationsTypesStyles();
-  const saveNotificationsTypesSettingMutation = useSaveNotificationsTypesSettingMutation();
+  const saveNotificationsTypesSettingMutation = useSaveNotificationsTypesSettingMutation(
+    props.notificationsRecordId,
+  );
   const getChangeHandler =
     (key: string) =>
     async (_: ChangeEvent<HTMLInputElement>, checked: boolean): Promise<void> => {
