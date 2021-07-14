@@ -1,9 +1,7 @@
 import graphql from 'babel-plugin-relay/macro';
 import { useLazyLoadQuery } from 'relay-hooks';
-import {
-  useSettingsQuery,
-  useSettingsQueryVariables,
-} from './__generated__/useSettingsQuery.graphql';
+import getQueryData from '../../utils/relay/getQueryData';
+import { useSettingsQuery } from './__generated__/useSettingsQuery.graphql';
 
 const query = graphql`
   query useSettingsQuery {
@@ -13,5 +11,4 @@ const query = graphql`
   }
 `;
 
-export default (variables: useSettingsQueryVariables) =>
-  useLazyLoadQuery<useSettingsQuery>(query, variables, {});
+export default () => getQueryData(useLazyLoadQuery<useSettingsQuery>(query));

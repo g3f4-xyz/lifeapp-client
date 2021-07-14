@@ -1,8 +1,7 @@
 import React, { useCallback, useContext, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { TaskTypeEnum } from '../../constans';
 import AppContext from '../../AppContext';
-import Loader from '../../display/loader/Loader';
+import { TaskTypeEnum } from '../../constans';
 import TaskLayout from './TaskLayout';
 import useTaskQuery from './useTaskQuery';
 
@@ -16,7 +15,7 @@ export default function Task(ownProps: TaskProps) {
   const { addTaskParam } = useContext(AppContext);
   const firstParam = params[0];
   const [taskType, taskId] = firstParam ? firstParam.split('/') : [];
-  const { data, error } = useTaskQuery({
+  const data = useTaskQuery({
     id: ownProps.taskId || taskId.length > 0 ? taskId : null,
     typeId: ownProps.taskType || taskType,
   });
@@ -38,11 +37,5 @@ export default function Task(ownProps: TaskProps) {
     }
   }, [saveParams, ownProps]);
 
-  if (error) {
-    return <div>{JSON.stringify(error)}</div>;
-  } else if (data && data.task) {
-    return <TaskLayout data={data.task} />;
-  }
-
-  return <Loader />;
+  return <TaskLayout data={data.task} />;
 }
