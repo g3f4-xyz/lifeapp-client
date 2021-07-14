@@ -49,7 +49,7 @@
     "react-scripts": "4.0.3",
     "relay-compiler": "11.0.2",
     "relay-compiler-language-typescript": "14.0.0",
-    "relay-hooks": "4.2.0",
+    "relay-hooks": "5.0.0",
     "sw-precache": "5.2.1",
     "typescript": "4.3.5"
   },
