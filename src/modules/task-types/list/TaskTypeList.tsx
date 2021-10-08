@@ -20,15 +20,12 @@ export default function TaskTypeList(props: TaskTypeListProps) {
   const handleDone = useCallback(() => {
     history.push(`/app/${MODULES_IDS.TASK_LIST}`);
   }, [history]);
-  const taskTypes = [...list].sort((nodeA, nodeB) =>
-    nodeA && nodeB ? nodeA.order - nodeB.order : 0,
-  );
 
   return (
     <Fragment>
       <Grid className={classes.container} container>
-        {taskTypes.map(
-          (data, index) => data && <TaskTypeItem key={data ? data.id : index} data={data} />,
+        {list.map(
+          (data, index) => data && <TaskTypeItem key={data ? data.typeId : index} data={data} />,
         )}
       </Grid>
       <IconButton className={classes.doneButton} color="primary" onClick={handleDone}>

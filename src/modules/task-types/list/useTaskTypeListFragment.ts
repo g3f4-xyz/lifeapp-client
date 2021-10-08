@@ -4,10 +4,8 @@ import { useTaskTypeListFragment$key } from './__generated__/useTaskTypeListFrag
 
 const query = graphql`
   fragment useTaskTypeListFragment on TaskTypes {
-    id
     list {
-      id
-      order
+      typeId
       ...useTaskTypeFragment
     }
   }

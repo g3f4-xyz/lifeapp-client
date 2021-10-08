@@ -6,8 +6,7 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
 export type useTaskTypeFragment = {
-    readonly id: string;
-    readonly typeId: TaskTypeId | null;
+    readonly typeId: TaskTypeId;
     readonly label: string | null;
     readonly description: string | null;
     readonly " $refType": "useTaskTypeFragment";
@@ -26,13 +25,6 @@ const node: ReaderFragment = {
     "metadata": null,
     "name": "useTaskTypeFragment",
     "selections": [
-        {
-            "alias": null,
-            "args": null,
-            "kind": "ScalarField",
-            "name": "id",
-            "storageKey": null
-        },
         {
             "alias": null,
             "args": null,
@@ -58,5 +50,5 @@ const node: ReaderFragment = {
     "type": "TaskType",
     "abstractKey": null
 } as any;
-(node as any).hash = 'eb870fd7838b7dd406c970c73d51c783';
+(node as any).hash = '74b57fc8b261afa6d4a48e6e9cd87bf1';
 export default node;

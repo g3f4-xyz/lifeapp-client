@@ -6,6 +6,7 @@ import { useTaskQuery, useTaskQueryVariables } from './__generated__/useTaskQuer
 const query = graphql`
   query useTaskQuery($id: ID, $typeId: TaskTypeId) {
     task(id: $id, typeId: $typeId) {
+      id
       ...useTaskFragment
     }
   }

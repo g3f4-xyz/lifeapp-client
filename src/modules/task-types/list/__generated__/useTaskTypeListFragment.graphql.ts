@@ -4,11 +4,10 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
+export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
 export type useTaskTypeListFragment = {
-    readonly id: string;
     readonly list: ReadonlyArray<{
-        readonly id: string;
-        readonly order: number;
+        readonly typeId: TaskTypeId;
         readonly " $fragmentRefs": FragmentRefs<"useTaskTypeFragment">;
     }>;
     readonly " $refType": "useTaskTypeListFragment";
@@ -21,49 +20,38 @@ export type useTaskTypeListFragment$key = {
 
 
 
-const node: ReaderFragment = (function () {
-    var v0 = {
-        "alias": null,
-        "args": null,
-        "kind": "ScalarField",
-        "name": "id",
-        "storageKey": null
-    } as any;
-    return {
-        "argumentDefinitions": [],
-        "kind": "Fragment",
-        "metadata": null,
-        "name": "useTaskTypeListFragment",
-        "selections": [
-            (v0 /*: any*/),
-            {
-                "alias": null,
-                "args": null,
-                "concreteType": "TaskType",
-                "kind": "LinkedField",
-                "name": "list",
-                "plural": true,
-                "selections": [
-                    (v0 /*: any*/),
-                    {
-                        "alias": null,
-                        "args": null,
-                        "kind": "ScalarField",
-                        "name": "order",
-                        "storageKey": null
-                    },
-                    {
-                        "args": null,
-                        "kind": "FragmentSpread",
-                        "name": "useTaskTypeFragment"
-                    }
-                ],
-                "storageKey": null
-            }
-        ],
-        "type": "TaskTypes",
-        "abstractKey": null
-    } as any;
-})();
-(node as any).hash = '8b68a64c5e8ec36653b9d3bade1401d5';
+const node: ReaderFragment = {
+    "argumentDefinitions": [],
+    "kind": "Fragment",
+    "metadata": null,
+    "name": "useTaskTypeListFragment",
+    "selections": [
+        {
+            "alias": null,
+            "args": null,
+            "concreteType": "TaskType",
+            "kind": "LinkedField",
+            "name": "list",
+            "plural": true,
+            "selections": [
+                {
+                    "alias": null,
+                    "args": null,
+                    "kind": "ScalarField",
+                    "name": "typeId",
+                    "storageKey": null
+                },
+                {
+                    "args": null,
+                    "kind": "FragmentSpread",
+                    "name": "useTaskTypeFragment"
+                }
+            ],
+            "storageKey": null
+        }
+    ],
+    "type": "TaskTypes",
+    "abstractKey": null
+} as any;
+(node as any).hash = '848d907cf3df62451db13d1fed07e159';
 export default node;

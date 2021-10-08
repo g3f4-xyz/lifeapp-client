@@ -4,7 +4,6 @@ import { useTaskTypeFragment$key } from './__generated__/useTaskTypeFragment.gra
 
 const query = graphql`
   fragment useTaskTypeFragment on TaskType {
-    id
     typeId
     label
     description
