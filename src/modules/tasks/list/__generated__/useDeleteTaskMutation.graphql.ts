@@ -13,7 +13,7 @@ export type useDeleteTaskMutationVariables = {
 export type useDeleteTaskMutationResponse = {
     readonly deleteTask: {
         readonly deletedTaskId: string;
-    };
+    } | null;
 };
 export type useDeleteTaskMutation = {
     readonly response: useDeleteTaskMutationResponse;
@@ -49,7 +49,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "DeleteTaskOutput",
+            "concreteType": "DeleteTaskPayload",
             "kind": "LinkedField",
             "name": "deleteTask",
             "plural": false,

@@ -4,18 +4,19 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
+export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
+export type FieldType = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
 export type useSwitchFieldFragment = {
     readonly id: string;
     readonly fieldId: FieldId;
     readonly meta: {
-        readonly fieldType?: string | null;
-        readonly label?: string | null;
+        readonly fieldType?: FieldType;
+        readonly label?: string;
         readonly disabled?: boolean | null;
-        readonly required?: boolean | null;
+        readonly required?: boolean;
     };
     readonly value: {
-        readonly enabled?: boolean | null;
+        readonly enabled?: boolean;
     };
     readonly " $refType": "useSwitchFieldFragment";
 };

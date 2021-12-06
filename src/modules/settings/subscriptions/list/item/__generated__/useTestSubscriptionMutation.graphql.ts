@@ -4,8 +4,8 @@
 
 import { ConcreteRequest } from "relay-runtime";
 export type TestSubscriptionInput = {
+    subscriptionId?: string | null;
     clientMutationId?: string | null;
-    subscriptionId: string;
 };
 export type useTestSubscriptionMutationVariables = {
     input: TestSubscriptionInput;
@@ -14,7 +14,7 @@ export type useTestSubscriptionMutationResponse = {
     readonly testSubscription: {
         readonly clientMutationId: string | null;
         readonly statusCode: string;
-    };
+    } | null;
 };
 export type useTestSubscriptionMutation = {
     readonly response: useTestSubscriptionMutationResponse;
@@ -51,7 +51,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "TestSubscriptionOutput",
+            "concreteType": "TestSubscriptionPayload",
             "kind": "LinkedField",
             "name": "testSubscription",
             "plural": false,

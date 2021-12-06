@@ -22,7 +22,6 @@ import { useSettingsFragment$key } from './__generated__/useSettingsFragment.gra
 import NotificationsGeneral from './notifications/general/NotificationsGeneral';
 import NotificationsTypes from './notifications/types/NotificationsTypes';
 import SubscriptionList from './subscriptions/list/SubscriptionList';
-import useCleanApplicationMutation from './useCleanApplicationMutation';
 import useDeleteSubscriptionMutation from './useDeleteSubscriptionMutation';
 import useSettingsFragment from './useSettingsFragment';
 import useSettingsStyles from './useSettingsStyles';
@@ -33,7 +32,6 @@ export default function SettingsLayout(props: { data: useSettingsFragment$key })
   const [cleanApplicationDialogOpen, setCleanApplicationDialogOpen] = useState(false);
   const history = useHistory();
   const deleteSubscriptionMutation = useDeleteSubscriptionMutation(data.notifications.id);
-  const cleanApplicationMutation = useCleanApplicationMutation();
   const handleDone = useCallback(() => {
     history.push(`/app/${MODULES_IDS.TASK_LIST}`);
   }, [history]);
@@ -44,12 +42,7 @@ export default function SettingsLayout(props: { data: useSettingsFragment$key })
     setCleanApplicationDialogOpen(true);
   };
   const handleCleanApplication = async () => {
-    const { cleanApplication } = await cleanApplicationMutation({
-      ownerId: data.ownerId,
-    });
-
-    window.location.href =
-      cleanApplication && cleanApplication.navigationUrl ? cleanApplication.navigationUrl : '';
+    console.log('TOOD');
   };
   const handleActivateNotifications = async () => {
     try {

@@ -5,10 +5,10 @@
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type SaveNotificationsGeneralSettingInput = {
+    general?: SettingsNotificationsGeneralInput | null;
     clientMutationId?: string | null;
-    general?: SaveNotificationsGeneralSettingGeneralInput | null;
 };
-export type SaveNotificationsGeneralSettingGeneralInput = {
+export type SettingsNotificationsGeneralInput = {
     show: boolean;
     vibrate: boolean;
 };
@@ -19,8 +19,8 @@ export type useSaveNotificationsGeneralSettingMutationResponse = {
     readonly saveNotificationsGeneralSetting: {
         readonly savedGeneral: {
             readonly " $fragmentRefs": FragmentRefs<"useNotificationsGeneralFragment">;
-        } | null;
-    };
+        };
+    } | null;
 };
 export type useSaveNotificationsGeneralSettingMutation = {
     readonly response: useSaveNotificationsGeneralSettingMutationResponse;
@@ -70,7 +70,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "alias": null,
                     "args": (v1 /*: any*/),
-                    "concreteType": "SaveNotificationsGeneralSettingOutput",
+                    "concreteType": "SaveNotificationsGeneralSettingPayload",
                     "kind": "LinkedField",
                     "name": "saveNotificationsGeneralSetting",
                     "plural": false,
@@ -107,7 +107,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "alias": null,
                     "args": (v1 /*: any*/),
-                    "concreteType": "SaveNotificationsGeneralSettingOutput",
+                    "concreteType": "SaveNotificationsGeneralSettingPayload",
                     "kind": "LinkedField",
                     "name": "saveNotificationsGeneralSetting",
                     "plural": false,

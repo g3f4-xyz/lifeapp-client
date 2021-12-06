@@ -11,7 +11,7 @@ export type useTaskListPagination = {
         readonly id: string;
         readonly list: {
             readonly edges: ReadonlyArray<{
-                readonly cursor: string | null;
+                readonly cursor: string;
                 readonly node: {
                     readonly id: string;
                     readonly " $fragmentRefs": FragmentRefs<"useTaskListItemFragment">;
@@ -20,16 +20,16 @@ export type useTaskListPagination = {
             readonly pageInfo: {
                 readonly hasNextPage: boolean;
                 readonly endCursor: string | null;
-            } | null;
-        };
+            };
+        } | null;
     };
     readonly settings: {
         readonly id: string;
         readonly taskList: {
             readonly filters: {
-                readonly title: string | null;
+                readonly title: string;
                 readonly taskType: ReadonlyArray<TaskTypeId>;
-                readonly status: TaskStatus | null;
+                readonly taskStatus: ReadonlyArray<TaskStatus>;
             };
         };
     };
@@ -104,7 +104,7 @@ const node: ReaderFragment = (function () {
                     {
                         "alias": "list",
                         "args": null,
-                        "concreteType": "TaskConnection_list",
+                        "concreteType": "TaskConnection",
                         "kind": "LinkedField",
                         "name": "__TaskConnection_list_connection",
                         "plural": false,
@@ -112,7 +112,7 @@ const node: ReaderFragment = (function () {
                             {
                                 "alias": null,
                                 "args": null,
-                                "concreteType": "TaskConnection_listEdge",
+                                "concreteType": "TaskEdge",
                                 "kind": "LinkedField",
                                 "name": "edges",
                                 "plural": true,
@@ -202,7 +202,7 @@ const node: ReaderFragment = (function () {
                             {
                                 "alias": null,
                                 "args": null,
-                                "concreteType": "FiltersTaskListSettings",
+                                "concreteType": "TaskListFiltersSettings",
                                 "kind": "LinkedField",
                                 "name": "filters",
                                 "plural": false,
@@ -225,7 +225,7 @@ const node: ReaderFragment = (function () {
                                         "alias": null,
                                         "args": null,
                                         "kind": "ScalarField",
-                                        "name": "status",
+                                        "name": "taskStatus",
                                         "storageKey": null
                                     }
                                 ],
@@ -242,5 +242,5 @@ const node: ReaderFragment = (function () {
         "abstractKey": null
     } as any;
 })();
-(node as any).hash = '9d8c0d25cf7c98f7065429a67e62aa36';
+(node as any).hash = 'a51ba125ad69a37b82a229ddad8ed943';
 export default node;

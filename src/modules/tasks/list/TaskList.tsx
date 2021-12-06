@@ -69,9 +69,11 @@ export default function TaskList(props: TaskListProps) {
 
     refetchConnection();
   };
-  const handleFilterByStatus = async (event: ChangeEvent<HTMLSelectElement>) => {
+  const handleFilterByTaskStatus = async (event: React.ChangeEvent<{ value: unknown }>) => {
+    const taskStatus = event.target.value as TaskStatusEnum[];
+
     await updateTaskListStatusFilterSetting({
-      status: event.target.value.length > 0 ? (event.target.value as TaskStatusEnum) : null,
+      taskStatus,
     });
 
     refetchConnection();
@@ -98,7 +100,7 @@ export default function TaskList(props: TaskListProps) {
       <TaskListBar
         onFilterByTitle={handleFilterByTitle}
         onFilterByType={handleFilterByTaskType}
-        onFilterByStatus={handleFilterByStatus}
+        onFilterByStatus={handleFilterByTaskStatus}
         taskListSettings={settings.taskList}
       />
       {isLoading ? (

@@ -29,7 +29,7 @@ const query = graphql`
         filters {
           title
           taskType
-          status
+          taskStatus
         }
       }
     }

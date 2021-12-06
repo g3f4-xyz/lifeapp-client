@@ -4,21 +4,22 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
+export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
+export type FieldType = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
 export type useSliderFieldFragment = {
     readonly id: string;
     readonly fieldId: FieldId;
     readonly meta: {
-        readonly fieldType?: string | null;
-        readonly label?: string | null;
+        readonly fieldType?: FieldType;
+        readonly label?: string;
         readonly disabled?: boolean | null;
-        readonly required?: boolean | null;
+        readonly required?: boolean;
         readonly max?: number | null;
         readonly min?: number | null;
         readonly step?: number | null;
     };
     readonly value: {
-        readonly progress?: number | null;
+        readonly progress?: number;
     };
     readonly " $refType": "useSliderFieldFragment";
 };

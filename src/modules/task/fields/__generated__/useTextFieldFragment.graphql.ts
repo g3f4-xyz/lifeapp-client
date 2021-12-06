@@ -4,23 +4,24 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
+export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
+export type FieldType = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
 export type useTextFieldFragment = {
     readonly id: string;
     readonly fieldId: FieldId;
     readonly meta: {
-        readonly fieldType?: string | null;
-        readonly helperText?: string | null;
-        readonly label?: string | null;
+        readonly fieldType?: FieldType;
+        readonly helperText?: string;
+        readonly label?: string;
         readonly inputType?: string | null;
         readonly min?: number | null;
         readonly max?: number | null;
         readonly maxLength?: number | null;
         readonly minLength?: number | null;
-        readonly required?: boolean | null;
+        readonly required?: boolean;
     };
     readonly value: {
-        readonly text?: string | null;
+        readonly text?: string;
     };
     readonly " $refType": "useTextFieldFragment";
 };

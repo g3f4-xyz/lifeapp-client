@@ -5,8 +5,8 @@
 import { ConcreteRequest } from "relay-runtime";
 export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
 export type UpdateTaskListTaskTypeFilterSettingInput = {
+    taskType: Array<TaskTypeId>;
     clientMutationId?: string | null;
-    taskType?: Array<TaskTypeId | null> | null;
 };
 export type useUpdateTaskListTaskTypeFilterSettingMutationVariables = {
     input: UpdateTaskListTaskTypeFilterSettingInput;
@@ -14,8 +14,8 @@ export type useUpdateTaskListTaskTypeFilterSettingMutationVariables = {
 export type useUpdateTaskListTaskTypeFilterSettingMutationResponse = {
     readonly updateTaskListTaskTypeFilterSetting: {
         readonly clientMutationId: string | null;
-        readonly taskType: ReadonlyArray<TaskTypeId | null> | null;
-    };
+        readonly taskType: ReadonlyArray<TaskTypeId>;
+    } | null;
 };
 export type useUpdateTaskListTaskTypeFilterSettingMutation = {
     readonly response: useUpdateTaskListTaskTypeFilterSettingMutationResponse;
@@ -52,7 +52,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "UpdateTaskListTaskTypeFilterSettingOutput",
+            "concreteType": "UpdateTaskListTaskTypeFilterSettingPayload",
             "kind": "LinkedField",
             "name": "updateTaskListTaskTypeFilterSetting",
             "plural": false,

@@ -11,7 +11,7 @@ const mutation = graphql`
   ) {
     updateTaskListStatusFilterSetting(input: $input) {
       clientMutationId
-      status
+      taskStatus
     }
   }
 `;
@@ -19,8 +19,8 @@ const mutation = graphql`
 export default () => {
   const [mutate] = useMutation<useUpdateTaskListStatusFilterSettingMutation>(mutation);
 
-  return ({ status }: UpdateTaskListStatusFilterSettingInput) =>
+  return ({ taskStatus }: UpdateTaskListStatusFilterSettingInput) =>
     mutate({
-      variables: { input: { status } },
+      variables: { input: { taskStatus } },
     });
 };

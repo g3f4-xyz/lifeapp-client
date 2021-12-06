@@ -1,6 +1,6 @@
 import { TaskTypeId } from './modules/task-types/list/item/__generated__/useTaskTypeFragment.graphql';
 import { FieldId, FieldType } from './modules/task/__generated__/useTaskFragment.graphql';
-import { TaskStatus } from './modules/tasks/list/__generated__/useTaskListPagination.graphql';
+import { TaskStatus } from './modules/tasks/list/__generated__/useUpdateTaskListStatusFilterSettingMutation.graphql';
 
 export type UnionKeyToValue<U extends string, V = U> = {
   [K in U]: V;
@@ -35,7 +35,7 @@ export const FIELD_ID: UnionKeyToValue<FieldId> = {
   NOTE: 'NOTE',
   ACTION: 'ACTION',
   CYCLE: 'CYCLE',
-  NOTIFICATION: 'NOTIFICATION',
+  NOTIFICATIONS: 'NOTIFICATIONS',
 };
 
 export const FIELD_TYPE: UnionKeyToValue<FieldType> = {

@@ -5,10 +5,10 @@
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type SaveNotificationsTypesSettingInput = {
+    types?: SettingsNotificationsTypesInput | null;
     clientMutationId?: string | null;
-    types?: SaveNotificationsTypesSettingTypesInput | null;
 };
-export type SaveNotificationsTypesSettingTypesInput = {
+export type SettingsNotificationsTypesInput = {
     goals: boolean;
     todos: boolean;
     meetings: boolean;
@@ -22,8 +22,8 @@ export type useSaveNotificationsTypesSettingMutationResponse = {
     readonly saveNotificationsTypesSetting: {
         readonly savedTypes: {
             readonly " $fragmentRefs": FragmentRefs<"useNotificationsTypesFragment">;
-        } | null;
-    };
+        };
+    } | null;
 };
 export type useSaveNotificationsTypesSettingMutation = {
     readonly response: useSaveNotificationsTypesSettingMutationResponse;
@@ -76,7 +76,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "alias": null,
                     "args": (v1 /*: any*/),
-                    "concreteType": "SaveNotificationsTypesSettingOutput",
+                    "concreteType": "SaveNotificationsTypesSettingPayload",
                     "kind": "LinkedField",
                     "name": "saveNotificationsTypesSetting",
                     "plural": false,
@@ -113,7 +113,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "alias": null,
                     "args": (v1 /*: any*/),
-                    "concreteType": "SaveNotificationsTypesSettingOutput",
+                    "concreteType": "SaveNotificationsTypesSettingPayload",
                     "kind": "LinkedField",
                     "name": "saveNotificationsTypesSetting",
                     "plural": false,

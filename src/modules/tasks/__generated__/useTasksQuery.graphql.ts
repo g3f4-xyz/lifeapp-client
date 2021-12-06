@@ -40,6 +40,7 @@ fragment useTaskListItemFragment on Task {
         text
       }
     }
+    id
   }
 }
 
@@ -67,7 +68,7 @@ fragment useTaskListPagination on Query {
       filters {
         title
         taskType
-        status
+        taskStatus
       }
     }
   }
@@ -128,7 +129,7 @@ const node: ConcreteRequest = (function () {
                         {
                             "alias": null,
                             "args": (v1 /*: any*/),
-                            "concreteType": "TaskConnection_list",
+                            "concreteType": "TaskConnection",
                             "kind": "LinkedField",
                             "name": "list",
                             "plural": false,
@@ -136,7 +137,7 @@ const node: ConcreteRequest = (function () {
                                 {
                                     "alias": null,
                                     "args": null,
-                                    "concreteType": "TaskConnection_listEdge",
+                                    "concreteType": "TaskEdge",
                                     "kind": "LinkedField",
                                     "name": "edges",
                                     "plural": true,
@@ -240,7 +241,8 @@ const node: ConcreteRequest = (function () {
                                                                 }
                                                             ],
                                                             "storageKey": null
-                                                        }
+                                                        },
+                                                        (v0 /*: any*/)
                                                     ],
                                                     "storageKey": null
                                                 },
@@ -311,7 +313,7 @@ const node: ConcreteRequest = (function () {
                                 {
                                     "alias": null,
                                     "args": null,
-                                    "concreteType": "FiltersTaskListSettings",
+                                    "concreteType": "TaskListFiltersSettings",
                                     "kind": "LinkedField",
                                     "name": "filters",
                                     "plural": false,
@@ -334,7 +336,7 @@ const node: ConcreteRequest = (function () {
                                             "alias": null,
                                             "args": null,
                                             "kind": "ScalarField",
-                                            "name": "status",
+                                            "name": "taskStatus",
                                             "storageKey": null
                                         }
                                     ],
@@ -349,12 +351,12 @@ const node: ConcreteRequest = (function () {
             ]
         },
         "params": {
-            "cacheID": "15325b1abec93f428831eb13aaad0d64",
+            "cacheID": "673f93030eaeb6030928cfeaf500d4af",
             "id": null,
             "metadata": {},
             "name": "useTasksQuery",
             "operationKind": "query",
-            "text": "query useTasksQuery {\n  ...useTaskListPagination\n}\n\nfragment useTaskListItemFragment on Task {\n  id\n  typeId\n  fields {\n    fieldId\n    value {\n      __typename\n      ... on SliderFieldValue {\n        progress\n      }\n      ... on SwitchFieldValue {\n        enabled\n      }\n      ... on ChoiceFieldValue {\n        id\n      }\n      ... on TextFieldValue {\n        text\n      }\n    }\n  }\n}\n\nfragment useTaskListPagination on Query {\n  tasks {\n    id\n    list(first: 10) {\n      edges {\n        cursor\n        node {\n          id\n          ...useTaskListItemFragment\n          __typename\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n  settings {\n    id\n    taskList {\n      filters {\n        title\n        taskType\n        status\n      }\n    }\n  }\n}\n"
+            "text": "query useTasksQuery {\n  ...useTaskListPagination\n}\n\nfragment useTaskListItemFragment on Task {\n  id\n  typeId\n  fields {\n    fieldId\n    value {\n      __typename\n      ... on SliderFieldValue {\n        progress\n      }\n      ... on SwitchFieldValue {\n        enabled\n      }\n      ... on ChoiceFieldValue {\n        id\n      }\n      ... on TextFieldValue {\n        text\n      }\n    }\n    id\n  }\n}\n\nfragment useTaskListPagination on Query {\n  tasks {\n    id\n    list(first: 10) {\n      edges {\n        cursor\n        node {\n          id\n          ...useTaskListItemFragment\n          __typename\n        }\n      }\n      pageInfo {\n        hasNextPage\n        endCursor\n      }\n    }\n  }\n  settings {\n    id\n    taskList {\n      filters {\n        title\n        taskType\n        taskStatus\n      }\n    }\n  }\n}\n"
         }
     } as any;
 })();

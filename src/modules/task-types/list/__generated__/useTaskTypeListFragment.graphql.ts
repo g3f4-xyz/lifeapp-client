@@ -9,7 +9,7 @@ export type useTaskTypeListFragment = {
     readonly list: ReadonlyArray<{
         readonly typeId: TaskTypeId;
         readonly " $fragmentRefs": FragmentRefs<"useTaskTypeFragment">;
-    }>;
+    } | null>;
     readonly " $refType": "useTaskTypeListFragment";
 };
 export type useTaskTypeListFragment$data = useTaskTypeListFragment;

@@ -4,23 +4,24 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATION" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
+export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
+export type FieldType = "CHOICE" | "NESTED" | "SLIDER" | "SWITCH" | "TEXT";
 export type useChoiceFieldFragment = {
     readonly id: string;
     readonly fieldId: FieldId;
     readonly meta: {
-        readonly fieldType?: string | null;
-        readonly helperText?: string | null;
-        readonly label?: string | null;
+        readonly fieldType?: FieldType;
+        readonly helperText?: string;
+        readonly label?: string;
         readonly defaultValue?: string | null;
         readonly options?: ReadonlyArray<{
             readonly text: string;
             readonly value: string;
         }>;
-        readonly required?: boolean | null;
+        readonly required?: boolean;
     };
     readonly value: {
-        readonly id?: string | null;
+        readonly id?: string;
     };
     readonly " $refType": "useChoiceFieldFragment";
 };
@@ -96,7 +97,7 @@ const node: ReaderFragment = (function () {
                             {
                                 "alias": null,
                                 "args": null,
-                                "concreteType": "FieldMetaOptions",
+                                "concreteType": "ChoiceFieldOptionsMeta",
                                 "kind": "LinkedField",
                                 "name": "options",
                                 "plural": true,

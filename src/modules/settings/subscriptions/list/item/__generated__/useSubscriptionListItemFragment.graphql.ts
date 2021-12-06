@@ -6,8 +6,8 @@ import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type useSubscriptionListItemFragment = {
     readonly id: string;
-    readonly userAgent: string | null;
-    readonly userDeviceType: string | null;
+    readonly userAgent: string;
+    readonly userDeviceType: string;
     readonly " $refType": "useSubscriptionListItemFragment";
 };
 export type useSubscriptionListItemFragment$data = useSubscriptionListItemFragment;

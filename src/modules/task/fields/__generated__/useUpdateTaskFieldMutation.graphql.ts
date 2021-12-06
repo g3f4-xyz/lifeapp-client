@@ -3,31 +3,39 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
+export type FieldId = "ACTION" | "ACTIVE" | "CYCLE" | "DATE" | "DATE_TIME" | "DURATION" | "LOCATION" | "NOTE" | "NOTIFICATIONS" | "PERSON" | "PRIORITY" | "PROGRESS" | "STATUS" | "TITLE";
 export type UpdateTaskFieldInput = {
     taskId: string;
-    fieldId: string;
+    fieldId: FieldId;
     value: FieldValueInput;
+    clientMutationId?: string | null;
 };
 export type FieldValueInput = {
     enabled?: boolean | null;
-    progress?: number | null;
     id?: string | null;
     text?: string | null;
+    progress?: number | null;
+    ownValue?: FieldValueInput | null;
+    childrenValue?: NestedValueInput | null;
+};
+export type NestedValueInput = {
+    ownValue?: FieldValueInput | null;
+    childrenValue?: NestedValueInput | null;
 };
 export type useUpdateTaskFieldMutationVariables = {
     input: UpdateTaskFieldInput;
 };
 export type useUpdateTaskFieldMutationResponse = {
     readonly updateTaskField: {
-        readonly fieldId: string;
+        readonly fieldId: FieldId;
         readonly taskId: string;
         readonly updatedValue: {
-            readonly progress?: number | null;
-            readonly enabled?: boolean | null;
-            readonly id?: string | null;
-            readonly text?: string | null;
+            readonly progress?: number;
+            readonly enabled?: boolean;
+            readonly id?: string;
+            readonly text?: string;
         };
-    };
+    } | null;
 };
 export type useUpdateTaskFieldMutation = {
     readonly response: useUpdateTaskFieldMutationResponse;
@@ -150,7 +158,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "alias": null,
                     "args": (v1 /*: any*/),
-                    "concreteType": "UpdateTaskFieldOutput",
+                    "concreteType": "UpdateTaskFieldPayload",
                     "kind": "LinkedField",
                     "name": "updateTaskField",
                     "plural": false,
@@ -188,7 +196,7 @@ const node: ConcreteRequest = (function () {
                 {
                     "alias": null,
                     "args": (v1 /*: any*/),
-                    "concreteType": "UpdateTaskFieldOutput",
+                    "concreteType": "UpdateTaskFieldPayload",
                     "kind": "LinkedField",
                     "name": "updateTaskField",
                     "plural": false,

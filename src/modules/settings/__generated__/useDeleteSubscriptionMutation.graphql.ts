@@ -4,8 +4,8 @@
 
 import { ConcreteRequest } from "relay-runtime";
 export type DeleteSubscriptionInput = {
-    clientMutationId?: string | null;
     subscriptionId: string;
+    clientMutationId?: string | null;
 };
 export type useDeleteSubscriptionMutationVariables = {
     input: DeleteSubscriptionInput;
@@ -14,7 +14,7 @@ export type useDeleteSubscriptionMutationResponse = {
     readonly deleteSubscription: {
         readonly clientMutationId: string | null;
         readonly subscriptionId: string;
-    };
+    } | null;
 };
 export type useDeleteSubscriptionMutation = {
     readonly response: useDeleteSubscriptionMutationResponse;
@@ -51,7 +51,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "DeleteSubscriptionOutput",
+            "concreteType": "DeleteSubscriptionPayload",
             "kind": "LinkedField",
             "name": "deleteSubscription",
             "plural": false,

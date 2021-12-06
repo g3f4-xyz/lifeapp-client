@@ -5,8 +5,8 @@
 import { ConcreteRequest } from "relay-runtime";
 export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO";
 export type UpdateTaskListStatusFilterSettingInput = {
+    taskStatus: Array<TaskStatus>;
     clientMutationId?: string | null;
-    status?: TaskStatus | null;
 };
 export type useUpdateTaskListStatusFilterSettingMutationVariables = {
     input: UpdateTaskListStatusFilterSettingInput;
@@ -14,8 +14,8 @@ export type useUpdateTaskListStatusFilterSettingMutationVariables = {
 export type useUpdateTaskListStatusFilterSettingMutationResponse = {
     readonly updateTaskListStatusFilterSetting: {
         readonly clientMutationId: string | null;
-        readonly status: TaskStatus | null;
-    };
+        readonly taskStatus: ReadonlyArray<TaskStatus>;
+    } | null;
 };
 export type useUpdateTaskListStatusFilterSettingMutation = {
     readonly response: useUpdateTaskListStatusFilterSettingMutationResponse;
@@ -30,7 +30,7 @@ mutation useUpdateTaskListStatusFilterSettingMutation(
 ) {
   updateTaskListStatusFilterSetting(input: $input) {
     clientMutationId
-    status
+    taskStatus
   }
 }
 */
@@ -52,7 +52,7 @@ const node: ConcreteRequest = (function () {
                     "variableName": "input"
                 }
             ],
-            "concreteType": "UpdateTaskListStatusFilterSettingOutput",
+            "concreteType": "UpdateTaskListStatusFilterSettingPayload",
             "kind": "LinkedField",
             "name": "updateTaskListStatusFilterSetting",
             "plural": false,
@@ -68,7 +68,7 @@ const node: ConcreteRequest = (function () {
                     "alias": null,
                     "args": null,
                     "kind": "ScalarField",
-                    "name": "status",
+                    "name": "taskStatus",
                     "storageKey": null
                 }
             ],
@@ -93,14 +93,14 @@ const node: ConcreteRequest = (function () {
             "selections": (v1 /*: any*/)
         },
         "params": {
-            "cacheID": "1d9653e5435c3e741c6f3adca77828b4",
+            "cacheID": "3d94f2c69b12b5cba85f93bd730c408f",
             "id": null,
             "metadata": {},
             "name": "useUpdateTaskListStatusFilterSettingMutation",
             "operationKind": "mutation",
-            "text": "mutation useUpdateTaskListStatusFilterSettingMutation(\n  $input: UpdateTaskListStatusFilterSettingInput!\n) {\n  updateTaskListStatusFilterSetting(input: $input) {\n    clientMutationId\n    status\n  }\n}\n"
+            "text": "mutation useUpdateTaskListStatusFilterSettingMutation(\n  $input: UpdateTaskListStatusFilterSettingInput!\n) {\n  updateTaskListStatusFilterSetting(input: $input) {\n    clientMutationId\n    taskStatus\n  }\n}\n"
         }
     } as any;
 })();
-(node as any).hash = 'fccb693d175f1bd65e1245e7b3c8dd41';
+(node as any).hash = 'a77cfc1da01b5ac80576587b6f053e59';
 export default node;
