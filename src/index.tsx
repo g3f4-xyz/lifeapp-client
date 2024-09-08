@@ -36,27 +36,30 @@ try {
   console.error(`error trying to send user subscription | ${e}`);
 }
 
-const onRedirectCallback = (appState: AppState) => {
+const onRedirectCallback = (appState?: AppState) => {
   history.push(appState && appState.returnTo ? appState.returnTo : window.location.pathname);
 };
-// Please see https://auth0.github.io/auth0-react/interfaces/auth0provideroptions.html
-// for a full list of the available properties on the provider
 const config = getConfig();
-const providerConfig = {
-  domain: config.domain,
-  clientId: config.clientId,
-  ...(config.audience ? { audience: config.audience } : null),
-  redirectUri: window.location.origin,
-  onRedirectCallback,
-};
 
 ReactDOM.render(
   <Suspense fallback={<Loader />}>
-    <Auth0Provider {...providerConfig}>
+    <Auth0Provider
+      domain={config.domain}
+      clientId={config.clientId}
+      useRefreshTokens={true}
+      cacheLocation="localstorage"
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+        scope: 'openid profile email',
+        audience: getConfig().audience,
+      }}
+      onRedirectCallback={onRedirectCallback}
+    >
       <HashRouter>
         <App />
       </HashRouter>
     </Auth0Provider>
+    ,
   </Suspense>,
   document.getElementById('root'),
 );

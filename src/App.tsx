@@ -4,6 +4,7 @@ import { Redirect, Route } from 'react-router-dom';
 import Auth0TokenContext from './Auth0TokenContext';
 import ErrorBoundary from './containers/error-boundary/ErrorBoundary';
 import Loader from './display/loader/Loader';
+import { getConfig } from './config';
 
 const Application = React.lazy(() => import('./Application'));
 const Login = React.lazy(() => import('./modules/login/Login'));
@@ -27,9 +28,9 @@ function AppContent() {
   const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
-    getAccessTokenSilently().then((accessToken) => {
-      setToken(accessToken);
-    });
+    getAccessTokenSilently({
+      authorizationParams: { audience: getConfig().audience, scope: 'openid profile email' },
+    }).then(setToken);
   });
 
   return (

@@ -23,8 +23,10 @@ const AppMenu: FC = () => {
       label: 'Log out',
       action: () => {
         logout({
-          returnTo: window.location.origin,
-        });
+          logoutParams: {
+            returnTo: window.location.origin,
+          },
+        }).then();
       },
     },
     {

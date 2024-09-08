@@ -4,7 +4,7 @@ import { Environment, FetchFunction, Network, RecordSource, Store } from 'relay-
 const GRAPHQL_API_HOST = `${process.env.REACT_APP_API_HOST}/graphql`;
 
 export default function (token: string): Environment {
-  const fetchQuery: FetchFunction = (operation, variables) => {
+  const fetchQuery: FetchFunction = async (operation, variables) => {
     const opts = {
       method: 'POST',
       headers: {
@@ -18,18 +18,16 @@ export default function (token: string): Environment {
         variables,
       }),
     };
+    const response = await fetch(GRAPHQL_API_HOST, opts);
+    const json = await response.json();
 
-    return fetch(GRAPHQL_API_HOST, opts)
-      .then((response) => response.json())
-      .then((json) => {
-        if (json && json.errors) {
-          json.errors.forEach((error: Error) => {
-            console.error(error.message);
-          });
-        }
-
-        return json;
+    if (json && json.errors) {
+      json.errors.forEach((error: Error) => {
+        console.error(error.message);
       });
+    }
+
+    return json;
   };
   const network = Network.create(fetchQuery);
   const source = new RecordSource();
