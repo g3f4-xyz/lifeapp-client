@@ -2,10 +2,9 @@ import { SvgIconProps } from '@material-ui/core/SvgIcon';
 import { DateRange, Group, LocalOffer, Settings, Update } from '@material-ui/icons';
 import classNames from 'classnames';
 import React, { FC } from 'react';
-import { TASK_TYPE_VALUE_MAP, TaskTypeEnum } from '../../constans';
 import useTaskTypeIconStyles from './useTaskTypeIconStyles';
 
-const ICONS: TASK_TYPE_VALUE_MAP<React.ComponentType<SvgIconProps>> = {
+const predefinedTaskTypeIcons: Record<string, React.ComponentType<SvgIconProps>> = {
   GOAL: Settings,
   TODO: LocalOffer,
   ROUTINE: Update,
@@ -15,13 +14,13 @@ const ICONS: TASK_TYPE_VALUE_MAP<React.ComponentType<SvgIconProps>> = {
 
 export interface TaskTypeIconProps {
   className?: string;
-  type: TaskTypeEnum | null;
+  type: string | null;
 }
 
 const TaskTypeIcon: FC<TaskTypeIconProps> = (props) => {
   const { className, type } = props;
   const classes = useTaskTypeIconStyles();
-  const Icon = type ? ICONS[type] : null;
+  const Icon = type ? predefinedTaskTypeIcons[type] : null;
 
   if (Icon === null) {
     return null;

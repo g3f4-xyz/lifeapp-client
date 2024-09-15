@@ -11,10 +11,7 @@ export type useSettingsFragment = {
         readonly general: {
             readonly " $fragmentRefs": FragmentRefs<"useNotificationsGeneralFragment">;
         };
-        readonly types: {
-            readonly " $fragmentRefs": FragmentRefs<"useNotificationsTypesFragment">;
-        };
-        readonly " $fragmentRefs": FragmentRefs<"useSubscriptionListFragment">;
+        readonly " $fragmentRefs": FragmentRefs<"useNotificationsTaskTypesFragment" | "useSubscriptionListFragment">;
     };
     readonly " $refType": "useSettingsFragment";
 };
@@ -71,20 +68,9 @@ const node: ReaderFragment = {
                     "storageKey": null
                 },
                 {
-                    "alias": null,
                     "args": null,
-                    "concreteType": "TypesNotificationsSettings",
-                    "kind": "LinkedField",
-                    "name": "types",
-                    "plural": false,
-                    "selections": [
-                        {
-                            "args": null,
-                            "kind": "FragmentSpread",
-                            "name": "useNotificationsTypesFragment"
-                        }
-                    ],
-                    "storageKey": null
+                    "kind": "FragmentSpread",
+                    "name": "useNotificationsTaskTypesFragment"
                 },
                 {
                     "args": null,
@@ -98,5 +84,5 @@ const node: ReaderFragment = {
     "type": "Settings",
     "abstractKey": null
 } as any;
-(node as any).hash = 'aa9f47ee8e165d2a8484f45d9207fde5';
+(node as any).hash = '13571e2c113dcc00ef4d20182f771bec';
 export default node;

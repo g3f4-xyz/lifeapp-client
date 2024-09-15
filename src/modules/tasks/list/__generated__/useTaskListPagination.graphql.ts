@@ -5,7 +5,6 @@
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
 export type TaskStatus = "DONE" | "IN_PROGRESS" | "TODO";
-export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
 export type useTaskListPagination = {
     readonly tasks: {
         readonly id: string;
@@ -28,7 +27,7 @@ export type useTaskListPagination = {
         readonly taskList: {
             readonly filters: {
                 readonly title: string;
-                readonly taskType: ReadonlyArray<TaskTypeId>;
+                readonly taskType: ReadonlyArray<string>;
                 readonly taskStatus: ReadonlyArray<TaskStatus>;
             };
         };

@@ -4,7 +4,7 @@ import getQueryData from '../../utils/relay/getQueryData';
 import { useTaskQuery, useTaskQueryVariables } from './__generated__/useTaskQuery.graphql';
 
 const query = graphql`
-  query useTaskQuery($id: ID, $typeId: TaskTypeId) {
+  query useTaskQuery($id: ID, $typeId: String) {
     task(id: $id, typeId: $typeId) {
       id
       ...useTaskFragment

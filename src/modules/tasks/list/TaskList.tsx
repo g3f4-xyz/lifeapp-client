@@ -4,7 +4,7 @@ import AddBoxIcon from '@material-ui/icons/AddBox';
 import MoreIcon from '@material-ui/icons/MoreHoriz';
 import React, { ChangeEvent, useCallback } from 'react';
 import { useHistory } from 'react-router-dom';
-import { ITEMS_PER_PAGE, MODULES_IDS, TaskStatusEnum, TaskTypeEnum } from '../../../constans';
+import { ITEMS_PER_PAGE, MODULES_IDS, TaskStatusEnum } from '../../../constans';
 import Loader from '../../../display/loader/Loader';
 import TaskListBar from '../../../display/task-list-bar/TaskListBar';
 import { useTaskListPagination$key } from './__generated__/useTaskListPagination.graphql';
@@ -38,12 +38,12 @@ export default function TaskList(props: TaskListProps) {
     history.push(`/app/${MODULES_IDS.TASK_TYPE_LIST}`);
   }, [history]);
   const handleEdit = useCallback(
-    (taskType: TaskTypeEnum, taskId: string) => {
+    (taskType: string, taskId: string) => {
       history.push(`/app/${MODULES_IDS.TASK}/${taskType}/${taskId}`);
     },
     [history],
   );
-  const updateTaskTypeFilter = (checked: boolean, filter: TaskTypeEnum): TaskTypeEnum[] => {
+  const updateTaskTypeFilter = (checked: boolean, filter: string): string[] => {
     const {
       taskList: {
         filters: { taskType },
@@ -80,7 +80,7 @@ export default function TaskList(props: TaskListProps) {
   };
   const handleFilterByTaskType = async (event: ChangeEvent<HTMLInputElement>) => {
     const { checked, value } = event.target;
-    const updatedTaskTypeFilter = updateTaskTypeFilter(checked, value as TaskTypeEnum);
+    const updatedTaskTypeFilter = updateTaskTypeFilter(checked, value);
 
     await updateTaskListTaskTypeFilterSetting({ taskType: updatedTaskTypeFilter });
 

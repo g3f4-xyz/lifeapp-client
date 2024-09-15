@@ -4,10 +4,9 @@
 
 import { ConcreteRequest } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
 export type useTaskQueryVariables = {
     id?: string | null;
-    typeId?: TaskTypeId | null;
+    typeId?: string | null;
 };
 export type useTaskQueryResponse = {
     readonly task: {
@@ -25,7 +24,7 @@ export type useTaskQuery = {
 /*
 query useTaskQuery(
   $id: ID
-  $typeId: TaskTypeId
+  $typeId: String
 ) {
   task(id: $id, typeId: $typeId) {
     id
@@ -479,14 +478,14 @@ const node: ConcreteRequest = (function () {
             ]
         },
         "params": {
-            "cacheID": "69cc070b56f2cbc671e2ee6352ed5e3a",
+            "cacheID": "2a06e60d1a34d8df411dbe00e64db756",
             "id": null,
             "metadata": {},
             "name": "useTaskQuery",
             "operationKind": "query",
-            "text": "query useTaskQuery(\n  $id: ID\n  $typeId: TaskTypeId\n) {\n  task(id: $id, typeId: $typeId) {\n    id\n    ...useTaskFragment\n  }\n}\n\nfragment useChoiceFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on ChoiceFieldMeta {\n      fieldType\n      helperText\n      label\n      defaultValue\n      options {\n        text\n        value\n      }\n      required\n    }\n  }\n  value {\n    __typename\n    ... on ChoiceFieldValue {\n      id\n    }\n  }\n}\n\nfragment useNestedFieldFragment on Field {\n  id\n  fieldId\n}\n\nfragment useSliderFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on SliderFieldMeta {\n      fieldType\n      label\n      disabled\n      required\n      max\n      min\n      step\n    }\n  }\n  value {\n    __typename\n    ... on SliderFieldValue {\n      progress\n    }\n  }\n}\n\nfragment useSwitchFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on SwitchFieldMeta {\n      fieldType\n      label\n      disabled\n      required\n    }\n  }\n  value {\n    __typename\n    ... on SwitchFieldValue {\n      enabled\n    }\n  }\n}\n\nfragment useTaskFragment on Task {\n  id\n  fields {\n    __typename\n    fieldId\n    fieldType\n    order\n    ...useSliderFieldFragment\n    ...useSwitchFieldFragment\n    ...useChoiceFieldFragment\n    ...useTextFieldFragment\n    ...useNestedFieldFragment\n    id\n  }\n}\n\nfragment useTextFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on TextFieldMeta {\n      fieldType\n      helperText\n      label\n      inputType\n      min\n      max\n      maxLength\n      minLength\n      required\n    }\n  }\n  value {\n    __typename\n    ... on TextFieldValue {\n      text\n    }\n  }\n}\n"
+            "text": "query useTaskQuery(\n  $id: ID\n  $typeId: String\n) {\n  task(id: $id, typeId: $typeId) {\n    id\n    ...useTaskFragment\n  }\n}\n\nfragment useChoiceFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on ChoiceFieldMeta {\n      fieldType\n      helperText\n      label\n      defaultValue\n      options {\n        text\n        value\n      }\n      required\n    }\n  }\n  value {\n    __typename\n    ... on ChoiceFieldValue {\n      id\n    }\n  }\n}\n\nfragment useNestedFieldFragment on Field {\n  id\n  fieldId\n}\n\nfragment useSliderFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on SliderFieldMeta {\n      fieldType\n      label\n      disabled\n      required\n      max\n      min\n      step\n    }\n  }\n  value {\n    __typename\n    ... on SliderFieldValue {\n      progress\n    }\n  }\n}\n\nfragment useSwitchFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on SwitchFieldMeta {\n      fieldType\n      label\n      disabled\n      required\n    }\n  }\n  value {\n    __typename\n    ... on SwitchFieldValue {\n      enabled\n    }\n  }\n}\n\nfragment useTaskFragment on Task {\n  id\n  fields {\n    __typename\n    fieldId\n    fieldType\n    order\n    ...useSliderFieldFragment\n    ...useSwitchFieldFragment\n    ...useChoiceFieldFragment\n    ...useTextFieldFragment\n    ...useNestedFieldFragment\n    id\n  }\n}\n\nfragment useTextFieldFragment on Field {\n  id\n  fieldId\n  meta {\n    __typename\n    ... on TextFieldMeta {\n      fieldType\n      helperText\n      label\n      inputType\n      min\n      max\n      maxLength\n      minLength\n      required\n    }\n  }\n  value {\n    __typename\n    ... on TextFieldValue {\n      text\n    }\n  }\n}\n"
         }
     } as any;
 })();
-(node as any).hash = '81afce1443168bdcfcdf1ec1776a3360';
+(node as any).hash = '9f260e10af788b6397e726ff7f088281';
 export default node;

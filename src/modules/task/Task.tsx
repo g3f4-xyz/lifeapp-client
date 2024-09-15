@@ -2,13 +2,13 @@ import React, { useCallback, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 import AppContext from '../../AppContext';
-import { MODULES_IDS, TaskTypeEnum } from '../../constans';
+import { MODULES_IDS } from '../../constans';
 import TaskLayout from './TaskLayout';
 import useTaskQuery from './useTaskQuery';
 
 export interface TaskProps {
   taskId?: string;
-  taskType?: TaskTypeEnum;
+  taskType?: string;
 }
 
 export default function Task(ownProps: TaskProps) {

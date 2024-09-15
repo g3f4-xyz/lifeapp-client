@@ -1,6 +1,6 @@
 import graphql from 'babel-plugin-relay/macro';
 import { useMutation } from 'relay-hooks';
-import mutationUpdaterWithParent from '../../../../utils/relay/mutationUpdaterWithParentId';
+// import mutationUpdaterWithParent from '../../../../utils/relay/mutationUpdaterWithParentId';
 import {
   SaveNotificationsTypesSettingInput,
   useSaveNotificationsTypesSettingMutation,
@@ -10,23 +10,25 @@ const mutation = graphql`
   mutation useSaveNotificationsTypesSettingMutation($input: SaveNotificationsTypesSettingInput!) {
     saveNotificationsTypesSetting(input: $input) {
       savedTypes {
-        ...useNotificationsTypesFragment
+        enabled
+        taskTypeId
       }
     }
   }
 `;
 
-export default (parentRecordId: string) => {
+export default (_parentRecordId: string) => {
   const [mutate] = useMutation<useSaveNotificationsTypesSettingMutation>(mutation);
 
   return ({ types }: SaveNotificationsTypesSettingInput) =>
     mutate({
       variables: { input: { types } },
-      updater: mutationUpdaterWithParent({
-        parentRecordId,
-        storeRecordKey: 'types',
-        responseKey: 'savedTypes',
-        mutationName: 'saveNotificationsTypesSetting',
-      }),
+      // FIXME
+      // updater: mutationUpdaterWithParent({
+      //   parentRecordId,
+      //   storeRecordKey: 'types',
+      //   responseKey: 'savedTypes',
+      //   mutationName: 'saveNotificationsTypesSetting',
+      // }),
     });
 };

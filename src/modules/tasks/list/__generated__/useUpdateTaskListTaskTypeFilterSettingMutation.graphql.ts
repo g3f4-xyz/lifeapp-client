@@ -3,9 +3,8 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
 export type UpdateTaskListTaskTypeFilterSettingInput = {
-    taskType: Array<TaskTypeId>;
+    taskType: Array<string>;
     clientMutationId?: string | null;
 };
 export type useUpdateTaskListTaskTypeFilterSettingMutationVariables = {
@@ -14,7 +13,7 @@ export type useUpdateTaskListTaskTypeFilterSettingMutationVariables = {
 export type useUpdateTaskListTaskTypeFilterSettingMutationResponse = {
     readonly updateTaskListTaskTypeFilterSetting: {
         readonly clientMutationId: string | null;
-        readonly taskType: ReadonlyArray<TaskTypeId>;
+        readonly taskType: ReadonlyArray<string>;
     } | null;
 };
 export type useUpdateTaskListTaskTypeFilterSettingMutation = {

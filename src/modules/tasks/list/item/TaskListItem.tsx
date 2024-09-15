@@ -1,15 +1,15 @@
 import {
-  Button,
   Accordion,
   AccordionDetails,
   AccordionSummary,
+  Button,
   Tooltip,
   Typography,
 } from '@material-ui/core';
 import { ExpandMore, PriorityHigh } from '@material-ui/icons';
 import classNames from 'classnames';
 import React, { FC } from 'react';
-import { FIELD_ID, TaskStatusEnum, TaskTypeEnum } from '../../../../constans';
+import { FIELD_ID, TaskStatusEnum } from '../../../../constans';
 import StatusIcon from '../../../../display/status-icon/StatusIcon';
 import TaskTypeIcon from '../../../../display/task-type-icon/TaskTypeIcon';
 import { useTaskListItemFragment$key } from './__generated__/useTaskListItemFragment.graphql';
@@ -20,7 +20,7 @@ export interface TaskListFragmentProps {
   data: useTaskListItemFragment$key;
 
   onDelete(id: string): void;
-  onEdit(typeId: TaskTypeEnum, taskId: string): void;
+  onEdit(typeId: string, taskId: string): void;
 }
 
 const TaskListItem: FC<TaskListFragmentProps> = (props) => {

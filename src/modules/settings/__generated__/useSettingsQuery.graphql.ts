@@ -30,12 +30,11 @@ fragment useNotificationsGeneralFragment on GeneralNotificationsSettings {
   vibrate
 }
 
-fragment useNotificationsTypesFragment on TypesNotificationsSettings {
-  events
-  goals
-  meetings
-  routines
-  todos
+fragment useNotificationsTaskTypesFragment on NotificationsSettings {
+  types {
+    taskTypeId
+    enabled
+  }
 }
 
 fragment useSettingsFragment on Settings {
@@ -45,9 +44,7 @@ fragment useSettingsFragment on Settings {
     general {
       ...useNotificationsGeneralFragment
     }
-    types {
-      ...useNotificationsTypesFragment
-    }
+    ...useNotificationsTaskTypesFragment
     ...useSubscriptionListFragment
   }
 }
@@ -159,44 +156,23 @@ const node: ConcreteRequest = (function () {
                                 {
                                     "alias": null,
                                     "args": null,
-                                    "concreteType": "TypesNotificationsSettings",
+                                    "concreteType": "NotificationsSettingsTaskTypes",
                                     "kind": "LinkedField",
                                     "name": "types",
-                                    "plural": false,
+                                    "plural": true,
                                     "selections": [
                                         {
                                             "alias": null,
                                             "args": null,
                                             "kind": "ScalarField",
-                                            "name": "events",
+                                            "name": "taskTypeId",
                                             "storageKey": null
                                         },
                                         {
                                             "alias": null,
                                             "args": null,
                                             "kind": "ScalarField",
-                                            "name": "goals",
-                                            "storageKey": null
-                                        },
-                                        {
-                                            "alias": null,
-                                            "args": null,
-                                            "kind": "ScalarField",
-                                            "name": "meetings",
-                                            "storageKey": null
-                                        },
-                                        {
-                                            "alias": null,
-                                            "args": null,
-                                            "kind": "ScalarField",
-                                            "name": "routines",
-                                            "storageKey": null
-                                        },
-                                        {
-                                            "alias": null,
-                                            "args": null,
-                                            "kind": "ScalarField",
-                                            "name": "todos",
+                                            "name": "enabled",
                                             "storageKey": null
                                         }
                                     ],
@@ -238,12 +214,12 @@ const node: ConcreteRequest = (function () {
             ]
         },
         "params": {
-            "cacheID": "fc0185508f27b10473416c9761fb68a6",
+            "cacheID": "5c7a5701dc4c10f99ef6c0be32288e70",
             "id": null,
             "metadata": {},
             "name": "useSettingsQuery",
             "operationKind": "query",
-            "text": "query useSettingsQuery {\n  settings {\n    ...useSettingsFragment\n    id\n  }\n}\n\nfragment useNotificationsGeneralFragment on GeneralNotificationsSettings {\n  show\n  vibrate\n}\n\nfragment useNotificationsTypesFragment on TypesNotificationsSettings {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n\nfragment useSettingsFragment on Settings {\n  ownerId\n  notifications {\n    id\n    general {\n      ...useNotificationsGeneralFragment\n    }\n    types {\n      ...useNotificationsTypesFragment\n    }\n    ...useSubscriptionListFragment\n  }\n}\n\nfragment useSubscriptionListFragment on NotificationsSettings {\n  subscriptions {\n    id\n    ...useSubscriptionListItemFragment\n  }\n}\n\nfragment useSubscriptionListItemFragment on NotificationSubscription {\n  id\n  userAgent\n  userDeviceType\n}\n"
+            "text": "query useSettingsQuery {\n  settings {\n    ...useSettingsFragment\n    id\n  }\n}\n\nfragment useNotificationsGeneralFragment on GeneralNotificationsSettings {\n  show\n  vibrate\n}\n\nfragment useNotificationsTaskTypesFragment on NotificationsSettings {\n  types {\n    taskTypeId\n    enabled\n  }\n}\n\nfragment useSettingsFragment on Settings {\n  ownerId\n  notifications {\n    id\n    general {\n      ...useNotificationsGeneralFragment\n    }\n    ...useNotificationsTaskTypesFragment\n    ...useSubscriptionListFragment\n  }\n}\n\nfragment useSubscriptionListFragment on NotificationsSettings {\n  subscriptions {\n    id\n    ...useSubscriptionListItemFragment\n  }\n}\n\nfragment useSubscriptionListItemFragment on NotificationSubscription {\n  id\n  userAgent\n  userDeviceType\n}\n"
         }
     } as any;
 })();

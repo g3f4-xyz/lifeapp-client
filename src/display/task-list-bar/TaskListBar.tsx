@@ -13,7 +13,7 @@ import InputBase from '@material-ui/core/InputBase';
 import Toolbar from '@material-ui/core/Toolbar';
 import SearchIcon from '@material-ui/icons/Search';
 import React, { ChangeEvent, FC } from 'react';
-import { TASK_STATUSES, TASK_TYPE, TaskStatusEnum, TaskTypeEnum } from '../../constans';
+import { predefinedTaskTypes, TASK_STATUSES, TaskStatusEnum } from '../../constans';
 import { useTaskListPagination } from '../../modules/tasks/list/__generated__/useTaskListPagination.graphql';
 import useTaskListBarStyles from './useTaskListBarStyles';
 
@@ -84,13 +84,13 @@ const TaskListBar: FC<TaskListBarProps> = (props) => {
               ))}
             </Select>
           </FormControl>
-          {Object.keys(TASK_TYPE).map((key) => (
+          {predefinedTaskTypes.map((key) => (
             <FormControlLabel
               key={key}
               control={
                 <Checkbox
                   color="default"
-                  checked={taskType.includes(key as TaskTypeEnum)}
+                  checked={taskType.includes(key)}
                   onChange={onFilterByType}
                   value={key}
                 />

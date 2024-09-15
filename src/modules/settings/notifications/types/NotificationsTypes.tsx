@@ -12,31 +12,26 @@ import {
 } from '@material-ui/core';
 import { ExpandMore } from '@material-ui/icons';
 import React, { ChangeEvent } from 'react';
-import { TASK_TYPE, TaskTypeEnum } from '../../../../constans';
 import TaskTypeIcon from '../../../../display/task-type-icon/TaskTypeIcon';
-import { useNotificationsTypesFragment$key } from './__generated__/useNotificationsTypesFragment.graphql';
-import useNotificationsTypesFragment from './useNotificationsTypesFragment';
+import useNotificationsTaskTypesFragment from './useNotificationsTaskTypesFragment';
 import useNotificationsTypesStyles from './useNotificationsTypesStyles';
 import useSaveNotificationsTypesSettingMutation from './useSaveNotificationsTypesSettingMutation';
+import { useNotificationsTaskTypesFragment$key } from './__generated__/useNotificationsTaskTypesFragment.graphql';
 
 export default function NotificationsTypes(props: {
-  data: useNotificationsTypesFragment$key;
+  data: useNotificationsTaskTypesFragment$key;
   notificationsRecordId: string;
 }) {
-  const { events, goals, meetings, routines, todos } = useNotificationsTypesFragment(props.data);
-  const types = { events, goals, meetings, routines, todos };
+  const { types } = useNotificationsTaskTypesFragment(props.data);
   const classes = useNotificationsTypesStyles();
   const saveNotificationsTypesSettingMutation = useSaveNotificationsTypesSettingMutation(
     props.notificationsRecordId,
   );
   const getChangeHandler =
-    (key: string) =>
-    async (_: ChangeEvent<HTMLInputElement>, checked: boolean): Promise<void> => {
+    (taskTypeId: string) =>
+    async (_: ChangeEvent<HTMLInputElement>, enabled: boolean): Promise<void> => {
       await saveNotificationsTypesSettingMutation({
-        types: {
-          ...types,
-          [key]: checked,
-        },
+        types: types.map((item) => (item.taskTypeId === taskTypeId ? { ...item, enabled } : item)),
       });
     };
 
@@ -47,17 +42,15 @@ export default function NotificationsTypes(props: {
       </AccordionSummary>
       <AccordionDetails>
         <List className={classes.list}>
-          {Object.keys(TASK_TYPE).map((key) => (
-            <ListItem key={key}>
+          {types.map(({ taskTypeId, enabled }) => (
+            <ListItem key={taskTypeId}>
               <ListItemIcon>
-                <TaskTypeIcon type={key as TaskTypeEnum} />
+                <TaskTypeIcon type={taskTypeId} />
               </ListItemIcon>
-              <ListItemText primary={key.toLowerCase()} />
+              {/* TODO task type label */}
+              <ListItemText primary={taskTypeId} />
               <ListItemSecondaryAction>
-                <Switch
-                  onChange={getChangeHandler(`${key.toLowerCase()}s`)}
-                  checked={types[`${key.toLowerCase()}s`]}
-                />
+                <Switch onChange={getChangeHandler(taskTypeId)} checked={enabled} />
               </ListItemSecondaryAction>
             </ListItem>
           ))}

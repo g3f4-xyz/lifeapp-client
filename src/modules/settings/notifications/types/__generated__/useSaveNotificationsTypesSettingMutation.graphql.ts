@@ -3,26 +3,23 @@
 // @ts-nocheck
 
 import { ConcreteRequest } from "relay-runtime";
-import { FragmentRefs } from "relay-runtime";
 export type SaveNotificationsTypesSettingInput = {
-    types?: SettingsNotificationsTypesInput | null;
+    types?: Array<SaveNotificationsTypesSettingTypesInput> | null;
     clientMutationId?: string | null;
 };
-export type SettingsNotificationsTypesInput = {
-    goals: boolean;
-    todos: boolean;
-    meetings: boolean;
-    events: boolean;
-    routines: boolean;
+export type SaveNotificationsTypesSettingTypesInput = {
+    enabled: boolean;
+    taskTypeId: string;
 };
 export type useSaveNotificationsTypesSettingMutationVariables = {
     input: SaveNotificationsTypesSettingInput;
 };
 export type useSaveNotificationsTypesSettingMutationResponse = {
     readonly saveNotificationsTypesSetting: {
-        readonly savedTypes: {
-            readonly " $fragmentRefs": FragmentRefs<"useNotificationsTypesFragment">;
-        };
+        readonly savedTypes: ReadonlyArray<{
+            readonly enabled: boolean;
+            readonly taskTypeId: string;
+        }> | null;
     } | null;
 };
 export type useSaveNotificationsTypesSettingMutation = {
@@ -38,17 +35,10 @@ mutation useSaveNotificationsTypesSettingMutation(
 ) {
   saveNotificationsTypesSetting(input: $input) {
     savedTypes {
-      ...useNotificationsTypesFragment
+      enabled
+      taskTypeId
     }
   }
-}
-
-fragment useNotificationsTypesFragment on TypesNotificationsSettings {
-  events
-  goals
-  meetings
-  routines
-  todos
 }
 */
 
@@ -61,9 +51,46 @@ const node: ConcreteRequest = (function () {
         } as any
     ], v1 = [
         {
-            "kind": "Variable",
-            "name": "input",
-            "variableName": "input"
+            "alias": null,
+            "args": [
+                {
+                    "kind": "Variable",
+                    "name": "input",
+                    "variableName": "input"
+                }
+            ],
+            "concreteType": "SaveNotificationsTypesSettingPayload",
+            "kind": "LinkedField",
+            "name": "saveNotificationsTypesSetting",
+            "plural": false,
+            "selections": [
+                {
+                    "alias": null,
+                    "args": null,
+                    "concreteType": "SaveNotificationsTypesSettingTypesOutput",
+                    "kind": "LinkedField",
+                    "name": "savedTypes",
+                    "plural": true,
+                    "selections": [
+                        {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "enabled",
+                            "storageKey": null
+                        },
+                        {
+                            "alias": null,
+                            "args": null,
+                            "kind": "ScalarField",
+                            "name": "taskTypeId",
+                            "storageKey": null
+                        }
+                    ],
+                    "storageKey": null
+                }
+            ],
+            "storageKey": null
         } as any
     ];
     return {
@@ -72,35 +99,7 @@ const node: ConcreteRequest = (function () {
             "kind": "Fragment",
             "metadata": null,
             "name": "useSaveNotificationsTypesSettingMutation",
-            "selections": [
-                {
-                    "alias": null,
-                    "args": (v1 /*: any*/),
-                    "concreteType": "SaveNotificationsTypesSettingPayload",
-                    "kind": "LinkedField",
-                    "name": "saveNotificationsTypesSetting",
-                    "plural": false,
-                    "selections": [
-                        {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "TypesNotificationsSettings",
-                            "kind": "LinkedField",
-                            "name": "savedTypes",
-                            "plural": false,
-                            "selections": [
-                                {
-                                    "args": null,
-                                    "kind": "FragmentSpread",
-                                    "name": "useNotificationsTypesFragment"
-                                }
-                            ],
-                            "storageKey": null
-                        }
-                    ],
-                    "storageKey": null
-                }
-            ],
+            "selections": (v1 /*: any*/),
             "type": "Mutation",
             "abstractKey": null
         },
@@ -109,75 +108,17 @@ const node: ConcreteRequest = (function () {
             "argumentDefinitions": (v0 /*: any*/),
             "kind": "Operation",
             "name": "useSaveNotificationsTypesSettingMutation",
-            "selections": [
-                {
-                    "alias": null,
-                    "args": (v1 /*: any*/),
-                    "concreteType": "SaveNotificationsTypesSettingPayload",
-                    "kind": "LinkedField",
-                    "name": "saveNotificationsTypesSetting",
-                    "plural": false,
-                    "selections": [
-                        {
-                            "alias": null,
-                            "args": null,
-                            "concreteType": "TypesNotificationsSettings",
-                            "kind": "LinkedField",
-                            "name": "savedTypes",
-                            "plural": false,
-                            "selections": [
-                                {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "events",
-                                    "storageKey": null
-                                },
-                                {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "goals",
-                                    "storageKey": null
-                                },
-                                {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "meetings",
-                                    "storageKey": null
-                                },
-                                {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "routines",
-                                    "storageKey": null
-                                },
-                                {
-                                    "alias": null,
-                                    "args": null,
-                                    "kind": "ScalarField",
-                                    "name": "todos",
-                                    "storageKey": null
-                                }
-                            ],
-                            "storageKey": null
-                        }
-                    ],
-                    "storageKey": null
-                }
-            ]
+            "selections": (v1 /*: any*/)
         },
         "params": {
-            "cacheID": "4e73ecd79faf55b9e27438b3066ba11d",
+            "cacheID": "3f94a7fd7975542abee25b6573141c2e",
             "id": null,
             "metadata": {},
             "name": "useSaveNotificationsTypesSettingMutation",
             "operationKind": "mutation",
-            "text": "mutation useSaveNotificationsTypesSettingMutation(\n  $input: SaveNotificationsTypesSettingInput!\n) {\n  saveNotificationsTypesSetting(input: $input) {\n    savedTypes {\n      ...useNotificationsTypesFragment\n    }\n  }\n}\n\nfragment useNotificationsTypesFragment on TypesNotificationsSettings {\n  events\n  goals\n  meetings\n  routines\n  todos\n}\n"
+            "text": "mutation useSaveNotificationsTypesSettingMutation(\n  $input: SaveNotificationsTypesSettingInput!\n) {\n  saveNotificationsTypesSetting(input: $input) {\n    savedTypes {\n      enabled\n      taskTypeId\n    }\n  }\n}\n"
         }
     } as any;
 })();
-(node as any).hash = '4bc57d6bc766747d551b834a633c4f0f';
+(node as any).hash = '06c078f529c8c943142959c8d244a796';
 export default node;

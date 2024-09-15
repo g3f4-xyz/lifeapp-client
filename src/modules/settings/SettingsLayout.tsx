@@ -77,7 +77,7 @@ export default function SettingsLayout(props: { data: useSettingsFragment$key })
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <NotificationsTypes
-              data={data.notifications.types}
+              data={data.notifications}
               notificationsRecordId={data.notifications.id}
             />
           </Grid>

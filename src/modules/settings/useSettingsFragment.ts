@@ -10,9 +10,7 @@ const query = graphql`
       general {
         ...useNotificationsGeneralFragment
       }
-      types {
-        ...useNotificationsTypesFragment
-      }
+      ...useNotificationsTaskTypesFragment
       ...useSubscriptionListFragment
     }
   }

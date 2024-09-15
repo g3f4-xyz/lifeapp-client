@@ -1,4 +1,3 @@
-import { TaskTypeId } from './modules/task-types/list/item/__generated__/useTaskTypeFragment.graphql';
 import { FieldId, FieldType } from './modules/task/__generated__/useTaskFragment.graphql';
 import { TaskStatus } from './modules/tasks/list/__generated__/useUpdateTaskListStatusFilterSettingMutation.graphql';
 
@@ -64,15 +63,7 @@ export const STATUSES: { [key: string]: STATUS } = {
   NOT_REGISTERED: '410',
 };
 
-export const TASK_TYPE: UnionKeyToValue<TaskTypeId> = {
-  EVENT: 'EVENT',
-  GOAL: 'GOAL',
-  MEETING: 'MEETING',
-  ROUTINE: 'ROUTINE',
-  TODO: 'TODO',
-};
-
-export type TASK_TYPE_VALUE_MAP<V> = KEYOF_TYPE_VALUE_MAP<typeof TASK_TYPE, V>;
+export const predefinedTaskTypes = ['EVENT', 'GOAL', 'MEETING', 'ROUTINE', 'TODO'];
 
 export const TASK_STATUSES: UnionKeyToValue<TaskStatusEnum> = {
   TODO: 'TODO',
@@ -80,9 +71,7 @@ export const TASK_STATUSES: UnionKeyToValue<TaskStatusEnum> = {
   DONE: 'DONE',
 };
 
-export type FieldTypeEnum = FieldType;
 export type FieldIdEnum = FieldId;
-export type TaskTypeEnum = TaskTypeId;
 export type TaskStatusEnum = TaskStatus;
 
 export const DATE_TIME_FORMAT = `YYYY-MM-DDTHH:mm`;

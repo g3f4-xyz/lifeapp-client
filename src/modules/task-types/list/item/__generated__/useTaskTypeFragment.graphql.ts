@@ -4,9 +4,8 @@
 
 import { ReaderFragment } from "relay-runtime";
 import { FragmentRefs } from "relay-runtime";
-export type TaskTypeId = "EVENT" | "GOAL" | "MEETING" | "ROUTINE" | "TODO";
 export type useTaskTypeFragment = {
-    readonly typeId: TaskTypeId;
+    readonly typeId: string;
     readonly label: string;
     readonly description: string;
     readonly " $refType": "useTaskTypeFragment";

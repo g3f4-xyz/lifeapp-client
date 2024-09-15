@@ -1,8 +1,7 @@
 import { createContext } from 'react';
-import { TaskTypeEnum } from './constans';
 
 export interface TaskParams {
-  taskType: TaskTypeEnum;
+  taskType: string;
   taskId: string;
 }
 
